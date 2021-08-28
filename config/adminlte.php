@@ -404,7 +404,7 @@ return [
         ],
         [
             'text'    => 'اختيارات الاصناف',
-            'icon'    => 'fas fa-fw fa-merge',
+            'icon'    => 'fas fa-fw fa-folder',
             'submenu' => [
                 [
                     'text' => 'عرض الكل',
@@ -413,7 +413,7 @@ return [
                 ],
 
                 [
-                    'text' => 'علامة جديدة',
+                    'text' => 'اختيار جديد',
                     'url'  => 'dashboard/options/create',
                     'icon'    => 'fas fa-fw fa-plus',
                 ],
