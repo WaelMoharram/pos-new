@@ -385,22 +385,56 @@ return [
                 ],
             ],
         ],
-        ['header' => 'الاكثر استخداما'],
         [
-            'text'       => 'رابط تجريبى',
-            'icon_color' => 'red',
-            'url'        => '#',
+            'text'    => 'العلامات التجارية',
+            'icon'    => 'fas fa-fw fa-folder',
+            'submenu' => [
+                [
+                    'text' => 'عرض الكل',
+                    'url'  => 'dashboard/brands',
+                    'icon'    => 'fas fa-fw fa-eye',
+                ],
+
+                [
+                    'text' => 'علامة جديدة',
+                    'url'  => 'dashboard/brands/create',
+                    'icon'    => 'fas fa-fw fa-plus',
+                ],
+            ],
         ],
         [
-            'text'       => 'رابط تجريبى',
-            'icon_color' => 'yellow',
-            'url'        => '#',
+            'text'    => 'اختيارات الاصناف',
+            'icon'    => 'fas fa-fw fa-merge',
+            'submenu' => [
+                [
+                    'text' => 'عرض الكل',
+                    'url'  => 'dashboard/options',
+                    'icon'    => 'fas fa-fw fa-eye',
+                ],
+
+                [
+                    'text' => 'علامة جديدة',
+                    'url'  => 'dashboard/options/create',
+                    'icon'    => 'fas fa-fw fa-plus',
+                ],
+            ],
         ],
-        [
-            'text'       => 'رابط تجريبى',
-            'icon_color' => 'cyan',
-            'url'        => '#',
-        ],
+//        ['header' => 'الاكثر استخداما'],
+//        [
+//            'text'       => 'رابط تجريبى',
+//            'icon_color' => 'red',
+//            'url'        => '#',
+//        ],
+//        [
+//            'text'       => 'رابط تجريبى',
+//            'icon_color' => 'yellow',
+//            'url'        => '#',
+//        ],
+//        [
+//            'text'       => 'رابط تجريبى',
+//            'icon_color' => 'cyan',
+//            'url'        => '#',
+//        ],
     ],
 
     /*

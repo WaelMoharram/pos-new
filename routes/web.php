@@ -7,6 +7,7 @@ use App\Http\Controllers\StoreController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\BrandController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,6 +36,7 @@ Route::group(['middleware' => 'auth:web','prefix'=>'dashboard'], function () {
         'clients' => ClientController::class,
         'suppliers' => SupplierController::class,
         'categories' => CategoryController::class,
+        'brands' => BrandController::class,
     ]);
 });
 
