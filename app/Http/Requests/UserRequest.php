@@ -25,9 +25,10 @@ class UserRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'username' => 'required|username|unique:users,id,'.$this->user,
+            'username' => 'required|string|unique:users,id,'.$this->user,
+            'email' => 'required|email|unique:users,id,'.$this->user,
             'password' => 'nullable|required_without:_method|confirmed',
-            //'image' =>'nullable|image'
+            'image' =>'nullable|image'
 
         ];
     }
@@ -35,9 +36,11 @@ class UserRequest extends FormRequest
     public function attributes()
     {
         return [
-            'full_name' => __('Full name'),
-            'email' => __('Email'),
-            'password' => __('Password'),
+            'name' => 'الاسم بالكامل',
+            'username' => 'اسم المستخدم',
+            'email' => 'البريد الالكترونى',
+            'password' => 'كلمة المرور',
+            'image' => 'صورة المستخدم',
         ];
     }
 }

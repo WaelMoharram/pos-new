@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +29,6 @@ class UserController extends Controller
     {
         $users = User::where('type','admin')->paginate(10);
 
-        toast(__('Added successfully'),'success');
         return view('dashboard.users.index',compact('users'));
     }
 
@@ -49,7 +49,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
         $requests=$request->all();
         $requests['type']='admin';
@@ -60,8 +60,8 @@ class UserController extends Controller
         $requests['password']=Hash::make($request->password);
         $user = User::create($requests);
 
-        toast(__('Added successfully'),'success');
-        return redirect(route('dashboard.users.index'));
+        toast('تم اضافة القيد بنجاح','success');
+        return redirect(route('users.index'));
     }
 
     /**
@@ -97,7 +97,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
         $requests=$request->except('role');
         if ($request->hasFile('image')) {
@@ -112,8 +112,8 @@ class UserController extends Controller
         }
         $user = User::find($id);
         $user->fill($requests)->save();
-        toast(__('Edited successfully'),'success');
-        return redirect(route('dashboard.users.index'));
+        toast('تم التعديل بنجاح ','success');
+        return redirect(route('users.index'));
     }
 
     /**
@@ -125,12 +125,12 @@ class UserController extends Controller
     public function destroy($id)
     {
         if ($id == Auth::id()){
-            toast(__('Can not delete yourself'),'danger');
+            toast('غير مسموح بحذف بياناتك ','danger');
             return back();
         }
         $user= User::findOrFail($id);
         $user->delete();
-        toast(__('Deleted successfully'),'success');
-        return redirect(route('dashboard.users.index'));
+        toast('تم الحذف بنجاح','success');
+        return redirect(route('users.index'));
     }
 }

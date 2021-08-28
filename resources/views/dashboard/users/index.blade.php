@@ -10,6 +10,8 @@
     {{-- Setup data for datatables --}}
     @php
         $heads = [
+            '#',
+            'صورة المستخدم',
             'الاسم',
             ['label' => 'اسم المستخدم'],
             ['label' => 'البريد الالكترونى'],
@@ -17,15 +19,6 @@
             ['label' => 'اعدادات', 'no-export' => true, 'width' => 5],
         ];
 
-        $btnEdit = '<button class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
-                        <i class="fa fa-lg fa-fw fa-pen"></i>
-                    </button>';
-        $btnDelete = '<button class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete">
-                          <i class="fa fa-lg fa-fw fa-trash"></i>
-                      </button>';
-        $btnDetails = '<button class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
-                           <i class="fa fa-lg fa-fw fa-eye"></i>
-                       </button>';
 
         $config = [
             'order' => [[1, 'asc']],
@@ -37,6 +30,8 @@
     <x-adminlte-datatable id="table1" :heads="$heads" striped hoverable with-buttons>
         @foreach($users as $row)
             <tr>
+                <td>{!! $loop->index +1 !!}</td>
+                <td><img src="{!! url('/').'/'.$row->image !!}" style="width: 100px; height: 100px;"></td>
                 <td>{!! $row->name !!}</td>
                 <td>{!! $row->username !!}</td>
                 <td>{!! $row->email !!}</td>
@@ -46,9 +41,13 @@
                         <a href="{{route('users.edit',$row->id)}}" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
                             <i class="fa fa-lg fa-fw fa-pen"></i>
                         </a>
-                        <a class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete">
-                            <i class="fa fa-lg fa-fw fa-trash"></i>
-                        </a>
+                        @component('partials.buttons._delete_button',[
+                                        'id'=>$row->id,
+                                        'route' => route('users.destroy',$row->id) ,
+                                        'tooltip' => 'حذف',
+                                         ])
+                        @endcomponent
+
                         <a href="{{route('users.show',$row->id)}}" class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
                             <i class="fa fa-lg fa-fw fa-eye"></i>
                         </a>
