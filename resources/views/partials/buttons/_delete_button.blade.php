@@ -1,4 +1,4 @@
-<button data-toggle="modal" data-target="#modalDelete{{$id}}" class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete" @if(isset($tooltip) ) {{tooltip($tooltip)}} @endif>
+<button data-toggle="modal" data-target="#modalDelete{{$id}}" class="btn btn-xs btn-default text-danger mx-1 shadow" title="حذف" @if(isset($tooltip) ) {{tooltip($tooltip)}} @endif>
     <i class="fa fa-lg fa-fw fa-trash"></i>
 </button>
 {{--<button data-toggle="modal" data-target="#usersDelete{{$id}}" @if(isset($tooltip) ) {{tooltip($tooltip)}} @endif  class="btn btn-md btn-danger" >--}}

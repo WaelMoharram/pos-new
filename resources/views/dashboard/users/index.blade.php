@@ -38,9 +38,11 @@
                 <td>{!! $row->mobile !!}</td>
                 <td>
                     <nobr>
-                        <a href="{{route('users.edit',$row->id)}}" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
-                            <i class="fa fa-lg fa-fw fa-pen"></i>
-                        </a>
+                        @component('partials.buttons._edit_button',[
+                                        'route' => route('users.edit',$row->id) ,
+                                        'tooltip' => 'تعديل',
+                                         ])
+                        @endcomponent
                         @component('partials.buttons._delete_button',[
                                         'id'=>$row->id,
                                         'route' => route('users.destroy',$row->id) ,
@@ -48,9 +50,11 @@
                                          ])
                         @endcomponent
 
-                        <a href="{{route('users.show',$row->id)}}" class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
-                            <i class="fa fa-lg fa-fw fa-eye"></i>
-                        </a>
+                            @component('partials.buttons._show_button',[
+                                            'route' => route('users.show',$row->id) ,
+                                            'tooltip' => 'تعديل',
+                                             ])
+                            @endcomponent
                     </nobr>
                 </td>
             </tr>

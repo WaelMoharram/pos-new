@@ -253,12 +253,12 @@ return [
 //            'label'       => 4,
 //            'label_color' => 'success',
 //        ],
-        ['header' => 'account_settings'],
-        [
-            'text' => 'مستخدمين النظام',
-            'url'  => 'dashboard/users',
-            'icon' => 'fas fa-fw fa-users',
-        ],
+        ['header' => 'اعدادات'],
+//        [
+//            'text' => 'مستخدمين النظام',
+//            'url'  => 'dashboard/users',
+//            'icon' => 'fas fa-fw fa-users',
+//        ],
 
         [
             'text'    => 'مستخدمين النظام',
@@ -300,7 +300,7 @@ return [
                 ],
             ],
         ],
-        ['header' => 'labels'],
+        ['header' => 'الاكثر استخداما'],
         [
             'text'       => 'important',
             'icon_color' => 'red',
