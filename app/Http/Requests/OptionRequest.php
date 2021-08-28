@@ -26,7 +26,7 @@ class OptionRequest extends FormRequest
         return [
             'name' => 'required|string|unique:options,id,'.$this->option,
             'image' =>'nullable|image',
-            'note' =>'nullable|string',
+            'note' =>'required|string',
 
         ];
     }

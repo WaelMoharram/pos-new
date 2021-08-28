@@ -28,7 +28,7 @@ class SaleManRequest extends FormRequest
             'username' => 'required|string|unique:users,id,'.$this->user,
             'email' => 'required|email|unique:users,id,'.$this->user,
             'password' => 'nullable|required_without:_method|confirmed',
-            'image' =>'nullable|image'
+            'image' =>'required|image'
 
         ];
     }

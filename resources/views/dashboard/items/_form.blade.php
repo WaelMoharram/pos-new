@@ -11,7 +11,7 @@
 
 <div class="form-group py-1 col-md-12">
     <label for="formInputRole"> اسم الصنف</label>
-    {!! Form::text('name',null,['class'=>'form-control col','placeholder'=>'الاسم بالكامل',isset($readOnly)?$readOnly:null,disable_on_show()]) !!}
+    {!! Form::text('name',null,['class'=>'form-control col',isset($readOnly)?$readOnly:null,disable_on_show()]) !!}
     {{input_error($errors,'name')}}
 </div>
 
@@ -28,13 +28,13 @@
 </div>
 <div class="form-group py-1 col-md-6">
     <label for="formInputRole"> كود الصنف</label>
-    {!! Form::text('code',null,['class'=>'form-control col','placeholder'=>'الاسم بالكامل',isset($readOnly)?$readOnly:null,disable_on_show()]) !!}
+    {!! Form::text('code',null,['class'=>'form-control col',isset($readOnly)?$readOnly:null,disable_on_show()]) !!}
     {{input_error($errors,'code')}}
 </div>
 
 <div class="form-group py-1 col-md-6">
     <label for="formInputRole"> رقم الباركود</label>
-    {!! Form::text('barcode',null,['class'=>'form-control col','placeholder'=>'الاسم بالكامل',isset($readOnly)?$readOnly:null,disable_on_show()]) !!}
+    {!! Form::text('barcode',null,['class'=>'form-control col',isset($readOnly)?$readOnly:null,disable_on_show()]) !!}
     {{input_error($errors,'barcode')}}
 </div>
 
