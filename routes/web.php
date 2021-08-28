@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SaleManController;
 use App\Http\Controllers\StoreController;
+use App\Http\Controllers\ClientController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,6 +30,7 @@ Route::group(['middleware' => 'auth:web','prefix'=>'dashboard'], function () {
         'users' => UserController::class,
         'sales-men' => SaleManController::class,
         'stores' => StoreController::class,
+        'clients' => ClientController::class,
     ]);
 });
 

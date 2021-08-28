@@ -267,7 +267,7 @@ return [
                 [
                     'text' => 'عرض الكل',
                     'url'  => 'dashboard/users',
-                    'icon'    => 'fas fa-fw fa-users',
+                    'icon'    => 'fas fa-fw fa-eye',
                 ],
 //                [
 //                    'text'    => 'level_one',
@@ -307,7 +307,7 @@ return [
                 [
                     'text' => 'عرض الكل',
                     'url'  => 'dashboard/sales-men',
-                    'icon'    => 'fas fa-fw fa-users',
+                    'icon'    => 'fas fa-fw fa-eye',
                 ],
 
                 [
@@ -324,12 +324,29 @@ return [
                 [
                     'text' => 'عرض الكل',
                     'url'  => 'dashboard/stores',
-                    'icon'    => 'fas fa-fw fa-store',
+                    'icon'    => 'fas fa-fw fa-eye',
                 ],
 
                 [
                     'text' => 'مخزن جديد',
                     'url'  => 'dashboard/stores/create',
+                    'icon'    => 'fas fa-fw fa-plus',
+                ],
+            ],
+        ],
+        [
+            'text'    => 'العملاء',
+            'icon'    => 'fas fa-fw fa-user',
+            'submenu' => [
+                [
+                    'text' => 'عرض الكل',
+                    'url'  => 'dashboard/clients',
+                    'icon'    => 'fas fa-fw fa-eye',
+                ],
+
+                [
+                    'text' => 'عميل جديد',
+                    'url'  => 'dashboard/clients/create',
                     'icon'    => 'fas fa-fw fa-plus',
                 ],
             ],
