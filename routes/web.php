@@ -25,7 +25,6 @@ Route::group(['middleware' => 'auth:web','prefix'=>'dashboard'], function () {
 
     Route::resources([
         'users' => UserController::class,
-        'posts' => PostController::class,
     ]);
 });
 

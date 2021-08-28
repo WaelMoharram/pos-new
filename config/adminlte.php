@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'POS',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>POS </b>BETA',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -237,68 +237,66 @@ return [
         ],
 
         // Sidebar items:
-        [
-            'type' => 'sidebar-menu-search',
-            'text' => 'search',
-        ],
-        [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
-        ],
-        [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
-        ],
+//        [
+//            'type' => 'sidebar-menu-search',
+//            'text' => 'search',
+//        ],
+//        [
+//            'text' => 'blog',
+//            'url'  => 'admin/blog',
+//            'can'  => 'manage-blog',
+//        ],
+//        [
+//            'text'        => 'pages',
+//            'url'         => 'admin/pages',
+//            'icon'        => 'far fa-fw fa-file',
+//            'label'       => 4,
+//            'label_color' => 'success',
+//        ],
         ['header' => 'account_settings'],
         [
-            'text' => 'Users',
-            'url'  => 'users',
+            'text' => 'مستخدمين النظام',
+            'url'  => 'dashboard/users',
             'icon' => 'fas fa-fw fa-users',
         ],
+
         [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
-        [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
+            'text'    => 'مستخدمين النظام',
+            'icon'    => 'fas fa-fw fa-users',
             'submenu' => [
                 [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text' => 'عرض الكل',
+                    'url'  => 'dashboard/users',
+                    'icon'    => 'fas fa-fw fa-users',
                 ],
+//                [
+//                    'text'    => 'level_one',
+//                    'url'     => '#',
+//                    'submenu' => [
+//                        [
+//                            'text' => 'level_two',
+//                            'url'  => '#',
+//                        ],
+//                        [
+//                            'text'    => 'level_two',
+//                            'url'     => '#',
+//                            'submenu' => [
+//                                [
+//                                    'text' => 'level_three',
+//                                    'url'  => '#',
+//                                ],
+//                                [
+//                                    'text' => 'level_three',
+//                                    'url'  => '#',
+//                                ],
+//                            ],
+//                        ],
+//                    ],
+//                ],
                 [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text' => 'مستخدم جديد',
+                    'url'  => 'dashboard/users/create',
+                    'icon'    => 'fas fa-fw fa-plus',
                 ],
             ],
         ],
@@ -403,16 +401,16 @@ return [
                     'asset' => true,
                     'location' => 'vendor/datatables-plugins/jszip/jszip.min.js',
                 ],
-                [
-                    'type' => 'js',
-                    'asset' => true,
-                    'location' => 'vendor/datatables-plugins/pdfmake/pdfmake.min.js',
-                ],
-                [
-                    'type' => 'js',
-                    'asset' => true,
-                    'location' => 'vendor/datatables-plugins/pdfmake/vfs_fonts.js',
-                ],
+//                [
+//                    'type' => 'js',
+//                    'asset' => true,
+//                    'location' => 'vendor/datatables-plugins/pdfmake/pdfmake.min.js',
+//                ],
+//                [
+//                    'type' => 'js',
+//                    'asset' => true,
+//                    'location' => 'vendor/datatables-plugins/pdfmake/vfs_fonts.js',
+//                ],
                 [
                     'type' => 'css',
                     'asset' => true,

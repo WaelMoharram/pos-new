@@ -27,6 +27,8 @@ class UserController extends Controller
     public function index()
     {
         $users = User::where('type','admin')->paginate(10);
+
+        toast(__('Added successfully'),'success');
         return view('dashboard.users.index',compact('users'));
     }
 

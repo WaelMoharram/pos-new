@@ -34,7 +34,7 @@
     @endphp
 
     {{-- Minimal example / fill data using the component slot --}}
-    <x-adminlte-datatable id="table2" :heads="$heads">
+    <x-adminlte-datatable id="table1" :heads="$heads" striped hoverable with-buttons>
         @foreach($users as $row)
             <tr>
                 <td>{!! $row->name !!}</td>
@@ -58,9 +58,7 @@
         @endforeach
     </x-adminlte-datatable>
 
-    {{-- Compressed with style options / fill data using the plugin config --}}
-    <x-adminlte-datatable id="table2" :heads="$heads" head-theme="light" :config="$config"
-                          striped hoverable bordered compressed/>
+
 
 
 
@@ -70,4 +68,6 @@
 @stop
 
 @section('js')
+
+    @include('sweetalert::alert')
 @stop
