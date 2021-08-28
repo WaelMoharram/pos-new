@@ -351,6 +351,23 @@ return [
                 ],
             ],
         ],
+        [
+            'text'    => 'الموردون',
+            'icon'    => 'fas fa-fw fa-user',
+            'submenu' => [
+                [
+                    'text' => 'عرض الكل',
+                    'url'  => 'dashboard/suppliers',
+                    'icon'    => 'fas fa-fw fa-eye',
+                ],
+
+                [
+                    'text' => 'مورد جديد',
+                    'url'  => 'dashboard/suppliers/create',
+                    'icon'    => 'fas fa-fw fa-plus',
+                ],
+            ],
+        ],
         ['header' => 'الاكثر استخداما'],
         [
             'text'       => 'رابط تجريبى',

@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\SaleManController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\SupplierController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,6 +32,7 @@ Route::group(['middleware' => 'auth:web','prefix'=>'dashboard'], function () {
         'sales-men' => SaleManController::class,
         'stores' => StoreController::class,
         'clients' => ClientController::class,
+        'suppliers' => SupplierController::class,
     ]);
 });
 
