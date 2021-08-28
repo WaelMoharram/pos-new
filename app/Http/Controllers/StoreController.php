@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserRequest;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\StoreRequest;
+use App\Models\Store;
 
 class StoreController extends Controller
 {
@@ -27,9 +24,9 @@ class StoreController extends Controller
      */
     public function index()
     {
-        $users = User::where('type','sales')->paginate(10);
+        $stores = Store::all();
 
-        return view('dashboard.sales-men.index',compact('users'));
+        return view('dashboard.stores.index',compact('stores'));
     }
 
     /**
@@ -39,8 +36,8 @@ class StoreController extends Controller
      */
     public function create()
     {
-        $user=new User();
-        return view('dashboard.sales-men.create',compact('user'));
+        $store=new Store();
+        return view('dashboard.stores.create',compact('store'));
     }
 
     /**
@@ -49,19 +46,13 @@ class StoreController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $request)
+    public function store(StoreRequest $request)
     {
-        $requests=$request->all();
-        $requests['type']='sales';
-        if ($request->hasFile('image')) {
-            $requests['image'] = saveImage($request->image, 'images');
-            $request->files->remove('image');
-        }
-        $requests['password']=Hash::make($request->password);
-        $user = User::create($requests);
+
+        $store = Store::create($request->all());
 
         toast('تم اضافة القيد بنجاح','success');
-        return redirect(route('sales-men.index'));
+        return redirect(route('stores.index'));
     }
 
     /**
@@ -72,9 +63,9 @@ class StoreController extends Controller
      */
     public function show($id)
     {
-        $user = User::findOrFail($id);
+        $store = Store::findOrFail($id);
 
-        return view('dashboard.sales-men.show',compact('user'));
+        return view('dashboard.stores.show',compact('store'));
     }
 
     /**
@@ -85,9 +76,9 @@ class StoreController extends Controller
      */
     public function edit($id)
     {
-        $user = User::findOrFail($id);
+        $store = Store::findOrFail($id);
 
-        return view('dashboard.sales-men.edit',compact('user'));
+        return view('dashboard.stores.edit',compact('store'));
     }
 
     /**
@@ -97,23 +88,13 @@ class StoreController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, $id)
+    public function update(StoreRequest $request, $id)
     {
-        $requests=$request->except('role');
-        if ($request->hasFile('image')) {
 
-            $requests['image'] = saveImage($request->image, 'images');
-            $request->files->remove('image');
-        }
-        if(!is_null($request->password)){
-            $requests['password']=Hash::make($request->password);
-        }else{
-            unset($requests['password']);
-        }
-        $user = User::find($id);
-        $user->fill($requests)->save();
+        $store = Store::find($id);
+        $store->fill($request->all())->save();
         toast('تم التعديل بنجاح ','success');
-        return redirect(route('sales-men.index'));
+        return redirect(route('stores.index'));
     }
 
     /**
@@ -124,13 +105,14 @@ class StoreController extends Controller
      */
     public function destroy($id)
     {
-        if ($id == Auth::id()){
-            toast('غير مسموح بحذف بياناتك ','danger');
-            return back();
-        }
-        $user= User::findOrFail($id);
-        $user->delete();
+        //TODO:: Store delete validation
+//        if (){
+//            toast('عملية مرفوضة - المخزن يحتوى على معاملات سابقة ','danger');
+//            return back();
+//        }
+        $store= Store::findOrFail($id);
+        $store->delete();
         toast('تم الحذف بنجاح','success');
-        return redirect(route('sales-men.index'));
+        return redirect(route('stores.index'));
     }
 }

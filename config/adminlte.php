@@ -317,6 +317,23 @@ return [
                 ],
             ],
         ],
+        [
+            'text'    => 'المخازن',
+            'icon'    => 'fas fa-fw fa-store',
+            'submenu' => [
+                [
+                    'text' => 'عرض الكل',
+                    'url'  => 'dashboard/stores',
+                    'icon'    => 'fas fa-fw fa-store',
+                ],
+
+                [
+                    'text' => 'مخزن جديد',
+                    'url'  => 'dashboard/stores/create',
+                    'icon'    => 'fas fa-fw fa-plus',
+                ],
+            ],
+        ],
         ['header' => 'الاكثر استخداما'],
         [
             'text'       => 'رابط تجريبى',
