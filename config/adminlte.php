@@ -368,6 +368,23 @@ return [
                 ],
             ],
         ],
+        [
+            'text'    => 'التصنيفات',
+            'icon'    => 'fas fa-fw fa-folder',
+            'submenu' => [
+                [
+                    'text' => 'عرض الكل',
+                    'url'  => 'dashboard/categories',
+                    'icon'    => 'fas fa-fw fa-eye',
+                ],
+
+                [
+                    'text' => 'تصنيف جديد',
+                    'url'  => 'dashboard/categories/create',
+                    'icon'    => 'fas fa-fw fa-plus',
+                ],
+            ],
+        ],
         ['header' => 'الاكثر استخداما'],
         [
             'text'       => 'رابط تجريبى',
