@@ -419,6 +419,23 @@ return [
                 ],
             ],
         ],
+        [
+            'text'    => ' الاصناف',
+            'icon'    => 'fas fa-fw fa-folder',
+            'submenu' => [
+                [
+                    'text' => 'عرض الكل',
+                    'url'  => 'dashboard/items',
+                    'icon'    => 'fas fa-fw fa-eye',
+                ],
+
+                [
+                    'text' => 'صنف جديد',
+                    'url'  => 'dashboard/items/create',
+                    'icon'    => 'fas fa-fw fa-plus',
+                ],
+            ],
+        ],
 //        ['header' => 'الاكثر استخداما'],
 //        [
 //            'text'       => 'رابط تجريبى',
