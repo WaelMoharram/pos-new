@@ -300,19 +300,36 @@ return [
                 ],
             ],
         ],
+        [
+            'text'    => 'المندوبين',
+            'icon'    => 'fas fa-fw fa-users',
+            'submenu' => [
+                [
+                    'text' => 'عرض الكل',
+                    'url'  => 'dashboard/sales-men',
+                    'icon'    => 'fas fa-fw fa-users',
+                ],
+
+                [
+                    'text' => 'مندوب جديد',
+                    'url'  => 'dashboard/sales-men/create',
+                    'icon'    => 'fas fa-fw fa-plus',
+                ],
+            ],
+        ],
         ['header' => 'الاكثر استخداما'],
         [
-            'text'       => 'important',
+            'text'       => 'رابط تجريبى',
             'icon_color' => 'red',
             'url'        => '#',
         ],
         [
-            'text'       => 'warning',
+            'text'       => 'رابط تجريبى',
             'icon_color' => 'yellow',
             'url'        => '#',
         ],
         [
-            'text'       => 'information',
+            'text'       => 'رابط تجريبى',
             'icon_color' => 'cyan',
             'url'        => '#',
         ],
