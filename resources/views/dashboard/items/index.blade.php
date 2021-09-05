@@ -43,6 +43,11 @@
 
                 <td>
                     <nobr>
+                        @component('partials.buttons._sub_button',[
+                                        'route' => route('items.edit',$row->id) ,
+                                        'tooltip' => 'الاختيارات للصنف',
+                                         ])
+                        @endcomponent
                         @component('partials.buttons._edit_button',[
                                         'route' => route('items.edit',$row->id) ,
                                         'tooltip' => 'تعديل',
