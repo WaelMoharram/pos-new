@@ -10,6 +10,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\OptionController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ItemOptionController;
+use App\Http\Controllers\ItemOptionValueController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,6 +43,8 @@ Route::group(['middleware' => 'auth:web','prefix'=>'dashboard'], function () {
         'brands' => BrandController::class,
         'options' => OptionController::class,
         'items' => ItemController::class,
+        'item-options' => ItemOptionController::class,
+        'item-option-values'=>ItemOptionValueController::class
     ]);
 });
 
