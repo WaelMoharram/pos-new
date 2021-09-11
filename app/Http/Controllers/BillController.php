@@ -38,8 +38,7 @@ class BillController extends Controller
      */
     public function create(Request $request)
     {
-        $bill=new Bill();
-        return view('dashboard.bills.'.$request->type.'.create',compact('bill'));
+        abort(404);
     }
 
     /**
