@@ -322,15 +322,82 @@ return [
             'icon'    => 'fas fa-fw fa-store',
             'submenu' => [
                 [
-                    'text' => 'عرض الكل',
+                    'text' => 'اضافة مخزن جديد',
+                    'url'  => 'dashboard/stores/create',
+                    'icon'    => 'fas fa-fw fa-plus',
+                ],
+                [
+                    'text' => 'عرض المخازن',
                     'url'  => 'dashboard/stores',
                     'icon'    => 'fas fa-fw fa-eye',
                 ],
-
                 [
-                    'text' => 'مخزن جديد',
-                    'url'  => 'dashboard/stores/create',
-                    'icon'    => 'fas fa-fw fa-plus',
+                    'text'    => 'التصنيفات',
+                    'icon'    => 'fas fa-fw fa-folder',
+                    'submenu' => [
+                        [
+                            'text' => 'عرض الكل',
+                            'url'  => 'dashboard/categories',
+                            'icon'    => 'fas fa-fw fa-eye',
+                        ],
+
+                        [
+                            'text' => 'تصنيف جديد',
+                            'url'  => 'dashboard/categories/create',
+                            'icon'    => 'fas fa-fw fa-plus',
+                        ],
+                    ],
+                ],
+                [
+                    'text'    => 'العلامات التجارية',
+                    'icon'    => 'fas fa-fw fa-folder',
+                    'submenu' => [
+                        [
+                            'text' => 'عرض الكل',
+                            'url'  => 'dashboard/brands',
+                            'icon'    => 'fas fa-fw fa-eye',
+                        ],
+
+                        [
+                            'text' => 'علامة جديدة',
+                            'url'  => 'dashboard/brands/create',
+                            'icon'    => 'fas fa-fw fa-plus',
+                        ],
+                    ],
+                ],
+                [
+                    'text'    => 'اختيارات الاصناف',
+                    'icon'    => 'fas fa-fw fa-folder',
+                    'submenu' => [
+                        [
+                            'text' => 'عرض الكل',
+                            'url'  => 'dashboard/options',
+                            'icon'    => 'fas fa-fw fa-eye',
+                        ],
+
+                        [
+                            'text' => 'اختيار جديد',
+                            'url'  => 'dashboard/options/create',
+                            'icon'    => 'fas fa-fw fa-plus',
+                        ],
+                    ],
+                ],
+                [
+                    'text'    => ' الاصناف',
+                    'icon'    => 'fas fa-fw fa-folder',
+                    'submenu' => [
+                        [
+                            'text' => 'عرض الكل',
+                            'url'  => 'dashboard/items',
+                            'icon'    => 'fas fa-fw fa-eye',
+                        ],
+
+                        [
+                            'text' => 'صنف جديد',
+                            'url'  => 'dashboard/items/create',
+                            'icon'    => 'fas fa-fw fa-plus',
+                        ],
+                    ],
                 ],
             ],
         ],
@@ -351,89 +418,40 @@ return [
                 ],
             ],
         ],
-        [
-            'text'    => 'الموردون',
-            'icon'    => 'fas fa-fw fa-user',
-            'submenu' => [
-                [
-                    'text' => 'عرض الكل',
-                    'url'  => 'dashboard/suppliers',
-                    'icon'    => 'fas fa-fw fa-eye',
-                ],
 
-                [
-                    'text' => 'مورد جديد',
-                    'url'  => 'dashboard/suppliers/create',
-                    'icon'    => 'fas fa-fw fa-plus',
-                ],
-            ],
-        ],
         [
-            'text'    => 'التصنيفات',
+            'text'    => 'التوريد',
             'icon'    => 'fas fa-fw fa-folder',
             'submenu' => [
                 [
-                    'text' => 'عرض الكل',
-                    'url'  => 'dashboard/categories',
+                    'text' => 'عرض فواتير التوريد',
+                    'route'  => ['bills.index', ['type' => 'purchase_in']],
                     'icon'    => 'fas fa-fw fa-eye',
                 ],
 
                 [
-                    'text' => 'تصنيف جديد',
-                    'url'  => 'dashboard/categories/create',
+                    'text' => 'اضافة فاتورة جديدة',
+                    'url'  => 'dashboard/bills/create',
                     'icon'    => 'fas fa-fw fa-plus',
                 ],
-            ],
-        ],
-        [
-            'text'    => 'العلامات التجارية',
-            'icon'    => 'fas fa-fw fa-folder',
-            'submenu' => [
                 [
-                    'text' => 'عرض الكل',
-                    'url'  => 'dashboard/brands',
-                    'icon'    => 'fas fa-fw fa-eye',
+                    'text'    => 'الموردون',
+                    'icon'    => 'fas fa-fw fa-user',
+                    'submenu' => [
+                        [
+                            'text' => 'عرض الكل',
+                            'url'  => 'dashboard/suppliers',
+                            'icon'    => 'fas fa-fw fa-eye',
+                        ],
+
+                        [
+                            'text' => 'مورد جديد',
+                            'url'  => 'dashboard/suppliers/create',
+                            'icon'    => 'fas fa-fw fa-plus',
+                        ],
+                    ],
                 ],
 
-                [
-                    'text' => 'علامة جديدة',
-                    'url'  => 'dashboard/brands/create',
-                    'icon'    => 'fas fa-fw fa-plus',
-                ],
-            ],
-        ],
-        [
-            'text'    => 'اختيارات الاصناف',
-            'icon'    => 'fas fa-fw fa-folder',
-            'submenu' => [
-                [
-                    'text' => 'عرض الكل',
-                    'url'  => 'dashboard/options',
-                    'icon'    => 'fas fa-fw fa-eye',
-                ],
-
-                [
-                    'text' => 'اختيار جديد',
-                    'url'  => 'dashboard/options/create',
-                    'icon'    => 'fas fa-fw fa-plus',
-                ],
-            ],
-        ],
-        [
-            'text'    => ' الاصناف',
-            'icon'    => 'fas fa-fw fa-folder',
-            'submenu' => [
-                [
-                    'text' => 'عرض الكل',
-                    'url'  => 'dashboard/items',
-                    'icon'    => 'fas fa-fw fa-eye',
-                ],
-
-                [
-                    'text' => 'صنف جديد',
-                    'url'  => 'dashboard/items/create',
-                    'icon'    => 'fas fa-fw fa-plus',
-                ],
             ],
         ],
 //        ['header' => 'الاكثر استخداما'],

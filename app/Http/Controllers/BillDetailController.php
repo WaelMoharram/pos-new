@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreRequest;
-use App\Models\Store;
+use App\Http\Requests\BillDetailRequest;
+use App\Models\BillDetail;
+use App\Models\BillDetailDetail;
+use App\Models\Brand;
+use Composer\DependencyResolver\Request;
 
-class StoreController extends Controller
+class BillDetailController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -22,11 +25,9 @@ class StoreController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $stores = Store::where('sales_man_id',null)->get();
-
-        return view('dashboard.stores.index',compact('stores'));
+        abort(404);
     }
 
     /**
@@ -34,25 +35,24 @@ class StoreController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $store=new Store();
-        return view('dashboard.stores.create',compact('store'));
+        abort(404);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * BillDetail a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRequest $request)
+    public function store(Request $request)
     {
 
-        $store = Store::create($request->all());
 
+        $detail = BillDetail::create($request->all());
         toast('تم اضافة القيد بنجاح','success');
-        return redirect(route('stores.index'));
+        return redirect()->back();
     }
 
     /**
@@ -61,11 +61,9 @@ class StoreController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id,Request $request)
     {
-        $store = Store::findOrFail($id);
-
-        return view('dashboard.stores.show',compact('store'));
+        abort(404);
     }
 
     /**
@@ -76,9 +74,7 @@ class StoreController extends Controller
      */
     public function edit($id)
     {
-        $store = Store::findOrFail($id);
-
-        return view('dashboard.stores.edit',compact('store'));
+        abort(404);
     }
 
     /**
@@ -88,13 +84,10 @@ class StoreController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreRequest $request, $id)
+    public function update(BillDetailRequest $request, $id)
     {
 
-        $store = Store::find($id);
-        $store->fill($request->all())->save();
-        toast('تم التعديل بنجاح ','success');
-        return redirect(route('stores.index'));
+        abort(404);
     }
 
     /**
@@ -105,20 +98,14 @@ class StoreController extends Controller
      */
     public function destroy($id)
     {
-        //TODO:: Store delete validation
+        //TODO:: BillDetail delete validation
 //        if (){
 //            toast('عملية مرفوضة - المخزن يحتوى على معاملات سابقة ','danger');
 //            return back();
 //        }
-        $store= Store::findOrFail($id);
-        $store->delete();
+        $detail= BillDetail::findOrFail($id);
+        $detail->delete();
         toast('تم الحذف بنجاح','success');
-        return redirect(route('stores.index'));
-    }
-
-    public function all()
-    {
-
-        return view('dashboard.stores.all');
+        return redirect()->back();
     }
 }

@@ -5,20 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PurchaseBill extends Model 
+class Bill extends Model
 {
 
-    protected $table = 'purchases_bills';
+    protected $table = 'bills';
     public $timestamps = true;
 
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
-    protected $fillable = array('supplier_id', 'date', 'accept_user_id');
+    protected $guarded = ['id'];
 
-    public function supplier()
+    public function model()
     {
-        return $this->belongsTo('App\Models\Supplier');
+        return $this->morphTo('model');
     }
 
     public function store()
@@ -30,5 +30,10 @@ class PurchaseBill extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
+
+    public function details(){
+        return $this->hasMany(BillDetail::class);
+    }
+
 
 }

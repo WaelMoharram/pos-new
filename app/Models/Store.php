@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Store extends Model 
+class Store extends Model
 {
 
     protected $table = 'stores';
@@ -21,19 +21,15 @@ class Store extends Model
         return $this->belongsToMany('App\Models\SubItem');
     }
 
-    public function salesBills()
+    public function Bills()
     {
-        return $this->hasMany('App\Models\SaleBill');
+        return $this->hasMany('App\Models\Bill');
     }
 
     public function salesMan()
     {
-        return $this->hasOne('App\Models\User');
+        return $this->hasOne('App\Models\User','sales_man_id');
     }
 
-    public function purchasesBills()
-    {
-        return $this->hasMany('App\Models\PurchaseBill');
-    }
 
 }

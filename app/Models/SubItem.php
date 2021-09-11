@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SubItem extends Model 
+class SubItem extends Model
 {
 
     protected $table = 'sub_items';
@@ -15,7 +15,7 @@ class SubItem extends Model
 
     protected $dates = ['deleted_at'];
     protected $fillable = array('amount', 'barcode', 'note', 'item_id', 'price');
-
+    protected $appends = ['name'];
     public function options()
     {
         return $this->belongsToMany('App\Models\Option');
@@ -31,9 +31,24 @@ class SubItem extends Model
         return $this->belongsTo('App\Models\Item');
     }
 
-    public function salesBillsDetails()
+    public function BillsDetails()
     {
-        return $this->hasMany('App\Models\SaleBillDetail');
+        return $this->hasMany('App\Models\BillDetail');
+    }
+
+
+
+    public function OptionSubitems()
+    {
+        return $this->hasMany(OptionSubItem::class);
+    }
+
+    public function getNameAttribute(){
+        $name ='';
+        foreach ($this->OptionSubitems as $optionSubitem){
+            $name.=$optionSubitem->option_value . ' ';
+        }
+        return $name;
     }
 
 }

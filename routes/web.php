@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BillController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SaleManController;
 use App\Http\Controllers\StoreController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\OptionController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ItemOptionController;
 use App\Http\Controllers\ItemOptionValueController;
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,9 +31,7 @@ Route::get('/', function () {
 
 Route::group(['middleware' => 'auth:web','prefix'=>'dashboard'], function () {
 
-    Route::get('/', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/',[HomeController::class, 'index'])->name('dashboard');
 
     Route::resources([
         'users' => UserController::class,
@@ -44,8 +44,12 @@ Route::group(['middleware' => 'auth:web','prefix'=>'dashboard'], function () {
         'options' => OptionController::class,
         'items' => ItemController::class,
         'item-options' => ItemOptionController::class,
-        'item-option-values'=>ItemOptionValueController::class
+        'item-option-values'=>ItemOptionValueController::class,
+        'bills' => BillController::class,
     ]);
+
+    Route::get('stores-all',[StoreController::class, 'all'])->name('stores.all');
+
 });
 
 require __DIR__.'/auth.php';

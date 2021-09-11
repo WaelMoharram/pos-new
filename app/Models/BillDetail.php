@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PurchaseBillDetail extends Model 
+class BillDetail extends Model
 {
 
-    protected $table = 'purchases_bill_details';
+    protected $table = 'bill_details';
     public $timestamps = true;
 
     use SoftDeletes;
@@ -18,7 +18,7 @@ class PurchaseBillDetail extends Model
 
     public function bill()
     {
-        return $this->belongsTo('App\Models\PurchaseBill');
+        return $this->belongsTo('App\Models\Bill');
     }
 
 }

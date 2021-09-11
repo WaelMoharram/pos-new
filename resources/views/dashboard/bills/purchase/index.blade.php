@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'الاصناف')
+@section('title', 'فواتير التوريد')
 
 @section('content_header')
-    <h1>الاصناف</h1>
+    <h1>فواتير التوريد</h1>
 @stop
 
 @section('content')
@@ -11,13 +11,10 @@
     @php
         $heads = [
             '#',
-            'صورة الصنف',
-            'الاسم',
-            'التصنيف',
-            'العلامة التجارية',
-            'الكود',
-            'الباركود',
-            'يحتوى على اختيارات ؟',
+            'التاريخ',
+            'رقم الفاتورة',
+            'اسم المورد',
+            'الاجمالى',
             ['label' => 'اعدادات', 'no-export' => true, 'width' => 5],
         ];
 
@@ -30,40 +27,30 @@
 
     {{-- Minimal example / fill data using the component slot --}}
     <x-adminlte-datatable id="table1" :heads="$heads" striped hoverable with-buttons>
-        @foreach($items as $row)
+        @foreach($bills as $row)
             <tr>
                 <td>{!! $loop->index +1 !!}</td>
-                <td><img src="{!! url('/').'/'.$row->image !!}" style="width: 100px; height: 100px;"></td>
-                <td>{!! $row->name !!}</td>
-                <td>{!! optional($row->category)->name !!}</td>
-                <td>{!! optional($row->brand)->name !!}</td>
+                <td>{!! $row->date !!}</td>
                 <td>{!! $row->code !!}</td>
-                <td>{!! $row->barcode !!}</td>
-                <td>{!! $row->has_options ? 'نعم': 'لا' !!}</td>
+                <td>{!! optional($row->supplier)->name !!}</td>
+                <td>{!! $row->total !!}</td>>
 
                 <td>
                     <nobr>
-                        @if($row->has_options == 1)
-                            @component('partials.buttons._sub_button',[
-                                            'route' => route('item-options.index',['item_id'=>$row->id]) ,
-                                            'tooltip' => 'الاختيارات للصنف',
-                                             ])
-                            @endcomponent
-                        @endif
                         @component('partials.buttons._edit_button',[
-                                        'route' => route('items.edit',$row->id) ,
+                                        'route' => route('bills.edit',$row->id) ,
                                         'tooltip' => 'تعديل',
                                          ])
                         @endcomponent
                         @component('partials.buttons._delete_button',[
                                         'id'=>$row->id,
-                                        'route' => route('items.destroy',$row->id) ,
+                                        'route' => route('bills.destroy',$row->id) ,
                                         'tooltip' => 'حذف',
                                          ])
                         @endcomponent
 
                             @component('partials.buttons._show_button',[
-                                            'route' => route('items.show',$row->id) ,
+                                            'route' => route('bills.show',$row->id) ,
                                             'tooltip' => 'عرض',
                                              ])
                             @endcomponent

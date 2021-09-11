@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Client extends Model 
+class Client extends Model
 {
 
     protected $table = 'clients';
@@ -18,7 +18,7 @@ class Client extends Model
 
     public function bills()
     {
-        return $this->hasMany('App\Models\SaleBill');
+        return $this->hasMany('App\Models\Bill');
     }
 
 }

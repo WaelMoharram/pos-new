@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Models\Store;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -59,7 +60,12 @@ class SaleManController extends Controller
         }
         $requests['password']=Hash::make($request->password);
         $user = User::create($requests);
-
+        Store::create([
+            'name'=>$request->name,
+            'address'=>' ',
+            'sales_man_id'=>$user->id,
+            'is_pos'=>1
+        ]);
         toast('تم اضافة القيد بنجاح','success');
         return redirect(route('sales-men.index'));
     }
@@ -73,8 +79,8 @@ class SaleManController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-
-        return view('dashboard.sales-men.show',compact('user'));
+        $store = $user->store;
+        return view('dashboard.sales-men.show',compact('user','store'));
     }
 
     /**

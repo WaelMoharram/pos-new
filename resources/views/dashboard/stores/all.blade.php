@@ -1,22 +1,12 @@
 @extends('adminlte::page')
 
-@section('title', 'عرض مندوب')
+@section('title', 'عرض اجمالى المخزون')
 
 @section('content_header')
-    <h1>عرض المندوب {{$user->name}}</h1>
+    عرض اجمالى المخزون
 @stop
 
 @section('content')
-
-    {!! Form::model($user,['class'=>'form','enctype' => 'multipart/form-data']  ) !!}
-    @csrf()
-    <div class="row">
-        @include('dashboard.sales-men._form')
-
-    </div>
-    {!! Form::close() !!}
-
-
     {{-- Setup data for datatables --}}
     @php
         $heads = [
@@ -29,17 +19,18 @@
 
         $config = [
             'order' => [[1, 'asc']],
+            //'paging' =>false,
             'columns' => [null, null, null, ['orderable' => false]],
         ];
     @endphp
 
     {{-- Minimal example / fill data using the component slot --}}
-    <x-adminlte-datatable id="table1" :heads="$heads" striped hoverable with-buttons>
-        @foreach(\App\Models\StoreSubItem::where('store_id',$store->id)->get() as $itam)
+    <x-adminlte-datatable id="table1" :heads="$heads" :config="$config" striped hoverable with-buttons>
+        @foreach(\App\Models\SubItem::all() as $itam)
             <tr>
                 <td>{!! $loop->index +1 !!}</td>
-                <td>{!! $itam->subItem->item->name !!}</td>
-                <td>{!! $itam->subItem->name !!}</td>
+                <td>{!! $itam->item->name !!}</td>
+                <td>{!! $itam->name !!}</td>
                 <td>{!! $itam->amount !!}</td>
             </tr>
         @endforeach
@@ -52,6 +43,11 @@
 @stop
 
 @section('css')
+   {{-- <style>
+        #table1_filter{
+            display: none;
+        }
+    </style>--}}
 @stop
 
 @section('js')

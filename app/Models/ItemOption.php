@@ -10,7 +10,8 @@ class ItemOption extends Model
     protected $table = 'item_option';
     public $timestamps = true;
     protected $fillable = array('item_id', 'option_id');
-    protected $appends = ['values'];
+    //protected $appends = ['values'];
+    protected $with=['itemOptionValues'];
 
     public function itemOptionValues(){
         return $this->hasMany(ItemOptionValue::class,'item_option_id');

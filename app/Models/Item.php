@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Item extends Model 
+class Item extends Model
 {
 
     protected $table = 'Items';
@@ -33,12 +33,12 @@ class Item extends Model
 
     public function options()
     {
-        return $this->belongsToMany('App\Models\Option');
+        return $this->belongsToMany(Option::class);
     }
 
-    public function salesBillsdetails()
+    public function Billsdetails()
     {
-        return $this->hasMany('App\Models\SaleBillDetail');
+        return $this->hasMany('App\Models\BillDetail');
     }
 
 }

@@ -46,23 +46,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function acceptSalesBills()
+    public function acceptBills()
     {
-        return $this->hasMany('App\Models\SaleBill', 'accept_user_id');
+        return $this->hasMany('App\Models\Bill', 'accept_user_id');
     }
 
-    public function acceptPurchasesBills()
+    public function Bills()
     {
-        return $this->hasMany('App\Models\PurchaseBill', 'accept_user_id');
-    }
-
-    public function SalesBills()
-    {
-        return $this->hasMany('App\Models\SaleBill', 'sales_man_id');
+        return $this->hasMany('App\Models\Bill', 'sales_man_id');
     }
 
     public function store()
     {
-        return $this->hasOne('App\Models\Store');
+        return $this->hasOne('App\Models\Store','sales_man_id');
     }
 }
