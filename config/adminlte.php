@@ -401,23 +401,23 @@ return [
                 ],
             ],
         ],
-        [
-            'text'    => 'العملاء',
-            'icon'    => 'fas fa-fw fa-user',
-            'submenu' => [
-                [
-                    'text' => 'عرض الكل',
-                    'url'  => 'dashboard/clients',
-                    'icon'    => 'fas fa-fw fa-eye',
-                ],
-
-                [
-                    'text' => 'عميل جديد',
-                    'url'  => 'dashboard/clients/create',
-                    'icon'    => 'fas fa-fw fa-plus',
-                ],
-            ],
-        ],
+//        [
+//            'text'    => 'العملاء',
+//            'icon'    => 'fas fa-fw fa-user',
+//            'submenu' => [
+//                [
+//                    'text' => 'عرض الكل',
+//                    'url'  => 'dashboard/clients',
+//                    'icon'    => 'fas fa-fw fa-eye',
+//                ],
+//
+//                [
+//                    'text' => 'عميل جديد',
+//                    'url'  => 'dashboard/clients/create',
+//                    'icon'    => 'fas fa-fw fa-plus',
+//                ],
+//            ],
+//        ],
 
         [
             'text'    => 'التوريد',
@@ -430,9 +430,9 @@ return [
                 ],
 
                 [
-                    'text' => 'اضافة فاتورة جديدة',
-                    'url'  => 'dashboard/bills/create',
-                    'icon'    => 'fas fa-fw fa-plus',
+                    'text' => 'عرض فواتير المرتجهات',
+                    'route'  => ['bills.index', ['type' => 'purchase_out']],
+                    'icon'    => 'fas fa-fw fa-eye',
                 ],
                 [
                     'text'    => 'الموردون',
@@ -447,6 +447,43 @@ return [
                         [
                             'text' => 'مورد جديد',
                             'url'  => 'dashboard/suppliers/create',
+                            'icon'    => 'fas fa-fw fa-plus',
+                        ],
+                    ],
+                ],
+
+            ],
+        ],
+
+
+        [
+            'text'    => 'المبيعات',
+            'icon'    => 'fas fa-fw fa-folder',
+            'submenu' => [
+                [
+                    'text' => 'عرض فواتير المبيعات',
+                    'route'  => ['bills.index', ['type' => 'sale_out']],
+                    'icon'    => 'fas fa-fw fa-eye',
+                ],
+
+                [
+                    'text' => 'عرض فواتير المرتجعات',
+                    'route'  => ['bills.index', ['type' => 'sale_in']],
+                    'icon'    => 'fas fa-fw fa-eye',
+                ],
+                [
+                    'text'    => 'العملاء',
+                    'icon'    => 'fas fa-fw fa-user',
+                    'submenu' => [
+                        [
+                            'text' => 'عرض الكل',
+                            'url'  => 'dashboard/clients',
+                            'icon'    => 'fas fa-fw fa-eye',
+                        ],
+
+                        [
+                            'text' => 'عميل جديد',
+                            'url'  => 'dashboard/clients/create',
                             'icon'    => 'fas fa-fw fa-plus',
                         ],
                     ],

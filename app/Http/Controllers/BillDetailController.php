@@ -51,17 +51,31 @@ class BillDetailController extends Controller
         $bill = Bill::find($request->bill_id);
         $subItem = SubItem::find($request->sub_item_id);
         if ($bill->status != 'new'){
-            $subItem->fill(['amount'=>$subItem->amount +$request->amount])->save();
-            $storSubItem = StoreSubItem::where('store_id',$bill->store_id)->where('sub_item_id',$request->sub_item_id)->first();
-            if (!$storSubItem){
-                $storSubItem = StoreSubItem::create([
-                    'store_id'=>$bill->store_id,
-                    'sub_item_id'=>$request->sub_item_id,
-                    'amount'=>0
-                ]);
-            }
+            if ($bill->type == 'purchase_in' || $bill->type == 'sale_in' ) {
+                $subItem->fill(['amount' => $subItem->amount + $request->amount])->save();
+                $storSubItem = StoreSubItem::where('store_id', $bill->store_id)->where('sub_item_id', $request->sub_item_id)->first();
+                if (!$storSubItem) {
+                    $storSubItem = StoreSubItem::create([
+                        'store_id' => $bill->store_id,
+                        'sub_item_id' => $request->sub_item_id,
+                        'amount' => 0
+                    ]);
+                }
 
-            $storSubItem->fill(['amount'=>($storSubItem->amount ?? 0) +$request->amount])->save();
+                $storSubItem->fill(['amount' => ($storSubItem->amount ?? 0) + $request->amount])->save();
+            }else{
+                $subItem->fill(['amount' => $subItem->amount - $request->amount])->save();
+                $storSubItem = StoreSubItem::where('store_id', $bill->store_id)->where('sub_item_id', $request->sub_item_id)->first();
+                if (!$storSubItem) {
+                    $storSubItem = StoreSubItem::create([
+                        'store_id' => $bill->store_id,
+                        'sub_item_id' => $request->sub_item_id,
+                        'amount' => 0
+                    ]);
+                }
+
+                $storSubItem->fill(['amount' => ($storSubItem->amount ?? 0) - $request->amount])->save();
+            }
         }
 
         $request->merge(['item_id'=>$subItem->item_id,'price'=>$subItem->price,'total'=>($request->amount * $subItem->price)]);
@@ -127,18 +141,32 @@ class BillDetailController extends Controller
         $detail= BillDetail::findOrFail($id);
         $subItem = SubItem::find($detail->sub_item_id);
 
-        if ($detail->bill->status != 'new'){
-            $subItem->fill(['amount'=>$subItem->amount -$detail->amount])->save();
-            $storSubItem = StoreSubItem::where('store_id',$detail->bill->store_id)->where('sub_item_id',$detail->sub_item_id)->first();
-            if (!$storSubItem){
-                $storSubItem = StoreSubItem::create([
-                    'store_id'=>$detail->bill->store_id,
-                    'sub_item_id'=>$detail->sub_item_id,
-                    'amount'=>0
-                ]);
-            }
+        if ($detail->bill->status != 'new') {
+            if ($detail->bill->type == 'purchase_in' || $detail->bill->type == 'sale_in') {
+                $subItem->fill(['amount' => $subItem->amount - $detail->amount])->save();
+                $storSubItem = StoreSubItem::where('store_id', $detail->bill->store_id)->where('sub_item_id', $detail->sub_item_id)->first();
+                if (!$storSubItem) {
+                    $storSubItem = StoreSubItem::create([
+                        'store_id' => $detail->bill->store_id,
+                        'sub_item_id' => $detail->sub_item_id,
+                        'amount' => 0
+                    ]);
+                }
 
-            $storSubItem->fill(['amount'=>($storSubItem->amount ?? 0) -$detail->amount])->save();
+                $storSubItem->fill(['amount' => ($storSubItem->amount ?? 0) - $detail->amount])->save();
+            }else{
+                $subItem->fill(['amount' => $subItem->amount + $detail->amount])->save();
+                $storSubItem = StoreSubItem::where('store_id', $detail->bill->store_id)->where('sub_item_id', $detail->sub_item_id)->first();
+                if (!$storSubItem) {
+                    $storSubItem = StoreSubItem::create([
+                        'store_id' => $detail->bill->store_id,
+                        'sub_item_id' => $detail->sub_item_id,
+                        'amount' => 0
+                    ]);
+                }
+
+                $storSubItem->fill(['amount' => ($storSubItem->amount ?? 0) + $detail->amount])->save();
+            }
         }
         $detail->delete();
         toast('تم الحذف بنجاح','success');

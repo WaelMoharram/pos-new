@@ -150,6 +150,40 @@ class BillController extends Controller
 //            return back();
 //        }
         $bill= Bill::findOrFail($id);
+
+        if ($bill->status == 'saved' ){
+            if ($bill->type == 'purchase_in' || $bill->type == 'sale_in' ){
+                foreach ($bill->details as $detail){
+                    $subItem = SubItem::find($detail->sub_item_id);
+                    $subItem->fill(['amount'=>$subItem->amount +$detail->amount])->save();
+                    $storSubItem = StoreSubItem::where('store_id',$bill->store_id)->where('sub_item_id',$detail->sub_item_id)->first();
+                    if (!$storSubItem){
+                        $storSubItem = StoreSubItem::create([
+                            'store_id'=>$bill->store_id,
+                            'sub_item_id'=>$detail->sub_item_id,
+                            'amount'=>0
+                        ]);
+                    }
+
+                    $storSubItem->fill(['amount'=>($storSubItem->amount ?? 0) +$detail->amount])->save();
+                }
+            }else{
+                foreach ($bill->details as $detail){
+                    $subItem = SubItem::find($detail->sub_item_id);
+                    $subItem->fill(['amount'=>$subItem->amount -$detail->amount])->save();
+                    $storSubItem = StoreSubItem::where('store_id',$bill->store_id)->where('sub_item_id',$detail->sub_item_id)->first();
+                    if (!$storSubItem){
+                        $storSubItem = StoreSubItem::create([
+                            'store_id'=>$bill->store_id,
+                            'sub_item_id'=>$detail->sub_item_id,
+                            'amount'=>0
+                        ]);
+                    }
+
+                    $storSubItem->fill(['amount'=>($storSubItem->amount ?? 0) -$detail->amount])->save();
+                }
+            }
+        }
         $bill->delete();
         toast('تم الحذف بنجاح','success');
         return redirect(route('bills.index',['type'=>$bill->type]));

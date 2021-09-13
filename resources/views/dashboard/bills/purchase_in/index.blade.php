@@ -94,7 +94,7 @@
             $('#date').daterangepicker({
                 singleDatePicker: true,
                 "locale": {
-                    "format": "YYYY-DD-MM",
+                    "format": "YYYY-MM-DD",
                     "separator": " - ",
                     "applyLabel": "اختيار",
                     "cancelLabel": "الغاء",
