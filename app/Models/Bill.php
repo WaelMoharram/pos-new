@@ -35,5 +35,10 @@ class Bill extends Model
         return $this->hasMany(BillDetail::class);
     }
 
+    public function getTotalAttribute(){
+         $total = $this->details()->sum('total');
+         return $total - $this->discount??0 + $this->tax??0;
+    }
+
 
 }

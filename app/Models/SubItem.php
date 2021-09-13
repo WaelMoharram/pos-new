@@ -44,9 +44,9 @@ class SubItem extends Model
     }
 
     public function getNameAttribute(){
-        $name ='';
+        $name =$this->item->name . '   ';
         foreach ($this->OptionSubitems as $optionSubitem){
-            $name.=$optionSubitem->option_value . ' ';
+            $name .= $optionSubitem->option_value . '   ';
         }
         return $name;
     }

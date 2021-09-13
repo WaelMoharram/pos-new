@@ -14,11 +14,16 @@ class BillDetail extends Model
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
-    protected $fillable = array('bill_id');
+    protected $guarded = array('id');
 
     public function bill()
     {
         return $this->belongsTo('App\Models\Bill');
+    }
+
+    public function subItem()
+    {
+        return $this->belongsTo('App\Models\SubItem');
     }
 
 }

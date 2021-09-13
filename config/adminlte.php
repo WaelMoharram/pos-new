@@ -573,16 +573,16 @@ return [
             ],
         ],
         'Select2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js',
                 ],
                 [
                     'type' => 'css',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css',
                 ],
             ],
@@ -670,4 +670,37 @@ return [
     */
 
     'livewire' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | DateRangePicker
+    |--------------------------------------------------------------------------
+    |
+    | Here we can enable the dateRangePicker support.
+    |
+    | For detailed instructions you can look the livewire here:
+    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Other-Configuration
+    |
+    */
+
+    'DateRangePicker' => [
+        'active' => true,
+        'files' => [
+            [
+                'type' => 'js',
+                'asset' => true,
+                'location' => 'vendor/moment/moment.min.js',
+            ],
+            [
+                'type' => 'js',
+                'asset' => true,
+                'location' => 'vendor/daterangepicker/daterangepicker.js',
+            ],
+            [
+                'type' => 'css',
+                'asset' => true,
+                'location' => 'vendor/daterangepicker/daterangepicker.css',
+            ],
+        ],
+    ],
 ];

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\BillDetailRequest;
+use App\Models\Bill;
 use App\Models\BillDetail;
-use App\Models\BillDetailDetail;
-use App\Models\Brand;
-use Composer\DependencyResolver\Request;
+use App\Models\StoreSubItem;
+use App\Models\SubItem;
+use Illuminate\Http\Request;
 
 class BillDetailController extends Controller
 {
@@ -48,10 +48,31 @@ class BillDetailController extends Controller
      */
     public function store(Request $request)
     {
+        $bill = Bill::find($request->bill_id);
+        $subItem = SubItem::find($request->sub_item_id);
+        if ($bill->status != 'new'){
+            $subItem->fill(['amount'=>$subItem->amount +$request->amount])->save();
+            $storSubItem = StoreSubItem::where('store_id',$bill->store_id)->where('sub_item_id',$request->sub_item_id)->first();
+            if (!$storSubItem){
+                $storSubItem = StoreSubItem::create([
+                    'store_id'=>$bill->store_id,
+                    'sub_item_id'=>$request->sub_item_id,
+                    'amount'=>0
+                ]);
+            }
 
+            $storSubItem->fill(['amount'=>($storSubItem->amount ?? 0) +$request->amount])->save();
+        }
 
-        $detail = BillDetail::create($request->all());
-        toast('تم اضافة القيد بنجاح','success');
+        $request->merge(['item_id'=>$subItem->item_id,'price'=>$subItem->price,'total'=>($request->amount * $subItem->price)]);
+        $BillDetail = BillDetail::where('sub_item_id',$request->sub_item_id)->where('bill_id',$request->bill_id)->first();
+        if ($BillDetail){
+            $newAmount = $BillDetail->amount + $request->amount;
+            $detail = $BillDetail->fill(['amount'=>$newAmount,'price'=>$subItem->price,'total'=>($newAmount * $subItem->price)])->save();
+        }else{
+            $detail = BillDetail::create($request->all());
+        }
+//        toast('تم اضافة القيد بنجاح','success');
         return redirect()->back();
     }
 
@@ -104,6 +125,21 @@ class BillDetailController extends Controller
 //            return back();
 //        }
         $detail= BillDetail::findOrFail($id);
+        $subItem = SubItem::find($detail->sub_item_id);
+
+        if ($detail->bill->status != 'new'){
+            $subItem->fill(['amount'=>$subItem->amount -$detail->amount])->save();
+            $storSubItem = StoreSubItem::where('store_id',$detail->bill->store_id)->where('sub_item_id',$detail->sub_item_id)->first();
+            if (!$storSubItem){
+                $storSubItem = StoreSubItem::create([
+                    'store_id'=>$detail->bill->store_id,
+                    'sub_item_id'=>$detail->sub_item_id,
+                    'amount'=>0
+                ]);
+            }
+
+            $storSubItem->fill(['amount'=>($storSubItem->amount ?? 0) -$detail->amount])->save();
+        }
         $detail->delete();
         toast('تم الحذف بنجاح','success');
         return redirect()->back();

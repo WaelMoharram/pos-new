@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BillController;
+use App\Http\Controllers\BillDetailController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SaleManController;
 use App\Http\Controllers\StoreController;
@@ -46,9 +47,13 @@ Route::group(['middleware' => 'auth:web','prefix'=>'dashboard'], function () {
         'item-options' => ItemOptionController::class,
         'item-option-values'=>ItemOptionValueController::class,
         'bills' => BillController::class,
+        'bill-details' => BillDetailController::class,
     ]);
 
     Route::get('stores-all',[StoreController::class, 'all'])->name('stores.all');
+
+    Route::post('bills/save/{id}',[BillController::class, 'save'])->name('bills.save');
+    Route::get('bills/print/{id}',[BillController::class, 'print'])->name('bills.print');
 
 });
 
