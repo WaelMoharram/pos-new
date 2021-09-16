@@ -63,7 +63,7 @@ class BillDetailController extends Controller
                 }
 
                 $storSubItem->fill(['amount' => ($storSubItem->amount ?? 0) + $request->amount])->save();
-            }else{
+            }elseif($bill->type == 'purchase_in' || $bill->type == 'sale_in' ){
                 $subItem->fill(['amount' => $subItem->amount - $request->amount])->save();
                 $storSubItem = StoreSubItem::where('store_id', $bill->store_id)->where('sub_item_id', $request->sub_item_id)->first();
                 if (!$storSubItem) {
@@ -75,6 +75,26 @@ class BillDetailController extends Controller
                 }
 
                 $storSubItem->fill(['amount' => ($storSubItem->amount ?? 0) - $request->amount])->save();
+            }elseif ($bill->type == 'store'){
+                $storeFromSubItem = StoreSubItem::where('store_id', $bill->store_from_id)->where('sub_item_id', $request->sub_item_id)->first();
+                if (!$storeFromSubItem) {
+                    $storeFromSubItem = StoreSubItem::create([
+                        'store_id' => $bill->store_from_id,
+                        'sub_item_id' => $request->sub_item_id,
+                        'amount' => 0
+                    ]);
+                }
+                $storeFromSubItem->fill(['amount' => ($storeFromSubItem->amount ?? 0) - $request->amount])->save();
+
+                $storeToSubItem = StoreSubItem::where('store_id', $bill->store_to_id)->where('sub_item_id', $request->sub_item_id)->first();
+                if (!$storeToSubItem) {
+                    $storeToSubItem = StoreSubItem::create([
+                        'store_id' => $bill->store_to_id,
+                        'sub_item_id' => $request->sub_item_id,
+                        'amount' => 0
+                    ]);
+                }
+                $storeToSubItem->fill(['amount' => ($storeToSubItem->amount ?? 0) + $request->amount])->save();
             }
         }
 
@@ -154,7 +174,7 @@ class BillDetailController extends Controller
                 }
 
                 $storSubItem->fill(['amount' => ($storSubItem->amount ?? 0) - $detail->amount])->save();
-            }else{
+            }elseif ($detail->bill->type == 'purchase_out' || $detail->bill->type == 'sale_out'){
                 $subItem->fill(['amount' => $subItem->amount + $detail->amount])->save();
                 $storSubItem = StoreSubItem::where('store_id', $detail->bill->store_id)->where('sub_item_id', $detail->sub_item_id)->first();
                 if (!$storSubItem) {
@@ -166,6 +186,26 @@ class BillDetailController extends Controller
                 }
 
                 $storSubItem->fill(['amount' => ($storSubItem->amount ?? 0) + $detail->amount])->save();
+            }elseif ($detail->bill->type == 'store'){
+                $storeFromSubItem = StoreSubItem::where('store_id', $detail->bill->store_from_id)->where('sub_item_id', $detail->sub_item_id)->first();
+                if (!$storeFromSubItem) {
+                    $storeFromSubItem = StoreSubItem::create([
+                        'store_id' => $detail->bill->store_from_id,
+                        'sub_item_id' => $detail->sub_item_id,
+                        'amount' => 0
+                    ]);
+                }
+                $storeFromSubItem->fill(['amount' => ($storeFromSubItem->amount ?? 0) - $detail->amount])->save();
+
+                $storeToSubItem = StoreSubItem::where('store_id', $detail->bill->store_to_id)->where('sub_item_id', $detail->sub_item_id)->first();
+                if (!$storeToSubItem) {
+                    $storeToSubItem = StoreSubItem::create([
+                        'store_id' => $detail->bill->store_to_id,
+                        'sub_item_id' => $detail->sub_item_id,
+                        'amount' => 0
+                    ]);
+                }
+                $storeToSubItem->fill(['amount' => ($storeToSubItem->amount ?? 0) + $detail->amount])->save();
             }
         }
         $detail->delete();

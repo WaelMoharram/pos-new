@@ -11,7 +11,7 @@ class CreateBillsTable extends Migration {
 			$table->increments('id');
 			$table->timestamps();
 			$table->softDeletes();
-			$table->morphs('model');
+			$table->nullableMorphs('model');
 			$table->bigInteger('store_id')->nullable();
 			$table->string('code');
 			$table->text('note')->nullable();

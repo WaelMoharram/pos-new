@@ -26,6 +26,16 @@ class Bill extends Model
         return $this->belongsTo('App\Models\Store');
     }
 
+    public function storeFrom()
+    {
+        return $this->belongsTo('App\Models\Store','store_from_id');
+    }
+
+    public function storeTo()
+    {
+        return $this->belongsTo('App\Models\Store','store_to_id');
+    }
+
     public function acceptUser()
     {
         return $this->belongsTo('App\Models\User');

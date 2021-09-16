@@ -491,6 +491,11 @@ return [
 
             ],
         ],
+        [
+            'text' => 'النقل بين المخازن أو المندوبين',
+            'route'  => ['bills.index', ['type' => 'store']],
+            'icon'    => 'fas fa-fw fa-store',
+        ],
 //        ['header' => 'الاكثر استخداما'],
 //        [
 //            'text'       => 'رابط تجريبى',

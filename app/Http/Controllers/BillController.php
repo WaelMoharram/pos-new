@@ -73,6 +73,10 @@ class BillController extends Controller
                 $requests['type'] = "sale_out";
                 $requests['model_type'] = "client";
                 break;
+            case "store":
+                $requests['type'] = "store";
+                $requests['model_type'] = "null";
+                break;
         }
 
 
@@ -92,11 +96,11 @@ class BillController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id,Request $request)
+    public function show($id)
     {
         $bill = Bill::findOrFail($id);
-
-        return view('dashboard.bills.'.$request->type.'.show',compact('bill'));
+        $details = BillDetail::where('bill_id',$bill->id)->get();
+        return view('dashboard.bills.'.$bill->type.'.show',compact('bill','details'));
     }
 
     /**
@@ -167,7 +171,7 @@ class BillController extends Controller
 
                     $storSubItem->fill(['amount'=>($storSubItem->amount ?? 0) +$detail->amount])->save();
                 }
-            }else{
+            }elseif($bill->type == 'purchase_out' || $bill->type == 'sale_out' ){
                 foreach ($bill->details as $detail){
                     $subItem = SubItem::find($detail->sub_item_id);
                     $subItem->fill(['amount'=>$subItem->amount -$detail->amount])->save();
@@ -182,6 +186,35 @@ class BillController extends Controller
 
                     $storSubItem->fill(['amount'=>($storSubItem->amount ?? 0) -$detail->amount])->save();
                 }
+            }elseif($bill->type == 'store'){
+                foreach ($bill->details as $detail){
+                    //in to out
+
+                    $storeFromSubItem = StoreSubItem::where('store_id',$bill->store_from_id)->where('sub_item_id',$detail->sub_item_id)->first();
+                    if (!$storeFromSubItem){
+                        $storeFromSubItem = StoreSubItem::create([
+                            'store_id'=>$bill->store_from_id,
+                            'sub_item_id'=>$detail->sub_item_id,
+                            'amount'=>0
+                        ]);
+                    }
+
+                    $storeFromSubItem->fill(['amount'=>($storeFromSubItem->amount ?? 0) - $detail->amount])->save();
+
+                    //#################################################
+
+                    //out to in
+                    $storeToSubItem = StoreSubItem::where('store_id',$bill->store_to_id)->where('sub_item_id',$detail->sub_item_id)->first();
+                    if (!$storeToSubItem){
+                        $storeToSubItem = StoreSubItem::create([
+                            'store_id'=>$bill->store_to_id,
+                            'sub_item_id'=>$detail->sub_item_id,
+                            'amount'=>0
+                        ]);
+                    }
+
+                    $storeToSubItem->fill(['amount'=>($storeToSubItem->amount ?? 0) - $detail->amount])->save();
+                }
             }
         }
         $bill->delete();
@@ -193,19 +226,61 @@ class BillController extends Controller
         $bill= Bill::findOrFail($id);
 
         if ($bill->status == 'new'){
-            foreach ($bill->details as $detail){
-                $subItem = SubItem::find($detail->sub_item_id);
-                $subItem->fill(['amount'=>$subItem->amount +$detail->amount])->save();
-                $storSubItem = StoreSubItem::where('store_id',$bill->store_id)->where('sub_item_id',$detail->sub_item_id)->first();
-                if (!$storSubItem){
-                    $storSubItem = StoreSubItem::create([
-                        'store_id'=>$bill->store_id,
-                        'sub_item_id'=>$detail->sub_item_id,
-                        'amount'=>0
-                    ]);
-                }
+            if ($bill->type == 'purchase_in' || $bill->type == 'sale_in' ) {
+                foreach ($bill->details as $detail) {
+                    $subItem = SubItem::find($detail->sub_item_id);
+                    $subItem->fill(['amount' => $subItem->amount + $detail->amount])->save();
+                    $storSubItem = StoreSubItem::where('store_id', $bill->store_id)->where('sub_item_id', $detail->sub_item_id)->first();
+                    if (!$storSubItem) {
+                        $storSubItem = StoreSubItem::create([
+                            'store_id' => $bill->store_id,
+                            'sub_item_id' => $detail->sub_item_id,
+                            'amount' => 0
+                        ]);
+                    }
 
-                $storSubItem->fill(['amount'=>($storSubItem->amount ?? 0) +$detail->amount])->save();
+                    $storSubItem->fill(['amount' => ($storSubItem->amount ?? 0) + $detail->amount])->save();
+                }
+            }elseif ($bill->type == 'purchase_out' || $bill->type == 'sale_out' ) {
+                foreach ($bill->details as $detail) {
+                    $subItem = SubItem::find($detail->sub_item_id);
+                    $subItem->fill(['amount' => $subItem->amount - $detail->amount])->save();
+                    $storSubItem = StoreSubItem::where('store_id', $bill->store_id)->where('sub_item_id', $detail->sub_item_id)->first();
+                    if (!$storSubItem) {
+                        $storSubItem = StoreSubItem::create([
+                            'store_id' => $bill->store_id,
+                            'sub_item_id' => $detail->sub_item_id,
+                            'amount' => 0
+                        ]);
+                    }
+
+                    $storSubItem->fill(['amount' => ($storSubItem->amount ?? 0) - $detail->amount])->save();
+                }
+            }elseif ($bill->type == 'store') {
+                foreach ($bill->details as $detail) {
+
+                    $storeFromSubItem = StoreSubItem::where('store_id', $bill->store_from_id)->where('sub_item_id', $detail->sub_item_id)->first();
+                    if (!$storeFromSubItem) {
+                        $storeFromSubItem = StoreSubItem::create([
+                            'store_id' => $bill->store_from_id,
+                            'sub_item_id' => $detail->sub_item_id,
+                            'amount' => 0
+                        ]);
+                    }
+
+                    $storeFromSubItem->fill(['amount' => ($storeFromSubItem->amount ?? 0) - $detail->amount])->save();
+
+                    $storeToSubItem = StoreSubItem::where('store_id', $bill->store_to_id)->where('sub_item_id', $detail->sub_item_id)->first();
+                    if (!$storeToSubItem) {
+                        $storeToSubItem = StoreSubItem::create([
+                            'store_id' => $bill->store_to_id,
+                            'sub_item_id' => $detail->sub_item_id,
+                            'amount' => 0
+                        ]);
+                    }
+
+                    $storeToSubItem->fill(['amount' => ($storeToSubItem->amount ?? 0) + $detail->amount])->save();
+                }
             }
         }
 
@@ -215,6 +290,8 @@ class BillController extends Controller
         return redirect()->back();
     }
     public function print($id){
-        return 'Will be preview of invoice and print';
+        $bill = Bill::findOrFail($id);
+        $details = BillDetail::where('bill_id',$bill->id)->get();
+        return view('dashboard.bills.'.$bill->type.'.print',compact('bill','details'));
     }
 }
