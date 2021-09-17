@@ -22,7 +22,7 @@
                     <div class="col-12">
                         <h4>
                             <i class="fas fa-globe"></i> Company name.
-                            <small class="float-right">Date: {{$bill->date}}</small>
+                            <small class="float-right">التاريخ: {{$bill->date}}</small>
                         </h4>
                     </div>
                     <!-- /.col -->
