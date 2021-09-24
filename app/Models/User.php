@@ -60,4 +60,11 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Models\Store','sales_man_id');
     }
+
+    public function canBeAdmin(){
+        if ($this->type == 'admin'){
+            return true;
+        }
+        return false;
+    }
 }

@@ -130,5 +130,4 @@
         });
     </script>
 
-    @include('sweetalert::alert')
 @stop

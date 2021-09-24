@@ -75,6 +75,24 @@
         href="https://cdn.rtlcss.com/bootstrap/v4.5.3/css/bootstrap.min.css"
         integrity="sha384-JvExCACAZcHNJEc7156QaHXTnQL3hQBixvj5RV5buE7vgnNEzzskDtx9NQ4p6BJe"
         crossorigin="anonymous" />
+
+
+    {{-- Pusher --}}
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <script>
+
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('22cf1a612c593d643185', {
+            cluster: 'eu'
+        });
+
+        var channel = pusher.subscribe('my-channel');
+        channel.bind('my-event', function(data) {
+            alert(JSON.stringify(data));
+        });
+    </script>
 </head>
 
 <body class="@yield('classes_body')" @yield('body_data')>
@@ -104,7 +122,22 @@
             <livewire:scripts />
         @endif
     @endif
+    @include('sweetalert::alert')
 
+    <script>
+        console.log('out')
+
+        var loadLogo = function(event) {
+            console.log('logo')
+
+            var output = document.getElementById('logo');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function() {
+                URL.revokeObjectURL(output.src) // free memory
+            }
+        };
+
+    </script>
     {{-- Custom Scripts --}}
     @yield('adminlte_js')
 

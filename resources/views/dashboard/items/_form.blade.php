@@ -1,11 +1,12 @@
-@if(isset($item->image) && $item->image != null && $item->image !='')
     <div class="col-md-12">
-<img src="{{url($item->image)}}" style="width: 100px;border-radius: 50px;">
+<img id="logo" src="{!! $item->image ? url($item->image) : url('default_product.png') !!}" style="width: 100px;border-radius: 50px;">
     </div>
-@endif
+
+
 <div class="form-group col-md-12 {{hidden_on_show()}}">
-    <label for="formInputRole"> صورة </label>
-    {!! Form::file('image',null,['class'=>'form-control col','placeholder'=>__("Image")]) !!}
+    <label for="logo_input"> صورة </label>
+    {!! Form::file('image',['id'=>'logo_input','class'=>'form-control col','placeholder'=>__("Image"),'onchange'=>"loadLogo(event)"]) !!}
+
     {{input_error($errors,'image')}}
 </div>
 
@@ -37,6 +38,20 @@
     {!! Form::text('barcode',null,['class'=>'form-control col',isset($readOnly)?$readOnly:null,disable_on_show()]) !!}
     {{input_error($errors,'barcode')}}
 </div>
+
+
+<div class="form-group py-1 col-md-6">
+    <label for="buy_price"> سعر الشراء</label>
+    {!! Form::number('buy_price',null,['step'=>'any','id'=>'buy_price','class'=>'form-control col',isset($readOnly)?$readOnly:null,disable_on_show()]) !!}
+    {{input_error($errors,'buy_price')}}
+</div>
+
+<div class="form-group py-1 col-md-6">
+    <label for="price"> سعر البيع</label>
+    {!! Form::number('price',null,['step'=>'any','id'=>'price','class'=>'form-control col',isset($readOnly)?$readOnly:null,disable_on_show()]) !!}
+    {{input_error($errors,'price')}}
+</div>
+
 
 <div class="form-group py-1 col-md-12">
     <label for="has_options"> يحتوى على اختيارات  </label>

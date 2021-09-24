@@ -1,12 +1,10 @@
-@if(isset($item->image) && $item->image != null && $item->image !='')
-    <div class="col-md-12">
-<img src="{{url($item->image)}}" style="width: 100px;border-radius: 50px;">
-    </div>
-@endif
+<div class="col-md-12">
+    <img id="logo" src="{!! $item->image ? url($item->image) : url('default_product.png') !!}" style="width: 100px;border-radius: 50px;">
+</div>
+
 <div class="form-group col-md-12 {{hidden_on_show()}}">
-    <label for="formInputRole"> صورة </label>
-    {!! Form::file('image',null,['class'=>'form-control col','placeholder'=>__("Image")]) !!}
-    {{input_error($errors,'image')}}
+    <label for="logo_input"> صورة </label>
+    {!! Form::file('image',['id'=>'logo_input','class'=>'form-control col','placeholder'=>__("Image"),'onchange'=>"loadLogo(event)"]) !!}
 </div>
 
 <div class="form-group py-1 col-md-12">

@@ -22,7 +22,7 @@
                 <div class="modal-body">
                     <div class="row">
                         {{ csrf_field() }}
-                        <input type="hidden" name="type" value="sale_in">
+{{--                        <input type="hidden" name="type" value="{{$type}}">--}}
                         {{-- ############# Date #############--}}
                         <div class="form-group py-1 col-md-12">
                             <label for="date"> التاريخ  </label>

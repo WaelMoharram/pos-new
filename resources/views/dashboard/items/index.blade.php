@@ -17,6 +17,8 @@
             'العلامة التجارية',
             'الكود',
             'الباركود',
+            'سعر الشراء',
+            'سعر البيع',
             'يحتوى على اختيارات ؟',
             ['label' => 'اعدادات', 'no-export' => true, 'width' => 5],
         ];
@@ -39,6 +41,8 @@
                 <td>{!! optional($row->brand)->name !!}</td>
                 <td>{!! $row->code !!}</td>
                 <td>{!! $row->barcode !!}</td>
+                <td>{!! $row->buy_price !!}</td>
+                <td>{!! $row->price !!}</td>
                 <td>{!! $row->has_options ? 'نعم': 'لا' !!}</td>
 
                 <td>

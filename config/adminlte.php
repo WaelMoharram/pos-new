@@ -88,7 +88,7 @@ return [
     'layout_fixed_sidebar' => null,
     'layout_fixed_navbar' => null,
     'layout_fixed_footer' => null,
-    'layout_dark_mode' => true,
+    'layout_dark_mode' => null,
 
     /*
     |--------------------------------------------------------------------------
@@ -263,6 +263,7 @@ return [
         [
             'text'    => 'مستخدمين النظام',
             'icon'    => 'fas fa-fw fa-users',
+            'can'     =>'is_admin',
             'submenu' => [
                 [
                     'text' => 'عرض الكل',
@@ -302,6 +303,7 @@ return [
         ],
         [
             'text'    => 'المندوبين',
+            'can'     =>'is_admin',
             'icon'    => 'fas fa-fw fa-users',
             'submenu' => [
                 [
@@ -320,6 +322,7 @@ return [
         [
             'text'    => 'المخازن',
             'icon'    => 'fas fa-fw fa-store',
+            'can'     =>'is_admin',
             'submenu' => [
                 [
                     'text' => 'اضافة مخزن جديد',
@@ -422,6 +425,7 @@ return [
         [
             'text'    => 'التوريد',
             'icon'    => 'fas fa-fw fa-folder',
+            'can'     =>'is_admin',
             'submenu' => [
                 [
                     'text' => 'عرض فواتير التوريد',
@@ -493,6 +497,7 @@ return [
         ],
         [
             'text' => 'النقل بين المخازن أو المندوبين',
+            'can'     =>'is_admin',
             'route'  => ['bills.index', ['type' => 'store']],
             'icon'    => 'fas fa-fw fa-store',
         ],

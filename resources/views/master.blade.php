@@ -75,6 +75,7 @@
         href="https://cdn.rtlcss.com/bootstrap/v4.5.3/css/bootstrap.min.css"
         integrity="sha384-JvExCACAZcHNJEc7156QaHXTnQL3hQBixvj5RV5buE7vgnNEzzskDtx9NQ4p6BJe"
         crossorigin="anonymous" />
+
 </head>
 
 <body class="@yield('classes_body')" @yield('body_data')>
@@ -94,6 +95,7 @@
     @else
         <script src="{{ mix(config('adminlte.laravel_mix_js_path', 'js/app.js')) }}"></script>
     @endif
+    @include('sweetalert::alert')
 
     {{-- Livewire Script --}}
     @if(config('adminlte.livewire'))
@@ -103,9 +105,23 @@
             <livewire:scripts />
         @endif
     @endif
+    <script>
+        console.log('out')
 
+        var loadLogo = function(event) {
+            console.log('logo')
+
+            var output = document.getElementById('logo');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function() {
+                URL.revokeObjectURL(output.src) // free memory
+            }
+        };
+
+    </script>
     {{-- Custom Scripts --}}
     @yield('adminlte_js')
+
 
 </body>
 

@@ -14,7 +14,17 @@ class Item extends Model
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
-    protected $fillable = array('image', 'name', 'barcode', 'code', 'category_id', 'brand_id', 'has_options');
+    protected $fillable = array(
+        'image',
+        'name',
+        'barcode',
+        'code',
+        'category_id',
+        'brand_id',
+        'has_options',
+        'buy_price',
+        'price'
+    );
 
     public function category()
     {

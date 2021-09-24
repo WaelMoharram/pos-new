@@ -25,7 +25,13 @@ class HomeController extends Controller
     {
         //return \Arr::crossJoin([1, 2], ['a', 'b'],['$','#']);
         //return SubItem::all();
-        return view('dashboard');
+
+        if (auth()->user()->type == 'admin'){
+            return view('dashboard');
+
+        }
+
+        return view('dashboard-sales');
 
     }
 
