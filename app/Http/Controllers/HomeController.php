@@ -23,6 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        //option(['اسم القيمة المضافة' => 14]);
         //return \Arr::crossJoin([1, 2], ['a', 'b'],['$','#']);
         //return SubItem::all();
 

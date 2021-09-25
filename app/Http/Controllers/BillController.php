@@ -29,7 +29,7 @@ class BillController extends Controller
      */
     public function index(Request $request)
     {
-        $bills = Bill::where('type',$request->type)->paginate(10);
+        $bills = Bill::where('type',$request->type)->get();
         return view('dashboard.bills.'.$request->type.'.index',compact('bills'));
     }
 
@@ -84,6 +84,12 @@ class BillController extends Controller
             $requests['sales_man_id'] = auth()->id();
         }else{
             $requests['accept_user_id'] = auth()->id();
+        }
+        $lastBill = Bill::where('type',$request->type)->latest()->first();
+        if ($lastBill){
+            $requests['code'] = $lastBill->code+1;
+        }else{
+            $requests['code'] =1;
         }
         $bill = Bill::create($requests);
         toast('تم اضافة القيد بنجاح','success');

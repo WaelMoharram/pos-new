@@ -53,7 +53,7 @@
 </div>
 
 
-<div class="form-group py-1 col-md-12">
+<div class="form-group py-1 col-md-12 {{hidden_on_edit()}}">
     <label for="has_options"> يحتوى على اختيارات  </label>
     {{Form::select('has_options',[true=>'نعم',false=>'لا'] ,null,['class'=>'form-control mb-2','id'=>'has_options'])}}
     {{input_error($errors,'has_options')}}

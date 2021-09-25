@@ -51,7 +51,7 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Bill', 'accept_user_id');
     }
 
-    public function Bills()
+    public function bills()
     {
         return $this->hasMany('App\Models\Bill', 'sales_man_id');
     }
@@ -67,4 +67,14 @@ class User extends Authenticatable
         }
         return false;
     }
+
+    public function getForCollectAttribute()
+    {
+        $in =  $this->bills()->where('type','cash_in')->where('money_collected',0)->sum('money');
+
+        $out = $this->bills()->where('type','cash_out')->where('money_collected',0)->sum('money');
+
+        return $in - $out;
+    }
+
 }

@@ -23,7 +23,8 @@ class Item extends Model
         'brand_id',
         'has_options',
         'buy_price',
-        'price'
+        'price',
+        'is_final_options'
     );
 
     public function category()
@@ -43,7 +44,7 @@ class Item extends Model
 
     public function options()
     {
-        return $this->belongsToMany(Option::class);
+        return $this->belongsToMany(Option::class,'item_option','item_id','option_id');
     }
 
     public function Billsdetails()

@@ -19,10 +19,9 @@ class CreateBillsTable extends Migration {
 			$table->string('discount_type')->nullable();
 			$table->decimal('tax', 10,2)->nullable();
 			$table->string('tax_type')->nullable();
-			$table->enum('type', array('sale_in','sale_out','purchase_in','purchase_out','payment_in','payment_out','store'));
+			$table->enum('type', array('sale_in','sale_out','purchase_in','purchase_out','payment_in','payment_out','store','cash_in','cash_out'));
 			$table->enum('status',['new','saved','cancelled']);
 			$table->boolean('need_discount');
-			$table->decimal('total', 10,2)->nullable();
 			$table->date('date');
             $table->bigInteger('store_from_id')->nullable();
             $table->bigInteger('store_to_id')->nullable();

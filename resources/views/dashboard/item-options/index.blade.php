@@ -27,7 +27,9 @@
         <div class="card-header">
 
             <div class="card-tools">
-                <ul class="nav nav-pills ml-auto">
+                <ul class="nav nav-pills ml-auto" dir="rtl">
+                    @if($canNotMakeActions == 0)
+
                     <li class="nav-item">
                         @component('partials.buttons._add_option_button',[
                                                     'route' => route('item-options.store',request()->item_id) ,
@@ -37,7 +39,15 @@
                                                      ])
                         @endcomponent
                     </li>
-
+                    <li class="nav-item mr-5">
+                        @component('partials.buttons._item_submit_final_button',[
+                                                    'id'=>request()->item_id,
+                                                    'route' => route('item-options.final-submit',request()->item_id) ,
+                                                    'tooltip' => 'حذف',
+                                                     ])
+                        @endcomponent
+                    </li>
+                        @endif
                 </ul>
             </div>
         </div><!-- /.card-header -->
@@ -54,6 +64,8 @@
                             </td>
                             <td>
                                 <nobr>
+                                    @if($canNotMakeActions == 0)
+
                                     @component('partials.buttons._add_option_value_button',[
                                                     'route' => route('item-option-values.store') ,
                                                     'tooltip' => ' القيم',
@@ -66,6 +78,7 @@
                                                     'tooltip' => 'حذف',
                                                      ])
                                     @endcomponent
+                                        @endif
                                 </nobr>
                             </td>
                         </tr>

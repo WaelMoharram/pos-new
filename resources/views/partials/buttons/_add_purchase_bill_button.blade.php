@@ -28,7 +28,7 @@
                             <label for="date"> التاريخ  </label>
                             <div class="input-group date" id="reservationdate" data-target-input="nearest">
 
-                                {{Form::text('date',null,['class'=>'form-control mb-2 datetimepicker-input','id'=>'date'])}}
+                                {{Form::text('date',null,['class'=>'form-control mb-2 datetimepicker-input date','id'=>'date'])}}
                                 {{input_error($errors,'date')}}
 
                             </div>
@@ -42,7 +42,7 @@
                         {{-- ############# Store #############--}}
                         <div class="form-group py-1 col-md-12">
                             <label for="store_id"> مخزن التوريد  </label>
-                            {{Form::select('store_id',\App\Models\Store::where('sales_man_id',null)->where('is_pos',1)->pluck('name','id') ,null,['class'=>'form-control mb-2','id'=>'store_id'])}}
+                            {{Form::select('store_id',\App\Models\Store::where('sales_man_id',null)->pluck('name','id') ,null,['class'=>'form-control mb-2','id'=>'store_id'])}}
                             {{input_error($errors,'store_id')}}
                         </div>
                         {{-- ############# Bill Code #############--}}

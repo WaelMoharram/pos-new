@@ -47,7 +47,58 @@ class Bill extends Model
 
     public function getTotalAttribute(){
          $total = $this->details()->sum('total');
-         return $total - $this->discount??0 + $this->tax??0;
+         return $total - ($this->discount??0) + ($this->tax??0);
+    }
+
+    public function getCodeAndNameAttribute(){
+        return '#'.$this->code . ' - '.$this->model->name;
+        return $total - ($this->discount??0) + ($this->tax??0);
+    }
+
+
+    public function getRemainingAttribute(){
+
+        $totalPayments = $this->payments->sum('money');
+        $total = $this->details()->sum('total');
+        $finalTotal =  $total - ($this->discount??0) + ($this->tax??0);
+
+        return $finalTotal - $totalPayments;
+    }
+
+
+    public function getTypeNameAttribute(){
+
+        switch ($this->type) {
+            case "purchase_in":
+                return 'مشترياات';
+                break;
+            case "purchase_out":
+                return 'مرتجع مشتريات';
+                break;
+            case "sale_in":
+                return 'مرتجع مبيعات';
+                break;
+            case "sale_out":
+                return 'مبيعات';
+                break;
+            case "store":
+                return 'نقل وصرف من المخازن و المندوبين';
+                break;
+            case "cash_in":
+                return 'تحصيل';
+                break;
+            case "cash_out":
+                return 'سداد';
+                break;
+        }
+
+    }
+    public function bill(){
+        return $this->belongsTo(Bill::class,'bill_id');
+    }
+
+    public function payments(){
+        return $this->hasMany(Bill::class,'bill_id');
     }
 
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ClientRequest;
+use App\Models\Bill;
 use App\Models\Client;
 
 class ClientController extends Controller
@@ -66,6 +67,22 @@ class ClientController extends Controller
         $client = Client::findOrFail($id);
 
         return view('dashboard.clients.show',compact('client'));
+    }
+
+
+    public function report($id)
+    {
+        $client = Client::findOrFail($id);
+        $bills = $client->bills;
+
+        $billsIn = $client->bills->where('type','sale_in')->where('status','saved')->sum('total');
+        $billsOut = $client->bills->where('type','sale_out')->where('status','saved')->sum('total');
+        $cashIn = $client->bills->where('type','cash_in')->sum('money');
+        $cashOut = $client->bills->where('type','cash_out')->sum('money');
+
+        $total =  $billsIn - $billsOut -$cashOut + $cashIn;
+
+        return view('dashboard.clients.report',compact('client','bills','total'));
     }
 
     /**

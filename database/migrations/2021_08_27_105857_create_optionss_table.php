@@ -3,11 +3,11 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateOptionsTable extends Migration {
+class CreateOptionssTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('options', function(Blueprint $table) {
+		Schema::create('optionss', function(Blueprint $table) {
 			$table->bigIncrements('id');
 			$table->timestamps();
 			$table->softDeletes();
@@ -19,6 +19,6 @@ class CreateOptionsTable extends Migration {
 
 	public function down()
 	{
-		Schema::drop('options');
+		Schema::drop('optionss');
 	}
 }

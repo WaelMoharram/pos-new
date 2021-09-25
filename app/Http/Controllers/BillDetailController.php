@@ -48,6 +48,10 @@ class BillDetailController extends Controller
      */
     public function store(Request $request)
     {
+        $taxPercent = option('نسبة القيمة المضافة');
+        $taxName = option('اسم القيمة المضافة');
+
+
         $bill = Bill::find($request->bill_id);
         $subItem = SubItem::find($request->sub_item_id);
         if ($bill->status != 'new'){
@@ -63,7 +67,7 @@ class BillDetailController extends Controller
                 }
 
                 $storSubItem->fill(['amount' => ($storSubItem->amount ?? 0) + $request->amount])->save();
-            }elseif($bill->type == 'purchase_in' || $bill->type == 'sale_in' ){
+            }elseif($bill->type == 'purchase_out' || $bill->type == 'sale_out' ){
                 $subItem->fill(['amount' => $subItem->amount - $request->amount])->save();
                 $storSubItem = StoreSubItem::where('store_id', $bill->store_id)->where('sub_item_id', $request->sub_item_id)->first();
                 if (!$storSubItem) {
@@ -75,6 +79,8 @@ class BillDetailController extends Controller
                 }
 
                 $storSubItem->fill(['amount' => ($storSubItem->amount ?? 0) - $request->amount])->save();
+
+
             }elseif ($bill->type == 'store'){
                 $storeFromSubItem = StoreSubItem::where('store_id', $bill->store_from_id)->where('sub_item_id', $request->sub_item_id)->first();
                 if (!$storeFromSubItem) {
@@ -98,13 +104,20 @@ class BillDetailController extends Controller
             }
         }
 
-        $request->merge(['item_id'=>$subItem->item_id,'price'=>$subItem->price,'total'=>($request->amount * $subItem->price)]);
+        if ($bill->type == 'purchase_in' || $bill->type == 'purchase_out' ) {
+            $request->merge(['item_id' => $subItem->item_id, 'price' => $subItem->buy_price, 'total' => ($request->amount * $subItem->buy_price)]);
+        }else{
+            $request->merge(['item_id' => $subItem->item_id, 'price' => $subItem->price, 'total' => ($request->amount * $subItem->price)]);
+        }
         $BillDetail = BillDetail::where('sub_item_id',$request->sub_item_id)->where('bill_id',$request->bill_id)->first();
         if ($BillDetail){
             $newAmount = $BillDetail->amount + $request->amount;
             $detail = $BillDetail->fill(['amount'=>$newAmount,'price'=>$subItem->price,'total'=>($newAmount * $subItem->price)])->save();
         }else{
             $detail = BillDetail::create($request->all());
+        }
+        if ($taxPercent != null && $taxPercent > 0) {
+            $bill->update(['tax' => ($bill->total * ($taxPercent / 100)), 'tax_type' => $taxName]);
         }
 //        toast('تم اضافة القيد بنجاح','success');
         return redirect()->back();

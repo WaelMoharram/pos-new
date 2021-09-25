@@ -15,7 +15,7 @@ class CreateBillDetailsTable extends Migration {
 			$table->bigInteger('sub_item_id');
 			$table->decimal('amount');
 			$table->decimal('price')->nullable();
-			$table->decimal('total')->nullable();
+			$table->decimal('total',10,2)->nullable();
 			$table->bigInteger('bill_id');
 		});
 	}

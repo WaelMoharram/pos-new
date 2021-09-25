@@ -27,11 +27,13 @@ class ItemOptionController extends Controller
      */
     public function index(Request $request)
     {
+        $item = Item::find($request->item_id);
+        $canNotMakeActions =  $item->is_final_options;
         $options = ItemOption::where('item_id',$request->item_id)->get();
         $optiondIDs = ItemOption::where('item_id',$request->item_id)->pluck('option_id');
         $forSelectOptions = Option::whereNotIn('id',$optiondIDs)->pluck('name','id');
         $itemName = optional(Item::find($request->item_id))->name;
-        return view('dashboard.item-options.index',compact('options','itemName','forSelectOptions'));
+        return view('dashboard.item-options.index',compact('options','itemName','forSelectOptions','canNotMakeActions'));
     }
 
     /**

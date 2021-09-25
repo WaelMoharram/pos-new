@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ItemRequest;
 use App\Models\Item;
+use App\Models\SubItem;
 
 class ItemController extends Controller
 {
@@ -54,6 +55,12 @@ class ItemController extends Controller
             $request->files->remove('image');
         }
         $item = Item::create($requests);
+
+        if ($request->has_options == 0){
+            $subItem = SubItem::create([
+                'amount'=>0, 'barcode'=>'', 'note'=>'', 'item_id'=>$item->id, 'price'=>$item->price ,'buy_price'=>$item->buy_price
+            ]);
+        }
 
         toast('تم اضافة القيد بنجاح','success');
         return redirect(route('items.index'));

@@ -18,7 +18,7 @@ class Client extends Model
 
     public function bills()
     {
-        return $this->hasMany('App\Models\Bill');
+        return $this->morphMany('App\Models\Bill','model');
     }
 
 }

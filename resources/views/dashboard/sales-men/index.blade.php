@@ -11,7 +11,7 @@
     @php
         $heads = [
             '#',
-            'صورة المستخدم',
+            ['label' => 'صورة المستخدم', 'no-export' => true],
             'الاسم',
             ['label' => 'اسم المستخدم'],
             ['label' => 'البريد الالكترونى'],
@@ -32,7 +32,7 @@
             <tr>
                 <td>{!! $loop->index +1 !!}</td>
                 <td><img src="{!! url('/').'/'.$row->image !!}" style="width: 100px; height: 100px;"></td>
-                <td>{!! $row->name !!}</td>
+                <td><a href="{{route('sales-men.report',$row->id)}}">{!! $row->name !!}</a></td>
                 <td>{!! $row->username !!}</td>
                 <td>{!! $row->email !!}</td>
                 <td>{!! $row->mobile !!}</td>

@@ -22,6 +22,8 @@
             'رقم الفاتورة',
             'اسم المورد',
             'الاجمالى',
+            'المبلغ المسدد',
+            'المبلغ المتبقى',
             ['label' => 'اعدادات', 'no-export' => true, 'width' => 5],
         ];
 
@@ -41,9 +43,20 @@
                 <td>{!! $row->code !!}</td>
                 <td>{!! optional($row->model)->name !!}</td>
                 <td>{!! $row->total ?? 0!!}</td>
+                <td>{!! optional($row->payments)->sum('money') ?? 0!!}</td>
+                <td>{!! $row->remaining ?? 0!!}</td>
 
                 <td>
                     <nobr>
+                        @if($row->remaining > 0)
+                        @component('partials.buttons._payment_button',[
+                                        'id'=>$row->id,
+                                        'route' => route('payments.store',$row->id) ,
+                                        'tooltip' => 'دقغ',
+                                        'type'=>'cash_in'
+                                         ])
+                        @endcomponent
+                        @endif
                         @component('partials.buttons._edit_button',[
                                         'route' => route('bills.edit',$row->id) ,
                                         'tooltip' => 'تعديل',
@@ -61,6 +74,7 @@
                                         'tooltip' => 'عرض',
                                          ])
                         @endcomponent
+
 
                         @component('partials.buttons._print_button',[
                                         'route' => route('bills.print',$row->id) ,
@@ -91,7 +105,7 @@
         //moment.locale('ar');
 
         $(function() {
-            $('#date').daterangepicker({
+            $('.date').daterangepicker({
                 singleDatePicker: true,
                 "locale": {
                     "format": "YYYY-MM-DD",

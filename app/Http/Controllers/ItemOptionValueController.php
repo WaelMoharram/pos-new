@@ -51,51 +51,8 @@ class ItemOptionValueController extends Controller
      */
     public function store(Request $request)
     {
-        $forSort=[];
-        $itemOptionValue = ItemOptionValue::create($request->all());
-        //return $itemOptionValue->item_option_id;
-        $itemId= ItemOption::find($itemOptionValue->item_option_id)->item_id;
-          $itemOptions = ItemOption::where('item_id',$itemId)->get();
-           $options = $itemOptions->pluck('option_id');
-         foreach ($itemOptions as $one){
-             array_push($forSort, $one->itemOptionValues);
-         }
-$count = count($forSort);
-         $subItemsNames = '';
-        switch ($count) {
-            case 1:
-                $final = \Arr::crossJoin($forSort[0]);
-                break;
-            case 2:
-                $final = \Arr::crossJoin($forSort[0],$forSort[1]);
-                break;
-            case 3:
-                $final = \Arr::crossJoin($forSort[0],$forSort[1],$forSort[2]);
-                break;
-            case 4:
-                $final = \Arr::crossJoin($forSort[0],$forSort[1],$forSort[2],$forSort[3]);
-                break;
-            case 5:
-                $final = \Arr::crossJoin($forSort[0],$forSort[1],$forSort[2],$forSort[3],$forSort[4]);
-                break;
-        }
-foreach ($final as $f){
-    $name='';
-    $optionId ='';
-    $subItem = SubItem::create([
-        'amount'=>0, 'barcode'=>'', 'note'=>'', 'item_id'=>$itemId, 'price'=>0
-    ]);
-    foreach ($f as $fi){
-        $optionId = ItemOption::find($fi->item_option_id)->option_id;
-        OptionSubItem::create([
-            'sub_item_id'=>$subItem->id,
-            'option_id'=>$optionId,
-            'option_value'=>$fi->value
-        ]);
-    }
+        ItemOptionValue::create($request->all());
 
-
-}
 
         toast('تم اضافة القيد بنجاح','success');
         return redirect()->back();
@@ -161,5 +118,60 @@ foreach ($final as $f){
         $option->delete();
         toast('تم الحذف بنجاح','success');
         return redirect(route('item-options.index'));
+    }
+
+
+    public function finalSubmit($id){
+        $forSort=[];
+        $item = Item::find($id);
+        if ($item->is_final_options == 1){
+            toast('تم اعتماد اختيارات الصنف من قبل ','error');
+            return redirect()->back();
+        }
+        $itemOptions = ItemOption::where('item_id',$id)->get();
+        $options = $itemOptions->pluck('option_id');
+        foreach ($itemOptions as $one){
+            array_push($forSort, $one->itemOptionValues);
+        }
+        $count = count($forSort);
+        $subItemsNames = '';
+        switch ($count) {
+            case 1:
+                $final = \Arr::crossJoin($forSort[0]);
+                break;
+            case 2:
+                $final = \Arr::crossJoin($forSort[0],$forSort[1]);
+                break;
+            case 3:
+                $final = \Arr::crossJoin($forSort[0],$forSort[1],$forSort[2]);
+                break;
+            case 4:
+                $final = \Arr::crossJoin($forSort[0],$forSort[1],$forSort[2],$forSort[3]);
+                break;
+            case 5:
+                $final = \Arr::crossJoin($forSort[0],$forSort[1],$forSort[2],$forSort[3],$forSort[4]);
+                break;
+        }
+
+        foreach ($final as $f){
+
+            $name='';
+            $optionId ='';
+            $subItem = SubItem::create([
+                'amount'=>0, 'barcode'=>'', 'note'=>'', 'item_id'=>$id, 'price'=>$item->price ,'buy_price'=>$item->buy_price
+            ]);
+
+            foreach ($f as $fi){
+                $optionId = ItemOption::find($fi->item_option_id)->option_id;
+                OptionSubItem::create([
+                    'sub_item_id'=>$subItem->id,
+                    'option_id'=>$optionId,
+                    'option_value'=>$fi->value
+                ]);
+            }
+            $item->update(['is_final_options'=>1]);
+            toast('تم اعتماد اختيارات الصنف بنجاح ','success');
+            return redirect(route('items.index'));
+        }
     }
 }

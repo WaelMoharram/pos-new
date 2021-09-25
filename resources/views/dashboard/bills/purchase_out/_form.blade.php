@@ -20,12 +20,21 @@
     {{Form::select('store_id',\App\Models\Store::where('sales_man_id',null)->where('is_pos',1)->pluck('name','id') ,null,['class'=>'form-control mb-2','id'=>'store_id'])}}
     {{input_error($errors,'store_id')}}
 </div>
-{{-- ############# Bill Code #############--}}
-<div class="form-group py-1 col-md-6">
-    <label for="code"> رقم الفاتورة  </label>
-    {{Form::text('code',null,['class'=>'form-control mb-2','id'=>'code'])}}
-    {{input_error($errors,'code')}}
-</div>
+@if(auth()->user()->type == 'admin')
+    {{-- ############# discount  #############--}}
+    <div class="form-group py-1 col-md-6">
+        <label for="discount">  الخصم ان وجد  </label>
+        {{Form::text('discount',null,['class'=>'form-control mb-2','id'=>'discount'])}}
+        {{input_error($errors,'discount')}}
+    </div>
+
+    {{-- ############# discount type #############--}}
+    <div class="form-group py-1 col-md-6">
+        <label for="discount_type"> اسم الخصم ان وجد  </label>
+        {{Form::text('discount_type',null,['class'=>'form-control mb-2','id'=>'discount_type'])}}
+        {{input_error($errors,'discount_type')}}
+    </div>
+@endif
 {{-- ############# Bill Notes #############--}}
 <div class="form-group py-1 col-md-12">
     <label for="note"> ملاحظات على الفاتورة  </label>

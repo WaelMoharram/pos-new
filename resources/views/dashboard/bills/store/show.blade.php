@@ -66,6 +66,9 @@
                         <th>#</th>
                         <th>الصنف</th>
                         <th>الكمية</th>
+                        <th>سعر الوحدة</th>
+
+                        <th>الاجمالى</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -77,9 +80,26 @@
                                 {{$detail->amount}}
                             </td>
 
+                            <td>
+                                {{$detail->total/$detail->amount}}
+                            </td>
+                            <td>
+                                {{$detail->total}}
+                            </td>
+
 
                         </tr>
                     @endforeach
+                    <tr>
+                        <td>#</td>
+                        <td colspan="3">الاجمالى</td>
+
+                        <td>
+                            {{$details->sum('total')}}
+                        </td>
+
+
+                    </tr>
                     </tbody>
                 </table>
             </div>

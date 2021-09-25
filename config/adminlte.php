@@ -335,8 +335,14 @@ return [
                     'icon'    => 'fas fa-fw fa-eye',
                 ],
                 [
+                    'text' => 'النقل بين المخازن أو المندوبين',
+                    'can'     =>'is_admin',
+                    'route'  => ['bills.index', ['type' => 'store']],
+                    'icon'    => 'fas fa-fw fa-store',
+                ],
+                [
                     'text'    => 'التصنيفات',
-                    'icon'    => 'fas fa-fw fa-folder',
+//                    'icon'    => 'fas fa-fw fa-folder',
                     'submenu' => [
                         [
                             'text' => 'عرض الكل',
@@ -353,7 +359,7 @@ return [
                 ],
                 [
                     'text'    => 'العلامات التجارية',
-                    'icon'    => 'fas fa-fw fa-folder',
+//                    'icon'    => 'fas fa-fw fa-folder',
                     'submenu' => [
                         [
                             'text' => 'عرض الكل',
@@ -370,7 +376,7 @@ return [
                 ],
                 [
                     'text'    => 'اختيارات الاصناف',
-                    'icon'    => 'fas fa-fw fa-folder',
+//                    'icon'    => 'fas fa-fw fa-folder',
                     'submenu' => [
                         [
                             'text' => 'عرض الكل',
@@ -387,7 +393,7 @@ return [
                 ],
                 [
                     'text'    => ' الاصناف',
-                    'icon'    => 'fas fa-fw fa-folder',
+//                    'icon'    => 'fas fa-fw fa-folder',
                     'submenu' => [
                         [
                             'text' => 'عرض الكل',
@@ -434,7 +440,7 @@ return [
                 ],
 
                 [
-                    'text' => 'عرض فواتير المرتجهات',
+                    'text' => 'عرض فواتير المرتجعات',
                     'route'  => ['bills.index', ['type' => 'purchase_out']],
                     'icon'    => 'fas fa-fw fa-eye',
                 ],
@@ -496,10 +502,14 @@ return [
             ],
         ],
         [
-            'text' => 'النقل بين المخازن أو المندوبين',
-            'can'     =>'is_admin',
-            'route'  => ['bills.index', ['type' => 'store']],
-            'icon'    => 'fas fa-fw fa-store',
+            'text'       => 'عمليات السداد',
+            'icon'    => 'fas fa-fw fa-money-bill',
+            'url'        => 'dashboard/payments',
+        ],
+        [
+            'text'       => 'الاعدادات',
+            'icon'    => 'fas fa-fw fa-cogs',
+            'url'        => 'dashboard/system-options',
         ],
 //        ['header' => 'الاكثر استخداما'],
 //        [

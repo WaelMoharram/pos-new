@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SupplierRequest;
+use App\Models\Client;
 use App\Models\Supplier;
 
 class SupplierController extends Controller
@@ -66,6 +67,21 @@ class SupplierController extends Controller
         $supplier = Supplier::findOrFail($id);
 
         return view('dashboard.suppliers.show',compact('supplier'));
+    }
+
+    public function report($id)
+    {
+        $supplier = Supplier::findOrFail($id);
+        $bills = $supplier->bills;
+
+        $billsIn = $supplier->bills->where('type','purchase_in')->where('status','saved')->sum('total');
+        $billsOut = $supplier->bills->where('type','purchase_out')->where('status','saved')->sum('total');
+        $cashIn = $supplier->bills->where('type','cash_in')->sum('money');
+        $cashOut = $supplier->bills->where('type','cash_out')->sum('money');
+
+        $total =  $billsIn - $billsOut -$cashOut + $cashIn;
+
+        return view('dashboard.suppliers.report',compact('supplier','bills','total'));
     }
 
     /**

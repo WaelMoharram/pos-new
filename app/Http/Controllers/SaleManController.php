@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Models\Bill;
 use App\Models\Store;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -81,6 +82,21 @@ class SaleManController extends Controller
         $user = User::findOrFail($id);
         $store = $user->store;
         return view('dashboard.sales-men.show',compact('user','store'));
+    }
+
+    public function report($id)
+    {
+        $user = User::findOrFail($id);
+        $payments = Bill::where('sales_man_id',$id)->whereIn('type',['cash_in','cash_out'])->get();
+        return view('dashboard.sales-men.report',compact('user','payments'));
+    }
+
+    public function collect($id)
+    {
+        $user = User::findOrFail($id);
+        $payments = Bill::where('sales_man_id',$id)->whereIn('type',['cash_in','cash_out'])->where('money_collected',0);
+        $payments->update(['money_collected'=>1,'collected_at'=>date('Y-m-d H:i:s')]);
+        return  redirect()->back();
     }
 
     /**

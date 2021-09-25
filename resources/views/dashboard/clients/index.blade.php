@@ -28,7 +28,7 @@
         @foreach($clients as $row)
             <tr>
                 <td>{!! $loop->index +1 !!}</td>
-                <td>{!! $row->name !!}</td>
+                <td><a href="{{route('clients.report',$row->id)}}">{!! $row->name !!}</a></td>
                 <td>{!! $row->phone !!}</td>
                 <td>{!! $row->address !!}</td>
                 <td>
