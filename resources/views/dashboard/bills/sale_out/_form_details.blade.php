@@ -1,4 +1,12 @@
 <input type="hidden" name="bill_id" value="{{$bill->id}}">
+
+<div class="form-group  col-md-12">
+    <label for="barcode"> باركود  </label>
+    {{Form::text('barcode',null,['class'=>'form-control mb-2','id'=>'barcode'])}}
+    {{input_error($errors,'barcode')}}
+</div>
+
+
 {{-- ############# Supplier #############--}}
 <div class="form-group col-md-12">
     <label for="sub_item_id"> اختر الصنف </label>

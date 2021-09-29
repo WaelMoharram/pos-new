@@ -18,6 +18,7 @@
         $heads = [
             '#',
             'العملية',
+            'التاريخ',
             ['label' => 'له'],
             ['label' => 'عليه'],
             ['label' => 'نوع العملية'],
@@ -37,6 +38,7 @@
             <tr>
                 <td>{!! $loop->index +1 !!}</td>
                 <td>فاتورة بيع رقم #{!! $row->code !!}</td>
+                <td>{!! $row->date !!}</td>
                 <td>0</td>
                 <td>{!! $row->total !!}</td>
                 <td>{!! $row->type_name !!}</td>
@@ -46,6 +48,8 @@
                 <tr>
                     <td>{!! $loop->index +1 !!}</td>
                     <td>فاتورة مرتجع رقم #{!! $row->code !!}</td>
+                    <td>{!! $row->date !!}</td>
+
                     <td>{!! $row->total !!}</td>
                     <td>0</td>
                     <td>{!! $row->type_name !!}</td>
@@ -55,7 +59,8 @@
             @if($row->type == 'cash_in')
                 <tr>
                     <td>{!! $loop->index +1 !!}</td>
-                    <td>سداد للفاتورة رقم #{!! optional($row->bill)->code !!}</td>
+                    <td>سداد للفاتورة رقم #{!! optional($row->bill)->code !!}</td>                <td>{!! $row->date !!}</td>
+
                     <td>{!! $row->money !!}</td>
                     <td>0</td>
                     <td>{!! $row->type_name !!}</td>
@@ -64,7 +69,8 @@
             @if($row->type == 'cash_out')
                 <tr>
                     <td>{!! $loop->index +1 !!}</td>
-                    <td>سداد للمرتجع رقم #{!! optional($row->bill)->code !!}</td>
+                    <td>سداد للمرتجع رقم #{!! optional($row->bill)->code !!}</td>                <td>{!! $row->date !!}</td>
+
                     <td>0</td>
                     <td>{!! $row->money !!}</td>
                     <td>{!! $row->type_name !!}</td>

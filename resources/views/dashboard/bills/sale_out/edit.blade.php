@@ -9,7 +9,7 @@
 @section('content')
 
     {{-- ########## Main section ########## --}}
-    <div class="card col-md-12 {{--collapsed-card--}}">
+    <div class="card col-md-12 collapsed-card">
         <div class="card-header">
             <h3 class="card-title">{{$bill->code}} - {{$bill->model->name}} - {{$bill->store->name}} - {{$bill->total}}</h3>
             <div class="card-tools">
