@@ -14,7 +14,7 @@ class SubItem extends Model
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
-    protected $fillable = array('amount', 'barcode', 'note', 'item_id', 'price','buy_price');
+    protected $fillable = array('amount', 'barcode', 'note', 'item_id', 'price','buy_price','min_amount');
     protected $appends = ['name'];
     public function options()
     {

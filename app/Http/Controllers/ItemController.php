@@ -110,6 +110,8 @@ class ItemController extends Controller
             $request->files->remove('image');
         }
         $item->fill($requests)->save();
+        $items = SubItem::where('item_id',$id);
+        $items->update(['price'=>$request->price,'buy_price'=>$request->buy_price]);
         toast('تم التعديل بنجاح ','success');
         return redirect(route('items.index'));
     }

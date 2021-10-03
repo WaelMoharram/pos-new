@@ -51,8 +51,13 @@ class ItemOptionValueController extends Controller
      */
     public function store(Request $request)
     {
-        ItemOptionValue::create($request->all());
 
+        $itemOptionValueCount = ItemOptionValue::where('item_option_id',$request->item_option_id)->where('value',$request->value)->count();
+        if ($itemOptionValueCount >0){
+            toast('القيمة موجودة من قبل','error');
+            return redirect()->back();
+        }
+        ItemOptionValue::create($request->all());
 
         toast('تم اضافة القيد بنجاح','success');
         return redirect()->back();
@@ -133,6 +138,8 @@ class ItemOptionValueController extends Controller
         foreach ($itemOptions as $one){
             array_push($forSort, $one->itemOptionValues);
         }
+
+
         $count = count($forSort);
         $subItemsNames = '';
         switch ($count) {
@@ -152,7 +159,6 @@ class ItemOptionValueController extends Controller
                 $final = \Arr::crossJoin($forSort[0],$forSort[1],$forSort[2],$forSort[3],$forSort[4]);
                 break;
         }
-
         foreach ($final as $f){
 
             $name='';
@@ -170,8 +176,9 @@ class ItemOptionValueController extends Controller
                 ]);
             }
             $item->update(['is_final_options'=>1]);
-            toast('تم اعتماد اختيارات الصنف بنجاح ','success');
-            return redirect(route('items.index'));
+
         }
+        toast('تم اعتماد اختيارات الصنف بنجاح ','success');
+        return redirect(route('items.index'));
     }
 }

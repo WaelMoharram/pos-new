@@ -6,6 +6,7 @@ use App\Http\Requests\ItemOptionRequest;
 use App\Models\Item;
 use App\Models\ItemOption;
 use App\Models\Option;
+use App\Models\SubItem;
 use Illuminate\Http\Request;
 
 class ItemOptionController extends Controller
@@ -33,7 +34,8 @@ class ItemOptionController extends Controller
         $optiondIDs = ItemOption::where('item_id',$request->item_id)->pluck('option_id');
         $forSelectOptions = Option::whereNotIn('id',$optiondIDs)->pluck('name','id');
         $itemName = optional(Item::find($request->item_id))->name;
-        return view('dashboard.item-options.index',compact('options','itemName','forSelectOptions','canNotMakeActions'));
+        $subItems = SubItem::where('item_id',$request->item_id)->get();
+        return view('dashboard.item-options.index',compact('options','itemName','forSelectOptions','canNotMakeActions','subItems'));
     }
 
     /**
@@ -122,5 +124,22 @@ class ItemOptionController extends Controller
         $option->delete();
         toast('تم الحذف بنجاح','success');
         return redirect(route('item-options.index',['item_id'=>$itemID]));
+    }
+
+    public function editSubItem($id){
+
+        $subItem = SubItem::find($id);
+
+        return view('dashboard.item-options.edit-sub-item',compact('subItem'));
+
+    }
+
+    public function saveSubItem($id,Request$request){
+
+        $subItem = SubItem::find($id);
+
+        $subItem->update($request->all());
+        return redirect(route('item-options.index',['item_id'=>$subItem->item_id]));
+
     }
 }

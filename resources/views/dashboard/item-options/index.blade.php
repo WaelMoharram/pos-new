@@ -8,27 +8,28 @@
 
 @section('content')
     {{-- Setup data for datatables --}}
-    @php
-        $heads = [
-            '#',
-            'الاسم',
-            'القيم المتاحة',
-            ['label' => 'اعدادات', 'no-export' => true, 'width' => 5],
-        ];
+
+    @if($canNotMakeActions == 0)
+        @php
+            $heads = [
+                '#',
+                'الاسم',
+                'القيم المتاحة',
+                ['label' => 'اعدادات', 'no-export' => true, 'width' => 5],
+            ];
 
 
-        $config = [
-            'order' => [[1, 'asc']],
-            'columns' => [null, null, null, ['orderable' => false]],
-        ];
-    @endphp
-
+            $config = [
+                'order' => [[1, 'asc']],
+                'columns' => [null, null, null, ['orderable' => false]],
+            ];
+        @endphp
     <div class="card">
         <div class="card-header">
 
             <div class="card-tools">
                 <ul class="nav nav-pills ml-auto" dir="rtl">
-                    @if($canNotMakeActions == 0)
+
 
                     <li class="nav-item">
                         @component('partials.buttons._add_option_button',[
@@ -47,12 +48,12 @@
                                                      ])
                         @endcomponent
                     </li>
-                        @endif
+
                 </ul>
             </div>
         </div><!-- /.card-header -->
         <div class="card-body">
-            <div class="tab-content p-0">
+
                 {{-- Minimal example / fill data using the component slot --}}
                 <x-adminlte-datatable id="table1" :heads="$heads" striped hoverable with-buttons>
                     @foreach($options as $row)
@@ -86,12 +87,53 @@
                 </x-adminlte-datatable>
 
 
-            </div>
+
         </div><!-- /.card-body -->
     </div>
 
 
+@else
+        @php
+            $heads = [
+                '#',
+                'الاسم',
+                'الباركود',
+                'اقل عدد مسموح به',
+                ['label' => 'اعدادات', 'no-export' => true, 'width' => 5],
+            ];
 
+
+            $config = [
+                'order' => [[1, 'asc']],
+                'columns' => [null, null, null, ['orderable' => false]],
+            ];
+        @endphp
+
+        {{-- Minimal example / fill data using the component slot --}}
+        <x-adminlte-datatable id="table1" :heads="$heads" striped hoverable with-buttons>
+            @foreach($subItems as $row)
+                <tr>
+                    <td>{!! $loop->index +1 !!}</td>
+                    <td>{!! $row->name !!}</td>
+                    <td>{!! $row->barcode !!}</td>
+                    <td>{!! $row->min_amount !!}</td>
+
+                    <td>
+                        <nobr>
+
+                                @component('partials.buttons._edit_button',[
+                                                'id'=>$row->id,
+                                                'route' => route('item-options.edit-sub-item',$row->id) ,
+                                                'tooltip' => 'edit',
+                                                 ])
+                                @endcomponent
+
+                        </nobr>
+                    </td>
+                </tr>
+            @endforeach
+        </x-adminlte-datatable>
+    @endif
 
 
 
