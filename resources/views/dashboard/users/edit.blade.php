@@ -7,7 +7,15 @@
 @stop
 
 @section('content')
-
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     {!! Form::model($user,['method'=>'put','route'=>['users.update',$user->id],'class'=>'form','enctype' => 'multipart/form-data']  ) !!}
     @csrf()
     <div class="row">
