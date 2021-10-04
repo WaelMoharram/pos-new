@@ -41,7 +41,7 @@ class UserController extends Controller
     public function create()
     {
         $user=new User();
-        $permissions = Permission::pluck('name', 'id');
+        $permissions = Permission::pluck('name', 'name');
 
         return view('dashboard.users.create',compact('user','permissions'));
     }
@@ -90,7 +90,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        $permissions = Permission::pluck('name', 'id');
+        $permissions = Permission::pluck('name', 'name');
 
         return view('dashboard.users.edit',compact('user','permissions'));
     }
