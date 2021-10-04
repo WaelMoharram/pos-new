@@ -104,7 +104,7 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, $id)
     {
-        return $request->permissions;
+        //return $request->permissions;
 
         $requests=$request->except('permissions');
         if ($request->hasFile('image')) {
