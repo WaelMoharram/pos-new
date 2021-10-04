@@ -41,7 +41,7 @@ class UserController extends Controller
     public function create()
     {
         $user=new User();
-        $permissions = Permission::pluck('name', 'name');
+        $permissions = Permission::pluck('name', 'id');
 
         return view('dashboard.users.create',compact('user','permissions'));
     }
