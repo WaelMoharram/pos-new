@@ -23,6 +23,10 @@
 @stop
 
 @section('js')
-
+    <script>
+        $('.select2').select2({
+            dir:'rtl',
+        });
+    </script>
     @include('sweetalert::alert')
 @stop

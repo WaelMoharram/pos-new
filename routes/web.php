@@ -29,7 +29,7 @@ use App\Http\Controllers\PaymentController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 Route::group(['middleware' => 'auth:web','prefix'=>'dashboard'], function () {

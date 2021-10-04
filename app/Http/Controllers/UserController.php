@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
@@ -40,7 +41,9 @@ class UserController extends Controller
     public function create()
     {
         $user=new User();
-        return view('dashboard.users.create',compact('user'));
+        $permissions = Permission::pluck('name', 'id');
+
+        return view('dashboard.users.create',compact('user','permissions'));
     }
 
     /**
@@ -51,7 +54,7 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        $requests=$request->all();
+        $requests=$request->except('permissions');
         $requests['type']='admin';
         if ($request->hasFile('image')) {
             $requests['image'] = saveImage($request->image, 'images');
@@ -59,6 +62,7 @@ class UserController extends Controller
         }
         $requests['password']=Hash::make($request->password);
         $user = User::create($requests);
+        $user->syncPermissions($request->permissions);
 
         toast('تم اضافة القيد بنجاح','success');
         return redirect(route('users.index'));
@@ -86,8 +90,9 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
+        $permissions = Permission::pluck('name', 'id');
 
-        return view('dashboard.users.edit',compact('user'));
+        return view('dashboard.users.edit',compact('user','permissions'));
     }
 
     /**
