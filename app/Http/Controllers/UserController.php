@@ -90,7 +90,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        $permissions = Permission::pluck('name', 'name');
+        $permissions = Permission::pluck('name', 'id');
 
         return view('dashboard.users.edit',compact('user','permissions'));
     }
