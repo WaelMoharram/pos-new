@@ -9,11 +9,13 @@
 @section('content')
     {{-- Setup data for datatables --}}
     @if(request()->type == 'purchase_in')
+        @can('add purchases')
     @component('partials.buttons._add_purchase_bill_button',[
                                             'route' => route('bills.store',['type'=>'purchase_in']) ,
                                             'tooltip' => 'اضافة',
                                              ])
     @endcomponent
+            @endcan
     @endif
     @php
         $heads = [
@@ -48,6 +50,7 @@
 
                 <td>
                     <nobr>@if($row->remaining > 0)
+                              @can('add payments')
                             @component('partials.buttons._payment_button',[
                                             'id'=>$row->id,
                                             'route' => route('payments.store',$row->id) ,
@@ -55,18 +58,24 @@
                                             'type'=>'cash_out'
                                              ])
                             @endcomponent
+                                  @endcan
                         @endif
+                        @can('edit purchases')
                         @component('partials.buttons._edit_button',[
                                         'route' => route('bills.edit',$row->id) ,
                                         'tooltip' => 'تعديل',
                                          ])
                         @endcomponent
+                        @endcan
+                        @can('delete purchases')
                         @component('partials.buttons._delete_button',[
                                         'id'=>$row->id,
                                         'route' => route('bills.destroy',$row->id) ,
                                         'tooltip' => 'حذف',
                                          ])
                         @endcomponent
+                        @endcan
+
 
                         @component('partials.buttons._show_button',[
                                         'route' => route('bills.show',$row->id) ,

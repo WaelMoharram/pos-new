@@ -9,11 +9,13 @@
 @section('content')
     {{-- Setup data for datatables --}}
     @if(request()->type == 'sale_out')
+        @can('add sales')
     @component('partials.buttons._add_sale_bill_button',[
                                             'route' => route('bills.store',['type'=>'sale_out']) ,
                                             'tooltip' => 'اضافة',
                                              ])
     @endcomponent
+            @endcan
     @endif
     @php
         $heads = [
@@ -49,6 +51,7 @@
                 <td>
                     <nobr>
                         @if($row->remaining > 0)
+                            @can('add payments')
                         @component('partials.buttons._payment_button',[
                                         'id'=>$row->id,
                                         'route' => route('payments.store',$row->id) ,
@@ -56,19 +59,23 @@
                                         'type'=>'cash_in'
                                          ])
                         @endcomponent
+                                @endcan
                         @endif
+                            @can('edit sales')
                         @component('partials.buttons._edit_button',[
                                         'route' => route('bills.edit',$row->id) ,
                                         'tooltip' => 'تعديل',
                                          ])
                         @endcomponent
+                            @endcan
+                            @can('delete sales')
                         @component('partials.buttons._delete_button',[
                                         'id'=>$row->id,
                                         'route' => route('bills.destroy',$row->id) ,
                                         'tooltip' => 'حذف',
                                          ])
                         @endcomponent
-
+@endcan
                         @component('partials.buttons._show_button',[
                                         'route' => route('bills.show',$row->id) ,
                                         'tooltip' => 'عرض',

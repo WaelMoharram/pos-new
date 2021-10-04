@@ -269,6 +269,7 @@ return [
                     'text' => 'عرض الكل',
                     'url'  => 'dashboard/users',
                     'icon'    => 'fas fa-fw fa-eye',
+                    'can' =>'index users'
                 ],
 //                [
 //                    'text'    => 'level_one',
@@ -298,6 +299,7 @@ return [
                     'text' => 'مستخدم جديد',
                     'url'  => 'dashboard/users/create',
                     'icon'    => 'fas fa-fw fa-plus',
+                    'can' =>'add users'
                 ],
             ],
         ],
@@ -310,12 +312,14 @@ return [
                     'text' => 'عرض الكل',
                     'url'  => 'dashboard/sales-men',
                     'icon'    => 'fas fa-fw fa-eye',
+                    'can' =>'index sales_men'
                 ],
 
                 [
                     'text' => 'مندوب جديد',
                     'url'  => 'dashboard/sales-men/create',
                     'icon'    => 'fas fa-fw fa-plus',
+                    'can' =>'add sales_men'
                 ],
             ],
         ],
@@ -328,83 +332,97 @@ return [
                     'text' => 'اضافة مخزن جديد',
                     'url'  => 'dashboard/stores/create',
                     'icon'    => 'fas fa-fw fa-plus',
+                    'can' =>'add stores'
                 ],
                 [
                     'text' => 'عرض المخازن',
                     'url'  => 'dashboard/stores',
                     'icon'    => 'fas fa-fw fa-eye',
+                    'can' =>'show stores'
                 ],
                 [
                     'text' => 'النقل بين المخازن أو المندوبين',
-                    'can'     =>'is_admin',
+                    'can'     =>['is_admin', 'index transfer'],
                     'route'  => ['bills.index', ['type' => 'store']],
                     'icon'    => 'fas fa-fw fa-store',
                 ],
                 [
                     'text'    => 'التصنيفات',
 //                    'icon'    => 'fas fa-fw fa-folder',
+                    'can' =>'index categories',
                     'submenu' => [
                         [
                             'text' => 'عرض الكل',
                             'url'  => 'dashboard/categories',
                             'icon'    => 'fas fa-fw fa-eye',
+                            'can' =>'index categories',
                         ],
 
                         [
                             'text' => 'تصنيف جديد',
                             'url'  => 'dashboard/categories/create',
                             'icon'    => 'fas fa-fw fa-plus',
+                            'can' =>'add categories',
                         ],
                     ],
                 ],
                 [
                     'text'    => 'العلامات التجارية',
 //                    'icon'    => 'fas fa-fw fa-folder',
+                    'can' =>'index brands',
                     'submenu' => [
                         [
                             'text' => 'عرض الكل',
                             'url'  => 'dashboard/brands',
                             'icon'    => 'fas fa-fw fa-eye',
+                            'can' =>'index brands',
                         ],
 
                         [
                             'text' => 'علامة جديدة',
                             'url'  => 'dashboard/brands/create',
                             'icon'    => 'fas fa-fw fa-plus',
+                            'can' =>'add brands',
                         ],
                     ],
                 ],
                 [
                     'text'    => 'اختيارات الاصناف',
 //                    'icon'    => 'fas fa-fw fa-folder',
+                    'can' =>'index options',
                     'submenu' => [
                         [
                             'text' => 'عرض الكل',
                             'url'  => 'dashboard/options',
                             'icon'    => 'fas fa-fw fa-eye',
+                            'can' =>'index options',
                         ],
 
                         [
                             'text' => 'اختيار جديد',
                             'url'  => 'dashboard/options/create',
                             'icon'    => 'fas fa-fw fa-plus',
+                            'can' =>'add options',
                         ],
                     ],
                 ],
                 [
                     'text'    => ' الاصناف',
 //                    'icon'    => 'fas fa-fw fa-folder',
+                    'can' =>'index items',
                     'submenu' => [
                         [
                             'text' => 'عرض الكل',
                             'url'  => 'dashboard/items',
                             'icon'    => 'fas fa-fw fa-eye',
+                            'can' =>'index items',
                         ],
 
                         [
                             'text' => 'صنف جديد',
                             'url'  => 'dashboard/items/create',
                             'icon'    => 'fas fa-fw fa-plus',
+                            'can' =>'add items',
                         ],
                     ],
                 ],
@@ -431,18 +449,21 @@ return [
         [
             'text'    => 'التوريد',
             'icon'    => 'fas fa-fw fa-folder',
-            'can'     =>'is_admin',
+            'can'     =>['is_admin'],
             'submenu' => [
                 [
                     'text' => 'عرض فواتير التوريد',
                     'route'  => ['bills.index', ['type' => 'purchase_in']],
                     'icon'    => 'fas fa-fw fa-eye',
+                    'can' =>'index purchases',
+
                 ],
 
                 [
                     'text' => 'عرض فواتير المرتجعات',
                     'route'  => ['bills.index', ['type' => 'purchase_out']],
                     'icon'    => 'fas fa-fw fa-eye',
+                    'can' =>'index purchases-return',
                 ],
                 [
                     'text'    => 'الموردون',
@@ -452,12 +473,14 @@ return [
                             'text' => 'عرض الكل',
                             'url'  => 'dashboard/suppliers',
                             'icon'    => 'fas fa-fw fa-eye',
+                            'can' =>'index suppliers',
                         ],
 
                         [
                             'text' => 'مورد جديد',
                             'url'  => 'dashboard/suppliers/create',
                             'icon'    => 'fas fa-fw fa-plus',
+                            'can' =>'add suppliers',
                         ],
                     ],
                 ],
@@ -474,12 +497,14 @@ return [
                     'text' => 'عرض فواتير المبيعات',
                     'route'  => ['bills.index', ['type' => 'sale_out']],
                     'icon'    => 'fas fa-fw fa-eye',
+                    'can' =>'index sales',
                 ],
 
                 [
                     'text' => 'عرض فواتير المرتجعات',
                     'route'  => ['bills.index', ['type' => 'sale_in']],
                     'icon'    => 'fas fa-fw fa-eye',
+                    'can' =>'index sales-return',
                 ],
                 [
                     'text'    => 'العملاء',
@@ -489,12 +514,14 @@ return [
                             'text' => 'عرض الكل',
                             'url'  => 'dashboard/clients',
                             'icon'    => 'fas fa-fw fa-eye',
+                            'can' =>'index client',
                         ],
 
                         [
                             'text' => 'عميل جديد',
                             'url'  => 'dashboard/clients/create',
                             'icon'    => 'fas fa-fw fa-plus',
+                            'can' =>'add client',
                         ],
                     ],
                 ],
@@ -505,11 +532,13 @@ return [
             'text'       => 'عمليات السداد',
             'icon'    => 'fas fa-fw fa-money-bill',
             'url'        => 'dashboard/payments',
+            'can' =>'index payments',
         ],
         [
             'text'       => 'الاعدادات',
             'icon'    => 'fas fa-fw fa-cogs',
             'url'        => 'dashboard/system-options',
+            'can' =>'delete settings',
         ],
 //        ['header' => 'الاكثر استخداما'],
 //        [
