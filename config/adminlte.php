@@ -269,7 +269,7 @@ return [
                     'text' => 'عرض الكل',
                     'url'  => 'dashboard/users',
                     'icon'    => 'fas fa-fw fa-eye',
-                    //'can' =>'index users'
+                    'can' =>'index users'
                 ],
 //                [
 //                    'text'    => 'level_one',
