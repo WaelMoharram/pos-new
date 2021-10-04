@@ -117,6 +117,7 @@ class UserController extends Controller
         }
         $user = User::find($id);
         $user->fill($requests)->save();
+        $user->syncPermissions($request->permissions);
         toast('تم التعديل بنجاح ','success');
         return redirect(route('users.index'));
     }
