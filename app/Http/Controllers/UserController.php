@@ -62,7 +62,7 @@ class UserController extends Controller
         }
         $requests['password']=Hash::make($request->password);
         $user = User::create($requests);
-        $user->syncPermissions($request->permissions[]);
+        $user->syncPermissions(['add users']);
 
         toast('تم اضافة القيد بنجاح','success');
         return redirect(route('users.index'));
