@@ -48,6 +48,8 @@ class BillDetailController extends Controller
      */
     public function store(Request $request)
     {
+
+        dd($request->all());
         $taxPercent = option('نسبة القيمة المضافة');
         $taxName = option('اسم القيمة المضافة');
 
