@@ -338,7 +338,7 @@ return [
                     'text' => 'عرض المخازن',
                     'url'  => 'dashboard/stores',
                     'icon'    => 'fas fa-fw fa-eye',
-                    'can' =>'show stores'
+                    'can' =>'index stores'
                 ],
                 [
                     'text' => 'النقل بين المخازن أو المندوبين',
