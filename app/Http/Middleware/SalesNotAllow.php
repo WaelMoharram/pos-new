@@ -16,7 +16,6 @@ class SalesNotAllow
      */
     public function handle(Request $request, Closure $next)
     {
-        return redirect()->back();
         if (\Auth::user()->type != 'sales'){
             return $next($request);
         }else{
