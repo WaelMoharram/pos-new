@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-
+@if($onLineCount > 1)
     <div class="col-lg-12 col-12">
         <!-- small box -->
         <div class="small-box bg-warning">
@@ -22,7 +22,8 @@
             <a href="#" class="small-box-footer">عرض <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
-
+@endif
+@if($underLineCount > 1)
     <div class="col-lg-12 col-12">
         <!-- small box -->
         <div class="small-box bg-danger">
@@ -37,6 +38,7 @@
             <a href="#" class="small-box-footer">عرض <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
+@endif
     <p>أخر عمليات المندوبين  <span style="color:#e74848;">مباشر</span> </p>
     <div class="row">
 
