@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SubItem;
+use Illuminate\Http\Client\Request;
 
 class HomeController extends Controller
 {
@@ -36,6 +37,20 @@ class HomeController extends Controller
         }
 
         return view('dashboard-sales');
+
+    }
+
+    public function items(Request $request){
+        $items = SubItem::where(function ($q) use ($request){
+           if ($request->type = 'same'){
+               $q->whereRaw('amount = min_amount');
+           }
+            if ($request->type = 'under'){
+                $q->whereRaw('amount < min_amount');
+            }
+        })->get();
+
+        return view('items',compact('items',));
 
     }
 

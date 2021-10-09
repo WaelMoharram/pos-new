@@ -77,6 +77,9 @@ Route::group(['middleware' => 'auth:web','prefix'=>'dashboard'], function () {
     Route::get('item-option/edit-sub-item/{id}',[ItemOptionController::class, 'editSubItem'])->name('item-options.edit-sub-item');
 
     Route::put('item-option/edit-sub-item/{id}',[ItemOptionController::class, 'saveSubItem'])->name('item-options.save-sub-item');
+
+    Route::get('alert-items',[HomeController::class, 'items'])->name('stores.all');
+
 });
 
 require __DIR__.'/auth.php';
