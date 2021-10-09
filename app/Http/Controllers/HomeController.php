@@ -41,16 +41,15 @@ class HomeController extends Controller
     }
 
     public function items(Request $request){
-        $items = SubItem::where(function ($q) use ($request){
+        $items=null;
            if ($request->type = 'same'){
-               $q->whereRaw('amount = min_amount');
+               $items = SubItem::whereRaw('amount = min_amount')->get();
            }
             if ($request->type = 'under'){
-                $q->whereRaw('amount < min_amount');
+                $items = SubItem::whereRaw('amount < min_amount')->get();
             }
-        })->get();
 
-        return view('items',compact('items',));
+        return view('items',compact('items'));
 
     }
 
