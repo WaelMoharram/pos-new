@@ -53,7 +53,7 @@ class SaleManController extends Controller
      */
     public function store(UserRequest $request)
     {
-        $requests=$request->all();
+        $requests=$request->except('permissions');
         $requests['type']='sales';
         if ($request->hasFile('image')) {
             $requests['image'] = saveImage($request->image, 'images');
@@ -67,6 +67,9 @@ class SaleManController extends Controller
             'sales_man_id'=>$user->id,
             'is_pos'=>1
         ]);
+
+        $user->syncPermissions($request->permissions);
+
         toast('تم اضافة القيد بنجاح','success');
         return redirect(route('sales-men.index'));
     }
@@ -121,7 +124,7 @@ class SaleManController extends Controller
      */
     public function update(UserRequest $request, $id)
     {
-        $requests=$request->except('role');
+        $requests=$request->except('permissions');
         if ($request->hasFile('image')) {
 
             $requests['image'] = saveImage($request->image, 'images');
@@ -134,6 +137,8 @@ class SaleManController extends Controller
         }
         $user = User::find($id);
         $user->fill($requests)->save();
+        $user->syncPermissions($request->permissions);
+
         toast('تم التعديل بنجاح ','success');
         return redirect(route('sales-men.index'));
     }
