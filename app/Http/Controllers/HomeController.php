@@ -42,10 +42,10 @@ class HomeController extends Controller
 
     public function items(Request $request){
         $items=null;
-           if ($request->type = 'same'){
+           if ($request->type == 'same'){
                $items = SubItem::whereRaw('amount = min_amount')->get();
            }
-            if ($request->type = 'under'){
+            if ($request->type == 'under'){
                 $items = SubItem::whereRaw('amount < min_amount')->get();
             }
 
