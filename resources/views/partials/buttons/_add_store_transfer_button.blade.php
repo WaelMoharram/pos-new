@@ -45,12 +45,7 @@
                             {{Form::select('store_to_id',\App\Models\Store::pluck('name','id') ,null,['class'=>'form-control mb-2','id'=>'store_to_id'])}}
                             {{input_error($errors,'store_to_id')}}
                         </div>
-                        {{-- ############# Bill Code #############--}}
-                        <div class="form-group py-1 col-md-12">
-                            <label for="code"> رقم اذن التحويل  </label>
-                            {{Form::text('code',null,['class'=>'form-control mb-2','id'=>'code'])}}
-                            {{input_error($errors,'code')}}
-                        </div>
+
                         {{-- ############# Bill Notes #############--}}
                         <div class="form-group py-1 col-md-12">
                             <label for="note"> ملاحظات على التحويل  </label>
