@@ -109,12 +109,20 @@ class BillDetailController extends Controller
         if ($bill->type == 'purchase_in' || $bill->type == 'purchase_out' ) {
             $request->merge(['item_id' => $subItem->item_id, 'price' => $subItem->buy_price, 'total' => ($request->amount * $subItem->buy_price)]);
         }else{
-            $request->merge(['item_id' => $subItem->item_id, 'price' => $subItem->price, 'total' => ($request->amount * $subItem->price)]);
+            $price = $subItem->price;
+            if ($request->discount >0){
+                $price = $subItem->price - $request->discount;
+            }
+            $request->merge(['item_id' => $subItem->item_id, 'price' => $price, 'total' => ($request->amount * $price)]);
         }
         $BillDetail = BillDetail::where('sub_item_id',$request->sub_item_id)->where('bill_id',$request->bill_id)->first();
         if ($BillDetail){
+            $price = $subItem->price;
+            if ($request->discount >0){
+                $price = $subItem->price - $request->discount;
+            }
             $newAmount = $BillDetail->amount + $request->amount;
-            $detail = $BillDetail->fill(['amount'=>$newAmount,'price'=>$subItem->price,'total'=>($newAmount * $subItem->price)])->save();
+            $detail = $BillDetail->fill(['amount'=>$newAmount,'price'=>$price,'total'=>($newAmount * $price)])->save();
         }else{
             $detail = BillDetail::create($request->all());
         }
