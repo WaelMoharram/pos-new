@@ -12,7 +12,7 @@
         <!-- small box -->
         <div class="small-box bg-warning">
             <div class="inner">
-                <h3>44</h3>
+                <h3>{{$onLineCount}}</h3>
 
                 <p>اصناف وصلت للحد الادنى للمخزون</p>
             </div>
@@ -27,7 +27,7 @@
         <!-- small box -->
         <div class="small-box bg-danger">
             <div class="inner">
-                <h3>65</h3>
+                <h3>{{$underLineCount}}</h3>
 
                 <p>اصناف تجاوزت الحد الادنى للمخزون</p>
             </div>
