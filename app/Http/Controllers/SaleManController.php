@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
 
 class SaleManController extends Controller
 {
@@ -41,8 +42,10 @@ class SaleManController extends Controller
      */
     public function create()
     {
+        $permissions = Permission::pluck('name', 'id');
+
         $user=new User();
-        return view('dashboard.sales-men.create',compact('user'));
+        return view('dashboard.sales-men.create',compact('user','permissions'));
     }
 
     /**
@@ -110,9 +113,11 @@ class SaleManController extends Controller
      */
     public function edit($id)
     {
+        $permissions = Permission::pluck('name', 'id');
+
         $user = User::findOrFail($id);
 
-        return view('dashboard.sales-men.edit',compact('user'));
+        return view('dashboard.sales-men.edit',compact('user','permissions'));
     }
 
     /**
