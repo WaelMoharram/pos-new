@@ -27,6 +27,7 @@
     {{input_error($errors,'need_discount')}}
 </div>
 @if(auth()->user()->type == 'admin')
+    @can('discount sales')
 {{-- ############# discount  #############--}}
 <div class="form-group py-1 col-md-6">
     <label for="discount">  الخصم ان وجد  </label>
@@ -40,6 +41,7 @@
     {{Form::text('discount_type',null,['class'=>'form-control mb-2','id'=>'discount_type'])}}
     {{input_error($errors,'discount_type')}}
 </div>
+        @endcan
 @endif
 {{-- ############# Bill Notes #############--}}
 <div class="form-group py-1 col-md-12">

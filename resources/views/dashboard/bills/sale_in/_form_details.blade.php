@@ -11,7 +11,13 @@
     {{Form::text('amount',null,['class'=>'form-control mb-2','id'=>'amount'])}}
     {{input_error($errors,'amount')}}
 </div>
-
+@can('discount sales')
+    <div class="form-group  col-md-12">
+        <label for="amount"> الخصم ان وجد  </label>
+        {{Form::text('amount',0,['class'=>'form-control mb-2','id'=>'amount'])}}
+        {{input_error($errors,'amount')}}
+    </div>
+@endcan
 <div class="form-group col-md-12">
 <button type="submit" class="col-md-12 btn btn-primary mr-1 mb-1 waves-effect waves-light">اضافة</button>
 </div>
