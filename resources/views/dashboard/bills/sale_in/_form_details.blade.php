@@ -13,8 +13,8 @@
 </div>
 @can('discount sales')
     <div class="form-group  col-md-12">
-        <label for="amount"> الخصم ان وجد  </label>
-        {{Form::text('amount',0,['class'=>'form-control mb-2','id'=>'amount'])}}
+        <label for="discount"> الخصم ان وجد  </label>
+        {{Form::text('discount',0,['class'=>'form-control mb-2','id'=>'amount'])}}
         {{input_error($errors,'amount')}}
     </div>
 @endcan
