@@ -28,7 +28,10 @@ class HomeController extends Controller
         //return SubItem::all();
 
         if (auth()->user()->type == 'admin'){
-            return view('dashboard');
+
+            $onLineCount = SubItem::whereRaw('amount = min_amount')->count();
+            $underLineCount = SubItem::whereRaw('amount < min_amount')->count();
+            return view('dashboard',compact('onLineCount','underLineCount'));
 
         }
 
