@@ -78,7 +78,7 @@ Route::group(['middleware' => 'auth:web','prefix'=>'dashboard'], function () {
 
     Route::put('item-option/edit-sub-item/{id}',[ItemOptionController::class, 'saveSubItem'])->name('item-options.save-sub-item');
 
-    Route::get('alert-items',[HomeController::class, 'items'])->name('stores.all')->name('alert-items');
+    Route::get('alert-items',[HomeController::class, 'items'])->name('alert-items');
 
 });
 
