@@ -47,13 +47,13 @@
 
                 <td>
                     <nobr>
-                        @if($row->has_options == 1)
+{{--                        @if($row->has_options == 1)--}}
                             @component('partials.buttons._sub_button',[
                                             'route' => route('item-options.index',['item_id'=>$row->id]) ,
                                             'tooltip' => 'الاختيارات للصنف',
                                              ])
                             @endcomponent
-                        @endif
+{{--                        @endif--}}
                         @component('partials.buttons._edit_button',[
                                         'route' => route('items.edit',$row->id) ,
                                         'tooltip' => 'تعديل',

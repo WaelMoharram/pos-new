@@ -54,6 +54,9 @@ class ItemController extends Controller
             $requests['image'] = saveImage($request->image, 'images');
             $request->files->remove('image');
         }
+        if ($request->has_options == 0){
+            $requests['is_final_options'] =1;
+        }
         $item = Item::create($requests);
 
         if ($request->has_options == 0){
