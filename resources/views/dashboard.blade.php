@@ -19,7 +19,7 @@
             <div class="icon">
                 <i class="ion ion-person-add"></i>
             </div>
-            <a href="{{route('alert-items',['type'=>'same'])}}" class="small-box-footer">عرض <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{route('dashboard.alert-items',['type'=>'same'])}}" class="small-box-footer">عرض <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
 @endif
@@ -35,7 +35,7 @@
             <div class="icon">
                 <i class="ion ion-pie-graph"></i>
             </div>
-            <a href="{{route('alert-items',['type'=>'under'])}}" class="small-box-footer">عرض <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{route('dashboard.alert-items',['type'=>'under'])}}" class="small-box-footer">عرض <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
 @endif
