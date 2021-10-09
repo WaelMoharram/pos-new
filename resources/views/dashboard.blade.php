@@ -7,6 +7,36 @@
 @stop
 
 @section('content')
+
+    <div class="col-lg-12 col-12">
+        <!-- small box -->
+        <div class="small-box bg-warning">
+            <div class="inner">
+                <h3>44</h3>
+
+                <p>اصناف وصلت للحد الادنى للمخزون</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-person-add"></i>
+            </div>
+            <a href="#" class="small-box-footer">عرض <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+
+    <div class="col-lg-12 col-12">
+        <!-- small box -->
+        <div class="small-box bg-danger">
+            <div class="inner">
+                <h3>65</h3>
+
+                <p>اصناف تجاوزت الحد الادنى للمخزون</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+            </div>
+            <a href="#" class="small-box-footer">عرض <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
     <p>أخر عمليات المندوبين  <span style="color:#e74848;">مباشر</span> </p>
     <div class="row">
 
