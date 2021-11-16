@@ -12,6 +12,7 @@
 </div>
 <div class="clearfix"></div>
 <h3> صلاحيات </h3>
+<br>
 <div class="clearfix"></div>
 
 
