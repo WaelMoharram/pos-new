@@ -67,6 +67,16 @@ class User extends Authenticatable
         'settings'
     ];
 
+    const SALES_GROUPS = [
+
+        'stores',
+        'sales',
+        'sales-return',
+        'client',
+        'payments',
+
+    ];
+
     public function acceptBills()
     {
         return $this->hasMany('App\Models\Bill', 'accept_user_id');
