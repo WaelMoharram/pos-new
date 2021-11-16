@@ -17,6 +17,7 @@ use App\Http\Controllers\ItemOptionValueController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SystemOptionController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\RoleController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,6 +38,8 @@ Route::group(['middleware' => 'auth:web','prefix'=>'dashboard'], function () {
     Route::get('/',[HomeController::class, 'index'])->name('dashboard');
 
     Route::resources([
+        'roles' => RoleController::class,
+
         'users' => UserController::class,
         'sales-men' => SaleManController::class,
         'stores' => StoreController::class,

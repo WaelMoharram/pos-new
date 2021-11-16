@@ -28,8 +28,8 @@ class HomeController extends Controller
         //option(['اسم القيمة المضافة' => 14]);
         //return \Arr::crossJoin([1, 2], ['a', 'b'],['$','#']);
         //return SubItem::all();
-        Role::create(['name' => 'admin']);
-        Role::create(['name' => 'sales']);
+        //Role::create(['name' => 'admin']);
+        //Role::create(['name' => 'sales']);
         if (auth()->user()->type == 'admin'){
 
             $onLineCount = SubItem::whereRaw('amount = min_amount')->count();
