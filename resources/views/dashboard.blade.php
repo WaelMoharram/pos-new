@@ -39,106 +39,106 @@
         </div>
     </div>
 @endif
-    <p>أخر عمليات المندوبين  <span style="color:#e74848;">مباشر</span> </p>
-    <div class="row">
+{{--    <p>أخر عمليات المندوبين  <span style="color:#e74848;">مباشر</span> </p>--}}
+{{--    <div class="row">--}}
 
-        <div class="callout callout-info col-12">
-            <h5>اسم العملية</h5>
+{{--        <div class="callout callout-info col-12">--}}
+{{--            <h5>اسم العملية</h5>--}}
 
-            <p>تقاصيل العملية</p>
-        </div>
+{{--            <p>تقاصيل العملية</p>--}}
+{{--        </div>--}}
 
-        <div class="callout callout-danger col-12">
-            <h5>اسم العملية</h5>
+{{--        <div class="callout callout-danger col-12">--}}
+{{--            <h5>اسم العملية</h5>--}}
 
-            <p>تقاصيل العملية</p>
-        </div>
+{{--            <p>تقاصيل العملية</p>--}}
+{{--        </div>--}}
 
-        <div class="callout callout-warning col-12">
-            <h5>اسم العملية</h5>
+{{--        <div class="callout callout-warning col-12">--}}
+{{--            <h5>اسم العملية</h5>--}}
 
-            <p>تقاصيل العملية</p>
-        </div>
+{{--            <p>تقاصيل العملية</p>--}}
+{{--        </div>--}}
 
-        <div class="callout callout-success col-12">
-            <h5>اسم العملية</h5>
+{{--        <div class="callout callout-success col-12">--}}
+{{--            <h5>اسم العملية</h5>--}}
 
-            <p>تقاصيل العملية</p>
-        </div>
+{{--            <p>تقاصيل العملية</p>--}}
+{{--        </div>--}}
 
 
-        <div class="callout callout-info col-12">
-            <h5>اسم العملية</h5>
+{{--        <div class="callout callout-info col-12">--}}
+{{--            <h5>اسم العملية</h5>--}}
 
-            <p>تقاصيل العملية</p>
-        </div>
+{{--            <p>تقاصيل العملية</p>--}}
+{{--        </div>--}}
 
-        <div class="callout callout-danger col-12">
-            <h5>اسم العملية</h5>
+{{--        <div class="callout callout-danger col-12">--}}
+{{--            <h5>اسم العملية</h5>--}}
 
-            <p>تقاصيل العملية</p>
-        </div>
+{{--            <p>تقاصيل العملية</p>--}}
+{{--        </div>--}}
 
-        <div class="callout callout-warning col-12">
-            <h5>اسم العملية</h5>
+{{--        <div class="callout callout-warning col-12">--}}
+{{--            <h5>اسم العملية</h5>--}}
 
-            <p>تقاصيل العملية</p>
-        </div>
+{{--            <p>تقاصيل العملية</p>--}}
+{{--        </div>--}}
 
-        <div class="callout callout-success col-12">
-            <h5>اسم العملية</h5>
+{{--        <div class="callout callout-success col-12">--}}
+{{--            <h5>اسم العملية</h5>--}}
 
-            <p>تقاصيل العملية</p>
-        </div>
+{{--            <p>تقاصيل العملية</p>--}}
+{{--        </div>--}}
 
-        <div class="callout callout-info col-12">
-            <h5>اسم العملية</h5>
+{{--        <div class="callout callout-info col-12">--}}
+{{--            <h5>اسم العملية</h5>--}}
 
-            <p>تقاصيل العملية</p>
-        </div>
+{{--            <p>تقاصيل العملية</p>--}}
+{{--        </div>--}}
 
-        <div class="callout callout-danger col-12">
-            <h5>اسم العملية</h5>
+{{--        <div class="callout callout-danger col-12">--}}
+{{--            <h5>اسم العملية</h5>--}}
 
-            <p>تقاصيل العملية</p>
-        </div>
+{{--            <p>تقاصيل العملية</p>--}}
+{{--        </div>--}}
 
-        <div class="callout callout-warning col-12">
-            <h5>اسم العملية</h5>
+{{--        <div class="callout callout-warning col-12">--}}
+{{--            <h5>اسم العملية</h5>--}}
 
-            <p>تقاصيل العملية</p>
-        </div>
+{{--            <p>تقاصيل العملية</p>--}}
+{{--        </div>--}}
 
-        <div class="callout callout-success col-12">
-            <h5>اسم العملية</h5>
+{{--        <div class="callout callout-success col-12">--}}
+{{--            <h5>اسم العملية</h5>--}}
 
-            <p>تقاصيل العملية</p>
-        </div>
+{{--            <p>تقاصيل العملية</p>--}}
+{{--        </div>--}}
 
-        <div class="callout callout-info col-12">
-            <h5>اسم العملية</h5>
+{{--        <div class="callout callout-info col-12">--}}
+{{--            <h5>اسم العملية</h5>--}}
 
-            <p>تقاصيل العملية</p>
-        </div>
+{{--            <p>تقاصيل العملية</p>--}}
+{{--        </div>--}}
 
-        <div class="callout callout-danger col-12">
-            <h5>اسم العملية</h5>
+{{--        <div class="callout callout-danger col-12">--}}
+{{--            <h5>اسم العملية</h5>--}}
 
-            <p>تقاصيل العملية</p>
-        </div>
+{{--            <p>تقاصيل العملية</p>--}}
+{{--        </div>--}}
 
-        <div class="callout callout-warning col-12">
-            <h5>اسم العملية</h5>
+{{--        <div class="callout callout-warning col-12">--}}
+{{--            <h5>اسم العملية</h5>--}}
 
-            <p>تقاصيل العملية</p>
-        </div>
+{{--            <p>تقاصيل العملية</p>--}}
+{{--        </div>--}}
 
-        <div class="callout callout-success col-12">
-            <h5>اسم العملية</h5>
+{{--        <div class="callout callout-success col-12">--}}
+{{--            <h5>اسم العملية</h5>--}}
 
-            <p>تقاصيل العملية</p>
-        </div>
-    </div>
+{{--            <p>تقاصيل العملية</p>--}}
+{{--        </div>--}}
+{{--    </div>--}}
 @stop
 
 @section('css')
