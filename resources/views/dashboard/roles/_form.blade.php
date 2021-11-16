@@ -4,10 +4,7 @@
     {!! Form::text('name',null,['id'=>'name','class'=>'form-control col',disable_on_show()]) !!}
     {{input_error($errors,'name')}}
 </div>
-<div class="clearfix"></div>
-<h3> صلاحيات </h3>
-<br>
-<div class="clearfix"></div>
+
 
 
 @foreach(\App\Models\User::GROUPS as $group)
