@@ -271,30 +271,7 @@ return [
                     'icon'    => 'fas fa-fw fa-eye',
                     'can' =>'index users'
                 ],
-//                [
-//                    'text'    => 'level_one',
-//                    'url'     => '#',
-//                    'submenu' => [
-//                        [
-//                            'text' => 'level_two',
-//                            'url'  => '#',
-//                        ],
-//                        [
-//                            'text'    => 'level_two',
-//                            'url'     => '#',
-//                            'submenu' => [
-//                                [
-//                                    'text' => 'level_three',
-//                                    'url'  => '#',
-//                                ],
-//                                [
-//                                    'text' => 'level_three',
-//                                    'url'  => '#',
-//                                ],
-//                            ],
-//                        ],
-//                    ],
-//                ],
+
                 [
                     'text' => 'مستخدم جديد',
                     'url'  => 'dashboard/users/create',
@@ -321,6 +298,21 @@ return [
                     'icon'    => 'fas fa-fw fa-plus',
                     'can' =>'add sales_men'
                 ],
+            ],
+        ],
+        [
+            'text'    => 'ادوار المستخدمين',
+            'icon'    => 'fas fa-fw fa-users',
+            'can'     =>'is_admin',
+            'submenu' => [
+                [
+                    'text' => 'عرض الكل',
+                    'url'  => 'dashboard/roles',
+                    'icon'    => 'fas fa-fw fa-eye',
+                    'can' =>'edit users'
+                ],
+
+
             ],
         ],
         [
