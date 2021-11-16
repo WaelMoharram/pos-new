@@ -303,12 +303,19 @@ return [
         [
             'text'    => 'ادوار المستخدمين',
             'icon'    => 'fas fa-fw fa-users',
-            'can'     =>'is_admin',
+            'can'     =>'edit users',
             'submenu' => [
                 [
                     'text' => 'عرض الكل',
                     'url'  => 'dashboard/roles',
                     'icon'    => 'fas fa-fw fa-eye',
+                    'can' =>'edit users'
+                ],
+
+                [
+                    'text' => 'دور جديد',
+                    'url'  => 'dashboard/roles/create',
+                    'icon'    => 'fas fa-fw fa-plus',
                     'can' =>'edit users'
                 ],
 

@@ -87,8 +87,10 @@ class SaleManController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
+        $role = Role::pluck('name', 'id');
+
         $store = $user->store;
-        return view('dashboard.sales-men.show',compact('user','store'));
+        return view('dashboard.sales-men.show',compact('user','store','role'));
     }
 
     public function report($id)

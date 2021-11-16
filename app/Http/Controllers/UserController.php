@@ -78,8 +78,9 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
+        $role = Role::pluck('name', 'id');
 
-        return view('dashboard.users.show',compact('user'));
+        return view('dashboard.users.show',compact('user','role'));
     }
 
     /**
