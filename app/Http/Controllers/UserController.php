@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -41,9 +42,9 @@ class UserController extends Controller
     public function create()
     {
         $user=new User();
-        $permissions = Permission::pluck('name', 'id');
+        $roles = Role::pluck('name', 'id');
 
-        return view('dashboard.users.create',compact('user','permissions'));
+        return view('dashboard.users.create',compact('user','roles'));
     }
 
     /**
@@ -54,7 +55,7 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        $requests=$request->except('permissions');
+        $requests=$request->except('role');
         $requests['type']='admin';
         if ($request->hasFile('image')) {
             $requests['image'] = saveImage($request->image, 'images');
@@ -62,7 +63,7 @@ class UserController extends Controller
         }
         $requests['password']=Hash::make($request->password);
         $user = User::create($requests);
-        $user->syncPermissions($request->permissions);
+        $user->syncRoles($request->role);
 
         toast('تم اضافة القيد بنجاح','success');
         return redirect(route('users.index'));
@@ -90,9 +91,9 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        $permissions = Permission::pluck('name', 'id');
+        $roles = Role::pluck('name', 'id');
 
-        return view('dashboard.users.edit',compact('user','permissions'));
+        return view('dashboard.users.edit',compact('user','roles'));
     }
 
     /**
@@ -106,7 +107,7 @@ class UserController extends Controller
     {
         //return $request->permissions;
 
-        $requests=$request->except('permissions');
+        $requests=$request->except('role');
         if ($request->hasFile('image')) {
 
             $requests['image'] = saveImage($request->image, 'images');
@@ -119,7 +120,7 @@ class UserController extends Controller
         }
         $user = User::find($id);
         $user->fill($requests)->save();
-        $user->syncPermissions($request->permissions);
+        $user->syncRoles($request->role);
         toast('تم التعديل بنجاح ','success');
         return redirect(route('users.index'));
     }
