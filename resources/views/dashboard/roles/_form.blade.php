@@ -1,10 +1,4 @@
 
-<div class="form-group py-1 col-md-6">
-    <label for="formInputRole"> الاسم بالكامل</label>
-    {!! Form::text('name',null,['class'=>'form-control col','placeholder'=>'الاسم بالكامل',isset($readOnly)?$readOnly:null,disable_on_show()]) !!}
-    {{input_error($errors,'name')}}
-</div>
-
 <div class="form-group py-1 col-md-12">
     <label for="name"> الاسم </label>
     {!! Form::text('name',null,['id'=>'name','class'=>'form-control col',disable_on_show()]) !!}
