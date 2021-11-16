@@ -20,11 +20,6 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body p-0">
-            <div class="form-group  col-md-12">
-                <label for="barcode"> باركود  </label>
-                {{Form::text('barcode',null,['class'=>'form-control mb-2','id'=>'barcode'])}}
-                {{input_error($errors,'barcode')}}
-            </div>
 
             {!! Form::model($bill,['method'=>'put','route'=>['bills.update',$bill->id],'class'=>'form','enctype' => 'multipart/form-data']  ) !!}
             @csrf()
@@ -54,6 +49,11 @@
         <!-- /.card-header -->
         <div class="card-body p-0">
             {{-- ########## Add item Form  ########## --}}
+            <div class="form-group  col-md-12">
+                <label for="barcode"> باركود  </label>
+                {{Form::text('barcode',null,['class'=>'form-control mb-2','id'=>'barcode'])}}
+                {{input_error($errors,'barcode')}}
+            </div>
 
                 {!! Form::open(['method'=>'post','route'=>'bill-details.store','class'=>' col-md-12','dir'=>'']) !!}
                     @csrf()
