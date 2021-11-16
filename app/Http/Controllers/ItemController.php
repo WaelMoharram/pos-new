@@ -134,6 +134,7 @@ class ItemController extends Controller
 //        }
         $item= Item::findOrFail($id);
         $item->delete();
+        SubItem::where('item_id',$id)->delete();
         toast('تم الحذف بنجاح','success');
         return redirect(route('items.index'));
     }

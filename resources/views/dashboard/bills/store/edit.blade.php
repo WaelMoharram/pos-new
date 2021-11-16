@@ -79,18 +79,6 @@
                         <td>{{$details->sum('total')}}</td>
                     </tr>
                     @endif
-                    @if($bill->tax != null || $bill->tax != 0)
-                    <tr>
-                        <th>{{$bill->tax_type ?? 0}}</th>
-                        <td>{{$bill->tax ?? 0}}</td>
-                    </tr>
-                    @endif
-                    @if($bill->discount != null || $bill->discount != 0)
-                    <tr>
-                        <th>{{$bill->discount_type ?? 0}}</th>
-                        <td>{{$bill->discount ?? 0}}</td>
-                    </tr>
-                    @endif
                     <tr>
                         <th>الاجمالى</th>
                         <td>{{$bill->total}}</td>
