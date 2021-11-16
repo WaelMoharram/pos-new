@@ -48,6 +48,25 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    const GROUPS = [
+        'users',
+        'sales_men',
+        'stores',
+        'transfer',
+        'categories',
+        'brands',
+        'options',
+        'items',
+        'sales',
+        'sales-return',
+        'client',
+        'purchases',
+        'purchases-return',
+        'suppliers',
+        'payments',
+        'settings'
+    ];
+
     public function acceptBills()
     {
         return $this->hasMany('App\Models\Bill', 'accept_user_id');
