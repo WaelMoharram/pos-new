@@ -91,7 +91,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        $user->roles->first()->id;
+        return $user->roles->first()->id;
         $role = Role::pluck('name', 'id');
 
         return view('dashboard.users.edit',compact('user','role'));
