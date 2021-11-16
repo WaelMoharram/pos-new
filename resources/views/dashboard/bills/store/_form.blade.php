@@ -10,15 +10,15 @@
 </div>
 {{-- ############# Supplier #############--}}
 <div class="form-group py-1 col-md-6">
-    <label for="model_id"> المورد  </label>
-    {{Form::select('model_id',\App\Models\Supplier::pluck('name','id') ,null,['class'=>'form-control mb-2','id'=>'model_id'])}}
-    {{input_error($errors,'model_id')}}
+    <label for="model_id"> مخزن الصرف  </label>
+    {{Form::select('store_from_id',\App\Models\Store::pluck('name','id') ,null,['class'=>'form-control mb-2','id'=>'store_from_id'])}}
+    {{input_error($errors,'store_from_id')}}
 </div>
 {{-- ############# Store #############--}}
 <div class="form-group py-1 col-md-6">
-    <label for="store_id"> مخزن الصرف  </label>
-    {{Form::select('store_id',\App\Models\Store::where('sales_man_id',null)->where('is_pos',1)->pluck('name','id') ,null,['class'=>'form-control mb-2','id'=>'store_id'])}}
-    {{input_error($errors,'store_id')}}
+    <label for="store_id"> مخزن الاستلام  </label>
+    {{Form::select('store_to_id',\App\Models\Store::pluck('name','id') ,null,['class'=>'form-control mb-2','id'=>'store_to_id'])}}
+    {{input_error($errors,'store_to_id')}}
 </div>
 {{-- ############# Bill Code #############--}}
 <div class="form-group py-1 col-md-6">
