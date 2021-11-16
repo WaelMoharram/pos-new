@@ -39,7 +39,7 @@
     {!! Form::password('password_confirmation',['class'=>'form-control col',hidden_on_show()]) !!}
     {{input_error($errors,'password_confirmation')}}
 </div>
-
+{{$user->roles->first()->id}}
 
 <div class="form-group py-1 col-md-12 {{hidden_on_show()}}">
     <label for="formInputRole"> الدور </label>
