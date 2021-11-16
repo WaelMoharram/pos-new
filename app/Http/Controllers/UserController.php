@@ -42,9 +42,9 @@ class UserController extends Controller
     public function create()
     {
         $user=new User();
-        $roles = Role::pluck('name', 'id');
+        $role = Role::pluck('name', 'id');
 
-        return view('dashboard.users.create',compact('user','roles'));
+        return view('dashboard.users.create',compact('user','role'));
     }
 
     /**
@@ -91,9 +91,9 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        $roles = Role::pluck('name', 'id');
+        $role = Role::pluck('name', 'id');
 
-        return view('dashboard.users.edit',compact('user','roles'));
+        return view('dashboard.users.edit',compact('user','role'));
     }
 
     /**
