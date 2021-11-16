@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class SaleManController extends Controller
 {
@@ -42,10 +43,10 @@ class SaleManController extends Controller
      */
     public function create()
     {
-        $permissions = Permission::pluck('name', 'id');
+        $role = Role::pluck('name', 'id');
 
         $user=new User();
-        return view('dashboard.sales-men.create',compact('user','permissions'));
+        return view('dashboard.sales-men.create',compact('user','role'));
     }
 
     /**
@@ -56,7 +57,7 @@ class SaleManController extends Controller
      */
     public function store(UserRequest $request)
     {
-        $requests=$request->except('permissions');
+        $requests=$request->except('role');
         $requests['type']='sales';
         if ($request->hasFile('image')) {
             $requests['image'] = saveImage($request->image, 'images');
@@ -71,7 +72,7 @@ class SaleManController extends Controller
             'is_pos'=>1
         ]);
 
-        $user->syncPermissions($request->permissions);
+        $user->syncRoles($request->role);
 
         toast('تم اضافة القيد بنجاح','success');
         return redirect(route('sales-men.index'));
@@ -113,11 +114,11 @@ class SaleManController extends Controller
      */
     public function edit($id)
     {
-        $permissions = Permission::pluck('name', 'id');
+        $role = Role::pluck('name', 'id');
 
         $user = User::findOrFail($id);
 
-        return view('dashboard.sales-men.edit',compact('user','permissions'));
+        return view('dashboard.sales-men.edit',compact('user','role'));
     }
 
     /**
@@ -129,7 +130,7 @@ class SaleManController extends Controller
      */
     public function update(UserRequest $request, $id)
     {
-        $requests=$request->except('permissions');
+        $requests=$request->except('role');
         if ($request->hasFile('image')) {
 
             $requests['image'] = saveImage($request->image, 'images');
@@ -142,7 +143,7 @@ class SaleManController extends Controller
         }
         $user = User::find($id);
         $user->fill($requests)->save();
-        $user->syncPermissions($request->permissions);
+        $user->syncRoles($request->role);
 
         toast('تم التعديل بنجاح ','success');
         return redirect(route('sales-men.index'));

@@ -42,8 +42,8 @@
 
 
 <div class="form-group py-1 col-md-12 {{hidden_on_show()}}">
-    <label for="formInputRole"> صلاحيات </label>
-    {{Form::select('permissions[]', $permissions, (isset($user->permissions)? $user->permissions: null), ['class'=>'form-control col select2',hidden_on_show(),  'multiple'] ) }}
+    <label for="formInputRole"> الدور </label>
+    {{Form::select('role', $role, $user->roles->first()->id?? null, ['class'=>'form-control col select2',hidden_on_show(),] ) }}
 
 </div>
 
