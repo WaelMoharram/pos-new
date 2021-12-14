@@ -18,7 +18,7 @@
 
 <div class="form-group py-1 col-md-6">
     <label for="category_id"> التصنيف  </label>
-    {{Form::select('category_id',\App\Models\Category::pluck('name','id') ,null,['class'=>'form-control mb-2','id'=>'category_id'])}}
+    {{Form::select('category_id',\App\Models\Category::finalLevel()->pluck('name','id') ,null,['class'=>'form-control mb-2','id'=>'category_id'])}}
     {{input_error($errors,'category_id')}}
 </div>
 

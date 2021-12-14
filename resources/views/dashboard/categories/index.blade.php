@@ -13,6 +13,7 @@
             '#',
             'صورة التصنيف',
             'الاسم',
+            'التصنيف الاعلى',
             ['label' => 'اعدادات', 'no-export' => true, 'width' => 5],
         ];
 
@@ -30,6 +31,7 @@
                 <td>{!! $loop->index +1 !!}</td>
                 <td><img src="{!! url('/').'/'.$row->image !!}" style="width: 100px; height: 100px;"></td>
                 <td>{!! $row->name !!}</td>
+                <td>{!! $row->category->name ?? 'لا يوجد' !!}</td>
                 <td>
                     <nobr>
                         @component('partials.buttons._edit_button',[

@@ -11,3 +11,9 @@
     {!! Form::text('name',null,['class'=>'form-control col','placeholder'=>'الاسم بالكامل',isset($readOnly)?$readOnly:null,disable_on_show()]) !!}
     {{input_error($errors,'name')}}
 </div>
+
+<div class="form-group py-1 col-md-6">
+    <label for="upper_id"> التصنيف الاعلى   </label>
+    {{Form::select('upper_id',\App\Models\Category::pluck('name','id') ,null,['class'=>'form-control mb-2','id'=>'upper_id','placeholder'=>'لا يوجد'])}}
+    {{input_error($errors,'upper_id')}}
+</div>

@@ -94,7 +94,10 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, $id)
     {
-
+        if($request->upper_id == $id){
+            toast('لا يمكن اختيار هذا التصنيف','error');
+            return redirect()->back();
+        }
         $category = Category::find($id);
         $requests = $request->all();
         if ($request->hasFile('image')) {

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Category extends Model 
+class Category extends Model
 {
 
     protected $table = 'categories';
@@ -14,11 +14,26 @@ class Category extends Model
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
-    protected $fillable = array('name', 'image');
+    protected $fillable = array('name', 'image','upper_id');
 
     public function items()
     {
         return $this->hasMany('App\Models\Item');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class,'upper_id');
+    }
+
+    public function categories()
+    {
+        return $this->hasMany(Category::class,'upper_id');
+    }
+
+    public function scopeFinalLevel($query)
+    {
+        return $query->whereDoesntHave('categories');
     }
 
 }
