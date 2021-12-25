@@ -4,6 +4,9 @@
 
 @section('content_header')
     <h1>المندوبين</h1>
+    @can('add sales_men')
+        <a href="{{route('sales_men.create')}}" class="btn btn-info float-right">اضافة جديد</a>
+    @endcan
 @stop
 
 @section('content')

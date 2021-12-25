@@ -4,7 +4,7 @@
 
 @section('content_header')
     <h1>مستخدمين النظام</h1>
-    @can('index users')
+    @can('add users')
         <a href="{{route('users.create')}}" class="btn btn-info float-right">اضافة جديد</a>
     @endcan
 @stop

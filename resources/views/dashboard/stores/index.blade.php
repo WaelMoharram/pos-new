@@ -3,7 +3,11 @@
 @section('title', 'المخازن')
 
 @section('content_header')
-المخازن@stop
+المخازن
+@can('add stores')
+    <a href="{{route('stores.create')}}" class="btn btn-info float-right">اضافة جديد</a>
+@endcan
+@stop
 
 @section('content')
     {{-- Setup data for datatables --}}

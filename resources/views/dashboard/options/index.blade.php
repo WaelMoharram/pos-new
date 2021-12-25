@@ -4,6 +4,9 @@
 
 @section('content_header')
     <h1>اختيارات الاصناف</h1>
+    @can('add options')
+        <a href="{{route('options.create')}}" class="btn btn-info float-right">اضافة جديد</a>
+    @endcan
 @stop
 
 @section('content')

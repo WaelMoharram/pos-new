@@ -4,6 +4,9 @@
 
 @section('content_header')
     <h1>تصنيفات الأصناف</h1>
+    @can('add categories')
+        <a href="{{route('categories.create')}}" class="btn btn-info float-right">اضافة جديد</a>
+    @endcan
 @stop
 
 @section('content')

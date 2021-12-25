@@ -3,7 +3,12 @@
 @section('title', 'الموردون')
 
 @section('content_header')
-الموردون@stop
+
+    الموردون
+    @can('add suppliers')
+        <a href="{{route('suppliers.create')}}" class="btn btn-info float-right">اضافة جديد</a>
+    @endcan
+@stop
 
 @section('content')
     {{-- Setup data for datatables --}}

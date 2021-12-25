@@ -4,6 +4,9 @@
 
 @section('content_header')
     <h1> ادوار المستخدمين</h1>
+    @can('edit users')
+        <a href="{{route('roles.create')}}" class="btn btn-info float-right">اضافة جديد</a>
+    @endcan
 @stop
 
 @section('content')

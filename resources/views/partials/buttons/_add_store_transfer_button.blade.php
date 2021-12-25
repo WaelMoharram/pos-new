@@ -1,4 +1,4 @@
-<a data-toggle="modal" data-target="#modalAdd" class="btn btn-lg btn-default text-info mx-1 shadow"  data-placement="top" title="{{$tooltip}}">
+<a class="float-right" data-toggle="modal" data-target="#modalAdd" class="btn btn-lg btn-default text-info mx-1 shadow"  data-placement="top" title="{{$tooltip}}">
     <i class="fa fa-lg fa-fw fa-plus-square"></i>{{$tooltip}}
 </a>
 <style>

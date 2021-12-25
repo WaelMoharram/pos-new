@@ -4,6 +4,9 @@
 
 @section('content_header')
     <h1>علامات تجارية</h1>
+    @can('add brands')
+        <a href="{{route('brands.create')}}" class="btn btn-info float-right">اضافة جديد</a>
+    @endcan
 @stop
 
 @section('content')

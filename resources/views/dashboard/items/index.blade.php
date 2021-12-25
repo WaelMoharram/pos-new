@@ -4,6 +4,9 @@
 
 @section('content_header')
     <h1>الاصناف</h1>
+    @can('add items')
+        <a href="{{route('items.create')}}" class="btn btn-info float-right">اضافة جديد</a>
+    @endcan
 @stop
 
 @section('content')

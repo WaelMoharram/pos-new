@@ -4,7 +4,9 @@
 
 @section('content_header')
 العملاء@stop
-
+@can('add clients')
+    <a href="{{route('clients.create')}}" class="btn btn-info float-right">اضافة جديد</a>
+@endcan
 @section('content')
     {{-- Setup data for datatables --}}
     @php
