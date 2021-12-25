@@ -108,7 +108,28 @@
                 'columns' => [null, null, null, ['orderable' => false]],
             ];
         @endphp
+        <div class="card">
+            <div class="card-header">
 
+                <div class="card-tools">
+                    <ul class="nav nav-pills ml-auto" dir="rtl">
+
+
+                        <li class="nav-item">
+                            @component('partials.buttons._add_option_button',[
+                                                        'route' => route('item-options.store',request()->item_id) ,
+                                                        'tooltip' => 'الاختيارات للصنف',
+                                                        'id'=>request()->item_id,
+                                                        'forSelectOptions'=>$forSelectOptions
+                                                         ])
+                            @endcomponent
+                        </li>
+
+
+                    </ul>
+                </div>
+            </div><!-- /.card-header -->
+            <div class="card-body">
         {{-- Minimal example / fill data using the component slot --}}
         <x-adminlte-datatable id="table1" :heads="$heads" striped hoverable with-buttons>
             @foreach($subItems as $row)
@@ -133,6 +154,7 @@
                 </tr>
             @endforeach
         </x-adminlte-datatable>
+            </div>
     @endif
 
 
