@@ -29,8 +29,8 @@
         @foreach(\App\Models\StoreSubItem::where('store_id',$store->id)->get() as $itam)
             <tr>
                 <td>{!! $loop->index +1 !!}</td>
-                <td>{!! $itam->subItem->item->name !!}</td>
-                <td>{!! $itam->subItem->name !!}</td>
+                <td>{!! optional(optional($itam->subItem)->item)->name !!}</td>
+                <td>{!! optional($itam->subItem)->name !!}</td>
                 <td>{!! $itam->amount !!}</td>
             </tr>
         @endforeach
