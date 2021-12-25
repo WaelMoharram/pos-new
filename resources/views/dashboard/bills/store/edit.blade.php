@@ -11,7 +11,7 @@
     {{-- ########## Main section ########## --}}
     <div class="card col-md-12 {{--collapsed-card--}}">
         <div class="card-header">
-            <h3 class="card-title">{{$bill->code}} - {{$bill->storeFrom->name}} - {{$bill->storeTo->name}} - {{$bill->total}}</h3>
+            <h3 class="card-title">{{$bill->code}} - {{optional($bill->storeFrom)->name}} - {{optional($bill->storeTo)->name}} - {{$bill->total}}</h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
                     <i class="fas fa-minus"></i>
