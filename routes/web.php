@@ -83,6 +83,8 @@ Route::group(['middleware' => 'auth:web','prefix'=>'dashboard'], function () {
 
     Route::get('alert-items',[HomeController::class, 'items'])->name('alert-items');
 
+    Route::post('item-options/store2',[ItemOptionValueController::class, 'finalSubmit2'])->name('item-options.store2');
+
 });
 
 require __DIR__.'/auth.php';

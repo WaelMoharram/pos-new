@@ -117,10 +117,10 @@
 
                         <li class="nav-item">
                             @component('partials.buttons._add_option_button',[
-                                                        'route' => route('item-options.store',request()->item_id) ,
+                                                        'route' => route('item-options.store2',request()->item_id) ,
                                                         'tooltip' => 'الاختيارات للصنف',
                                                         'id'=>request()->item_id,
-                                                        'forSelectOptions'=>$forSelectOptions
+                                                        'forSelectOptions'=>$forSelectOptions2
                                                          ])
                             @endcomponent
                         </li>

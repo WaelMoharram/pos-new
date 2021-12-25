@@ -33,9 +33,10 @@ class ItemOptionController extends Controller
         $options = ItemOption::where('item_id',$request->item_id)->get();
         $optiondIDs = ItemOption::where('item_id',$request->item_id)->pluck('option_id');
         $forSelectOptions = Option::whereNotIn('id',$optiondIDs)->pluck('name','id');
+        $forSelectOptions2 = Option::all()->pluck('name','id');
         $itemName = optional(Item::find($request->item_id))->name;
         $subItems = SubItem::where('item_id',$request->item_id)->get();
-        return view('dashboard.item-options.index',compact('options','itemName','forSelectOptions','canNotMakeActions','subItems'));
+        return view('dashboard.item-options.index',compact('options','itemName','forSelectOptions','canNotMakeActions','subItems','forSelectOptions2'));
     }
 
     /**
