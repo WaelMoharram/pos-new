@@ -4,6 +4,7 @@
 
 @section('content_header')
     <h1>مستخدمين النظام</h1>
+    <a href="#" class="btn btn-info pull-left">اضافة جديد</a>
 @stop
 
 @section('content')
