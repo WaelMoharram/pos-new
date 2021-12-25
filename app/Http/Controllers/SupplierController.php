@@ -127,6 +127,10 @@ class SupplierController extends Controller
 //            return back();
 //        }
         $supplier= Supplier::findOrFail($id);
+        if ($supplier->bills->count() > 0){
+            toast('لا يمكن حذف المورد لوجود فواتير له','error');
+            return redirect()->back();
+        }
         $supplier->delete();
         toast('تم الحذف بنجاح','success');
         return redirect(route('suppliers.index'));

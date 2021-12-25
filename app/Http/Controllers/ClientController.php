@@ -122,12 +122,11 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
-        //TODO:: Client delete validation
-//        if (){
-//            toast('عملية مرفوضة - المخزن يحتوى على معاملات سابقة ','danger');
-//            return back();
-//        }
         $client= Client::findOrFail($id);
+        if ($client->bills->count() > 0){
+            toast('عملية مرفوضة - المخزن يحتوى على معاملات سابقة ','error');
+            return redirect()->back();
+        }
         $client->delete();
         toast('تم الحذف بنجاح','success');
         return redirect(route('clients.index'));
