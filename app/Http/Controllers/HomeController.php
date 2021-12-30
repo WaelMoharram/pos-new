@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SubItem;
+use App\Models\Item;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 
