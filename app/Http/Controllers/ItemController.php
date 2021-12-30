@@ -54,16 +54,9 @@ class ItemController extends Controller
             $requests['image'] = saveImage($request->image, 'images');
             $request->files->remove('image');
         }
-        if ($request->has_options == 0){
-            $requests['is_final_options'] =1;
-        }
+
         $item = Item::create($requests);
 
-        if ($request->has_options == 0){
-            $subItem = SubItem::create([
-                'amount'=>0, 'barcode'=>'', 'note'=>'', 'item_id'=>$item->id, 'price'=>$item->price ,'buy_price'=>$item->buy_price
-            ]);
-        }
 
         toast('تم اضافة القيد بنجاح','success');
         return redirect(route('items.index'));
@@ -113,8 +106,6 @@ class ItemController extends Controller
             $request->files->remove('image');
         }
         $item->fill($requests)->save();
-        $items = SubItem::where('item_id',$id);
-        $items->update(['price'=>$request->price,'buy_price'=>$request->buy_price]);
         toast('تم التعديل بنجاح ','success');
         return redirect(route('items.index'));
     }
@@ -134,7 +125,6 @@ class ItemController extends Controller
 //        }
         $item= Item::findOrFail($id);
         $item->delete();
-        SubItem::where('item_id',$id)->delete();
         toast('تم الحذف بنجاح','success');
         return redirect(route('items.index'));
     }
