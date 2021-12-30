@@ -1,9 +1,9 @@
 <input type="hidden" name="bill_id" value="{{$bill->id}}">
 {{-- ############# Supplier #############--}}
 <div class="form-group col-md-12">
-    <label for="sub_item_id"> اختر الصنف </label>
-    {{Form::select('sub_item_id',\App\Models\SubItem::get()->pluck('name','id') ,null,['class'=>'form-control mb-2 select2','id'=>'sub_item_id '])}}
-    {{input_error($errors,'sub_item_id')}}
+    <label for="item_id"> اختر الصنف </label>
+    {{Form::select('item_id',\App\Models\Item::get()->pluck('name','id') ,null,['class'=>'form-control mb-2 select2','id'=>'item'])}}
+    {{input_error($errors,'item')}}
 </div>
 {{-- ############# Bill Code #############--}}
 <div class="form-group  col-md-12">

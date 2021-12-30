@@ -26,7 +26,7 @@
                 @foreach($details as $detail)
                     <tr>
                         <td>{{$loop->index +1}}</td>
-                        <td>{{optional($detail->subItem)->name}}</td>
+                        <td>{{optional($detail->item)->name}}</td>
                         <td>
                             {{$detail->amount}}
                         </td>
