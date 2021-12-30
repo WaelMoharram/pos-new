@@ -12,7 +12,6 @@
         $heads = [
             '#',
             'الصنف',
-            ['label' => 'الاصناف'],
             ['label' => 'الكمية'],
         ];
 
@@ -26,10 +25,9 @@
 
     {{-- Minimal example / fill data using the component slot --}}
     <x-adminlte-datatable id="table1" :heads="$heads" :config="$config" striped hoverable with-buttons>
-        @foreach(\App\Models\SubItem::all() as $itam)
+        @foreach(\App\Models\item::all() as $itam)
             <tr>
                 <td>{!! $loop->index +1 !!}</td>
-                <td>{!! $itam->item->name !!}</td>
                 <td>{!! $itam->name !!}</td>
                 <td>{!! $itam->amount !!}</td>
             </tr>
