@@ -38,7 +38,7 @@
         @foreach($payments as $row)
             <tr>
                 <td>{!! $loop->index +1 !!}</td>
-                <td>#{!! $row->bill->code !!}</td>
+                <td>#{!! optional($row->bill)->code !!}</td>
 
                 <td>{!! $row->money !!}</td>
                 <td>{!! $row->type_name !!}</td>
