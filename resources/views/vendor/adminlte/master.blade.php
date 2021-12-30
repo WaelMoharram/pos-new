@@ -35,6 +35,7 @@
     @else
         <link rel="stylesheet" href="{{ mix(config('adminlte.laravel_mix_css_path', 'css/app.css')) }}">
     @endif
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
     {{-- Livewire Styles --}}
     @if(config('adminlte.livewire'))
@@ -141,6 +142,52 @@
     </script>
     {{-- Custom Scripts --}}
     @yield('adminlte_js')
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script>
+        //moment.locale('ar');
+
+        $(function() {
+            $('.date').daterangepicker({
+                singleDatePicker: true,
+                "locale": {
+                    "format": "YYYY-MM-DD",
+                    "separator": " - ",
+                    "applyLabel": "اختيار",
+                    "cancelLabel": "الغاء",
+                    "fromLabel": "من",
+                    "toLabel": "الى",
+                    "customRangeLabel": "Custom",
+                    "daysOfWeek": [
+                        "ح",
+                        "ن",
+                        "ث",
+                        "ر",
+                        "خ",
+                        "ج",
+                        "س"
+                    ],
+                    "monthNames": [
+                        "يناير",
+                        "فبرابر",
+                        "مارس",
+                        "ابريل",
+                        "مابو",
+                        "يونيو",
+                        "يوليو",
+                        "اغسطس",
+                        "سبتمبر",
+                        "اكتوبر",
+                        "نوفمر",
+                        "ديسمبر"
+                    ],
+                    "firstDay": 6
+                }
+            });
+        });
+    </script>
+
+    @include('sweetalert::alert')
 
 </body>
 
