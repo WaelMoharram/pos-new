@@ -16,9 +16,9 @@ class Store extends Model
     protected $dates = ['deleted_at'];
     protected $fillable = array('name', 'address', 'sales_man_id', 'is_pos');
 
-    public function subItems()
+    public function items()
     {
-        return $this->belongsToMany('App\Models\SubItem');
+        return $this->belongsToMany('App\Models\Item');
     }
 
     public function Bills()

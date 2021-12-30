@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bill;
 use App\Models\BillDetail;
 use App\Models\ItemStore;
-use App\Models\SubItem;
+use App\Models\Item;
 use Illuminate\Http\Request;
 
 class BillDetailController extends Controller
@@ -55,71 +55,71 @@ class BillDetailController extends Controller
 
 
         $bill = Bill::find($request->bill_id);
-        $subItem = SubItem::find($request->sub_item_id);
+        $item = Item::find($request->item_id);
         if ($bill->status != 'new'){
             if ($bill->type == 'purchase_in' || $bill->type == 'sale_in' ) {
-                $subItem->fill(['amount' => $subItem->amount + $request->amount])->save();
-                $storSubItem = ItemStore::where('store_id', $bill->store_id)->where('sub_item_id', $request->sub_item_id)->first();
-                if (!$storSubItem) {
-                    $storSubItem = ItemStore::create([
+                $item->fill(['amount' => $item->amount + $request->amount])->save();
+                $storItem = ItemStore::where('store_id', $bill->store_id)->where('item_id', $request->item_id)->first();
+                if (!$storItem) {
+                    $storItem = ItemStore::create([
                         'store_id' => $bill->store_id,
-                        'sub_item_id' => $request->sub_item_id,
+                        'item_id' => $request->item_id,
                         'amount' => 0
                     ]);
                 }
 
-                $storSubItem->fill(['amount' => ($storSubItem->amount ?? 0) + $request->amount])->save();
+                $storItem->fill(['amount' => ($storItem->amount ?? 0) + $request->amount])->save();
             }elseif($bill->type == 'purchase_out' || $bill->type == 'sale_out' ){
-                $subItem->fill(['amount' => $subItem->amount - $request->amount])->save();
-                $storSubItem = ItemStore::where('store_id', $bill->store_id)->where('sub_item_id', $request->sub_item_id)->first();
-                if (!$storSubItem) {
-                    $storSubItem = ItemStore::create([
+                $item->fill(['amount' => $item->amount - $request->amount])->save();
+                $storItem = ItemStore::where('store_id', $bill->store_id)->where('item_id', $request->item_id)->first();
+                if (!$storItem) {
+                    $storItem = ItemStore::create([
                         'store_id' => $bill->store_id,
-                        'sub_item_id' => $request->sub_item_id,
+                        'item_id' => $request->item_id,
                         'amount' => 0
                     ]);
                 }
 
-                $storSubItem->fill(['amount' => ($storSubItem->amount ?? 0) - $request->amount])->save();
+                $storItem->fill(['amount' => ($storItem->amount ?? 0) - $request->amount])->save();
 
 
             }elseif ($bill->type == 'store'){
-                $storeFromSubItem = ItemStore::where('store_id', $bill->store_from_id)->where('sub_item_id', $request->sub_item_id)->first();
-                if (!$storeFromSubItem) {
-                    $storeFromSubItem = ItemStore::create([
+                $storeFromItem = ItemStore::where('store_id', $bill->store_from_id)->where('item_id', $request->item_id)->first();
+                if (!$storeFromItem) {
+                    $storeFromItem = ItemStore::create([
                         'store_id' => $bill->store_from_id,
-                        'sub_item_id' => $request->sub_item_id,
+                        'item_id' => $request->item_id,
                         'amount' => 0
                     ]);
                 }
-                $storeFromSubItem->fill(['amount' => ($storeFromSubItem->amount ?? 0) - $request->amount])->save();
+                $storeFromItem->fill(['amount' => ($storeFromItem->amount ?? 0) - $request->amount])->save();
 
-                $storeToSubItem = ItemStore::where('store_id', $bill->store_to_id)->where('sub_item_id', $request->sub_item_id)->first();
-                if (!$storeToSubItem) {
-                    $storeToSubItem = ItemStore::create([
+                $storeToItem = ItemStore::where('store_id', $bill->store_to_id)->where('item_id', $request->item_id)->first();
+                if (!$storeToItem) {
+                    $storeToItem = ItemStore::create([
                         'store_id' => $bill->store_to_id,
-                        'sub_item_id' => $request->sub_item_id,
+                        'item_id' => $request->item_id,
                         'amount' => 0
                     ]);
                 }
-                $storeToSubItem->fill(['amount' => ($storeToSubItem->amount ?? 0) + $request->amount])->save();
+                $storeToItem->fill(['amount' => ($storeToItem->amount ?? 0) + $request->amount])->save();
             }
         }
 
         if ($bill->type == 'purchase_in' || $bill->type == 'purchase_out' ) {
-            $request->merge(['item_id' => $subItem->item_id, 'price' => $subItem->buy_price, 'total' => ($request->amount * $subItem->buy_price)]);
+            $request->merge(['item_id' => $item->item_id, 'price' => $item->buy_price, 'total' => ($request->amount * $item->buy_price)]);
         }else{
-            $price = $subItem->price;
+            $price = $item->price;
             if ($request->discount >0){
-                $price = $subItem->price - $request->discount;
+                $price = $item->price - $request->discount;
             }
-            $request->merge(['item_id' => $subItem->item_id, 'price' => $price, 'total' => ($request->amount * $price)]);
+            $request->merge(['item_id' => $item->item_id, 'price' => $price, 'total' => ($request->amount * $price)]);
         }
-        $BillDetail = BillDetail::where('sub_item_id',$request->sub_item_id)->where('bill_id',$request->bill_id)->first();
+        $BillDetail = BillDetail::where('item_id',$request->item_id)->where('bill_id',$request->bill_id)->first();
         if ($BillDetail){
-            $price = $subItem->price;
+            $price = $item->price;
             if ($request->discount >0){
-                $price = $subItem->price - $request->discount;
+                $price = $item->price - $request->discount;
             }
             $newAmount = $BillDetail->amount + $request->amount;
             $detail = $BillDetail->fill(['amount'=>$newAmount,'price'=>$price,'total'=>($newAmount * $price)])->save();
@@ -182,53 +182,53 @@ class BillDetailController extends Controller
 //            return back();
 //        }
         $detail= BillDetail::findOrFail($id);
-        $subItem = SubItem::find($detail->sub_item_id);
+        $item = Item::find($detail->item_id);
 
         if ($detail->bill->status != 'new') {
             if ($detail->bill->type == 'purchase_in' || $detail->bill->type == 'sale_in') {
-                $subItem->fill(['amount' => $subItem->amount - $detail->amount])->save();
-                $storSubItem = ItemStore::where('store_id', $detail->bill->store_id)->where('sub_item_id', $detail->sub_item_id)->first();
-                if (!$storSubItem) {
-                    $storSubItem = ItemStore::create([
+                $item->fill(['amount' => $item->amount - $detail->amount])->save();
+                $storItem = ItemStore::where('store_id', $detail->bill->store_id)->where('item_id', $detail->item_id)->first();
+                if (!$storItem) {
+                    $storItem = ItemStore::create([
                         'store_id' => $detail->bill->store_id,
-                        'sub_item_id' => $detail->sub_item_id,
+                        'item_id' => $detail->item_id,
                         'amount' => 0
                     ]);
                 }
 
-                $storSubItem->fill(['amount' => ($storSubItem->amount ?? 0) - $detail->amount])->save();
+                $storItem->fill(['amount' => ($storItem->amount ?? 0) - $detail->amount])->save();
             }elseif ($detail->bill->type == 'purchase_out' || $detail->bill->type == 'sale_out'){
-                $subItem->fill(['amount' => $subItem->amount + $detail->amount])->save();
-                $storSubItem = ItemStore::where('store_id', $detail->bill->store_id)->where('sub_item_id', $detail->sub_item_id)->first();
-                if (!$storSubItem) {
-                    $storSubItem = ItemStore::create([
+                $item->fill(['amount' => $item->amount + $detail->amount])->save();
+                $storItem = ItemStore::where('store_id', $detail->bill->store_id)->where('item_id', $detail->item_id)->first();
+                if (!$storItem) {
+                    $storItem = ItemStore::create([
                         'store_id' => $detail->bill->store_id,
-                        'sub_item_id' => $detail->sub_item_id,
+                        'item_id' => $detail->item_id,
                         'amount' => 0
                     ]);
                 }
 
-                $storSubItem->fill(['amount' => ($storSubItem->amount ?? 0) + $detail->amount])->save();
+                $storItem->fill(['amount' => ($storItem->amount ?? 0) + $detail->amount])->save();
             }elseif ($detail->bill->type == 'store'){
-                $storeFromSubItem = ItemStore::where('store_id', $detail->bill->store_from_id)->where('sub_item_id', $detail->sub_item_id)->first();
-                if (!$storeFromSubItem) {
-                    $storeFromSubItem = ItemStore::create([
+                $storeFromItem = ItemStore::where('store_id', $detail->bill->store_from_id)->where('item_id', $detail->item_id)->first();
+                if (!$storeFromItem) {
+                    $storeFromItem = ItemStore::create([
                         'store_id' => $detail->bill->store_from_id,
-                        'sub_item_id' => $detail->sub_item_id,
+                        'item_id' => $detail->item_id,
                         'amount' => 0
                     ]);
                 }
-                $storeFromSubItem->fill(['amount' => ($storeFromSubItem->amount ?? 0) - $detail->amount])->save();
+                $storeFromItem->fill(['amount' => ($storeFromItem->amount ?? 0) - $detail->amount])->save();
 
-                $storeToSubItem = ItemStore::where('store_id', $detail->bill->store_to_id)->where('sub_item_id', $detail->sub_item_id)->first();
-                if (!$storeToSubItem) {
-                    $storeToSubItem = ItemStore::create([
+                $storeToItem = ItemStore::where('store_id', $detail->bill->store_to_id)->where('item_id', $detail->item_id)->first();
+                if (!$storeToItem) {
+                    $storeToItem = ItemStore::create([
                         'store_id' => $detail->bill->store_to_id,
-                        'sub_item_id' => $detail->sub_item_id,
+                        'item_id' => $detail->item_id,
                         'amount' => 0
                     ]);
                 }
-                $storeToSubItem->fill(['amount' => ($storeToSubItem->amount ?? 0) + $detail->amount])->save();
+                $storeToItem->fill(['amount' => ($storeToItem->amount ?? 0) + $detail->amount])->save();
             }
         }
         $detail->delete();
