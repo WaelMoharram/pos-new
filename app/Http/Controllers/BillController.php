@@ -29,8 +29,11 @@ class BillController extends Controller
      */
     public function index(Request $request)
     {
-        dd(auth()->user()->getRoleNames()->first());
         $bills = Bill::where('type',$request->type)->get();
+        if (auth()->user()->getRoleNames()->first() !='admin'){
+            $bills = Bill::where('type',$request->type)->where('sales_man_id',auth()->id())->get();
+
+        }
         return view('dashboard.bills.'.$request->type.'.index',compact('bills'));
     }
 
