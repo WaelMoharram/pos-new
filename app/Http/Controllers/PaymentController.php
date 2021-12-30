@@ -24,8 +24,11 @@ class PaymentController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index(Request $request)
-    {
-        $payments = Bill::whereIn('type',['cash_in','cash_out'])->get();
+    {        $payments = Bill::whereIn('type',['cash_in','cash_out'])->get();
+
+        if (auth()->user()->getRoleNames()->first() !='admin'){
+            $payments = Bill::whereIn('type',['cash_in','cash_out'])->where('sales_man_id',auth()->id())->get();
+        }
         return view('dashboard.payments.index',compact('payments'));
     }
 
