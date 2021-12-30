@@ -21,9 +21,9 @@ class BillDetail extends Model
         return $this->belongsTo('App\Models\Bill');
     }
 
-    public function subItem()
+    public function item()
     {
-        return $this->belongsTo('App\Models\SubItem');
+        return $this->belongsTo('App\Models\Item');
     }
 
 }
