@@ -32,8 +32,8 @@ class HomeController extends Controller
         //Role::create(['name' => 'sales']);
         if (auth()->user()->type == 'admin'){
 
-            $onLineCount = SubItem::whereRaw('amount = min_amount')->count();
-            $underLineCount = SubItem::whereRaw('amount < min_amount')->count();
+            $onLineCount = Item::whereRaw('amount = min_amount')->count();
+            $underLineCount = Item::whereRaw('amount < min_amount')->count();
             return view('dashboard',compact('onLineCount','underLineCount'));
 
         }
@@ -45,10 +45,10 @@ class HomeController extends Controller
     public function items(Request $request){
         $items=null;
            if ($request->type == 'same'){
-               $items = SubItem::whereRaw('amount = min_amount')->get();
+               $items = Item::whereRaw('amount = min_amount')->get();
            }
             if ($request->type == 'under'){
-                $items = SubItem::whereRaw('amount < min_amount')->get();
+                $items = Item::whereRaw('amount < min_amount')->get();
             }
 
         return view('items',compact('items'));

@@ -18,6 +18,7 @@ class CreateItemsTable extends Migration {
 			$table->bigInteger('category_id')->unsigned();
 			$table->bigInteger('brand_id');
             $table->integer('min_amount')->default(0);
+            $table->decimal('amount',10,2)->default(0);
 
         });
 	}
