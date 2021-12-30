@@ -16,6 +16,7 @@
             '#',
             'صورة الصنف',
             'الاسم',
+            'الكمية المتاحة فى كل المخازن',
             'التصنيف',
             'العلامة التجارية',
             'الكود',
@@ -40,6 +41,7 @@
                 <td>{!! $loop->index +1 !!}</td>
                 <td><img src="{!! url('/').'/'.$row->image !!}" style="width: 100px; height: 100px;"></td>
                 <td>{!! $row->name !!}</td>
+                <td>{!! $row->amount !!}</td>
                 <td>{!! optional($row->category)->name !!}</td>
                 <td>{!! optional($row->brand)->name !!}</td>
                 <td>{!! $row->code !!}</td>
