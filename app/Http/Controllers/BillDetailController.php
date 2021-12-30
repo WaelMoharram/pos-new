@@ -107,13 +107,13 @@ class BillDetailController extends Controller
         }
 
         if ($bill->type == 'purchase_in' || $bill->type == 'purchase_out' ) {
-            $request->merge(['item_id' => $item->item_id, 'price' => $item->buy_price, 'total' => ($request->amount * $item->buy_price)]);
+            $request->merge(['price' => $item->buy_price, 'total' => ($request->amount * $item->buy_price)]);
         }else{
             $price = $item->price;
             if ($request->discount >0){
                 $price = $item->price - $request->discount;
             }
-            $request->merge(['item_id' => $item->item_id, 'price' => $price, 'total' => ($request->amount * $price)]);
+            $request->merge(['price' => $price, 'total' => ($request->amount * $price)]);
         }
         $BillDetail = BillDetail::where('item_id',$request->item_id)->where('bill_id',$request->bill_id)->first();
         if ($BillDetail){
