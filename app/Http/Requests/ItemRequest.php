@@ -30,7 +30,9 @@ class ItemRequest extends FormRequest
             'code' => 'required|string|unique:items,id,'.$this->item,
             'category_id' => 'required|integer',
             'brand_id' => 'required|integer',
-            'has_options' => 'required|boolean',
+            'price' => 'required|numeric',
+            'buy_price' => 'required|numeric',
+//            'has_options' => 'required|boolean',
 
 
         ];
