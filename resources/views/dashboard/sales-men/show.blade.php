@@ -35,7 +35,7 @@
 
     {{-- Minimal example / fill data using the component slot --}}
     <x-adminlte-datatable id="table1" :heads="$heads" striped hoverable with-buttons>
-        @foreach(\App\Models\StoreSubItem::where('store_id',$store->id)->get() as $itam)
+        @foreach(\App\Models\ItemStore::where('store_id',$store->id)->get() as $itam)
             <tr>
                 <td>{!! $loop->index +1 !!}</td>
                 <td>{!! $itam->subItem->item->name !!}</td>

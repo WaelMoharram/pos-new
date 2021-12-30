@@ -17,8 +17,9 @@ class CreateItemsTable extends Migration {
 			$table->string('code');
 			$table->bigInteger('category_id')->unsigned();
 			$table->bigInteger('brand_id');
-			$table->boolean('has_options')->default(0);
-		});
+            $table->integer('min_amount')->default(0);
+
+        });
 	}
 
 	public function down()

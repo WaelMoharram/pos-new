@@ -24,7 +24,8 @@ class Item extends Model
         'has_options',
         'buy_price',
         'price',
-        'is_final_options'
+        'min_amount',
+
     );
 
     public function category()
@@ -37,15 +38,20 @@ class Item extends Model
         return $this->belongsTo('App\Models\Brand');
     }
 
-    public function subItems()
+    public function stores()
     {
-        return $this->hasMany('App\Models\SubItem');
+        return $this->belongsToMany('App\Models\Store');
     }
 
-    public function options()
-    {
-        return $this->belongsToMany(Option::class,'item_option','item_id','option_id');
-    }
+//    public function subItems()
+//    {
+//        return $this->hasMany('App\Models\SubItem');
+//    }
+
+//    public function options()
+//    {
+//        return $this->belongsToMany(Option::class,'item_option','item_id','option_id');
+//    }
 
     public function Billsdetails()
     {

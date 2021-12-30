@@ -3,15 +3,15 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateStoreSubItemTable extends Migration {
+class CreateItemStoreTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('store_sub_item', function(Blueprint $table) {
+		Schema::create('item_store', function(Blueprint $table) {
 			$table->increments('id');
 			$table->timestamps();
 			$table->softDeletes();
-			$table->bigInteger('sub_item_id');
+			$table->bigInteger('item_id');
 			$table->bigInteger('store_id');
 			$table->decimal('amount', 10,2);
 		});
@@ -19,6 +19,6 @@ class CreateStoreSubItemTable extends Migration {
 
 	public function down()
 	{
-		Schema::drop('store_sub_item');
+		Schema::drop('item_store');
 	}
 }
