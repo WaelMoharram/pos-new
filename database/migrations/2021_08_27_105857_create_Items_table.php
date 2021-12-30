@@ -7,7 +7,7 @@ class CreateItemsTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('Items', function(Blueprint $table) {
+		Schema::create('items', function(Blueprint $table) {
 			$table->bigIncrements('id');
 			$table->timestamps();
 			$table->softDeletes();
@@ -24,6 +24,6 @@ class CreateItemsTable extends Migration {
 
 	public function down()
 	{
-		Schema::drop('Items');
+		Schema::drop('items');
 	}
 }
