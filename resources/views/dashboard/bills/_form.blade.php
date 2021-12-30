@@ -36,8 +36,20 @@
     {{input_error($errors,'barcode')}}
 </div>
 
-<div class="form-group py-1 col-md-12">
-    <label for="has_options"> يحتوى على اختيارات  </label>
-    {{Form::select('has_options',[true=>'نعم',false=>'لا'] ,null,['class'=>'form-control mb-2','id'=>'has_options'])}}
-    {{input_error($errors,'has_options')}}
+<div class="form-group py-1 col-md-6">
+    <label for="formInputRole"> سعر الشراء</label>
+    {!! Form::number('buy_price',null,['step'=>'any','class'=>'form-control col',isset($readOnly)?$readOnly:null,disable_on_show()]) !!}
+    {{input_error($errors,'buy_price')}}
 </div>
+
+<div class="form-group py-1 col-md-6">
+    <label for="formInputRole"> سعر البيع</label>
+    {!! Form::number('price',null,['step'=>'any','class'=>'form-control col',isset($readOnly)?$readOnly:null,disable_on_show()]) !!}
+    {{input_error($errors,'price')}}
+</div>
+
+{{--<div class="form-group py-1 col-md-12">--}}
+{{--    <label for="has_options"> يحتوى على اختيارات  </label>--}}
+{{--    {{Form::select('has_options',[true=>'نعم',false=>'لا'] ,null,['class'=>'form-control mb-2','id'=>'has_options'])}}--}}
+{{--    {{input_error($errors,'has_options')}}--}}
+{{--</div>--}}

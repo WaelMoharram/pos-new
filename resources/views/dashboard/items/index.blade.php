@@ -46,17 +46,11 @@
                 <td>{!! $row->barcode !!}</td>
                 <td>{!! $row->buy_price !!}</td>
                 <td>{!! $row->price !!}</td>
-                <td>{!! $row->has_options ? 'نعم': 'لا' !!}</td>
+{{--                <td>{!! $row->has_options ? 'نعم': 'لا' !!}</td>--}}
 
                 <td>
                     <nobr>
-{{--                        @if($row->has_options == 1)--}}
-                            @component('partials.buttons._sub_button',[
-                                            'route' => route('item-options.index',['item_id'=>$row->id]) ,
-                                            'tooltip' => 'الاختيارات للصنف',
-                                             ])
-                            @endcomponent
-{{--                        @endif--}}
+
                         @component('partials.buttons._edit_button',[
                                         'route' => route('items.edit',$row->id) ,
                                         'tooltip' => 'تعديل',
