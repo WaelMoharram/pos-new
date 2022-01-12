@@ -15,11 +15,19 @@
     {{input_error($errors,'model_id')}}
 </div>
 {{-- ############# Store #############--}}
-<div class="form-group py-1 col-md-6">
-    <label for="store_id"> مخزن الصرف  </label>
-    {{Form::select('store_id',\App\Models\Store::where('sales_man_id',null)->where('is_pos',1)->pluck('name','id') ,null,['class'=>'form-control mb-2','id'=>'store_id'])}}
-    {{input_error($errors,'store_id')}}
-</div>
+@if(auth()->user()->store == null)
+    <div class="form-group py-1 col-md-6">
+        <label for="store_id"> مخزن الصرف  </label>
+        {{Form::select('store_id',\App\Models\Store::where('sales_man_id',null)->where('is_pos',1)->pluck('name','id') ,null,['class'=>'form-control mb-2','id'=>'store_id'])}}
+        {{input_error($errors,'store_id')}}
+    </div>
+@else
+    <div class="form-group py-1 col-md-6">
+        <label for="store_id"> مخزن الصرف  </label>
+        {{Form::text('store_id',$store->name,['class'=>'form-control mb-2','id'=>'store_id','disabled'])}}
+        <input type="hidden" name="store_id" value="{{$store->id}}">
+    </div>
+@endif
 {{-- ############# Need discount #############--}}
 <div class="form-group py-1 col-md-6">
     <label for="need_discount"> طلب خصم على الفاتورة  </label>
