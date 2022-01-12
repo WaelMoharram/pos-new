@@ -385,26 +385,26 @@ return [
                         ],
                     ],
                 ],
-                [
-                    'text'    => 'اختيارات الاصناف',
-//                    'icon'    => 'fas fa-fw fa-folder',
-                    'can' =>'index options',
-                    'submenu' => [
-                        [
-                            'text' => 'عرض الكل',
-                            'url'  => 'dashboard/options',
-                            'icon'    => 'fas fa-fw fa-eye',
-                            'can' =>'index options',
-                        ],
-
-                        [
-                            'text' => 'اختيار جديد',
-                            'url'  => 'dashboard/options/create',
-                            'icon'    => 'fas fa-fw fa-plus',
-                            'can' =>'add options',
-                        ],
-                    ],
-                ],
+//                [
+//                    'text'    => 'اختيارات الاصناف',
+////                    'icon'    => 'fas fa-fw fa-folder',
+//                    'can' =>'index options',
+//                    'submenu' => [
+//                        [
+//                            'text' => 'عرض الكل',
+//                            'url'  => 'dashboard/options',
+//                            'icon'    => 'fas fa-fw fa-eye',
+//                            'can' =>'index options',
+//                        ],
+//
+//                        [
+//                            'text' => 'اختيار جديد',
+//                            'url'  => 'dashboard/options/create',
+//                            'icon'    => 'fas fa-fw fa-plus',
+//                            'can' =>'add options',
+//                        ],
+//                    ],
+//                ],
                 [
                     'text'    => ' الاصناف',
 //                    'icon'    => 'fas fa-fw fa-folder',
