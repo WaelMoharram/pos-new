@@ -58,4 +58,8 @@ class Item extends Model
         return $this->hasMany('App\Models\BillDetail');
     }
 
+    public function getNameWCategoryAttribute(){
+        return $this->category->name . ' - '.$this->name;
+    }
+
 }
