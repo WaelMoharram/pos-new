@@ -60,7 +60,7 @@ class BillController extends Controller
 
         $requests = $request->all();
 
-        $requests['status'] = "new";
+        $requests['status'] = "saved";
         $requests['need_discount'] = false;
         switch ($request->type) {
             case "purchase_in":
@@ -88,6 +88,7 @@ class BillController extends Controller
 
         if (auth()->user()->type != 'admin'){
             $requests['sales_man_id'] = auth()->id();
+            $requests['accept_user_id'] = auth()->id();
         }else{
             $requests['accept_user_id'] = auth()->id();
         }
