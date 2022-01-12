@@ -30,7 +30,7 @@ class BillController extends Controller
     public function index(Request $request)
     {
         $bills = Bill::where('type',$request->type)->get();
-        if (auth()->user()->getRoleNames()->first() !='admin'){
+        if (auth()->user()->store){
             $bills = Bill::where('type',$request->type)->where('sales_man_id',auth()->id())->get();
 
         }
