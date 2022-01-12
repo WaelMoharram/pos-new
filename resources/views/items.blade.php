@@ -28,7 +28,7 @@
         @foreach($items as $row)
             <tr>
                 <td>{!! $loop->index +1 !!}</td>
-                <td>{!! optional($row->name_w_category !!}</td>
+                <td>{!! $row->name_w_category !!}</td>
                 <td>{!! $row->min_amount !!}</td>
                 <td>{!! $row->amount !!}</td>
             </tr>
