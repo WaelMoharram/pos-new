@@ -89,8 +89,12 @@ class User extends Authenticatable
 
     public function store()
     {
-        return $this->hasOne('App\Models\Store','sales_man_id');
+        if ($this->type == 'sales'){
+            return $this->hasOne('App\Models\Store','sales_man_id');
+        }
+        return $this->belongsTo(Store::class,'store_id');
     }
+
 
     public function canBeAdmin(){
         if ($this->type == 'admin'){
