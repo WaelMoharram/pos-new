@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ItemRequest;
 use App\Imports\ItemsImport;
 use App\Models\Item;
-use App\Models\SubItem;
-use Maatwebsite\Excel\Excel;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ItemController extends Controller
 {
