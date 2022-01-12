@@ -18,6 +18,7 @@ class ItemsImport implements ToCollection
     public function collection(Collection $rows)
     {
         foreach ($rows as $row){
+            return $row;
             $category1=null;
             $category2=null;
             $category3=null;
