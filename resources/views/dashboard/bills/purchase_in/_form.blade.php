@@ -24,8 +24,8 @@
 @else
     <div class="form-group py-1 col-md-6">
         <label for="store_id"> مخزن الصرف  </label>
-        {{Form::text('store_id',$store->name,['class'=>'form-control mb-2','id'=>'store_id','disabled'])}}
-        <input type="hidden" name="store_id" value="{{$store->id}}">
+        {{Form::text('store_id',auth()->user()->store->name,['class'=>'form-control mb-2','id'=>'store_id','disabled'])}}
+        <input type="hidden" name="store_id" value="{{auth()->user()->store->id}}">
     </div>
 @endif
 @if(auth()->user()->type == 'admin')
