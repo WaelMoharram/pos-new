@@ -13,6 +13,7 @@
     @component('partials.buttons._add_sale_bill_button',[
                                             'route' => route('bills.store',['type'=>'sale_in']) ,
                                             'tooltip' => 'اضافة',
+                                            'store'=>$store
                                              ])
     @endcomponent
             @endcan

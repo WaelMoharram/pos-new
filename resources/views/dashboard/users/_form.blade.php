@@ -40,6 +40,12 @@
     {{input_error($errors,'password_confirmation')}}
 </div>
 
+<div class="form-group py-1 col-md-12">
+    <label for="store_id"> ادارة مخزن   </label>
+    {{Form::select('store_id',[null=>'الكل']+\App\Models\Store::where('sales_man_id',null)->pluck('name','id') ,null,['class'=>'form-control mb-2','id'=>'store_id'])}}
+    {{input_error($errors,'store_id')}}
+</div>
+
 <div class="form-group py-1 col-md-12 {{hidden_on_show()}}">
     <label for="formInputRole"> الدور </label>
     {{Form::select('role', $role, $user->roles->first()->id?? null, ['class'=>'form-control col select2',hidden_on_show(),] ) }}

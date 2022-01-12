@@ -34,7 +34,9 @@ class BillController extends Controller
             $bills = Bill::where('type',$request->type)->where('sales_man_id',auth()->id())->get();
 
         }
-        return view('dashboard.bills.'.$request->type.'.index',compact('bills'));
+        $store = auth()->user()->store;
+
+        return view('dashboard.bills.'.$request->type.'.index',compact('bills','store'));
     }
 
     /**
