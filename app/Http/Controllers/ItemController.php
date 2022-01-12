@@ -134,7 +134,7 @@ class ItemController extends Controller
     public function import()
     {
         Excel::import(new ItemsImport, request()->file('file'));
-        toast('تمت الاضافة بنجاح','success');
-        return redirect()->back();
+        //toast('تمت الاضافة بنجاح','success');
+        return 'done';
     }
 }
