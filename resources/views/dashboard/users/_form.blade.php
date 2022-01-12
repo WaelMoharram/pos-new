@@ -42,7 +42,7 @@
 
 <div class="form-group py-1 col-md-12">
     <label for="store_id"> ادارة مخزن   </label>
-    {{Form::select('store_id',[\App\Models\Store::where('sales_man_id',null)->pluck('name','id') ,null,['class'=>'form-control mb-2','id'=>'store_id','placeholder'=>'الكل']])}}
+    {{Form::select('store_id',\App\Models\Store::where('sales_man_id',null)->pluck('name','id') ,null,['class'=>'form-control mb-2','id'=>'store_id','placeholder'=>'الكل'])}}
     {{input_error($errors,'store_id')}}
 </div>
 
