@@ -55,7 +55,7 @@ class User extends Authenticatable
         'transfer',
         'categories',
         'brands',
-        'options',
+//        'options',
         'items',
         'sales',
         'sales-return',
