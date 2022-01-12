@@ -28,7 +28,7 @@ class ItemsImport implements ToCollection
                 }
                 if (!$category1){
                     $category1 = Category::create([
-                        'name'=>'',
+                        'name'=>$row[4],
                         'image'=>'uploads/images/164197706793default_product.png',
                         'upper_id'=>null
                     ]);
@@ -43,7 +43,7 @@ class ItemsImport implements ToCollection
                 }
                 if (!$category2){
                     $category2 = Category::create([
-                        'name'=>'',
+                        'name'=>$row[3],
                         'image'=>'uploads/images/164197706793default_product.png',
                         'upper_id'=>$category1
                     ]);
@@ -58,7 +58,7 @@ class ItemsImport implements ToCollection
                 }
                 if (!$category3){
                     $category3 = Category::create([
-                        'name'=>'',
+                        'name'=>$row[2],
                         'image'=>'uploads/images/164197706793default_product.png',
                         'upper_id'=>$category2
                     ]);
