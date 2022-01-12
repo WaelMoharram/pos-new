@@ -18,7 +18,6 @@ class ItemsImport implements ToCollection
     public function collection(Collection $rows)
     {
         foreach ($rows as $row){
-            return $row;
             $category1=null;
             $category2=null;
             $category3=null;
@@ -72,8 +71,8 @@ class ItemsImport implements ToCollection
                 'code'=>'',
                 'category_id'=>$category3,
                 'brand_id'=>1,
-                'price'=>$row[1],
-                'buy_price'=>$row[1]
+                'price'=>$row[1]??0,
+                'buy_price'=>$row[1]??0
             ]);
 
             $item->fill([
