@@ -23,7 +23,9 @@ class ItemsImport implements ToCollection
             $category3=null;
             if ($row[4] != null || $row[4] != ''){
                 $category1 = Category::where('name',$row[4])->first();
-                $category1 = $category1->id;
+                if ($category1){
+                    $category1 = $category1->id;
+                }
                 if (!$category1){
                     $category1 = Category::create([
                         'name'=>'',
@@ -36,7 +38,9 @@ class ItemsImport implements ToCollection
 
             if ($row[3] != null || $row[3] != ''){
                 $category2 = Category::where('name',$row[3])->first();
-                $category2 = $category2->id;
+                if ($category2){
+                    $category2 = $category2->id;
+                }
                 if (!$category2){
                     $category2 = Category::create([
                         'name'=>'',
@@ -49,7 +53,9 @@ class ItemsImport implements ToCollection
 
             if ($row[2] != null || $row[2] != ''){
                 $category3 = Category::where('name',$row[2])->first();
-                $category3 = $category3->id;
+                if ($category3){
+                    $category3 = $category3->id;
+                }
                 if (!$category3){
                     $category3 = Category::create([
                         'name'=>'',
