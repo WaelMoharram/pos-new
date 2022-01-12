@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ItemRequest;
+use App\Imports\ItemsImport;
 use App\Models\Item;
 use App\Models\SubItem;
+use Maatwebsite\Excel\Excel;
 
 class ItemController extends Controller
 {
@@ -127,5 +129,12 @@ class ItemController extends Controller
         $item->delete();
         toast('تم الحذف بنجاح','success');
         return redirect(route('items.index'));
+    }
+
+    public function import()
+    {
+        Excel::import(new ItemsImport, request()->file('file'));
+        toast('تمت الاضافة بنجاح','success');
+        return redirect()->back();
     }
 }
