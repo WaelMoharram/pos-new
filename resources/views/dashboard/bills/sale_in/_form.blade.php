@@ -10,8 +10,8 @@
 </div>
 {{-- ############# Supplier #############--}}
 <div class="form-group py-1 col-md-6">
-    <label for="model_id"> المورد  </label>
-    {{Form::select('model_id',\App\Models\Supplier::pluck('name','id') ,null,['class'=>'form-control mb-2','id'=>'model_id'])}}
+    <label for="model_id"> العميل  </label>
+    {{Form::select('model_id',\App\Models\Client::pluck('name','id') ,null,['class'=>'form-control mb-2','id'=>'model_id'])}}
     {{input_error($errors,'model_id')}}
 </div>
 {{-- ############# Store #############--}}
