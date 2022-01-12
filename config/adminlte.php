@@ -546,13 +546,13 @@ return [
             'submenu' => [
                 [
                     'text' => 'تقرير الجرد',
-                    'route'  => ['sales-men.show', auth()->id()],
+                    'route'  => ['sales-men.show', \Illuminate\Support\Facades\Auth::id()],
                     'icon'    => 'fas fa-fw fa-eye',
                 ],
 
                 [
                     'text' => 'تفرير العهدة المالية',
-                    'route'  => ['sales-men.report', auth()->id()],
+                    'route'  => ['sales-men.report', \Illuminate\Support\Facades\Auth::id()],
                     'icon'    => 'fas fa-fw fa-money',
                 ],
             ],
