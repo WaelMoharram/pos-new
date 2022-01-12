@@ -70,6 +70,8 @@ class PaymentController extends Controller
 
         if (auth()->user()->type == 'sales'){
             $requests['sales_man_id'] = auth()->id();
+            $requests['accept_user_id'] = auth()->id();
+
         }else{
             $requests['accept_user_id'] = auth()->id();
         }
