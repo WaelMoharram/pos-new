@@ -26,7 +26,8 @@ class User extends Authenticatable
         'password',
         'image',
         'mobile',
-        'type'
+        'type',
+        'store_id'
     ];
 
     /**
