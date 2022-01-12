@@ -539,6 +539,24 @@ return [
             'url'        => 'dashboard/system-options',
             'can' =>'delete settings',
         ],
+        [
+            'text'    => 'تقارير المندوب',
+            'icon'    => 'fas fa-fw fa-file',
+            'can'     =>'is_sales',
+            'submenu' => [
+                [
+                    'text' => 'تقرير الجرد',
+                    'route'  => ['sales-men.show', auth()->id()],
+                    'icon'    => 'fas fa-fw fa-eye',
+                ],
+
+                [
+                    'text' => 'تفرير العهدة المالية',
+                    'route'  => ['sales-men.report', auth()->id()],
+                    'icon'    => 'fas fa-fw fa-money',
+                ],
+            ],
+        ],
 //        ['header' => 'الاكثر استخداما'],
 //        [
 //            'text'       => 'رابط تجريبى',
