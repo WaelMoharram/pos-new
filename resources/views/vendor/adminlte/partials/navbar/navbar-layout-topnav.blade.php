@@ -23,6 +23,29 @@
             <ul class="nav navbar-nav">
                 {{-- Configured left links --}}
                 @each('adminlte::partials.navbar.menu-item', $adminlte->menu('navbar-left'), 'item')
+                @can('is_sales')
+                    <li class="nav-item dropdown ">
+                        <a class="nav-link dropdown-toggle" href="" data-toggle="dropdown" aria-expanded="true">
+                            <i class="fas fa-fw fa-users "></i>
+                            تقارير المندوب
+                        </a>
+                        <ul class="dropdown-menu border-0 shadow show" style="left: 0px; right: inherit;">
+                            <li>
+                                <a class="dropdown-item" href="{{route('sales-men.show', auth()->id())}}">
+                                    <i class="fas fa-fw fa-eye "></i>
+                                    تقرير الجرد
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{route('sales-men.report', auth()->id())}}">
+                                    <i class="fas fa-fw fa-plus "></i>
+                                    تفرير العهدة المالية
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    @endcan
+
 
                 {{-- Custom left links --}}
                 @yield('content_top_nav_left')
