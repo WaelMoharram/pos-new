@@ -5,7 +5,7 @@
 @section('content_header')
     <h1>المندوبين</h1>
     @can('add sales_men')
-        <a href="{{yrl('dashboard/sales-men/create')}}" class="btn btn-info float-right">اضافة جديد</a>
+        <a href="{{url('dashboard/sales-men/create')}}" class="btn btn-info float-right">اضافة جديد</a>
     @endcan
 @stop
 
