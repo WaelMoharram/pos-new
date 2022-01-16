@@ -29,7 +29,7 @@ class BillController extends Controller
      */
     public function index(Request $request)
     {
-        $bills = Bill::where('type',$request->type)->get();
+        return $bills = Bill::where('type',$request->type)->get();
         if (count(auth()->user()->store) > 0){
             $bills = Bill::where('type',$request->type)->where('sales_man_id',auth()->id())->get();
 
