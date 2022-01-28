@@ -100,6 +100,7 @@ class BillController extends Controller
         }
         $bill = Bill::create($requests);
         toast('تم اضافة القيد بنجاح','success');
+
         return redirect(route('bills.edit',$bill->id));
     }
 
@@ -124,10 +125,49 @@ class BillController extends Controller
      */
     public function edit($id)
     {
+
+
         $bill = Bill::findOrFail($id);
         $details = BillDetail::where('bill_id',$bill->id)->get();
         $items = Item::all();
         return view('dashboard.bills.'.$bill->type.'.edit',compact('bill','details','items'));
+    }
+
+    public function editPos()
+    {
+
+        if (auth()->user()->pos == 1 ){
+            $requests['status'] = "saved";
+            $requests['need_discount'] = false;
+            $requests['type'] = "sale_out";
+            $requests['model_type'] = "client";
+            $requests['model_id'] = 1;
+
+            if (auth()->user()->type != 'admin'){
+                $requests['sales_man_id'] = auth()->id();
+                $requests['accept_user_id'] = auth()->id();
+            }else{
+                $requests['accept_user_id'] = auth()->id();
+            }
+            $lastBill = Bill::where('type','sale_out')->latest()->first();
+            if ($lastBill){
+                $requests['code'] = $lastBill->code+1;
+            }else{
+                $requests['code'] =1;
+            }
+            $requests['store_id']=auth()->user()->store->id ?? 0;
+            $requests['date']=date('Y-m-d');
+            $bill = Bill::where('date',date('Y-m-d'))->where('accept_user_id',auth()->id())->first();
+            if (!$bill){
+                $bill = Bill::create($requests);
+
+            }
+            $details = BillDetail::where('bill_id',$bill->id)->get();
+            $items = Item::all();
+
+            return view('dashboard.bills.sale_out_pos.edit',compact('bill','details','items'));
+        }
+
     }
 
     /**
@@ -236,7 +276,7 @@ class BillController extends Controller
         return redirect(route('bills.index',['type'=>$bill->type]));
     }
 
-    public function save($id){
+    public function save($id,Request $request){
         $bill= Bill::findOrFail($id);
 
         if ($bill->status == 'new'){
@@ -299,9 +339,42 @@ class BillController extends Controller
         }
 
         $bill->fill(['status'=>'saved'])->save();
+
+        if ($request->has('pay') && $request->pay ==1){
+            if ($bill->remaining < $request->money){
+                toast('لا يمكن سداد المبلغ لان القيمة اكبر من القيمة المتبقية على الفاتورة','error');
+                return redirect()->back();
+            }
+            $requests = $request->all();
+
+            $requests['bill_id'] = $bill->id;
+
+            $requests['model_id'] = $bill->model_id;
+            $requests['model_type'] = $bill->model_type;
+            $requests['date'] = $request->money_date;
+            $requests['status'] = "saved";
+            $requests['need_discount'] = false;
+
+
+            if (auth()->user()->type == 'sales'){
+                $requests['sales_man_id'] = auth()->id();
+                $requests['accept_user_id'] = auth()->id();
+
+            }else{
+                $requests['accept_user_id'] = auth()->id();
+            }
+            $lastPayment = Bill::where('type',$request->type)->latest()->first();
+            if ($lastPayment){
+                $requests['code'] = $lastPayment->code+1;
+            }else{
+                $requests['code'] =1;
+            }
+            $payment = Bill::create($requests);
+            toast('تم السداد بنجاح','success');
+        }
         toast('تم حفظ الفاتورة بنجاح','success');
 
-        return redirect()->back();
+        return redirect(route('bills.index',['type'=>$bill->type]));
     }
     public function print($id){
         $bill = Bill::findOrFail($id);

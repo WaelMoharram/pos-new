@@ -3,10 +3,11 @@
 @section('title', 'العملاء')
 
 @section('content_header')
-العملاء@stop
-@can('add clients')
+العملاء
+@can('add client')
     <a href="{{route('clients.create')}}" class="btn btn-info float-right">اضافة جديد</a>
 @endcan
+@stop
 @section('content')
     {{-- Setup data for datatables --}}
     @php

@@ -103,7 +103,8 @@
 
 </div>
     {!! Form::open(['method'=>'post','route'=>['bills.save',$bill->id],'class'=>' col-md-12','dir'=>'']) !!}
-    <button type="submit" class="col-md-12 btn btn-primary mr-1 mb-1 waves-effect waves-light">حفظ الفاتورة</button>
+    @component('partials.buttons._save_bill_button',['bill'=>$bill])@endcomponent
+
     {!! Form::close() !!}
 </div>
 @stop
@@ -116,6 +117,21 @@
         $('.select2').select2({
            dir:'rtl',
         });
+    </script>
+    <script>
+        $('#barcode').change(function(){
+            $.ajax({
+                url: "{{route('barcode')}}",
+                data: { "barcode": $("#barcode").val() },
+                type: "get",
+                success: function(data){
+                    if (data != null){
+                        $("#item_id").val(data).trigger('change');
+                    }
+                }
+            });
+        });
+
     </script>
     @include('sweetalert::alert')
 @stop

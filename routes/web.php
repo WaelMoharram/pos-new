@@ -32,6 +32,7 @@ use App\Http\Controllers\RoleController;
 Route::get('/', function () {
     return redirect()->route('login');
 });
+Route::get('barcode',[ItemController::class, 'barcode'])->name('barcode');
 
 Route::group(['middleware' => 'auth:web','prefix'=>'dashboard'], function () {
 
@@ -58,7 +59,7 @@ Route::group(['middleware' => 'auth:web','prefix'=>'dashboard'], function () {
     Route::resource('system-options', systemOptionController::class)->only([
         'index', 'edit','update'
     ]);
-
+    Route::get('pos',[BillController::class, 'editPos'])->name('pos');
     Route::get('stores-all',[StoreController::class, 'all'])->name('stores.all');
 
     Route::post('bills/save/{id}',[BillController::class, 'save'])->name('bills.save');

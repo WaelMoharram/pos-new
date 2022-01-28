@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('image');
             $table->string('mobile');
+            $table->boolean('pos')->default(0);
             $table->enum('type', array('admin', 'sales'));
             $table->rememberToken();
         });

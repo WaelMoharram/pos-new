@@ -7,6 +7,17 @@
 @stop
 
 @section('content')
+    @if(auth()->user()->pos ==1)
+        <a href="{{route('pos')}}" class="col-lg-12 col-12">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+                <div class="inner">
+                    <h2>نقطة بيع اليوم</h2>
+                </div>
+
+            </div>
+        </a>
+    @endif
 @if($onLineCount > 1)
     <div class="col-lg-12 col-12">
         <!-- small box -->

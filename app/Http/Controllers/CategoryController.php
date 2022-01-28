@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -22,10 +23,14 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::all();
+        //return Category::all();
+        $categories = Category::where('upper_id',null)->get();
 
+        if ($request->has('upper_id')){
+            $categories = Category::where('upper_id',$request->upper_id)->get();
+        }
         return view('dashboard.categories.index',compact('categories'));
     }
 

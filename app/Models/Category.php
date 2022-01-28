@@ -15,6 +15,7 @@ class Category extends Model
 
     protected $dates = ['deleted_at'];
     protected $fillable = array('name', 'image','upper_id');
+    protected $appends=['color'];
 
     public function items()
     {
@@ -34,6 +35,23 @@ class Category extends Model
     public function scopeFinalLevel($query)
     {
         return $query->whereDoesntHave('categories');
+    }
+
+    public function getColorAttribute(){
+        if($this->categories->count() == 0){
+            return 'success';
+        }
+        if ($this->category->count() > 0 && $this->categories->count() > 0){
+            return 'warning';
+        }
+        if ($this->category->count() == 0){
+            return 'danger';
+        }
+
+
+
+
+        return 'success';
     }
 
 }

@@ -27,7 +27,8 @@ class User extends Authenticatable
         'image',
         'mobile',
         'type',
-        'store_id'
+        'store_id',
+        'pos'
     ];
 
     /**

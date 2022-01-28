@@ -16,6 +16,7 @@
             '#',
             'صورة التصنيف',
             'الاسم',
+            'عدد التصنيفات الفرعية',
             'التصنيف الاعلى',
             ['label' => 'اعدادات', 'no-export' => true, 'width' => 5],
         ];
@@ -31,9 +32,10 @@
     <x-adminlte-datatable id="table1" :heads="$heads" striped hoverable with-buttons>
         @foreach($categories as $row)
             <tr>
-                <td>{!! $loop->index +1 !!}</td>
+                <td  class="bg-{{$row->color}}">{!! $loop->index +1 !!}</td>
                 <td><img src="{!! url('/').'/'.$row->image !!}" style="width: 100px; height: 100px;"></td>
                 <td>{!! $row->name !!}</td>
+                <td>{!! $row->categories->count() !!}</td>
                 <td>{!! $row->category->name ?? 'لا يوجد' !!}</td>
                 <td>
                     <nobr>
@@ -50,7 +52,7 @@
                         @endcomponent
 
                             @component('partials.buttons._show_button',[
-                                            'route' => route('categories.show',$row->id) ,
+                                            'route' => route('categories.index',['upper_id'=>$row->id]) ,
                                             'tooltip' => 'عرض',
                                              ])
                             @endcomponent

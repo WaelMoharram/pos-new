@@ -3,13 +3,13 @@
 @section('title', 'تعديل فاتورة')
 
 @section('content_header')
-    <h1>تعديل فاتورة توريد رقم {{$bill->code}}</h1>
+    <h1>نقطة بيع يوم {{$bill->date}}</h1>
 @stop
 
 @section('content')
 
     {{-- ########## Main section ########## --}}
-    <div class="card col-md-12 {{--collapsed-card--}}">
+    <div class="card col-md-12 collapsed-card">
         <div class="card-header">
             <h3 class="card-title">{{$bill->code}} - {{optional($bill->model)->name}} - {{optional($bill->store)->name}} - {{$bill->total}}</h3>
             <div class="card-tools">
@@ -20,10 +20,11 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body p-0">
+
             {!! Form::model($bill,['method'=>'put','route'=>['bills.update',$bill->id],'class'=>'form','enctype' => 'multipart/form-data']  ) !!}
             @csrf()
             <div class="row">
-                @include('dashboard.bills.purchase_in._form')
+                @include('dashboard.bills.sale_out._form')
                 @component('partials.buttons._save_button',[])
                 @endcomponent
             </div>
@@ -34,8 +35,7 @@
 <div class="row ">
     {{-- ########## Bill details table  ########## --}}
 
-    @include('dashboard.bills.purchase_in._table_details')
-<div class="col-md-6 ">
+<div class="col-md-12 ">
     <div class="card ">
         <div class="card-header">
             <h3 class="card-title">اضافة صنف للفاتورة</h3>
@@ -48,20 +48,26 @@
         <!-- /.card-header -->
         <div class="card-body p-0">
             {{-- ########## Add item Form  ########## --}}
+            <div class="form-group  col-md-12">
+                <label for="barcode"> باركود  </label>
+                {{Form::text('barcode',null,['class'=>'form-control mb-2','id'=>'barcode'])}}
+                {{input_error($errors,'barcode')}}
+            </div>
 
                 {!! Form::open(['method'=>'post','route'=>'bill-details.store','class'=>' col-md-12','dir'=>'']) !!}
                     @csrf()
                     <div class="row">
-                        @include('dashboard.bills.purchase_in._form_details')
+                        @include('dashboard.bills.sale_out._form_details')
                     </div>
                 {!! Form::close() !!}
         </div>
     </div>
 
+    @include('dashboard.bills.sale_out_pos._table_details')
 
     <div class="card ">
         <div class="card-header">
-            <h3 class="card-title">اجمالى الفاتورة</h3>
+            <h3 class="card-title">اجمالى اليوم</h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
                     <i class="fas fa-minus"></i>
@@ -103,7 +109,8 @@
 
 </div>
     {!! Form::open(['method'=>'post','route'=>['bills.save',$bill->id],'class'=>' col-md-12','dir'=>'']) !!}
-    @component('partials.buttons._save_bill_button',['bill'=>$bill])@endcomponent
+
+
 
     {!! Form::close() !!}
 </div>

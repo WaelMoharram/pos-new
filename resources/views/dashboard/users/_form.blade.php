@@ -52,6 +52,12 @@
 
 </div>
 
+<div class="form-group py-1 col-md-12">
+    <label for="pos"> امكانبة البيع عن طريق نقطة بيع يومية </label>
+    {{Form::select('pos',[0=>'لا' , 1=>'نعم'] ,null,['class'=>'form-control mb-2','id'=>'pos'])}}
+    {{input_error($errors,'pos')}}
+</div>
+
 
 
 

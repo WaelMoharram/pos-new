@@ -123,6 +123,26 @@
 
 
                     </tr>
+                    <tr>
+                        <td>#</td>
+                        <td colspan="3">المدفوع</td>
+
+                        <td>
+                            {!!  optional($bill->payments)->sum('money') ?? 0  !!}
+                        </td>
+
+
+                    </tr>
+                    <tr>
+                        <td>#</td>
+                        <td colspan="3">المتبقى</td>
+
+                        <td>
+                            {{$bill->remaining}}
+                        </td>
+
+
+                    </tr>
                     </tbody>
                 </table>
             </div>

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ItemRequest;
 use App\Imports\ItemsImport;
+use App\Models\Bill;
 use App\Models\Item;
+use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ItemController extends Controller
@@ -135,5 +137,9 @@ class ItemController extends Controller
         Excel::import(new ItemsImport, request()->file('file'));
         //toast('تمت الاضافة بنجاح','success');
         return 'done';
+    }
+
+    public function barcode(Request $request){
+        return Item::where('barcode',$request->barcode)->first()->id ?? null;
     }
 }
