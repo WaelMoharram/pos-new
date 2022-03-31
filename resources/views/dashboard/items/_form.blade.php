@@ -39,6 +39,12 @@
     {{input_error($errors,'barcode')}}
 </div>
 
+    <div class="form-group py-1 col-md-6">
+        <label for="formInputRole">الحد الادنى للطلب</label>
+        {!! Form::text('min_amount',null,['class'=>'form-control col',isset($readOnly)?$readOnly:null,disable_on_show()]) !!}
+        {{input_error($errors,'min_amount')}}
+    </div>
+
 
 <div class="form-group py-1 col-md-6">
     <label for="buy_price"> سعر الشراء</label>
