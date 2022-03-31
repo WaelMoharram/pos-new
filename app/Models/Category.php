@@ -41,10 +41,10 @@ class Category extends Model
         if($this->categories->count() == 0){
             return 'success';
         }
-        if ($this->category->count() > 0 && $this->categories->count() > 0){
+        if ($this->category && $this->categories->count() > 0){
             return 'warning';
         }
-        if ($this->category->count() == 0){
+        if ($this->category){
             return 'danger';
         }
 
