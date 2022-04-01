@@ -355,6 +355,12 @@ class BillController extends Controller
             $requests['status'] = "saved";
             $requests['need_discount'] = false;
 
+            if ($bill->type == 'purchase_in' || $bill->type == 'sale_in') {
+                $requests['type'] = "cash_out";
+            }else {
+                $requests['type'] = "cash_in";
+            }
+
 
             if (auth()->user()->type == 'sales'){
                 $requests['sales_man_id'] = auth()->id();
