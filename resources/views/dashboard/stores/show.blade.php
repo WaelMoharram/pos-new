@@ -28,7 +28,7 @@
         @foreach(\App\Models\ItemStore::where('store_id',$store->id)->get() as $itam)
             <tr>
                 <td>{!! $loop->index +1 !!}</td>
-                <td>{!! optional($itam)->name !!}</td>
+                <td>{!! optional($itam->item)->name !!}</td>
                 <td>{!! $itam->amount !!}</td>
             </tr>
         @endforeach
