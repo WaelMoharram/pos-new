@@ -70,16 +70,16 @@ class Bill extends Model
 
         switch ($this->type) {
             case "purchase_in":
-                return 'مشتريات';
+                return 'فاتوره توريد';
                 break;
             case "purchase_out":
-                return 'مرتجع مشتريات';
+                return 'فاتوره مرتجع توريد';
                 break;
             case "sale_in":
-                return 'مرتجع مبيعات';
+                return 'فاتوره مرتجع مبيعات';
                 break;
             case "sale_out":
-                return 'مبيعات';
+                return 'فاتوره مبيعات';
                 break;
             case "store":
                 return 'نقل وصرف من المخازن و المندوبين';
