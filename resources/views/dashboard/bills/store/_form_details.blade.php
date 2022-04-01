@@ -8,7 +8,7 @@
 {{-- ############# Bill Code #############--}}
 <div class="form-group  col-md-12">
     <label for="amount"> الكمية  </label>
-    {{Form::text('amount',null,['class'=>'form-control mb-2','id'=>'amount'])}}
+    {{Form::text('amount',null,['class'=>'form-control mb-2','id'=>'amount','required'])}}
     {{input_error($errors,'amount')}}
 </div>
 
