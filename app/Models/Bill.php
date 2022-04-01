@@ -70,7 +70,7 @@ class Bill extends Model
 
         switch ($this->type) {
             case "purchase_in":
-                return 'مشترياات';
+                return 'مشتريات';
                 break;
             case "purchase_out":
                 return 'مرتجع مشتريات';
@@ -94,7 +94,7 @@ class Bill extends Model
 
     }
     public function bill(){
-        return $this->belongsTo(Bill::class,'bill_id');
+        return $this->belongsTo(Bill::class,'bill_id')->withTrashed();
     }
 
     public function payments(){
