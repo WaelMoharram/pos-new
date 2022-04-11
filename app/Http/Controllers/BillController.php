@@ -157,7 +157,7 @@ class BillController extends Controller
             }
             $requests['store_id']=auth()->user()->store->id ?? 0;
             $requests['date']=date('Y-m-d');
-            $bill = Bill::where('date',date('Y-m-d'))->where('accept_user_id',auth()->id())->first();
+            $bill = Bill::where('type','sale_out')->where('date',date('Y-m-d'))->where('accept_user_id',auth()->id())->first();
             if (!$bill){
                 $bill = Bill::create($requests);
 
