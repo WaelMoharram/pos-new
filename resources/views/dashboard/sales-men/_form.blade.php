@@ -4,6 +4,7 @@
 <div class="form-group col-md-12 {{hidden_on_show()}}">
     <label for="logo_input"> صورة </label>
     {!! Form::file('image',['id'=>'logo_input','class'=>'form-control col','placeholder'=>__("Image"),'onchange'=>"loadLogo(event)"]) !!}
+    {{input_error($errors,'image')}}
 </div>
 
 <div class="form-group py-1 col-md-6">
