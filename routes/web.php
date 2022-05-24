@@ -38,6 +38,9 @@ Route::group(['middleware' => 'auth:web','prefix'=>'dashboard'], function () {
 
     Route::get('/',[HomeController::class, 'index'])->name('dashboard');
 
+    Route::get('/edit-profile',[\App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/update-profile',[\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+
     Route::resources([
         'roles' => RoleController::class,
 

@@ -35,6 +35,7 @@
 
                     <x-slot name="content">
                         <!-- Authentication -->
+                        <a href="{{route('profile.edit')}}">{{__('Profile')}}</a>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
