@@ -13,3 +13,6 @@
 {{--<p style="page-break-after: always;">&nbsp;</p>--}}
 {{--<p style="page-break-before: always;">&nbsp;</p>--}}
 {{--<p>1234</p>--}}
+<script>
+    window.print();
+</script>
