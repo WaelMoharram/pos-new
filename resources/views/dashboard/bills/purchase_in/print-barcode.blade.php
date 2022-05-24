@@ -1,5 +1,5 @@
 @foreach($details as $one)
-    <img src="data:image/png;base64,{{ \Milon\Barcode\DNS1D::getBarcodePNG($one->barcode, 'C39',3,50,array(1,1,1), true) }}" alt="barcode"   />
+    <img src="data:image/png;base64,{{ \Milon\Barcode\DNS1D::getBarcodePNG($one->item->barcode, 'C39',3,50,array(1,1,1), true) }}" alt="barcode"   />
 
     <p>{{$one->item->barcode}}</p>
     @if(checkEvenOdd(($loop->index + 1)) == 'Even' )
