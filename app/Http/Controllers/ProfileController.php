@@ -58,7 +58,7 @@ class ProfileController extends Controller
         }else{
             unset($requests['password']);
         }
-        $user = User::find($id);
+        $user = User::find(Auth::id());
         $user->fill($requests)->save();
         toast('تم التعديل بنجاح ','success');
         return redirect()->back();
