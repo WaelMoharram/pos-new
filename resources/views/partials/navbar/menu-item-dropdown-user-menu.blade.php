@@ -69,6 +69,7 @@
                     {{ __('حسابى') }}
                 </a>
             @endif
+            <br>
             <a class="btn btn-default btn-flat float-right @if(!$profile_url) btn-block @endif"
                href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <i class="fa fa-fw fa-power-off"></i>
