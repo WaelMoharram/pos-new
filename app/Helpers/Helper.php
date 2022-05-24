@@ -155,9 +155,9 @@ function checkEvenOdd($number)
 
     if($bitwiseAnd == 1)
     {
-        echo "Odd";
+        return "Odd";
     }
     else{
-        echo "Even";
+        return "Even";
     }
 }
