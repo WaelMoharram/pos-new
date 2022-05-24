@@ -89,6 +89,12 @@
                                         'tooltip' => 'طباعة',
                                          ])
                         @endcomponent
+
+                        @component('partials.buttons._print_button',[
+                                        'route' => route('bills.print-barcode',$row->id) ,
+                                        'tooltip' => 'طباعة الباركود',
+                                         ])
+                        @endcomponent
                     </nobr>
                 </td>
             </tr>
