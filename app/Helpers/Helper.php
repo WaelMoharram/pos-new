@@ -144,3 +144,20 @@ function saveImage($file, $folder = '/')
     $uploaded_file = 'uploads/' . $folder . '/' . $fileName;
     return $uploaded_file;
 }
+function checkEvenOdd($number)
+{
+
+    // One
+    $one = 1;
+
+    // Bitwise AND
+    $bitwiseAnd = $number & $one;
+
+    if($bitwiseAnd == 1)
+    {
+        echo "Odd";
+    }
+    else{
+        echo "Even";
+    }
+}

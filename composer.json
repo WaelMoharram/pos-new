@@ -15,6 +15,7 @@
         "laravel/tinker": "^2.5",
         "laravelcollective/html": "^6.2",
         "maatwebsite/excel": "^3.1",
+        "milon/barcode": "^9.0",
         "pusher/pusher-php-server": "^7.0",
         "realrashid/sweet-alert": "^4.0",
         "spatie/laravel-activitylog": "^4.1",

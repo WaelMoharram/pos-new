@@ -387,4 +387,9 @@ class BillController extends Controller
         $details = BillDetail::where('bill_id',$bill->id)->get();
         return view('dashboard.bills.'.$bill->type.'.print',compact('bill','details'));
     }
+    public function printBarcode($id){
+        $bill = Bill::findOrFail($id);
+        $details = BillDetail::where('bill_id',$bill->id)->get();
+        return view('dashboard.bills.'.$bill->type.'.print-barcode',compact('bill','details'));
+    }
 }
