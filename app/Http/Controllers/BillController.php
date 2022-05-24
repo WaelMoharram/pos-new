@@ -390,6 +390,7 @@ class BillController extends Controller
     public function printBarcode($id){
         $bill = Bill::findOrFail($id);
         $details = BillDetail::where('bill_id',$bill->id)->get();
-        return view('dashboard.bills.'.$bill->type.'.print-barcode',compact('bill','details'));
+        $count =1;
+        return view('dashboard.bills.'.$bill->type.'.print-barcode',compact('bill','details','count'));
     }
 }

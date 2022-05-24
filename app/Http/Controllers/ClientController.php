@@ -25,7 +25,12 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients = Client::all();
+
+        if (auth()->user()->type == 'sales'){
+            $clients = Client::check()->get();
+        }else{
+            $clients = Client::all();
+        }
 
         return view('dashboard.clients.index',compact('clients'));
     }
