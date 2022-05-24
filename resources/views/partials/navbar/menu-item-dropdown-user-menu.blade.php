@@ -66,7 +66,7 @@
             @if($profile_url)
                 <a href="{{ $profile_url }}" class="btn btn-default btn-flat">
                     <i class="fa fa-fw fa-user"></i>
-                    {{ __('adminlte::menu.profile') }}
+                    {{ __('حسابى') }}
                 </a>
             @endif
             <a class="btn btn-default btn-flat float-right @if(!$profile_url) btn-block @endif"
