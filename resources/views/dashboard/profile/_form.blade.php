@@ -10,7 +10,7 @@
 <div class="form-group py-1 col-md-6">
     <label for="formInputRole"> الاسم بالكامل</label>
     {!! Form::text('name',null,['class'=>'form-control col','placeholder'=>'الاسم بالكامل',isset($readOnly)?$readOnly:null,disable_on_show()]) !!}
-    {{input_error($errors,'name')}
+    {{input_error($errors,'name')}}
 </div>
 
 <div class="form-group py-1 col-md-6">
@@ -40,6 +40,7 @@
     {!! Form::password('password_confirmation',['class'=>'form-control col',hidden_on_show()]) !!}
     {{input_error($errors,'password_confirmation')}}
 </div>
+
 
 
 
