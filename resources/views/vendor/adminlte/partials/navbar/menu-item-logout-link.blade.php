@@ -5,7 +5,9 @@
 @else
     @php( $logout_url = $logout_url ? url($logout_url) : '' )
 @endif
-
+<li class="nav-item">
+    <a href="{{route('profile.edit')}}">{{__('Profile')}}</a>
+</li>
 <li class="nav-item">
     <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
         <i class="fa fa-fw fa-power-off"></i>

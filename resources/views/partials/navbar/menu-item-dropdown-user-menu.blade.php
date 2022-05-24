@@ -62,6 +62,7 @@
 
         {{-- User menu footer --}}
         <li class="user-footer">
+            <a class="btn btn-default btn-flat" href="{{route('profile.edit')}}"><i class="fa fa-fw fa-user"></i> {{__('Profile')}}</a>
             @if($profile_url)
                 <a href="{{ $profile_url }}" class="btn btn-default btn-flat">
                     <i class="fa fa-fw fa-user"></i>
