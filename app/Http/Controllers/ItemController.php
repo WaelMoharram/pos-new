@@ -53,12 +53,15 @@ class ItemController extends Controller
     public function store(ItemRequest $request)
     {
         $requests=$request->all();
+        $requests['barcode'] = strtotime(date('Y-m-d'));
         if ($request->hasFile('image')) {
             $requests['image'] = saveImage($request->image, 'images');
             $request->files->remove('image');
         }
 
         $item = Item::create($requests);
+        $item->barcode = $item->id;
+        $item->save();
 
 
         toast('تم اضافة القيد بنجاح','success');
