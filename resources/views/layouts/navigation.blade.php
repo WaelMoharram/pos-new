@@ -78,6 +78,8 @@
 
             <div class="mt-3 space-y-1">
                 <!-- Authentication -->
+                <a href="{{route('profile.edit')}}">{{__('Profile')}}</a>
+
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
