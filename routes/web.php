@@ -67,6 +67,8 @@ Route::group(['middleware' => 'auth:web','prefix'=>'dashboard'], function () {
 
     Route::post('bills/save/{id}',[BillController::class, 'save'])->name('bills.save');
     Route::get('bills/print/{id}',[BillController::class, 'print'])->name('bills.print');
+    Route::get('bills/print-barcode/{id}',[BillController::class, 'printBarcode'])->name('bills.print-barcode');
+
 
     Route::get('payments/print/{id}',[PaymentController::class, 'print'])->name('payments.print');
 
