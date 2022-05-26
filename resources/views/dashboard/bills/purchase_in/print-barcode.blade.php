@@ -1,7 +1,7 @@
 @foreach($details as $one)
     @for($i=0;$i<$one->amount;$i++)
     <div style="width: 3.8cm; height: 1.2cm;">
-    <img  src="data:image/png;base64,{{ \Milon\Barcode\DNS1D::getBarcodePNG($one->item->id, 'C39',1.2,40,array(1,1,1), true) }}" alt="barcode"   />
+    <img  src="data:image/png;base64,{{ \Milon\Barcode\DNS1D::getBarcodePNG($one->item->id, 'C39',1.2,30,array(1,1,1), true) }}" alt="barcode"   />
     </div>
 {{--    <div style="page-break-after: always;">&nbsp;</div>--}}
 {{--    <div style="page-break-before: always;">&nbsp;</div>--}}
