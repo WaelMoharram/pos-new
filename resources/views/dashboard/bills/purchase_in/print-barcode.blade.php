@@ -9,7 +9,8 @@
 
     {{--    <p>{{$one->item->barcode}}</p>--}}
     @if(checkEvenOdd(($count++)) == 'Even' )
-        <div style="page-break-after: always;">&nbsp;</div>
+        <div style="page-break-before: always;">&nbsp;</div>
+{{--        <div style="page-break-after: always;">&nbsp;</div>--}}
 {{--        <div style="page-break-before: always;">&nbsp;</div>--}}
     @endif
     @endfor
