@@ -1,6 +1,9 @@
 <style>
+    body{
+        margin:0;
+    }
     .print{
-        width: 3.8cm; height: 1cm;
+        width: 5.7cm; height: 1.5cm;
     }
 </style>
 @foreach($details as $one)
