@@ -3,9 +3,9 @@
         margin:0;
     }
     .print{
-        width: 5.7cm; height: 1.5cm;
+        width: 5.7cm; height: 1cm;
         text-align: center;
-        display: table-cell;
+        display: b;
         vertical-align: middle;
         horiz-align: center;
     }
@@ -21,7 +21,7 @@
 
     {{--    <p>{{$one->item->barcode}}</p>--}}
     @if(checkEvenOdd(($count++)) == 'Even' )
-        <div style="page-break-before: always; height: 3mm;">&nbsp;</div>
+        <div style="page-break-before: always; height: 1mm;">&nbsp;</div>
 {{--        <div style="page-break-after: always;">&nbsp;</div>--}}
 {{--        <div style="page-break-before: always;">&nbsp;</div>--}}
     @endif
