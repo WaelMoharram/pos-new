@@ -4,10 +4,8 @@
     }
     .print{
         width: 5.7cm; height: 1cm;
-        text-align: center;
-        display: b;
-        vertical-align: middle;
-        horiz-align: center;
+
+
     }
 </style>
 @foreach($details as $one)
