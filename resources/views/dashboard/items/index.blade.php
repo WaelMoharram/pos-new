@@ -38,7 +38,7 @@
         @foreach($items as $row)
             <tr>
                 <td>{!! $loop->index +1 !!}</td>
-                <td><img src="{!! url('/').'/'.$row->image !!}" style="width: 100px; height: 100px;"></td>
+                <td>@if($row->image)<img src="{!! url('/').'/'.$row->image !!}" style="width: 100px; height: 100px;">@else ----- @endif</td>
                 <td>{!! $row->name !!}</td>
                 <td>{!! \App\Models\ItemStore::where('item_id',$row->id)->sum('amount') !!}</td>
                 <td>{!! optional($row->category)->name !!}</td>
