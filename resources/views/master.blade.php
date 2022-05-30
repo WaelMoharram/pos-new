@@ -79,7 +79,7 @@
 
 </head>
 
-<body class="@yield('classes_body')" @yield('body_data')>
+<body style="direction:rtl;" class="@yield('classes_body')" @yield('body_data')>
 
     {{-- Body Content --}}
     @yield('body')

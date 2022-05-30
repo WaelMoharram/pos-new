@@ -16,7 +16,7 @@
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
-    <body dir="rtl" class="font-sans antialiased">
+    <body dir="rtl" class="font-sans antialiased" style="direction: rtl;">
         <div dir="rtl" class="min-h-screen bg-gray-100">
             @include('layouts.navigation')
 
