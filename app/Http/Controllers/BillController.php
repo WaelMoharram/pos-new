@@ -31,7 +31,9 @@ class BillController extends Controller
     {
         $bills = Bill::where('type',$request->type)->get();
         if (auth()->user()->store()->count() > 0){
-            $bills = Bill::where('type',$request->type)->where('sales_man_id',auth()->id())->get();
+            $bills = Bill::where('type',$request->type)->where(function($q) use($request){
+                $q->where('sales_man_id',auth()->id())->orWhere('store_id',auth()->user()->store_id);
+            })->get();
 
         }
         $store = auth()->user()->store;
