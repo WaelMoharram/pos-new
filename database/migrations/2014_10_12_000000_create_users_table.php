@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('image');
-            $table->string('mobile');
+            $table->string('mobile')->nullable();
             $table->boolean('pos')->default(0);
             $table->enum('type', array('admin', 'sales'));
             $table->rememberToken();

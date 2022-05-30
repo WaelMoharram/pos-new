@@ -29,14 +29,19 @@
     {{input_error($errors,'notes')}}
 </div>
 
+
+@if(auth()->user()->type == 'admin')
 <div class="form-group py-1 col-md-6">
     <label for="sales_man_id"> المندوب المسئول  </label>
     {{Form::select('sales_man_id',\App\Models\User::where('type','sales')->pluck('name','id') ,null,['class'=>'form-control mb-2','id'=>'sales_man_id'])}}
     {{input_error($errors,'sales_man_id')}}
 </div>
 
+@else
 
+    <input type="hidden" name="sales_man_id" value="{{auth()->id()}}">
 
+@endif
 
 
 

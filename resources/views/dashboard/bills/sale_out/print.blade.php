@@ -21,7 +21,7 @@
                 <div class="row">
                     <div class="col-12">
                         <h4>
-                            <i class="fas fa-globe"></i> Company name.
+                            <i class="fas fa-globe"></i> {{option('اسم الشركة')}}.
                             <small class="float-right">التاريخ: {{$bill->date}}</small>
                             <br>
                             <small class="float-right">تاريخ انشاء الفاتورة: {{$bill->created_at}}</small>
