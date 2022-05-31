@@ -43,4 +43,11 @@ class UserRequest extends FormRequest
             'image' => 'صورة المستخدم',
         ];
     }
+
+    public function messages(){
+        return [
+            'image.required_without:_method' => 'الصورة الشخصية مطلوبة',
+            'image.required_without' => 'الصورة الشخصية مطلوبة',
+        ];
+    }
 }
