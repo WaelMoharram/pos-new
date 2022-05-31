@@ -28,7 +28,7 @@ class UserRequest extends FormRequest
             'username' => 'required|string|unique:users,id,'.$this->user,
             'email' => 'required|email|unique:users,id,'.$this->user,
             'password' => 'nullable|required_without:_method|confirmed',
-            'image' =>'nullable|required_without:_method|image'
+            'image' =>'nullable|image'
 
         ];
     }
