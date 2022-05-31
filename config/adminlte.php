@@ -282,7 +282,7 @@ return [
         ],
         [
             'text'    => 'المندوبين',
-            'can'     =>'is_admin index sales_men',
+            'can'     =>['is_admin','index sales_men'],
             'icon'    => 'fas fa-fw fa-users',
             'submenu' => [
                 [
