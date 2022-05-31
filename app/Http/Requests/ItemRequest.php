@@ -24,10 +24,10 @@ class ItemRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|unique:items,id,'.$this->item,
+            'name' => 'required|string|unique:items,name,'.$this->item,
             'image' =>'nullable|image',
 //            'barcode' => 'required|string|unique:items,id,'.$this->item,
-            'code' => 'required|string|unique:items,id,'.$this->item,
+            'code' => 'required|string|unique:items,code,'.$this->item,
             'category_id' => 'required|integer',
             'brand_id' => 'required|integer',
             'price' => 'required|numeric',

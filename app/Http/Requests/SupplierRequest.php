@@ -24,7 +24,7 @@ class SupplierRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|unique:suppliers,id,'.$this->supplier,
+            'name' => 'required|string|unique:suppliers,name,'.$this->supplier,
             'email' => 'nullable|email',
             'phone' => 'nullable|string',
             'address' => 'nullable|string',

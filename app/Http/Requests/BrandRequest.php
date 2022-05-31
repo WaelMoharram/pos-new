@@ -24,7 +24,7 @@ class BrandRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|unique:brands,id,'.$this->brand,
+            'name' => 'required|string|unique:brands,name,'.$this->brand,
             'image' =>'required|image',
 
         ];

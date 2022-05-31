@@ -24,7 +24,7 @@ class ClientRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|unique:clients,id,'.$this->client,
+            'name' => 'required|string|unique:clients,name,'.$this->client,
             'email' => 'nullable|email',
             'phone' => 'nullable|string',
             'address' => 'nullable|string',

@@ -24,7 +24,7 @@ class OptionRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|unique:options,id,'.$this->option,
+            'name' => 'required|string|unique:options,name,'.$this->option,
             'image' =>'nullable|image',
             'note' =>'required|string',
 

@@ -24,8 +24,8 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|unique:stores,id,'.$this->store,
-            'address' => 'required|string|unique:stores,id,'.$this->store,
+            'name' => 'required|string|unique:stores,name,'.$this->store,
+            'address' => 'required|string|unique:stores,address,'.$this->store,
 
         ];
     }
