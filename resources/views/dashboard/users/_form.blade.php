@@ -1,3 +1,13 @@
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <div class="col-md-12">
     <img id="logo" src="{!! $user->image ? url($user->image) : url('default_product.png') !!}" style="width: 100px;border-radius: 50px;">
 </div>
@@ -5,6 +15,7 @@
     <label for="logo_input"> صورة </label>
     {!! Form::file('image',['id'=>'logo_input','class'=>'form-control col','placeholder'=>__("Image"),'onchange'=>"loadLogo(event)"]) !!}
 </div>
+{{input_error($errors,'image')}}
 
 <div class="form-group py-1 col-md-6">
     <label for="formInputRole"> الاسم بالكامل</label>
