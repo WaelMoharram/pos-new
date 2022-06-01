@@ -40,7 +40,9 @@
 <script>
 
     $(() => {
-        $('#{{ $id }}').DataTable( @json($config) );
+        $('#{{ $id }}').DataTable( {
+            "language":"ar"
+        });
     })
 
 </script>

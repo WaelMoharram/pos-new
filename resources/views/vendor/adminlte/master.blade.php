@@ -144,9 +144,9 @@
     @yield('adminlte_js')
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment-with-locales.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.12.1/i18n/ar.json"></script>
     <script>
         //moment.locale('ar');
-
         $(function() {
             $('.date').daterangepicker({
                 singleDatePicker: true,
