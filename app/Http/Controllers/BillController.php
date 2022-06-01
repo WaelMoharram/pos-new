@@ -29,11 +29,11 @@ class BillController extends Controller
      */
     public function index(Request $request)
     {
-        $bills = Bill::where('type',$request->type)->get();
+        $bills = Bill::where('type',$request->type)->orderByDesc('id')->get();
         if (auth()->user()->store()->count() > 0){
             $bills = Bill::where('type',$request->type)->where(function($q) use($request){
                 $q->where('sales_man_id',auth()->id())->orWhere('store_id',auth()->user()->store_id);
-            })->get();
+            })->orderByDesc('id')->get();
 
         }
         $store = auth()->user()->store;

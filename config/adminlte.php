@@ -282,21 +282,21 @@ return [
         ],
         [
             'text'    => 'المندوبين',
-            'can'     =>['is_admin','index sales_men'],
+            'can'     =>['index sales_men'],
             'icon'    => 'fas fa-fw fa-users',
             'submenu' => [
                 [
                     'text' => 'عرض الكل',
                     'url'  => 'dashboard/sales-men',
                     'icon'    => 'fas fa-fw fa-eye',
-                    'can' =>'index sales_men'
+                    'can' =>['is_admin','index sales_men']
                 ],
 
                 [
                     'text' => 'مندوب جديد',
                     'url'  => 'dashboard/sales-men/create',
                     'icon'    => 'fas fa-fw fa-plus',
-                    'can' =>'add sales_men'
+                    'can' =>['is_admin','add sales_men']
                 ],
             ],
         ],
