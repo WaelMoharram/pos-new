@@ -40,11 +40,11 @@
 <script>
 
     $(() => {
-        $('#{{ $id }}').DataTable( {
+        $('#{{ $id }}').DataTable({
             "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.12.1/i18n/ar.json"
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
             }
-        });
+        } );
     })
 
 </script>
