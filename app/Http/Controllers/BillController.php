@@ -148,7 +148,7 @@ class BillController extends Controller
 
         if (!auth()->user()->can('add sales')){
             toast('لا تمتلك صلاحيات البيع','error');
-            return redirect()->back();
+            return redirect()->route('dashboard.home');
         }
 
 
