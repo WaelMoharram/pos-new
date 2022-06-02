@@ -32,6 +32,11 @@ class BillController extends Controller
         //return auth()->user()->store;
 
         if ($request->type == 'sale_in' || $request->type == 'sale_out'){
+            if (!auth()->user()->can('add sales')){
+                toast('لا تمتلك صلاحيات البيع','error');
+                return redirect()->route('dashboard.home');
+            }
+
             if (auth()->user()->has('store') && auth()->user()->store->is_pos == 0){
                 toast('لا يمكن اتمام عمليات بيع فى هذا المخزن','error');
                 return redirect()->back();
