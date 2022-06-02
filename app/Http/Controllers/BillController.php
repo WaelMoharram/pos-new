@@ -29,6 +29,12 @@ class BillController extends Controller
      */
     public function index(Request $request)
     {
+        if ($request->type == 'sale_in' || $request->type == 'sale_out'){
+            if (auth()->user()->has('store') && auth()->user()->store->is_pos == 0){
+                toast('لا يمكن اتمام عمليات بيع فى هذا المخزن','error');
+                return redirect()->back();
+            }
+        }
         $bills = Bill::where('type',$request->type)->orderByDesc('id')->get();
         if (auth()->user()->store()->count() > 0){
             $bills = Bill::where('type',$request->type)->where(function($q) use($request){
@@ -139,6 +145,11 @@ class BillController extends Controller
     {
 
         if (auth()->user()->pos == 1 ){
+
+            if (auth()->user()->has('store') && auth()->user()->store->is_pos == 0){
+                toast('لا يمكن اتمام عمليات بيع فى هذا المخزن','error');
+                return redirect()->back();
+            }
             $requests['status'] = "saved";
             $requests['need_discount'] = false;
             $requests['type'] = "sale_out";
