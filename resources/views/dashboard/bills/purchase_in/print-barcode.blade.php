@@ -3,7 +3,7 @@
         margin:0;
     }
     .print{
-        width: 5.7cm; height: 1cm;
+        width: 5.7cm; height: 1cm; margin-left: 1.5mm;
 
 
     }
