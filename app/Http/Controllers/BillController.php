@@ -146,6 +146,12 @@ class BillController extends Controller
     public function editPos()
     {
 
+        if (!auth()->user()->can('add sales')){
+            toast('لا تمتلك صلاحيات البيع','error');
+            return redirect()->back();
+        }
+
+
         if (auth()->user()->pos == 1 ){
 
             if (auth()->user()->has('store') && auth()->user()->store->is_pos == 0){
