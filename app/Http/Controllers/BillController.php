@@ -30,6 +30,7 @@ class BillController extends Controller
     public function index(Request $request)
     {
         return auth()->user()->store;
+
         if ($request->type == 'sale_in' || $request->type == 'sale_out'){
             if (auth()->user()->has('store') && auth()->user()->store->is_pos == 0){
                 toast('لا يمكن اتمام عمليات بيع فى هذا المخزن','error');
