@@ -38,7 +38,7 @@ class BillController extends Controller
                 return redirect()->route('dashboard');
             }
 
-            if (auth()->user()->has('store') && auth()->user()->store->is_pos == 0){
+            if (auth()->user()->store != null && auth()->user()->store->is_pos == 0){
                 toast('لا يمكن اتمام عمليات بيع فى هذا المخزن','error');
                 return redirect()->route('dashboard');
             }
