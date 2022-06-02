@@ -154,7 +154,7 @@ class BillController extends Controller
 
         if (auth()->user()->pos == 1 ){
 
-            if (auth()->user()->has('store') && auth()->user()->store->is_pos == 0){
+            if (auth()->user()->store != null && auth()->user()->store->is_pos == 0){
                 toast('لا يمكن اتمام عمليات بيع فى هذا المخزن','error');
                 return redirect()->back();
             }
