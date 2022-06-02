@@ -35,12 +35,12 @@ class BillController extends Controller
             if (!auth()->user()->can('add sales')){
                 toast('لا تمتلك صلاحيات البيع','error');
 
-                return redirect()->route('dashboard.home');
+                return redirect()->route('dashboard');
             }
 
             if (auth()->user()->has('store') && auth()->user()->store->is_pos == 0){
                 toast('لا يمكن اتمام عمليات بيع فى هذا المخزن','error');
-                return redirect()->back();
+                return redirect()->route('dashboard');
             }
         }
         $bills = Bill::where('type',$request->type)->orderByDesc('id')->get();
@@ -154,7 +154,7 @@ class BillController extends Controller
 
         if (!auth()->user()->can('add sales')){
             toast('لا تمتلك صلاحيات البيع','error');
-            return redirect()->route('dashboard.home');
+            return redirect()->route('dashboard');
         }
 
 
