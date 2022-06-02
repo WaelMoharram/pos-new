@@ -34,6 +34,7 @@ class BillController extends Controller
         if ($request->type == 'sale_in' || $request->type == 'sale_out'){
             if (!auth()->user()->can('add sales')){
                 toast('لا تمتلك صلاحيات البيع','error');
+
                 return redirect()->route('dashboard.home');
             }
 
