@@ -127,7 +127,7 @@
                 success: function(data){
                     console.log(data);
                     if (data != null){
-                        console.log(data)
+                        console.log(parseInt(data))
                         $("#item_id").val(parseInt(data));
                         $("#item_id").trigger('change');
                     }

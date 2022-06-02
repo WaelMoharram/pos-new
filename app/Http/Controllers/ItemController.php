@@ -143,6 +143,10 @@ class ItemController extends Controller
     }
 
     public function barcode(Request $request){
-        return (int) Item::where('barcode',$request->barcode)->first()->id ?? null;
+        if (Item::where('barcode',$request->barcode)->first()){
+            $id = Item::where('barcode',$request->barcode)->first()->id;
+            return (int)$id;
+        }
+        return  null;
     }
 }
