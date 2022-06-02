@@ -132,6 +132,7 @@
                 data: { "barcode": $("#barcode").val() },
                 type: "get",
                 success: function(data){
+                    console.log(data);
                     if (data != null){
                         $("#item_id").val(data).trigger('change');
                     }

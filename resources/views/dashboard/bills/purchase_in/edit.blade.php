@@ -125,10 +125,10 @@
                 data: { "barcode": $("#barcode").val() },
                 type: "get",
                 success: function(data){
-
+console.log(data);
                     if (data != null){
                         console.log(data)
-                        $("#item_id").val(data);
+                        $("#item_id").val((data);
                         $("#item_id").trigger('change');
                     }
                 }

@@ -125,6 +125,7 @@
                 data: { "barcode": $("#barcode").val() },
                 type: "get",
                 success: function(data){
+                    console.log(data);
                     if (data != null){
 
                         console.log(data)
