@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SaleManRequest extends FormRequest
+class ManRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,10 +23,11 @@ class SaleManRequest extends FormRequest
      */
     public function rules()
     {
+        dd($this);
         return [
             'name' => 'required|string',
-            'username' => 'required|string|unique:users,username,'.$this->user,
-            'email' => 'required|email|unique:users,email,'.$this->user,
+            'username' => 'required|string|unique:users,username,'.$this->saleMan,
+            'email' => 'required|email|unique:users,email,'.$this->saleMan,
             'password' => 'nullable|required_without:_method|confirmed',
             'image' =>'nullable|image'
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ManRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\Bill;
 use App\Models\Store;
