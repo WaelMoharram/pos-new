@@ -26,7 +26,7 @@ class ItemRequest extends FormRequest
         return [
             'name' => 'required|string|unique:items,name,'.$this->item,
             'image' =>'nullable|image',
-            'barcode' => 'required|max:9999|integer|unique:items,id,'.$this->item,
+            'barcode' => 'required|string|unique:items,id,'.$this->item,
             //'code' => 'required|string|unique:items,code,'.$this->item,
             'category_id' => 'required|integer',
             'brand_id' => 'required|integer',
