@@ -33,8 +33,6 @@ class ItemRequest extends FormRequest
             'price' => 'required|numeric',
             'buy_price' => 'required|numeric',
 //            'has_options' => 'required|boolean',
-
-
         ];
     }
 
