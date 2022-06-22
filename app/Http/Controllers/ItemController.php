@@ -53,14 +53,14 @@ class ItemController extends Controller
     public function store(ItemRequest $request)
     {
         $requests=$request->all();
-        $requests['barcode'] = strtotime(date('Y-m-d'));
+        $requests['code'] = strtotime(date('Y-m-d'));
         if ($request->hasFile('image')) {
             $requests['image'] = saveImage($request->image, 'images');
             $request->files->remove('image');
         }
 
         $item = Item::create($requests);
-        $item->barcode = $item->id;
+        $item->code = $item->id;
         $item->save();
 
 

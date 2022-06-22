@@ -27,17 +27,17 @@
     {{Form::select('brand_id',\App\Models\Brand::pluck('name','id') ,null,['class'=>'form-control mb-2','id'=>'brand_id'])}}
     {{input_error($errors,'brand_id')}}
 </div>
-<div class="form-group py-1 col-md-6">
-    <label for="formInputRole"> كود الصنف</label>
-    {!! Form::text('code',null,['class'=>'form-control col',isset($readOnly)?$readOnly:null,disable_on_show()]) !!}
-    {{input_error($errors,'code')}}
-</div>
-
 {{--<div class="form-group py-1 col-md-6">--}}
-{{--    <label for="formInputRole"> رقم الباركود</label>--}}
-{{--    {!! Form::text('barcode',null,['class'=>'form-control col',isset($readOnly)?$readOnly:null,disable_on_show()]) !!}--}}
-{{--    {{input_error($errors,'barcode')}}--}}
+{{--    <label for="formInputRole"> كود الصنف</label>--}}
+{{--    {!! Form::text('code',null,['class'=>'form-control col',isset($readOnly)?$readOnly:null,disable_on_show()]) !!}--}}
+{{--    {{input_error($errors,'code')}}--}}
 {{--</div>--}}
+
+<div class="form-group py-1 col-md-6">
+    <label for="formInputRole"> رقم الباركود</label>
+    {!! Form::text('barcode',null,['class'=>'form-control col',isset($readOnly)?$readOnly:null,disable_on_show()]) !!}
+    {{input_error($errors,'barcode')}}
+</div>
 
     <div class="form-group py-1 col-md-6">
         <label for="formInputRole">الحد الادنى للطلب</label>
