@@ -19,7 +19,6 @@
             'الكمية',
             'التصنيف',
             'العلامة التجارية',
-            'الكود',
             'الباركود',
             'سعر الشراء',
             'سعر البيع',
@@ -43,7 +42,6 @@
                 <td>{!! \App\Models\ItemStore::where('item_id',$row->id)->sum('amount') !!}</td>
                 <td>{!! optional($row->category)->name !!}</td>
                 <td>{!! optional($row->brand)->name !!}</td>
-                <td>{!! $row->code !!}</td>
                 <td>{!! $row->barcode !!}</td>
                 <td>{!! $row->buy_price !!}</td>
                 <td>{!! $row->price !!}</td>
