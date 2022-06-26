@@ -28,7 +28,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::all();
+        $items = Item::orderBy('name')->get();
 
         return view('dashboard.items.index',compact('items'));
     }
