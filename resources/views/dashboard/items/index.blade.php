@@ -13,7 +13,6 @@
     {{-- Setup data for datatables --}}
     @php
         $heads = [
-{{--            '#',--}}
             'صورة الصنف',
             'الاسم',
             'الكمية',
