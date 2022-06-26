@@ -13,7 +13,7 @@
     {{-- Setup data for datatables --}}
     @php
         $heads = [
-            '#',
+{{--            '#',--}}
             'صورة الصنف',
             'الاسم',
             'الكمية',
@@ -36,7 +36,7 @@
     <x-adminlte-datatable id="table1" :heads="$heads" striped hoverable with-buttons>
         @foreach($items as $row)
             <tr>
-                <td>{!! $loop->index +1 !!}</td>
+{{--                <td>{!! $loop->index +1 !!}</td>--}}
                 <td>@if($row->image)<img src="{!! url('/').'/'.$row->image !!}" style="width: 100px; height: 100px;">@else <img src="{!! url('no.png') !!}" style="width: 100px; height: 100px;"> @endif</td>
                 <td>{!! $row->name !!}</td>
                 <td>{!! \App\Models\ItemStore::where('item_id',$row->id)->sum('amount') !!}</td>
