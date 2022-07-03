@@ -11,11 +11,10 @@
 @foreach($details as $one)
     <div class="print">
         {!!  \Milon\Barcode\DNS1D::getBarcodeHTML($one->item->barcode, 'C128',true) !!}
-        <div>
+        <div style="width: 135px;font-size: 12px;">
             <span>{{$one->item->barcode}}</span>
         </div>
-        <br>
-        <div>
+        <div style="width: 135px;font-size: 12px;">
             <span>{{$one->item->name}}</span>
         </div>
 
