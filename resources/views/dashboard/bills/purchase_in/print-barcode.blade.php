@@ -13,6 +13,7 @@
     <div class="print">
 
         {!!  \Milon\Barcode\DNS1D::getBarcodeHTML($one->item->barcode, 'C128',true) !!}
+        <span>{{$one->item->name}}</span>
 {{--    <img  src="data:image/png;base64,{{ \Milon\Barcode\DNS1D::getBarcodePNG($one->item->barcode, 'C128',1.2,30,array(1,1,1), true) }}" alt="barcode"   />--}}
     </div>
 {{--    <div style="page-break-after: always;">&nbsp;</div>--}}
