@@ -11,8 +11,14 @@
 @foreach($details as $one)
     <div class="print">
         {!!  \Milon\Barcode\DNS1D::getBarcodeHTML($one->item->barcode, 'C128',true) !!}
-        <span>{{$one->item->barcode}}</span>
-        <span>{{$one->item->name}}</span>
+        <div>
+            <span>{{$one->item->barcode}}</span>
+        </div>
+        <br>
+        <div>
+            <span>{{$one->item->name}}</span>
+        </div>
+
 {{--    <img  src="data:image/png;base64,{{ \Milon\Barcode\DNS1D::getBarcodePNG($one->item->barcode, 'C128',1.2,30,array(1,1,1), true) }}" alt="barcode"   />--}}
     </div>
     <div style="page-break-before: always; height: 1mm;">&nbsp;</div>
