@@ -149,4 +149,10 @@ class ItemController extends Controller
         }
         return  null;
     }
+
+    public function printBarcode(Request $request){
+        $item = Item::find($request->item_id);
+        $quantity = $request->quantity ?? 1;
+        return view('dashboard.items.print-barcode',compact('item','quantity'));
+    }
 }

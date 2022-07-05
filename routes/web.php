@@ -59,6 +59,9 @@ Route::group(['middleware' => 'auth:web','prefix'=>'dashboard'], function () {
         'bill-details' => BillDetailController::class,
         'payments' => PaymentController::class,
     ]);
+
+
+    Route::get('item/print-barcode',[ItemController::class, 'printBarcode'])->name('items.print-barcode');
     Route::resource('system-options', systemOptionController::class)->only([
         'index', 'edit','update'
     ]);
