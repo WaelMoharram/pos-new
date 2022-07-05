@@ -1,5 +1,5 @@
-<button data-toggle="modal" data-target="#modalBarcode{{$id}}" class="btn btn-xs btn-default text-danger mx-1 shadow" title="طباعة باركود" @if(isset($tooltip) ) {{tooltip($tooltip)}} @endif>
-    <i class="fa fa-lg fa-fw fa-trash"></i>
+<button data-toggle="modal" data-target="#modalBarcode{{$id}}" class="btn btn-xs btn-default text-info mx-1 shadow" title="طباعة باركود" @if(isset($tooltip) ) {{tooltip($tooltip)}} @endif>
+    <i class="fa fa-lg fa-fw fa-barcode"></i>
 </button>
 {{--<button data-toggle="modal" data-target="#usersBarcode{{$id}}" @if(isset($tooltip) ) {{tooltip($tooltip)}} @endif  class="btn btn-md btn-danger" >--}}
 
@@ -23,7 +23,7 @@
             </div>
             <div class="modal-footer">
                 <div class="form-group py-1 col-md-12">
-                    <input type="item_id" value="{{$id}}">
+                    <input type="hidden"  name="item_id" value="{{$id}}">
                     <label for="quantity"> العدد  </label>
                     {{Form::number('quantity',null,['class'=>'form-control mb-2','id'=>'quantity'])}}
                     {{input_error($errors,'quantity')}}
