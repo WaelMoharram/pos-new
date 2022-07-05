@@ -32,6 +32,7 @@ class ItemRequest extends FormRequest
             'brand_id' => 'required|integer',
             'price' => 'required|numeric',
             'buy_price' => 'required|numeric',
+            'min_amount'=>'required'
 //            'has_options' => 'required|boolean',
         ];
     }
