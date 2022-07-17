@@ -38,7 +38,7 @@
     @endphp
 
     {{-- Minimal example / fill data using the component slot --}}
-    <x-adminlte-datatable >
+    <x-adminlte-datatable id="tabledf1" :heads="$heads" striped hoverable with-buttons>
         @foreach($bills as $row)
             <tr>
                 <td>{!! $loop->index +1 !!}</td>
