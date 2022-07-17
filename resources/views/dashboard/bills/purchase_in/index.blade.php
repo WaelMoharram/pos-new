@@ -38,7 +38,7 @@
     @endphp
 
     {{-- Minimal example / fill data using the component slot --}}
-    <x-adminlte-datatable id="tablsdfef1" :heads="$heads" >
+    <x-adminlte-datatable id="tablsdfef1" >
         @foreach($bills as $row)
             <tr>
                 <td>{!! $loop->index +1 !!}</td>
