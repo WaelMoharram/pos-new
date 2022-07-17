@@ -35,7 +35,7 @@
         @foreach($bills as $row)
             @if($row->type == 'purchase_out')
             <tr>
-                <td>{!! $loop->index +1 !!}</td>
+                <td>{!! $substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
                 <td>فاتورة مرتجع شراء رقم #{!! $row->code !!}</td>
                 <td>0</td>
                 <td>{!! $row->total !!}</td>
@@ -44,7 +44,7 @@
             @endif
             @if($row->type == 'purchase_in')
                 <tr>
-                    <td>{!! $loop->index +1 !!}</td>
+                    <td>{!! $substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
                     <td>فاتورة بيع رقم #{!! $row->code !!}</td>
                     <td>{!! $row->total !!}</td>
                     <td>0</td>
@@ -54,7 +54,7 @@
 
             @if($row->type == 'cash_in')
                 <tr>
-                    <td>{!! $loop->index +1 !!}</td>
+                    <td>{!! $substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
                     <td>سداد للفاتورة رقم #{!! optional($row->bill)->code !!}</td>
                     <td>{!! $row->money !!}</td>
                     <td>0</td>
@@ -63,7 +63,7 @@
             @endif
             @if($row->type == 'cash_out')
                 <tr>
-                    <td>{!! $loop->index +1 !!}</td>
+                    <td>{!! $substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
                     <td>سداد للمرتجع رقم #{!! optional($row->bill)->code !!}</td>
                     <td>0</td>
                     <td>{!! $row->money !!}</td>

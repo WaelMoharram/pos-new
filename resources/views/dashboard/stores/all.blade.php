@@ -27,7 +27,7 @@
     <x-adminlte-datatable id="table1" :heads="$heads" :config="$config" striped hoverable with-buttons>
         @foreach(\App\Models\item::all() as $itam)
             <tr>
-                <td>{!! $loop->index +1 !!}</td>
+                <td>{!! $substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
                 <td>{!! $itam->name !!}</td>
                 <td>{!! $itam->amount !!}</td>
             </tr>

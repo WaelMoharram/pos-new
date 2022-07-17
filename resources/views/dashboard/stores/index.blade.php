@@ -31,7 +31,7 @@
     <x-adminlte-datatable id="table1" :heads="$heads" striped hoverable with-buttons>
         @foreach($stores as $row)
             <tr>
-                <td>{!! $loop->index +1 !!}</td>
+                <td>{!! $substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
                 <td>{!! $row->name !!}</td>
                 <td>{!! $row->address !!}</td>
                 <td>{!! $row->is_pos ? 'نعم': 'لا' !!}</td>

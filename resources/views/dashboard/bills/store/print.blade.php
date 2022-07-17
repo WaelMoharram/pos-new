@@ -83,7 +83,7 @@
                             <tbody>
                             @foreach($details as $detail)
                                 <tr>
-                                    <td>{{$loop->index +1}}</td>
+                                    <td>{{$substr(str_repeat(0, 5).($loop->index +1), - 5);}}</td>
                                     <td>{{optional($detail->item)->name}}</td>
                                     <td>
                                         {{$detail->amount}}
