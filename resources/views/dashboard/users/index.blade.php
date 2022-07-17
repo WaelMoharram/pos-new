@@ -33,7 +33,7 @@
     <x-adminlte-datatable id="table1" :heads="$heads" striped hoverable with-buttons>
         @foreach($users as $row)
             <tr>
-                <td>{!! $substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
+                <td>{!! substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
                 <td>@if($row->image)<img src="{!! url('/').'/'.$row->image !!}" style="width: 100px; height: 100px;">@else <img src="{!! url('no.png') !!}" style="width: 100px; height: 100px;"> @endif</td>
                 <td>{!! $row->name !!}</td>
                 <td>{!! $row->username !!}</td>

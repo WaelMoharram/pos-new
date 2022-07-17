@@ -27,7 +27,7 @@
     <x-adminlte-datatable id="table1" :heads="$heads" striped hoverable with-buttons>
         @foreach(\App\Models\ItemStore::where('store_id',$store->id)->get() as $itam)
             <tr>
-                <td>{!! $substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
+                <td>{!! substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
                 <td>{!! optional($itam->item)->name !!}</td>
                 <td>{!! $itam->amount !!}</td>
             </tr>

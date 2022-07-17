@@ -32,7 +32,7 @@
     <x-adminlte-datatable id="table1" :heads="$heads" striped hoverable with-buttons>
         @foreach($suppliers as $row)
             <tr>
-                <td>{!! $substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
+                <td>{!! substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
                 <td><a href="{{route('suppliers.report',$row->id)}}">{!! $row->name !!}</a></td>
                 <td>{!! $row->phone !!}</td>
                 <td>{!! $row->address !!}</td>

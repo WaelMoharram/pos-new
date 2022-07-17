@@ -32,7 +32,7 @@
     <x-adminlte-datatable id="table1" :heads="$heads" striped hoverable with-buttons>
         @foreach($categories as $row)
             <tr>
-                <td  class="bg-{{$row->color}}">{!! $substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
+                <td  class="bg-{{$row->color}}">{!! substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
                 <td><img src="{!! url('/').'/'.$row->image !!}" style="width: 100px; height: 100px;"></td>
                 <td>{!! $row->name !!}</td>
                 <td>{!! $row->categories->count() !!}</td>

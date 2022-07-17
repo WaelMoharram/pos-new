@@ -27,7 +27,7 @@
     <x-adminlte-datatable id="table1" :heads="$heads" striped hoverable with-buttons>
         @foreach($options as $row)
             <tr>
-                <td>{!! $substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
+                <td>{!! substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
                 <td>{!! $row->key !!}</td>
                 <td>{!! $row->value !!}</td>
                 <td>

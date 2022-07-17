@@ -28,7 +28,7 @@
     <x-adminlte-datatable id="table1" :heads="$heads" striped hoverable with-buttons>
         @foreach($payments as $row)
             <tr>
-                <td>{!! $substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
+                <td>{!! substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
                 <td>{!! optional($row->bill)->type_name !!}</td>
                 <td>#{!! optional($row->bill)->code !!}</td>
                 <td>{!! $row->money !!}</td>

@@ -36,7 +36,7 @@
         @foreach($bills as $row)
             @if($row->type == 'sale_out')
             <tr>
-                <td>{!! $substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
+                <td>{!! substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
                 <td>فاتورة بيع رقم #{!! $row->code !!}</td>
                 <td>{!! $row->date !!}</td>
                 <td>0</td>
@@ -46,7 +46,7 @@
             @endif
             @if($row->type == 'sale_in')
                 <tr>
-                    <td>{!! $substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
+                    <td>{!! substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
                     <td>فاتورة مرتجع رقم #{!! $row->code !!}</td>
                     <td>{!! $row->date !!}</td>
 
@@ -58,7 +58,7 @@
 
             @if($row->type == 'cash_in')
                 <tr>
-                    <td>{!! $substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
+                    <td>{!! substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
                     <td>سداد للفاتورة رقم #{!! optional($row->bill)->code !!}</td>                <td>{!! $row->date !!}</td>
 
                     <td>{!! $row->money !!}</td>
@@ -68,7 +68,7 @@
             @endif
             @if($row->type == 'cash_out')
                 <tr>
-                    <td>{!! $substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
+                    <td>{!! substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
                     <td>سداد للمرتجع رقم #{!! optional($row->bill)->code !!}</td>                <td>{!! $row->date !!}</td>
 
                     <td>0</td>
