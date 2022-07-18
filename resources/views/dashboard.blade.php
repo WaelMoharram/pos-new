@@ -162,4 +162,10 @@
     <!-- Bootstrap 4 rtl -->
 {{--    <script src="https://cdn.rtlcss.com/bootstrap/v4.2.1/js/bootstrap.min.js"></script>--}}
     <!-- Bootstrap 4 -->
+<script>
+    $( "#target" ).click(function() {
+        $( "#target" ).addClass( "disabled" );
+    });
+</script>
+
 @stop

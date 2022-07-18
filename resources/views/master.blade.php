@@ -123,6 +123,11 @@
     {{-- Custom Scripts --}}
     @yield('adminlte_js')
 
+    <script>
+        $( "#target" ).click(function() {
+            $( "#target" ).addClass( "disabled" );
+        });
+    </script>
 
 </body>
 

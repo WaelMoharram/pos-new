@@ -189,5 +189,10 @@
 
 
 </body>
+<script>
+    $( "#target" ).click(function() {
+        $( "#target" ).addClass( "disabled" );
+    });
+</script>
 
 </html>

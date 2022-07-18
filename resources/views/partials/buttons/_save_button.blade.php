@@ -4,8 +4,3 @@
 </div>
 
 
-<script>
-    $( "#target" ).click(function() {
-        $( "#target" ).addClass( "disabled" );
-    });
-</script>

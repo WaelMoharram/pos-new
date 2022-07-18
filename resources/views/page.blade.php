@@ -52,5 +52,10 @@
     @stack('js')
     @yield('js')
     @include('sweetalert::alert')
+    <script>
+        $( "#target" ).click(function() {
+            $( "#target" ).addClass( "disabled" );
+        });
+    </script>
 
 @stop

@@ -50,4 +50,10 @@
 @section('adminlte_js')
     @stack('js')
     @yield('js')
+    <script>
+        $( "#target" ).click(function() {
+            $( "#target" ).addClass( "disabled" );
+        });
+    </script>
+
 @stop
