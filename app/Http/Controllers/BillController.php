@@ -250,7 +250,7 @@ class BillController extends Controller
                         ]);
                     }
 
-                    $storItem->fill(['amount'=>($storItem->amount ?? 0) +$detail->amount])->save();
+                    $storItem->fill(['amount'=>($storItem->amount ?? 0) -$detail->amount])->save();
                 }
             }elseif($bill->type == 'purchase_out' || $bill->type == 'sale_out' ){
                 foreach ($bill->details as $detail){
@@ -265,7 +265,7 @@ class BillController extends Controller
                         ]);
                     }
 
-                    $storItem->fill(['amount'=>($storItem->amount ?? 0) -$detail->amount])->save();
+                    $storItem->fill(['amount'=>($storItem->amount ?? 0) +$detail->amount])->save();
                 }
             }elseif($bill->type == 'store'){
                 foreach ($bill->details as $detail){
@@ -280,7 +280,7 @@ class BillController extends Controller
                         ]);
                     }
 
-                    $storeFromItem->fill(['amount'=>($storeFromItem->amount ?? 0) - $detail->amount])->save();
+                    $storeFromItem->fill(['amount'=>($storeFromItem->amount ?? 0) + $detail->amount])->save();
 
                     //#################################################
 
