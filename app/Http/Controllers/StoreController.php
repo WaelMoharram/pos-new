@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRequest;
 use App\Models\Store;
+use Illuminate\Support\Facades\Auth;
 
 class StoreController extends Controller
 {
@@ -24,7 +25,11 @@ class StoreController extends Controller
      */
     public function index()
     {
-        $stores = Store::where('sales_man_id',null)->get();
+        $stores = Store::where('sales_man_id',null)->where(function ($q){
+            if (Auth::user()->store_id != null){
+                $q->where('id',Auth::user()->store_id);
+            }
+        })->get();
 
         return view('dashboard.stores.index',compact('stores'));
     }
