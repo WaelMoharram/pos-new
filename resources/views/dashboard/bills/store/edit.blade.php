@@ -48,6 +48,11 @@
         <!-- /.card-header -->
         <div class="card-body p-0">
             {{-- ########## Add item Form  ########## --}}
+            <div class="form-group  col-md-12">
+                <label for="barcode"> باركود  </label>
+                {{Form::text('barcode',null,['class'=>'form-control mb-2','id'=>'barcode'])}}
+                {{input_error($errors,'barcode')}}
+            </div>
 
                 {!! Form::open(['method'=>'post','route'=>'bill-details.store','class'=>' col-md-12','dir'=>'']) !!}
                     @csrf()
@@ -103,6 +108,23 @@
     <script>
         $('.select2').select2({
            dir:'rtl',
+        });
+    </script>
+    <script>
+        $('#barcode').change(function(){
+            $.ajax({
+                url: "{{route('barcode')}}",
+                data: { "barcode": $("#barcode").val() },
+                type: "get",
+                success: function(data){
+                    console.log(data);
+                    if (data != null){
+                        console.log(parseInt(data))
+                        $("#item_id").val(parseInt(data));
+                        $("#item_id").trigger('change');
+                    }
+                }
+            });
         });
     </script>
     @include('sweetalert::alert')
