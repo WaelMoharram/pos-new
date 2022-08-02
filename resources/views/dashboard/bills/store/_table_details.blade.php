@@ -25,8 +25,8 @@
 
                 @foreach($details as $detail)
                     <tr>
-                        <td>{{substr(str_repeat(0, 5).($loop->index +1), - 5);}}</td>
-                        <td>{{optional($detail->item)->name}}</td>
+                        <td>{{substr(str_repeat(0, 5).($loop->index +1), - 5)}}</td>
+                        <td>{{optional($detail->item)->name_w_category}}</td>
                         <td>
                             {{$detail->amount}}
                         </td>
