@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+{{--@extends('adminlte::page')--}}
 
 @section('title', 'فواتير البيع')
 
@@ -10,14 +10,14 @@
     {{-- Setup data for datatables --}}
     @if(request()->type == 'sale_out')
         @can('add sales')
-            @if (auth()->user()->store != null && auth()->user()->store->is_pos == 1)
+{{--            @if (auth()->user()->store != null && auth()->user()->store->is_pos == 1)--}}
     @component('partials.buttons._add_sale_bill_button',[
                                             'route' => route('bills.store',['type'=>'sale_out']) ,
                                             'tooltip' => 'اضافة',
                                             'store'=>$store
                                              ])
     @endcomponent
-                @endif
+{{--                @endif--}}
             @endcan
     @endif
     @php
