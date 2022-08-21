@@ -94,6 +94,9 @@ Route::group(['middleware' => 'auth:web','prefix'=>'dashboard'], function () {
 
     Route::post('item-options/store2',[ItemOptionValueController::class, 'finalSubmit2'])->name('item-options.store2');
 
+
+    Route::get('reports/items',[BillController::class, 'printBarcode'])->name('reports.itemd');
+
 });
 
 require __DIR__.'/auth.php';

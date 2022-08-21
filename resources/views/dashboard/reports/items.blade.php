@@ -1,15 +1,13 @@
 @extends('adminlte::page')
 
-@section('title', 'عرض مندوب'.$user->name)
+@section('title', 'تقرير الأصناف الأكثر مبيعا خلال فترة')
 
 @section('content_header')
-    <h1>عرض العهدة المالية لمندوب {{$user->name}}</h1>
+    <h1>تقرير الأصناف الأكثر مبيعا خلال فترة</h1>
 @stop
 
 @section('content')
     <div class="row">
-        <div class="col-md-12">    <h1> العهدة الحالية : {{$user->for_collect}}</h1>
-        </div>
         <div class="col-md-12">
             {!! Form::open(['method'=>'get','class'=>'form','enctype' => 'multipart/form-data']) !!}
 
@@ -55,7 +53,7 @@
 
     {{-- Minimal example / fill data using the component slot --}}
     <x-adminlte-datatable id="table1" :heads="$heads" striped hoverable with-buttons>
-        @foreach($payments as $row)
+        @foreach($items as $row)
             <tr>
                 <td>{!! substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
                 <td>{!! $row->name !!}</td>
