@@ -40,7 +40,7 @@
                 <td>{!! $row->email !!}</td>
                 <td>{!! $row->mobile !!}</td>
                 <td>
-                    <nobr>
+                    <div>
                         @component('partials.buttons._edit_button',[
                                         'route' => route('sales-men.edit',$row->id) ,
                                         'tooltip' => 'تعديل',
@@ -52,7 +52,8 @@
                                         'tooltip' => 'حذف',
                                          ])
                         @endcomponent
-
+                            <div class="btn-group" role="group" aria-label="Vertical button group">
+                                <div class="btn-group" role="group">
                             @component('partials.buttons._custom_button',[
                                             'route' => route('sales-men.report',$row->id) ,
                                             'tooltip' => 'عرض الحركات المالية',
@@ -60,6 +61,8 @@
                                             'color'=>'primary',
                                              ])
                             @endcomponent
+                                </div>
+                                <div class="btn-group" role="group">
                             @component('partials.buttons._custom_button',[
                                             'route' => route('sales-men.show',$row->id) ,
                                             'tooltip' => 'عرض المخزون',
@@ -67,6 +70,8 @@
                                             'color'=>'primary',
                                              ])
                             @endcomponent
+                                </div>
+                                <div class="btn-group" role="group"
                             @component('partials.buttons._custom_button',[
                                             'route' => route('bills.index',['type'=>'sale_out','sales_man_id'=>$row->id]) ,
                                             'tooltip' => 'عرض المبيعات',
@@ -74,6 +79,8 @@
                                             'color'=>'primary',
                                              ])
                             @endcomponent
+                            </div>
+                            <div class="btn-group" role="group"
                             @component('partials.buttons._custom_button',[
                                             'route' => route('clients.index',['sales_man_id'=>$row->id]) ,
                                             'tooltip' => 'عرض العملاء',
@@ -81,7 +88,10 @@
                                             'color'=>'primary',
                                              ])
                             @endcomponent
-                    </nobr>
+                            </div>
+                    </div>
+
+
                 </td>
             </tr>
         @endforeach
