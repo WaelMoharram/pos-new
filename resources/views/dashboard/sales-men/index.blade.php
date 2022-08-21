@@ -41,18 +41,25 @@
                 <td>{!! $row->mobile !!}</td>
                 <td>
                     <div>
-                        @component('partials.buttons._edit_button',[
+
+                            <div class="btn-group" role="group" aria-label="Vertical button group">
+                                <div class="btn-group" role="group">
+                                @component('partials.buttons._edit_button',[
                                         'route' => route('sales-men.edit',$row->id) ,
                                         'tooltip' => 'تعديل',
                                          ])
-                        @endcomponent
-                        @component('partials.buttons._delete_button',[
-                                        'id'=>$row->id,
-                                        'route' => route('sales-men.destroy',$row->id) ,
-                                        'tooltip' => 'حذف',
-                                         ])
-                        @endcomponent
-                            <div class="btn-group" role="group" aria-label="Vertical button group">
+                                @endcomponent
+                                </div>
+                                    <div class="btn-group" role="group">
+                                @component('partials.buttons._delete_button',[
+                                                'id'=>$row->id,
+                                                'route' => route('sales-men.destroy',$row->id) ,
+                                                'tooltip' => 'حذف',
+                                                 ])
+                                @endcomponent
+                                    </div>
+
+
                                 <div class="btn-group" role="group">
                                     @component('partials.buttons._custom_button',[
                                                     'route' => route('sales-men.report',$row->id) ,
