@@ -73,7 +73,7 @@ class Item extends Model
             $bills = Bill::whereBetween('created_at',[$from_date,$to_date])->get();
             $amount = 0;
             foreach ($bills as $bill){
-                $amount += $bill->Billsdetails()->where('item_id',$this->id)->sum('amount');
+                $amount += $bill->details()->where('item_id',$this->id)->sum('amount');
             }
             return $amount;
         }
