@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ClientRequest;
 use App\Models\Bill;
 use App\Models\Client;
+use http\Client\Request;
 
 class ClientController extends Controller
 {
@@ -23,14 +24,18 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
+if ($request->has('sales_man_id') && $request->sales_man_id != null){
+    $clients = Client::where('sales_man_id',$request->sales_man_id)->get();
+}else{
+    if (auth()->user()->type != 'admin'){
+        $clients = Client::check()->get();
+    }else{
+        $clients = Client::all();
+    }
+}
 
-        if (auth()->user()->type != 'admin'){
-            $clients = Client::check()->get();
-        }else{
-            $clients = Client::all();
-        }
 
         return view('dashboard.clients.index',compact('clients'));
     }
