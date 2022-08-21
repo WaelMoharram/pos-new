@@ -59,7 +59,7 @@
                                     @component('partials.buttons._custom_button',[
                                                     'route' => route('sales-men.report',$row->id) ,
                                                     'tooltip' => 'عرض الحركات المالية',
-                                                    'fa'=>'fa-money',
+                                                    'fa'=>'fa-file',
                                                     'color'=>'default',
                                                      ])
                                     @endcomponent
