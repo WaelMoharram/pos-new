@@ -40,65 +40,56 @@
                 <td>{!! $row->email !!}</td>
                 <td>{!! $row->mobile !!}</td>
                 <td>
-                    <div>
 
-                            <div class="btn-group" role="group" aria-label="Vertical button group">
-                                <div class="btn-group" role="group">
+
+
                                 @component('partials.buttons._edit_button',[
                                         'route' => route('sales-men.edit',$row->id) ,
                                         'tooltip' => 'تعديل',
                                          ])
                                 @endcomponent
-                                </div>
-                                    <div class="btn-group" role="group">
+
                                 @component('partials.buttons._delete_button',[
                                                 'id'=>$row->id,
                                                 'route' => route('sales-men.destroy',$row->id) ,
                                                 'tooltip' => 'حذف',
                                                  ])
                                 @endcomponent
-                                    </div>
 
-
-                                <div class="btn-group" role="group">
                                     @component('partials.buttons._custom_button',[
                                                     'route' => route('sales-men.report',$row->id) ,
                                                     'tooltip' => 'عرض الحركات المالية',
-                                                    'fa'=>'fa-files',
-                                                    'color'=>'primary',
+                                                    'fa'=>'fa-money',
+                                                    'color'=>'default',
                                                      ])
                                     @endcomponent
-                                </div>
-                                <div class="btn-group" role="group">
+
                                     @component('partials.buttons._custom_button',[
                                                     'route' => route('sales-men.show',$row->id) ,
                                                     'tooltip' => 'عرض المخزون',
-                                                    'fa'=>'fa-files',
-                                                    'color'=>'primary',
+                                                    'fa'=>'fa-file',
+                                                    'color'=>'default',
                                                      ])
                                     @endcomponent
-                                </div>
-                                <div class="btn-group" role="group"
+
                                     @component('partials.buttons._custom_button',[
                                                     'route' => route('bills.index',['type'=>'sale_out','sales_man_id'=>$row->id]) ,
                                                     'tooltip' => 'عرض المبيعات',
-                                                    'fa'=>'fa-files',
-                                                    'color'=>'primary',
+                                                    'fa'=>'fa-file',
+                                                    'color'=>'default',
                                                      ])
                                     @endcomponent
-                                </div>
-                                <div class="btn-group" role="group"
+
                                     @component('partials.buttons._custom_button',[
                                                     'route' => route('clients.index',['sales_man_id'=>$row->id]) ,
                                                     'tooltip' => 'عرض العملاء',
                                                     'fa'=>'fa-users',
-                                                    'color'=>'primary',
+                                                    'color'=>'default',
                                                      ])
                                     @endcomponent
-                                </div>
-                            </div>
 
-                    </div>
+
+
 
 
                 </td>
