@@ -63,6 +63,8 @@
                             @component('partials.buttons._custom_button',[
                                             'route' => route('sales-men.show',$row->id) ,
                                             'tooltip' => 'عرض المخزون',
+                                            'fa'=>'fa-files',
+                                            'color'=>'primary',
                                              ])
                             @endcomponent
                             @component('partials.buttons._custom_button',[
