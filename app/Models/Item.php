@@ -71,11 +71,9 @@ class Item extends Model
             $from_date = request()->get('from_date');
             $to_date = request()->get('to_date');
             $bills = Bill::whereBetween('created_at',[$from_date,$to_date])->get();
-            $amount = 0;
-            foreach ($bills as $bill){
-                $amount += $bill->details()->where('item_id',$this->id)->sum('amount');
-            }
-            return $amount;
+            return $this->billsdetails()->whereIn('bill_id',$bills->pluck('id')->toArray())->sum('amount');
+
+
         }
 
         return $this->billsdetails()->sum('amount');
