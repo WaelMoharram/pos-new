@@ -17,7 +17,7 @@
                     <label for="date"> التاريخ من  </label>
                     <div class="input-group date" id="from_date" data-target-input="nearest">
 
-                        {{Form::text('from_date',null,['class'=>'form-control mb-2 datetimepicker-input date','id'=>'from_date'])}}
+                        {{Form::text('from_date',request()->from_date ?? null,['class'=>'form-control mb-2 datetimepicker-input date','id'=>'from_date'])}}
                         {{input_error($errors,'from_date')}}
 
                     </div>
@@ -27,7 +27,7 @@
                     <label for="date"> التاريخ الي  </label>
                     <div class="input-group date" id="to_date" data-target-input="nearest">
 
-                        {{Form::text('to_date',null,['class'=>'form-control mb-2 datetimepicker-input date','id'=>'to_date'])}}
+                        {{Form::text('to_date',request()->to_date ?? null,['class'=>'form-control mb-2 datetimepicker-input date','id'=>'to_date'])}}
                         {{input_error($errors,'to_date')}}
                     </div>
                 @component('partials.buttons._save_button',[])
