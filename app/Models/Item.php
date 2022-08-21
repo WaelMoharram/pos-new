@@ -68,8 +68,8 @@ class Item extends Model
     public function getReportAmountAttribute(){
         // get amount of this item in all bills  filter by from_date and to_date
         if (request()->has('from_date') && request()->has('to_date')){
-            $from_date = request()->get('from_date');
-            $to_date = request()->get('to_date');
+            $from_date = request()->get('from_date').' 00:00:00';
+            $to_date = request()->get('to_date').' 23:59:59';
             $bills = Bill::whereBetween('created_at',[$from_date,$to_date])->get();
             return $this->billsdetails()->whereIn('bill_id',$bills->pluck('id')->toArray())->sum('amount');
 

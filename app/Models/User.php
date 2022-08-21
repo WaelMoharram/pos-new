@@ -119,7 +119,9 @@ class User extends Authenticatable
     public function getSalesBillsCountAttribute()
     {
         if (request()->has('from_date') && request()->has('to_date')){
-            return $this->bills()->where('type','sale_out')->whereBetween('created_at',[request()->from_date,request()->to_date])->count();
+            $from_date = request()->get('from_date').' 00:00:00';
+            $to_date = request()->get('to_date').' 23:59:59';
+            return $this->bills()->where('type','sale_out')->whereBetween('created_at',[$from_date,$to_date])->count();
         }
         return $this->bills()->where('type','sale_out')->count();
     }
