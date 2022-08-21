@@ -114,4 +114,14 @@ class User extends Authenticatable
         return $in - $out;
     }
 
+
+    // get sales bills count filtred by from_date and to_date
+    public function getSalesBillsCountAttribute()
+    {
+        if (request()->has('from_date') && request()->has('to_date')){
+            return $this->bills()->where('type','sale_out')->whereBetween('created_at',[request()->from_date,request()->to_date])->count();
+        }
+        return $this->bills()->where('type','sale_out')->count();
+    }
+
 }
