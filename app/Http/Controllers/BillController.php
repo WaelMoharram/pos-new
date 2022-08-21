@@ -106,6 +106,7 @@ class BillController extends Controller
             $requests['sales_man_id'] = auth()->id();
             $requests['accept_user_id'] = auth()->id();
         }else{
+            $requests['sales_man_id'] = auth()->id();
             $requests['accept_user_id'] = auth()->id();
         }
         $lastBill = Bill::where('type',$request->type)->latest()->first();
