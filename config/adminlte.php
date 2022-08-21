@@ -533,6 +533,26 @@ return [
             'url'        => 'dashboard/payments',
             'can' =>'index payments',
         ],
+                [
+            'text'    =>'التقارير',
+            'icon'    => 'fas fa-fw fa-files',
+            'can' =>'show reports',
+            'submenu' => [
+                [
+                    'text' => 'تقرير مبيعات الاصناف خلال فترة',
+                    'url'  => 'dashboard/reports/items',
+                    'icon'    => 'fas fa-fw fa-circle',
+                    'can' =>'show reports',
+                ],
+
+                [
+                    'text' => 'تقرير المناديب خلال فترة',
+                    'url'  => 'dashboard/reports/sales-men',
+                    'icon'    => 'fas fa-fw fa-circle',
+                    'can' =>'show reports',
+                ],
+            ],
+        ],
         [
             'text'       => 'الاعدادات',
             'icon'    => 'fas fa-fw fa-cogs',

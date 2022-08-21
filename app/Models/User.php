@@ -66,7 +66,8 @@ class User extends Authenticatable
         'purchases-return',
         'suppliers',
         'payments',
-        'settings'
+        'settings',
+        'reports',
     ];
 
     const SALES_GROUPS = [

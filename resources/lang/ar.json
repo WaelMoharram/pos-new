@@ -118,5 +118,6 @@
     "edit payments": "تعديل المدفوعات",
     "delete payments": "حذف المدفوعات",
     "settings": "الاعدادات",
-    "delete settings": "تحكم الاعدادات"
+    "delete settings": "تحكم الاعدادات",
+    "show reports" : "عرض التقارير"
 }
