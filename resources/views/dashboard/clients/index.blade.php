@@ -16,6 +16,7 @@
             'الاسم',
             ['label' => 'الهاتف'],
             ['label' => 'العنوان'],
+            ['label' => 'المندوب التابع له'],
             ['label' => 'اعدادات', 'no-export' => true, 'width' => 5],
         ];
 
@@ -34,6 +35,7 @@
                 <td><a href="{{route('clients.report',$row->id)}}">{!! $row->name !!}</a></td>
                 <td>{!! $row->phone !!}</td>
                 <td>{!! $row->address !!}</td>
+                <td>{!! optional($row->salesMan)->name !!}</td>
                 <td>
                     <nobr>
                         @component('partials.buttons._edit_button',[
