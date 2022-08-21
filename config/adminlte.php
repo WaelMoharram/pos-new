@@ -341,7 +341,7 @@ return [
                 ],
                 [
                     'text' => 'النقل بين المخازن أو المندوبين',
-                    'can'     =>['is_admin', 'index transfer' ,'transfer between stores'],
+                    'can'     =>'transfer between stores',
                     'route'  => ['bills.index', ['type' => 'store']],
                     'icon'    => 'fas fa-fw fa-store',
                 ],
