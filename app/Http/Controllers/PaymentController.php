@@ -68,7 +68,7 @@ class PaymentController extends Controller
         $requests['need_discount'] = false;
 
 
-        if (auth()->user()->type == 'sales'){
+        if (auth()->user()->type != 'admin'){
             $requests['sales_man_id'] = auth()->id();
             $requests['accept_user_id'] = auth()->id();
 

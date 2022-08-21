@@ -26,7 +26,7 @@ class ClientController extends Controller
     public function index()
     {
 
-        if (auth()->user()->type == 'sales'){
+        if (auth()->user()->type != 'admin'){
             $clients = Client::check()->get();
         }else{
             $clients = Client::all();

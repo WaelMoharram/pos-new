@@ -27,7 +27,7 @@ class Client extends Model
     }
     public function scopeCheck($query)
     {
-        if (\Auth::user()->type == 'sales') {
+        if (\Auth::user()->type != 'admin') {
 
             return $query->where('sales_man_id', \Auth::id());
         }
