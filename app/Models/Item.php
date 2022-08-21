@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use http\Client\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -62,6 +63,22 @@ class Item extends Model
 
     public function getNameWCategoryAttribute(){
         return $this->category->name . ' - '.$this->name;
+    }
+
+    public function getReportAmountAttribute(){
+        // get amount of this item in all bills  filter by from_date and to_date
+        if (request()->has('from_date') && request()->has('to_date')){
+            $from_date = request()->get('from_date');
+            $to_date = request()->get('to_date');
+            $bills = Bill::whereBetween('created_at',[$from_date,$to_date])->get();
+            $amount = 0;
+            foreach ($bills as $bill){
+                $amount += $bill->Billsdetails()->where('item_id',$this->id)->sum('amount');
+            }
+            return $amount;
+        }
+
+        return $this->billsdetails()->sum('amount');
     }
 
 }
