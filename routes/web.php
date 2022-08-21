@@ -97,6 +97,8 @@ Route::group(['middleware' => 'auth:web','prefix'=>'dashboard'], function () {
 
     Route::get('reports/items',[\App\Http\Controllers\ReportController::class, 'items'])->name('reports.items');
 
+    Route::get('reports/sales-men',[\App\Http\Controllers\ReportController::class, 'salesMen'])->name('reports.sales-men');
+
 });
 
 require __DIR__.'/auth.php';
