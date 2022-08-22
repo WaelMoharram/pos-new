@@ -10,7 +10,6 @@
     {{-- Setup data for datatables --}}
     @if(request()->type == 'sale_out')
         @can('add sales')
-
     @component('partials.buttons._add_sale_bill_button',[
                                             'route' => route('bills.store',['type'=>'sale_out']) ,
                                             'tooltip' => 'اضافة',
