@@ -21,14 +21,17 @@
                         <span class="info-box-number">{{$unit->ratio}} معامل التحويل</span>
                     </div>
                     @if($unit->for == 'sales_man')
-                        <a href="{{route('units.for-sales-man',$unit->id)}}" class="info-box-icon bg-secondary"><i class="fa fa-home"></i></a>
-                        <span class="info-box-icon bg-info"><i class="fa fa-file"></i></span>
+
+                        <a data-toggle="tooltip" data-placement="top" title="افتراضى لنقطة البيع" href="{{route('units.for-pos',$unit->id)}}" class="info-box-icon bg-secondary"><i class="fa fa-home"></i></a>
+                        <span data-toggle="tooltip" data-placement="top" title="افتراضى للمندوبين" class="info-box-icon bg-info"><i class="fa fa-file"></i></span>
                     @elseif($unit->for == 'pos')
-                        <span class="info-box-icon bg-success"><i class="fa fa-home"></i></span>
-                        <a href="{{route('units.for-pos',$unit->id)}}" class="info-box-icon bg-secondary"><i class="fa fa-file"></i></a>
+                        <span data-toggle="tooltip" data-placement="top" title="افتراضى لنقطة البيع" class="info-box-icon bg-success"><i class="fa fa-home"></i></span>
+                        <a data-toggle="tooltip" data-placement="top" title="افتراضى للمندوبين" href="{{route('units.for-sales-man',$unit->id)}}" class="info-box-icon bg-secondary"><i class="fa fa-file"></i></a>
+
                     @else
-                        <a href="{{route('units.for-pos',$unit->id)}}" class="info-box-icon bg-secondary"><i class="fa fa-home"></i></a>
-                        <a href="{{route('units.for-sales-man',$unit->id)}}" class="info-box-icon bg-secondary"><i class="fa fa-file"></i></a>
+                        <a data-toggle="tooltip" data-placement="top" title="افتراضى لنقطة البيع" href="{{route('units.for-pos',$unit->id)}}" class="info-box-icon bg-secondary"><i class="fa fa-home"></i></a>
+                        <a data-toggle="tooltip" data-placement="top" title="افتراضى للمندوبين" href="{{route('units.for-sales-man',$unit->id)}}" class="info-box-icon bg-secondary"><i class="fa fa-file"></i></a>
+
                     @endif
                     @if($unit->ratio != 1)
                         @component('partials.buttons._edit_unit_button',[
