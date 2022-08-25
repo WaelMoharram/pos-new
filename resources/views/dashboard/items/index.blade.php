@@ -73,6 +73,12 @@
                                             'tooltip' => 'طباعة الباركود',
                                              ])
                             @endcomponent
+
+                            @component('partials.buttons._units_button',[
+                                            'route' => route('units.index',['item_id'=>$row->id]) ,
+                                            'tooltip' => 'الوحدات',
+                                             ])
+                            @endcomponent
                     </nobr>
                 </td>
             </tr>

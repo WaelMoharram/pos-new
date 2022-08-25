@@ -6,6 +6,7 @@ use App\Models\Bill;
 use App\Models\BillDetail;
 use App\Models\ItemStore;
 use App\Models\Item;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 
 class BillDetailController extends Controller
@@ -56,9 +57,20 @@ class BillDetailController extends Controller
 
         $bill = Bill::find($request->bill_id);
         $item = Item::find($request->item_id);
+        $unit = null;
+        if ($request->unit_id){
+
+            $unit = Unit::find($request->unit_id);
+        }
         if ($bill->status != 'new'){
             if ($bill->type == 'purchase_in' || $bill->type == 'sale_in' ) {
-                $item->fill(['amount' => $item->amount + $request->amount])->save();
+                if ($unit){
+
+                    $item->fill(['amount' => $item->amount + ($request->amount*($unit->ratio ?? 1))])->save();
+                }else{
+
+                    $item->fill(['amount' => $item->amount + $request->amount])->save();
+                }
                 $storItem = ItemStore::where('store_id', $bill->store_id)->where('item_id', $request->item_id)->first();
                 if (!$storItem) {
                     $storItem = ItemStore::create([
@@ -68,9 +80,16 @@ class BillDetailController extends Controller
                     ]);
                 }
 
-                $storItem->fill(['amount' => ($storItem->amount ?? 0) + $request->amount])->save();
+                $storItem->fill(['amount' => ($storItem->amount ?? 0) + ($request->amount*($unit->ratio ?? 1))])->save();
             }elseif($bill->type == 'purchase_out' || $bill->type == 'sale_out' ){
-                $item->fill(['amount' => $item->amount - $request->amount])->save();
+                if ($unit){
+
+                    $item->fill(['amount' => $item->amount - ($request->amount*($unit->ratio ?? 1))])->save();
+                }else{
+
+                    $item->fill(['amount' => $item->amount - $request->amount])->save();
+                }
+
                 $storItem = ItemStore::where('store_id', $bill->store_id)->where('item_id', $request->item_id)->first();
                 if (!$storItem) {
                     $storItem = ItemStore::create([
@@ -80,7 +99,7 @@ class BillDetailController extends Controller
                     ]);
                 }
 
-                $storItem->fill(['amount' => ($storItem->amount ?? 0) - $request->amount])->save();
+                $storItem->fill(['amount' => ($storItem->amount ?? 0) - ($request->amount*($unit->ratio ?? 1))])->save();
 
 
             }elseif ($bill->type == 'store'){
@@ -92,7 +111,7 @@ class BillDetailController extends Controller
                         'amount' => 0
                     ]);
                 }
-                $storeFromItem->fill(['amount' => ($storeFromItem->amount ?? 0) - $request->amount])->save();
+                $storeFromItem->fill(['amount' => ($storeFromItem->amount ?? 0) - ($request->amount*($unit->ratio ?? 1))])->save();
 
                 $storeToItem = ItemStore::where('store_id', $bill->store_to_id)->where('item_id', $request->item_id)->first();
                 if (!$storeToItem) {
@@ -102,26 +121,26 @@ class BillDetailController extends Controller
                         'amount' => 0
                     ]);
                 }
-                $storeToItem->fill(['amount' => ($storeToItem->amount ?? 0) + $request->amount])->save();
+                $storeToItem->fill(['amount' => ($storeToItem->amount ?? 0) + ($request->amount*($unit->ratio ?? 1))])->save();
             }
         }
 
         if ($bill->type == 'purchase_in' || $bill->type == 'purchase_out' ) {
-            $request->merge(['price' => $item->buy_price, 'total' => ($request->amount * $item->buy_price)]);
+            $request->merge(['price' => $item->buy_price, 'total' => (($request->amount*($unit->ratio ?? 1)) * $item->buy_price)]);
         }else{
-            $price = $item->price;
+            $price = ($unit->price ?? $item->price);
             if ($request->discount >0){
-                $price = $item->price - $request->discount;
+                $price = ($unit->price ?? $item->price) - $request->discount;
             }
             $request->merge(['price' => $price, 'total' => ($request->amount * $price)]);
         }
-        $BillDetail = BillDetail::where('item_id',$request->item_id)->where('bill_id',$request->bill_id)->first();
+        $BillDetail = BillDetail::where('item_id',$request->item_id)->where('bill_id',$request->bill_id)->where('unit_id',$unit->id ?? null)->first();
         if ($BillDetail){
-            $price = $item->price;
+            $price = ($unit->price ?? $item->price);
             if ($request->discount >0){
-                $price = $item->price - $request->discount;
+                $price = ($unit->price ?? $item->price) - $request->discount;
             }
-            $newAmount = $BillDetail->amount + $request->amount;
+            $newAmount = $BillDetail->amount + ($request->amount*($unit->ratio ?? 1));
             $detail = $BillDetail->fill(['amount'=>$newAmount,'price'=>$price,'total'=>($newAmount * $price)])->save();
         }else{
             $detail = BillDetail::create($request->all());

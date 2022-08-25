@@ -25,5 +25,9 @@ class BillDetail extends Model
     {
         return $this->belongsTo('App\Models\Item');
     }
+    public function unit()
+    {
+        return $this->belongsTo('App\Models\Unit');
+    }
 
 }

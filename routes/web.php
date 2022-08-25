@@ -18,6 +18,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SystemOptionController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UnitController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,6 +34,7 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 Route::get('barcode',[ItemController::class, 'barcode'])->name('barcode');
+Route::get('units-for-item',[ItemController::class, 'unitsForItem'])->name('units-for-item');
 
 Route::group(['middleware' => 'auth:web','prefix'=>'dashboard'], function () {
 
@@ -58,6 +60,7 @@ Route::group(['middleware' => 'auth:web','prefix'=>'dashboard'], function () {
         'bills' => BillController::class,
         'bill-details' => BillDetailController::class,
         'payments' => PaymentController::class,
+        'units'=> UnitController::class
     ]);
 
 
@@ -98,6 +101,11 @@ Route::group(['middleware' => 'auth:web','prefix'=>'dashboard'], function () {
     Route::get('reports/items',[\App\Http\Controllers\ReportController::class, 'items'])->name('reports.items');
 
     Route::get('reports/sales-men',[\App\Http\Controllers\ReportController::class, 'salesMen'])->name('reports.sales-men');
+
+
+    Route::get('units/for-sales-man/{id}',[\App\Http\Controllers\UnitController::class, 'forSalesMan'])->name('units.for-sales-man');
+
+    Route::get('units/for-pos/{id}',[\App\Http\Controllers\UnitController::class, 'forPos'])->name('units.for-pos');
 
 });
 

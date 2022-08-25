@@ -6,6 +6,7 @@ use App\Http\Requests\ItemRequest;
 use App\Imports\ItemsImport;
 use App\Models\Bill;
 use App\Models\Item;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -105,6 +106,9 @@ class ItemController extends Controller
     {
 
         $item = Item::find($id);
+
+        $unit = Unit::where('item_id',$id)->where('ratio',1)->first();
+        $unit->update(['price'=>$request->price]);
         $requests = $request->all();
         if ($request->hasFile('image')) {
 
@@ -145,6 +149,17 @@ class ItemController extends Controller
     public function barcode(Request $request){
         if (Item::where('barcode',$request->barcode)->first()){
             $id = Item::where('barcode',$request->barcode)->first()->id;
+            $units = Unit::where('item_id',$id)->get();
+            return ['id'=>$id,'units'=>$units];
+            return (int)$id;
+        }
+        return  null;
+    }
+    public function unitsForItem(Request $request){
+        if (Item::where('id',$request->id)->first()){
+            $id = $request->id;
+            $units = Unit::where('item_id',$id)->get();
+            return ['id'=>$id,'units'=>$units];
             return (int)$id;
         }
         return  null;
