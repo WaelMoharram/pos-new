@@ -132,19 +132,15 @@
                 data: { "barcode": $("#barcode").val() },
                 type: "get",
                 success: function(data){
-                    //console.log(data);
                     if (data != null){
                         $("#item_id").val(parseInt(data.id));
                         $("#item_id").trigger('change');
                         $("#unit_id option").remove();
 
-                        console.log('test1'+data.units);
                         $.each( data.units, function(k, v) {
-                            console.log('name'+v.name);
-                            console.log('for'+v.for);
-                            console.log('id'+v.id);
-                            if(v.for === 'pos'){
 
+                            if(v.for === 'pos'){
+                                console.log('name of for'+v.name);
                                 $('#unit_id').append('<option selected value="'+v.id+'">'+v.name+'</option>');
                             }else{
 
@@ -172,7 +168,7 @@
                             console.log('name'+v.name);
                             console.log('for'+v.for);
                             console.log('id'+v.id);
-                            if(v.for === 'sales_man'){
+                            if(v.for === 'pos'){
 
                                 $('#unit_id').append('<option selected value="'+v.id+'">'+v.name+'</option>');
                             }else{
