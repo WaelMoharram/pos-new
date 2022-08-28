@@ -16,7 +16,7 @@ class Store extends Model
     use SoftDeletes,LogsActivity;
 
     protected $dates = ['deleted_at'];
-    protected $id = array('id');
+    protected $guarded = array('id');
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
