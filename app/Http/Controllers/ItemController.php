@@ -162,7 +162,7 @@ class ItemController extends Controller
             return ['id'=>$id,'units'=>$units];
             return (int)$id;
         }
-        return  null;
+        return  [];
     }
 
     public function printBarcode(Request $request){
