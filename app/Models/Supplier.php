@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Supplier extends Model
 {
@@ -11,11 +13,16 @@ class Supplier extends Model
     protected $table = 'suppliers';
     public $timestamps = true;
 
-    use SoftDeletes;
+    use SoftDeletes,LogsActivity;
 
     protected $dates = ['deleted_at'];
-    protected $fillable = array('name', 'phone', 'email', 'address', 'note');
-
+    protected $id = array('id');
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logUnguarded();
+        // Chain fluent methods for configuration options
+    }
     public function bills()
     {
         return $this->morphMany(Bill::class,'model');

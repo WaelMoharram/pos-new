@@ -43,6 +43,9 @@ class BillController extends Controller
                 return redirect()->route('dashboard');
             }
         }
+        $user = auth()->user();
+
+        activity()->log($user->name . '- عرض فواتير ' . $request->type);
         $bills = Bill::where('type',$request->type)->orderByDesc('id')->get();
         if (auth()->user()->store()->count() > 0){
             $bills = Bill::where('type',$request->type)->where(function($q) use($request){
@@ -120,6 +123,11 @@ class BillController extends Controller
             $requests['code'] =1;
         }
         $bill = Bill::create($requests);
+
+        $user = auth()->user();
+
+        activity()->log($user->name . '- اضافة فاتورة رقم '.$bill->id.' ' . $request->type);
+
         toast('تم اضافة القيد بنجاح','success');
 
         return redirect(route('bills.edit',$bill->id));
@@ -135,6 +143,11 @@ class BillController extends Controller
     {
         $bill = Bill::findOrFail($id);
         $details = BillDetail::where('bill_id',$bill->id)->get();
+
+        $user = auth()->user();
+
+        activity()->log($user->name . '- عرض فاتورة رقم '.$bill->id.' ');
+
         return view('dashboard.bills.'.$bill->type.'.show',compact('bill','details'));
     }
 
@@ -151,6 +164,8 @@ class BillController extends Controller
         $bill = Bill::findOrFail($id);
         $details = BillDetail::where('bill_id',$bill->id)->get();
         $items = Item::all();
+
+
         return view('dashboard.bills.'.$bill->type.'.edit',compact('bill','details','items'));
     }
 
@@ -196,7 +211,9 @@ class BillController extends Controller
             }
             $details = BillDetail::where('bill_id',$bill->id)->get();
             $items = Item::all();
+            $user = auth()->user();
 
+            activity()->log($user->name . '- تعديل فاتورة رقم '.$bill->id.' ');
             return view('dashboard.bills.sale_out_pos.edit',compact('bill','details','items'));
         }
 
@@ -221,6 +238,10 @@ class BillController extends Controller
             $request->files->remove('image');
         }
         $bill->fill($requests)->save();
+        $user = auth()->user();
+
+        activity()->log($user->name . '- تعديل فاتورة رقم '.$bill->id.' ');
+
         toast('تم التعديل بنجاح ','success');
         return redirect(route('bills.index',['type'=>$bill->type]));
     }
@@ -304,6 +325,9 @@ class BillController extends Controller
             }
         }
         $bill->delete();
+        $user = auth()->user();
+
+        activity()->log($user->name . '- حذف فاتورة رقم '.$bill->id.' ');
         toast('تم الحذف بنجاح','success');
         return redirect(route('bills.index',['type'=>$bill->type]));
     }
@@ -411,18 +435,26 @@ class BillController extends Controller
             toast('تم السداد بنجاح','success');
         }
         toast('تم حفظ الفاتورة بنجاح','success');
+        $user = auth()->user();
 
+        activity()->log($user->name . '- حفظ فاتورة رقم '.$bill->id.' ');
         return redirect(route('bills.index',['type'=>$bill->type]));
     }
     public function print($id){
         $bill = Bill::findOrFail($id);
         $details = BillDetail::where('bill_id',$bill->id)->get();
+        $user = auth()->user();
+
+        activity()->log($user->name . '- طباعة فاتورة رقم '.$bill->id.' ');
         return view('dashboard.bills.'.$bill->type.'.print',compact('bill','details'));
     }
     public function printBarcode($id){
         $bill = Bill::findOrFail($id);
         $details = BillDetail::where('bill_id',$bill->id)->get();
         $count =1;
+        $user = auth()->user();
+
+        activity()->log($user->name . '- طباعة باركود فاتورة رقم '.$bill->id.' ');
         return view('dashboard.bills.'.$bill->type.'.print-barcode',compact('bill','details','count'));
     }
 }

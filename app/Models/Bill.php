@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class Bill extends Model
 {
@@ -11,11 +13,16 @@ class Bill extends Model
     protected $table = 'bills';
     public $timestamps = true;
 
-    use SoftDeletes;
+    use SoftDeletes,LogsActivity;
 
     protected $dates = ['deleted_at'];
     protected $guarded = ['id'];
-
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logUnguarded();
+        // Chain fluent methods for configuration options
+    }
     public function model()
     {
         return $this->morphTo('model');

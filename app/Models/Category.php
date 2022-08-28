@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Category extends Model
 {
@@ -11,12 +13,17 @@ class Category extends Model
     protected $table = 'categories';
     public $timestamps = true;
 
-    use SoftDeletes;
+    use SoftDeletes,LogsActivity;
 
     protected $dates = ['deleted_at'];
-    protected $fillable = array('name', 'image','upper_id');
+    protected $guarded = array('id');
     protected $appends=['color'];
-
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logUnguarded();
+        // Chain fluent methods for configuration options
+    }
     public function items()
     {
         return $this->hasMany('App\Models\Item');
