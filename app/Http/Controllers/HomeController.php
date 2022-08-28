@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 
@@ -25,6 +26,19 @@ class HomeController extends Controller
      */
     public function index()
     {
+
+        foreach (Item::all() as $item){
+            $units = Unit::where('item_id',$item->id)->get();
+            if (count($units) == 0){
+                Unit::create([
+                    'item_id'=>$item->id,
+                    'price'=>$item->price,
+                    'name'=>'الوحدة الكبرى'
+                ]);
+            }
+        }
+
+
         //option(['اسم القيمة المضافة' => 14]);
         //return \Arr::crossJoin([1, 2], ['a', 'b'],['$','#']);
         //return SubItem::all();
