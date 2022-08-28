@@ -536,7 +536,7 @@ return [
                 [
             'text'    =>'التقارير',
             'icon'    => 'fas fa-fw fa-files',
-            'can' =>'show reports',
+            'can' =>['show reports','is_admin'],
             'submenu' => [
                 [
                     'text' => 'تقرير مبيعات الاصناف خلال فترة',
