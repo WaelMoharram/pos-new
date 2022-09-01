@@ -27,16 +27,16 @@ class HomeController extends Controller
     public function index()
     {
 
-        foreach (Item::all() as $item){
-            $units = Unit::where('item_id',$item->id)->get();
-            if (count($units) == 0){
-                Unit::create([
-                    'item_id'=>$item->id,
-                    'price'=>$item->price,
-                    'name'=>'الوحدة الكبرى'
-                ]);
-            }
-        }
+//        foreach (Item::all() as $item){
+//            $units = Unit::where('item_id',$item->id)->get();
+//            if (count($units) == 0){
+//                Unit::create([
+//                    'item_id'=>$item->id,
+//                    'price'=>$item->price,
+//                    'name'=>'الوحدة الكبرى'
+//                ]);
+//            }
+//        }
 
 
         //option(['اسم القيمة المضافة' => 14]);
