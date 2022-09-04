@@ -61,6 +61,9 @@ class BillDetailController extends Controller
         if ($request->unit_id){
 
             $unit = Unit::find($request->unit_id);
+        }else{
+
+            $unit = Unit::where('item_id',$item->id)->where('ratio',1)->first();
         }
         if ($bill->status != 'new'){
             if ($bill->type == 'purchase_in' || $bill->type == 'sale_in' ) {
