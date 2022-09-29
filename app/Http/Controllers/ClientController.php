@@ -28,7 +28,7 @@ class ClientController extends Controller
     public function index(Request $request)
     {
 
-        if (!Auth::user()->can('index clients')){
+        if (!Auth::user()->can('index client')){
             abort(401);
         }
 if ($request->has('sales_man_id') && $request->sales_man_id != null){
@@ -52,7 +52,7 @@ if ($request->has('sales_man_id') && $request->sales_man_id != null){
      */
     public function create()
     {
-        if (!Auth::user()->can('add clients')){
+        if (!Auth::user()->can('add client')){
             abort(401);
         }
         $client=new Client();
@@ -67,7 +67,7 @@ if ($request->has('sales_man_id') && $request->sales_man_id != null){
      */
     public function store(ClientRequest $request)
     {
-        if (!Auth::user()->can('add clients')){
+        if (!Auth::user()->can('add client')){
             abort(401);
         }
         $client = Client::create($request->all());
@@ -84,7 +84,7 @@ if ($request->has('sales_man_id') && $request->sales_man_id != null){
      */
     public function show($id)
     {
-        if (!Auth::user()->can('index clients')){
+        if (!Auth::user()->can('index client')){
             abort(401);
         }
         $client = Client::findOrFail($id);
@@ -95,7 +95,7 @@ if ($request->has('sales_man_id') && $request->sales_man_id != null){
 
     public function report($id)
     {
-        if (!Auth::user()->can('index clients')){
+        if (!Auth::user()->can('index client')){
             abort(401);
         }
         $client = Client::findOrFail($id);
@@ -119,7 +119,7 @@ if ($request->has('sales_man_id') && $request->sales_man_id != null){
      */
     public function edit($id)
     {
-        if (!Auth::user()->can('edit clients')){
+        if (!Auth::user()->can('edit client')){
             abort(401);
         }
         $client = Client::findOrFail($id);
@@ -136,7 +136,7 @@ if ($request->has('sales_man_id') && $request->sales_man_id != null){
      */
     public function update(ClientRequest $request, $id)
     {
-        if (!Auth::user()->can('edit clients')){
+        if (!Auth::user()->can('edit client')){
             abort(401);
         }
         $client = Client::find($id);
@@ -153,7 +153,7 @@ if ($request->has('sales_man_id') && $request->sales_man_id != null){
      */
     public function destroy($id)
     {
-        if (!Auth::user()->can('delete clients')){
+        if (!Auth::user()->can('delete client')){
             abort(401);
         }
         $client= Client::findOrFail($id);
