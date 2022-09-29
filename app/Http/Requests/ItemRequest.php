@@ -42,6 +42,12 @@ class ItemRequest extends FormRequest
         return [
             'name' => 'الاسم ',
             'image' => 'الصورة ',
+            'barcode' => 'الباركود ',
+            'category_id' => 'التصنيف ',
+            'brand_id' => 'العالمة التجارية ',
+            'price' => 'السعر ',
+            'buy_price' => 'سعر الشراء ',
+            'min_amount' => 'الحد الادنى للطلب ',
 
         ];
     }
