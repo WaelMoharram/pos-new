@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -25,6 +26,9 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
+        if (!Auth::user()->can('index categories')){
+            abort(401);
+        }
         //return Category::all();
         $categories = Category::where('upper_id',null)->get();
 
@@ -41,6 +45,10 @@ class CategoryController extends Controller
      */
     public function create()
     {
+
+        if (!Auth::user()->can('add categories')){
+            abort(401);
+        }
         $category=new Category();
         return view('dashboard.categories.create',compact('category'));
     }
@@ -53,6 +61,10 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
+
+        if (!Auth::user()->can('add categories')){
+            abort(401);
+        }
         $requests=$request->all();
         if ($request->hasFile('image')) {
             $requests['image'] = saveImage($request->image, 'images');
@@ -72,6 +84,10 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
+
+        if (!Auth::user()->can('index categories')){
+            abort(401);
+        }
         $category = Category::findOrFail($id);
 
         return view('dashboard.categories.show',compact('category'));
@@ -85,6 +101,10 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
+
+        if (!Auth::user()->can('edit categories')){
+            abort(401);
+        }
         $category = Category::findOrFail($id);
 
         return view('dashboard.categories.edit',compact('category'));
@@ -99,6 +119,10 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, $id)
     {
+
+        if (!Auth::user()->can('edit categories')){
+            abort(401);
+        }
         if($request->upper_id == $id){
             toast('لا يمكن اختيار هذا التصنيف','error');
             return redirect()->back();
@@ -123,6 +147,10 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
+
+        if (!Auth::user()->can('delete categories')){
+            abort(401);
+        }
         //TODO:: Category delete validation
 
         $category= Category::findOrFail($id);

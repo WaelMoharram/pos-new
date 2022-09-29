@@ -6,6 +6,7 @@ use App\Http\Requests\ClientRequest;
 use App\Models\Bill;
 use App\Models\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
 {
@@ -26,6 +27,10 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
+
+        if (!Auth::user()->can('index clients')){
+            abort(401);
+        }
 if ($request->has('sales_man_id') && $request->sales_man_id != null){
     $clients = Client::where('sales_man_id',$request->sales_man_id)->get();
 }else{
@@ -47,6 +52,9 @@ if ($request->has('sales_man_id') && $request->sales_man_id != null){
      */
     public function create()
     {
+        if (!Auth::user()->can('add clients')){
+            abort(401);
+        }
         $client=new Client();
         return view('dashboard.clients.create',compact('client'));
     }
@@ -59,7 +67,9 @@ if ($request->has('sales_man_id') && $request->sales_man_id != null){
      */
     public function store(ClientRequest $request)
     {
-
+        if (!Auth::user()->can('add clients')){
+            abort(401);
+        }
         $client = Client::create($request->all());
 
         toast('تم اضافة القيد بنجاح','success');
@@ -74,6 +84,9 @@ if ($request->has('sales_man_id') && $request->sales_man_id != null){
      */
     public function show($id)
     {
+        if (!Auth::user()->can('index clients')){
+            abort(401);
+        }
         $client = Client::findOrFail($id);
 
         return view('dashboard.clients.show',compact('client'));
@@ -82,6 +95,9 @@ if ($request->has('sales_man_id') && $request->sales_man_id != null){
 
     public function report($id)
     {
+        if (!Auth::user()->can('index clients')){
+            abort(401);
+        }
         $client = Client::findOrFail($id);
         $bills = $client->bills;
 
@@ -103,6 +119,9 @@ if ($request->has('sales_man_id') && $request->sales_man_id != null){
      */
     public function edit($id)
     {
+        if (!Auth::user()->can('edit clients')){
+            abort(401);
+        }
         $client = Client::findOrFail($id);
 
         return view('dashboard.clients.edit',compact('client'));
@@ -117,7 +136,9 @@ if ($request->has('sales_man_id') && $request->sales_man_id != null){
      */
     public function update(ClientRequest $request, $id)
     {
-
+        if (!Auth::user()->can('edit clients')){
+            abort(401);
+        }
         $client = Client::find($id);
         $client->fill($request->all())->save();
         toast('تم التعديل بنجاح ','success');
@@ -132,6 +153,9 @@ if ($request->has('sales_man_id') && $request->sales_man_id != null){
      */
     public function destroy($id)
     {
+        if (!Auth::user()->can('delete clients')){
+            abort(401);
+        }
         $client= Client::findOrFail($id);
         if ($client->bills->count() > 0){
             toast('عملية مرفوضة - المخزن يحتوى على معاملات سابقة ','error');

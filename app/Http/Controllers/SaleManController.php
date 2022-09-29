@@ -32,6 +32,9 @@ class SaleManController extends Controller
      */
     public function index()
     {
+        if (!Auth::user()->can('index sales_men')){
+            abort(401);
+        }
         $users = User::where('type','sales')->paginate(10);
 
         return view('dashboard.sales-men.index',compact('users'));
@@ -44,6 +47,9 @@ class SaleManController extends Controller
      */
     public function create()
     {
+        if (!Auth::user()->can('add sales_men')){
+            abort(401);
+        }
         $role = Role::pluck('name', 'id');
 
         $user=new User();
@@ -58,6 +64,9 @@ class SaleManController extends Controller
      */
     public function store(UserRequest $request)
     {
+        if (!Auth::user()->can('add sales_men')){
+            abort(401);
+        }
         $requests=$request->except('role');
         $requests['type']='sales';
         if ($request->hasFile('image')) {
@@ -87,6 +96,9 @@ class SaleManController extends Controller
      */
     public function show($id)
     {
+        if (!Auth::user()->can('index sales_men')){
+            abort(401);
+        }
         $user = User::findOrFail($id);
         $role = Role::pluck('name', 'id');
 
@@ -117,6 +129,9 @@ class SaleManController extends Controller
      */
     public function edit($id)
     {
+        if (!Auth::user()->can('edit sales_men')){
+            abort(401);
+        }
         $role = Role::pluck('name', 'id');
 
         $user = User::findOrFail($id);
@@ -133,6 +148,9 @@ class SaleManController extends Controller
      */
     public function update(UserRequest $request, $id)
     {
+        if (!Auth::user()->can('edit sales_men')){
+            abort(401);
+        }
         $requests=$request->except('role');
         if ($request->hasFile('image')) {
 
@@ -160,6 +178,9 @@ class SaleManController extends Controller
      */
     public function destroy($id)
     {
+        if (!Auth::user()->can('delete sales_men')){
+            abort(401);
+        }
         if ($id == Auth::id()){
             toast('غير مسموح بحذف بياناتك ','danger');
             return back();

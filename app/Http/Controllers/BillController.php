@@ -9,6 +9,7 @@ use App\Models\Brand;
 use App\Models\Item;
 use App\Models\ItemStore;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BillController extends Controller
 {
@@ -29,9 +30,13 @@ class BillController extends Controller
      */
     public function index(Request $request)
     {
+
         //return auth()->user()->store;
 
         if ($request->type == 'sale_in' || $request->type == 'sale_out'){
+            if (!Auth::user()->can('index sales')){
+                abort(401);
+            }
             if (!auth()->user()->can('add sales')){
                 toast('لا تمتلك صلاحيات البيع','error');
 

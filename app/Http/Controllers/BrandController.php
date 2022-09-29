@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BrandRequest;
 use App\Models\Brand;
+use Illuminate\Support\Facades\Auth;
 
 class BrandController extends Controller
 {
@@ -24,6 +25,9 @@ class BrandController extends Controller
      */
     public function index()
     {
+        if (!Auth::user()->can('index brands')){
+            abort(401);
+        }
         $brands = Brand::all();
 
         return view('dashboard.brands.index',compact('brands'));
@@ -36,6 +40,10 @@ class BrandController extends Controller
      */
     public function create()
     {
+
+        if (!Auth::user()->can('add brands')){
+            abort(401);
+        }
         $brand=new Brand();
         return view('dashboard.brands.create',compact('brand'));
     }
@@ -48,6 +56,9 @@ class BrandController extends Controller
      */
     public function store(BrandRequest $request)
     {
+        if (!Auth::user()->can('add brands')){
+            abort(401);
+        }
         $requests=$request->all();
         if ($request->hasFile('image')) {
             $requests['image'] = saveImage($request->image, 'images');
@@ -67,6 +78,9 @@ class BrandController extends Controller
      */
     public function show($id)
     {
+        if (!Auth::user()->can('index brands')){
+            abort(401);
+        }
         $brand = Brand::findOrFail($id);
 
         return view('dashboard.brands.show',compact('brand'));
@@ -80,6 +94,9 @@ class BrandController extends Controller
      */
     public function edit($id)
     {
+        if (!Auth::user()->can('edit brands')){
+            abort(401);
+        }
         $brand = Brand::findOrFail($id);
 
         return view('dashboard.brands.edit',compact('brand'));
@@ -94,7 +111,9 @@ class BrandController extends Controller
      */
     public function update(BrandRequest $request, $id)
     {
-
+        if (!Auth::user()->can('edit brands')){
+            abort(401);
+        }
         $brand = Brand::find($id);
         $requests = $request->all();
         if ($request->hasFile('image')) {
@@ -115,6 +134,9 @@ class BrandController extends Controller
      */
     public function destroy($id)
     {
+        if (!Auth::user()->can('delete brands')){
+            abort(401);
+        }
         //TODO:: Brand delete validation
         $brand= Brand::findOrFail($id);
         if ($brand->items->count() >0){

@@ -29,6 +29,9 @@ class UserController extends Controller
      */
     public function index()
     {
+        if (!Auth::user()->can('index users')){
+            abort(401);
+        }
         $users = User::where('type','admin')->paginate(10);
 
         return view('dashboard.users.index',compact('users'));
@@ -41,6 +44,9 @@ class UserController extends Controller
      */
     public function create()
     {
+        if (!Auth::user()->can('add users')){
+            abort(401);
+        }
         $user=new User();
         $role = Role::pluck('name', 'id');
 
@@ -55,6 +61,9 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
+        if (!Auth::user()->can('add users')){
+            abort(401);
+        }
         $requests=$request->except('role');
         $requests['type']='admin';
         if ($request->hasFile('image')) {
@@ -77,6 +86,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
+        if (!Auth::user()->can('index users')){
+            abort(401);
+        }
         $user = User::findOrFail($id);
         $role = Role::pluck('name', 'id');
 
@@ -91,6 +103,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        if (!Auth::user()->can('edit users')){
+            abort(401);
+        }
         $user = User::findOrFail($id);
         $role = Role::pluck('name', 'id');
 
@@ -107,7 +122,9 @@ class UserController extends Controller
     public function update(UserRequest $request, $id)
     {
         //return $request->permissions;
-
+        if (!Auth::user()->can('edit users')){
+            abort(401);
+        }
         $requests=$request->except('role');
         if ($request->hasFile('image')) {
 
@@ -134,6 +151,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        if (!Auth::user()->can('delete users')){
+            abort(401);
+        }
         if ($id == Auth::id()){
             toast('غير مسموح بحذف بياناتك ','danger');
             return back();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\OptionRequest;
 use App\Models\Option;
+use Illuminate\Support\Facades\Auth;
 
 class OptionController extends Controller
 {
@@ -24,6 +25,9 @@ class OptionController extends Controller
      */
     public function index()
     {
+        if (!Auth::user()->can('index options')){
+            abort(401);
+        }
         $options = Option::all();
 
         return view('dashboard.options.index',compact('options'));
@@ -36,6 +40,9 @@ class OptionController extends Controller
      */
     public function create()
     {
+        if (!Auth::user()->can('add options')){
+            abort(401);
+        }
         $option=new Option();
         return view('dashboard.options.create',compact('option'));
     }
@@ -48,6 +55,9 @@ class OptionController extends Controller
      */
     public function store(OptionRequest $request)
     {
+        if (!Auth::user()->can('add options')){
+            abort(401);
+        }
         $requests=$request->all();
         if ($request->hasFile('image')) {
             $requests['image'] = saveImage($request->image, 'images');
@@ -67,6 +77,9 @@ class OptionController extends Controller
      */
     public function show($id)
     {
+        if (!Auth::user()->can('index options')){
+            abort(401);
+        }
         $option = Option::findOrFail($id);
 
         return view('dashboard.options.show',compact('option'));
@@ -80,6 +93,9 @@ class OptionController extends Controller
      */
     public function edit($id)
     {
+        if (!Auth::user()->can('edit options')){
+            abort(401);
+        }
         $option = Option::findOrFail($id);
 
         return view('dashboard.options.edit',compact('option'));
@@ -94,7 +110,9 @@ class OptionController extends Controller
      */
     public function update(OptionRequest $request, $id)
     {
-
+        if (!Auth::user()->can('edit options')){
+            abort(401);
+        }
         $option = Option::find($id);
         $requests = $request->all();
         if ($request->hasFile('image')) {
@@ -115,6 +133,9 @@ class OptionController extends Controller
      */
     public function destroy($id)
     {
+        if (!Auth::user()->can('delete options')){
+            abort(401);
+        }
         //TODO:: Option delete validation
 //        if (){
 //            toast('عملية مرفوضة - المخزن يحتوى على معاملات سابقة ','danger');

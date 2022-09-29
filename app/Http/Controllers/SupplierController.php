@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SupplierRequest;
 use App\Models\Client;
 use App\Models\Supplier;
+use Illuminate\Support\Facades\Auth;
 
 class SupplierController extends Controller
 {
@@ -25,6 +26,9 @@ class SupplierController extends Controller
      */
     public function index()
     {
+        if (!Auth::user()->can('index suppliers')){
+            abort(401);
+        }
         $suppliers = Supplier::all();
 
         return view('dashboard.suppliers.index',compact('suppliers'));
@@ -37,6 +41,9 @@ class SupplierController extends Controller
      */
     public function create()
     {
+        if (!Auth::user()->can('add suppliers')){
+            abort(401);
+        }
         $supplier=new Supplier();
         return view('dashboard.suppliers.create',compact('supplier'));
     }
@@ -49,7 +56,9 @@ class SupplierController extends Controller
      */
     public function store(SupplierRequest $request)
     {
-
+        if (!Auth::user()->can('add suppliers')){
+            abort(401);
+        }
         $supplier = Supplier::create($request->all());
 
         toast('تم اضافة القيد بنجاح','success');
@@ -64,6 +73,9 @@ class SupplierController extends Controller
      */
     public function show($id)
     {
+        if (!Auth::user()->can('index suppliers')){
+            abort(401);
+        }
         $supplier = Supplier::findOrFail($id);
 
         return view('dashboard.suppliers.show',compact('supplier'));
@@ -92,6 +104,9 @@ class SupplierController extends Controller
      */
     public function edit($id)
     {
+        if (!Auth::user()->can('edit suppliers')){
+            abort(401);
+        }
         $supplier = Supplier::findOrFail($id);
 
         return view('dashboard.suppliers.edit',compact('supplier'));
@@ -106,7 +121,9 @@ class SupplierController extends Controller
      */
     public function update(SupplierRequest $request, $id)
     {
-
+        if (!Auth::user()->can('edit suppliers')){
+            abort(401);
+        }
         $supplier = Supplier::find($id);
         $supplier->fill($request->all())->save();
         toast('تم التعديل بنجاح ','success');
@@ -121,6 +138,9 @@ class SupplierController extends Controller
      */
     public function destroy($id)
     {
+        if (!Auth::user()->can('delete suppliers')){
+            abort(401);
+        }
         //TODO:: Supplier delete validation
 //        if (){
 //            toast('عملية مرفوضة - المخزن يحتوى على معاملات سابقة ','danger');

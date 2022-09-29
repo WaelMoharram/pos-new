@@ -8,6 +8,7 @@ use App\Models\Bill;
 use App\Models\Item;
 use App\Models\Unit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ItemController extends Controller
@@ -29,6 +30,9 @@ class ItemController extends Controller
      */
     public function index()
     {
+        if (!Auth::user()->can('index items')){
+            abort(401);
+        }
         $items = Item::orderBy('name')->get();
 
         return view('dashboard.items.index',compact('items'));
@@ -41,6 +45,9 @@ class ItemController extends Controller
      */
     public function create()
     {
+        if (!Auth::user()->can('add items')){
+            abort(401);
+        }
         $item=new Item();
         return view('dashboard.items.create',compact('item'));
     }
@@ -53,6 +60,9 @@ class ItemController extends Controller
      */
     public function store(ItemRequest $request)
     {
+        if (!Auth::user()->can('add items')){
+            abort(401);
+        }
         $requests=$request->all();
         $requests['code'] = strtotime(date('Y-m-d'));
         if ($request->hasFile('image')) {
@@ -81,6 +91,9 @@ class ItemController extends Controller
      */
     public function show($id)
     {
+        if (!Auth::user()->can('index items')){
+            abort(401);
+        }
         $item = Item::findOrFail($id);
 
         return view('dashboard.items.show',compact('item'));
@@ -94,6 +107,9 @@ class ItemController extends Controller
      */
     public function edit($id)
     {
+        if (!Auth::user()->can('edit items')){
+            abort(401);
+        }
         $item = Item::findOrFail($id);
 
         return view('dashboard.items.edit',compact('item'));
@@ -108,7 +124,9 @@ class ItemController extends Controller
      */
     public function update(ItemRequest $request, $id)
     {
-
+        if (!Auth::user()->can('edit items')){
+            abort(401);
+        }
         $item = Item::find($id);
 
         $unit = Unit::where('item_id',$id)->where('ratio',1)->first();
@@ -132,6 +150,9 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
+        if (!Auth::user()->can('delete items')){
+            abort(401);
+        }
         //TODO:: Item delete validation
         $item= Item::findOrFail($id);
         if ($item->Billsdetails->count() >0){

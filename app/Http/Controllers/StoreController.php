@@ -25,6 +25,9 @@ class StoreController extends Controller
      */
     public function index()
     {
+        if (!Auth::user()->can('index stores')){
+            abort(401);
+        }
         $stores = Store::where('sales_man_id',null)->where(function ($q){
             if (Auth::user()->store_id != null){
                 $q->where('id',Auth::user()->store_id);
@@ -41,6 +44,9 @@ class StoreController extends Controller
      */
     public function create()
     {
+        if (!Auth::user()->can('add stores')){
+            abort(401);
+        }
         $store=new Store();
         return view('dashboard.stores.create',compact('store'));
     }
@@ -53,7 +59,9 @@ class StoreController extends Controller
      */
     public function store(StoreRequest $request)
     {
-
+        if (!Auth::user()->can('add stores')){
+            abort(401);
+        }
         $store = Store::create($request->all());
 
         toast('تم اضافة القيد بنجاح','success');
@@ -68,6 +76,9 @@ class StoreController extends Controller
      */
     public function show($id)
     {
+        if (!Auth::user()->can('index stores')){
+            abort(401);
+        }
         $store = Store::findOrFail($id);
 
         return view('dashboard.stores.show',compact('store'));
@@ -81,6 +92,9 @@ class StoreController extends Controller
      */
     public function edit($id)
     {
+        if (!Auth::user()->can('edit stores')){
+            abort(401);
+        }
         $store = Store::findOrFail($id);
 
         return view('dashboard.stores.edit',compact('store'));
@@ -95,7 +109,9 @@ class StoreController extends Controller
      */
     public function update(StoreRequest $request, $id)
     {
-
+        if (!Auth::user()->can('edit stores')){
+            abort(401);
+        }
         $store = Store::find($id);
         $store->fill($request->all())->save();
         toast('تم التعديل بنجاح ','success');
@@ -110,6 +126,9 @@ class StoreController extends Controller
      */
     public function destroy($id)
     {
+        if (!Auth::user()->can('delete stores')){
+            abort(401);
+        }
         //TODO:: Store delete validation
 //        if (){
 //            toast('عملية مرفوضة - المخزن يحتوى على معاملات سابقة ','danger');

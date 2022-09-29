@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PaymentRequest;
 use App\Models\Bill;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
 {
@@ -24,7 +25,12 @@ class PaymentController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index(Request $request)
-    {        $payments = Bill::whereIn('type',['cash_in','cash_out'])->get();
+    {
+        if (!Auth::user()->can('index payments')){
+            abort(401);
+        }
+
+        $payments = Bill::whereIn('type',['cash_in','cash_out'])->get();
 
         if (auth()->user()->getRoleNames()->first() !='admin'){
             $payments = Bill::whereIn('type',['cash_in','cash_out'])->where('sales_man_id',auth()->id())->get();
@@ -39,6 +45,9 @@ class PaymentController extends Controller
      */
     public function create()
     {
+        if (!Auth::user()->can('add payments')){
+            abort(401);
+        }
         $bills = Bill::all()->where('remaining','>',0)->pluck('code_and_name','id');
 
         return view('dashboard.payments.create',compact('bills'));
@@ -52,7 +61,9 @@ class PaymentController extends Controller
      */
     public function store(PaymentRequest $request)
     {
-
+        if (!Auth::user()->can('add payments')){
+            abort(401);
+        }
         $bill = Bill::find($request->bill_id);
 
         if ($bill->remaining < $request->money){
@@ -95,6 +106,9 @@ $lastPayment = Bill::where('type',$request->type)->latest()->first();
      */
     public function show($id)
     {
+        if (!Auth::user()->can('index payments')){
+            abort(401);
+        }
         $payment = Bill::findOrFail($id);
         return view('dashboard.payments.show',compact('payment'));
     }
@@ -107,6 +121,9 @@ $lastPayment = Bill::where('type',$request->type)->latest()->first();
      */
     public function edit($id)
     {
+        if (!Auth::user()->can('edit payments')){
+            abort(401);
+        }
         $payment = Bill::findOrFail($id);
         return view('dashboard.payments.edit',compact('payment'));
     }
@@ -120,7 +137,9 @@ $lastPayment = Bill::where('type',$request->type)->latest()->first();
      */
     public function update(PaymentRequest $request, $id)
     {
-
+        if (!Auth::user()->can('edit payments')){
+            abort(401);
+        }
         $payment = Bill::find($id);
 
         $payment->fill($request->all())->save();
@@ -136,6 +155,9 @@ $lastPayment = Bill::where('type',$request->type)->latest()->first();
      */
     public function destroy($id)
     {
+        if (!Auth::user()->can('delete payments')){
+            abort(401);
+        }
         //TODO:: Bill delete validation
 
         $payment= Bill::findOrFail($id);
