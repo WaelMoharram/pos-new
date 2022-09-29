@@ -116,11 +116,12 @@ class BrandController extends Controller
     public function destroy($id)
     {
         //TODO:: Brand delete validation
-//        if (){
-//            toast('عملية مرفوضة - المخزن يحتوى على معاملات سابقة ','danger');
-//            return back();
-//        }
         $brand= Brand::findOrFail($id);
+        if ($brand->items->count() >0){
+            toast('عملية مرفوضة - العلامة التجارية تحتوى على اصناف ','danger');
+            return back();
+        }
+
         $brand->delete();
         toast('تم الحذف بنجاح','success');
         return redirect(route('brands.index'));

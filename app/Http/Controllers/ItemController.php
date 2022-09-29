@@ -129,11 +129,11 @@ class ItemController extends Controller
     public function destroy($id)
     {
         //TODO:: Item delete validation
-//        if (){
-//            toast('عملية مرفوضة - المخزن يحتوى على معاملات سابقة ','danger');
-//            return back();
-//        }
         $item= Item::findOrFail($id);
+        if ($item->Billsdetails->count() >0){
+            toast('عملية مرفوضة - الصنف موجود فى فاتورة ','danger');
+            return back();
+        }
         $item->delete();
         toast('تم الحذف بنجاح','success');
         return redirect(route('items.index'));

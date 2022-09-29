@@ -124,11 +124,12 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         //TODO:: Category delete validation
-//        if (){
-//            toast('عملية مرفوضة - المخزن يحتوى على معاملات سابقة ','danger');
-//            return back();
-//        }
+
         $category= Category::findOrFail($id);
+        if ($category->items->count() >0){
+            toast('عملية مرفوضة - العلامة التجارية تحتوى على اصناف ','danger');
+            return back();
+        }
         $category->delete();
         toast('تم الحذف بنجاح','success');
         return redirect(route('categories.index'));
