@@ -12,7 +12,7 @@
 </div>
 
 <div class="form-group py-1 col-md-12">
-    <label for="email"> email</label>
+    <label for="email"> البريد الالكترونى</label>
     {!! Form::email('email',null,['id'=>'email','class'=>'form-control col',isset($readOnly)?$readOnly:null,disable_on_show()]) !!}
     {{input_error($errors,'email')}}
 </div>
