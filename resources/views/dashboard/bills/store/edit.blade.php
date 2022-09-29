@@ -117,15 +117,56 @@
                 data: { "barcode": $("#barcode").val() },
                 type: "get",
                 success: function(data){
-                    console.log(data);
                     if (data != null){
-                        console.log(parseInt(data))
-                        $("#item_id").val(parseInt(data));
+                        $("#item_id").val(parseInt(data.id));
                         $("#item_id").trigger('change');
+                        $("#unit_id option").remove();
+
+                        $.each( data.units, function(k, v) {
+
+                            if(v.for === 'pos'){
+                                console.log('name of for'+v.name);
+                                $('#unit_id').append('<option selected value="'+v.id+'">'+v.name+'</option>');
+                            }else{
+
+                                $('#unit_id').append('<option value="'+v.id+'">'+v.name+'</option>');
+                            }
+                        });
+
                     }
                 }
             });
         });
+
+        $('#item_id').change(function(){
+            $.ajax({
+                url: "{{route('units-for-item')}}",
+                data: { "id": $("#item_id").val() },
+                type: "get",
+                success: function(data){
+                    if (data != null){
+                        // $("#item_id").val(parseInt(data.id));
+                        // $("#item_id").trigger('change');
+                        $("#unit_id option").remove();
+                        console.log('test1'+data.units);
+                        $.each( data.units, function(k, v) {
+                            console.log('name'+v.name);
+                            console.log('for'+v.for);
+                            console.log('id'+v.id);
+                            if(v.for === 'pos'){
+
+                                $('#unit_id').append('<option selected value="'+v.id+'">'+v.name+'</option>');
+                            }else{
+
+                                $('#unit_id').append('<option value="'+v.id+'">'+v.name+'</option>');
+                            }
+                        });
+
+                    }
+                }
+            });
+        });
+
     </script>
     @include('sweetalert::alert')
 @stop
