@@ -63,7 +63,11 @@ class ItemController extends Controller
         $item = Item::create($requests);
         $item->code = $item->id;
         $item->save();
-
+        Unit::create([
+                    'item_id'=>$item->id,
+                    'price'=>$item->price,
+                    'name'=>'الوحدة الكبرى'
+                ]);
 
         toast('تم اضافة القيد بنجاح','success');
         return redirect(route('items.index'));
