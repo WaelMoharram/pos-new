@@ -25,7 +25,7 @@
                 @each('adminlte::partials.navbar.menu-item', $adminlte->menu('navbar-left'), 'item')
                 @can('is_sales')
                     <li class="nav-item dropdown ">
-                        <a class="nav-link dropdown-toggle" href="" data-toggle="dropdown" aria-expanded="true">
+                        <a class="nav-link dropdown-toggle" href="" data-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-fw fa-users "></i>
                             تقارير المندوب
                         </a>
