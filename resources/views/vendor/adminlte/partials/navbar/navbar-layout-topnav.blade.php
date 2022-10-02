@@ -29,7 +29,7 @@
                             <i class="fas fa-fw fa-users "></i>
                             تقارير المندوب
                         </a>
-                        <ul class="dropdown-menu border-0 shadow show" style="left: 0px; right: inherit;">
+                        <ul class="dropdown-menu border-0 shadow" style="left: 0px; right: inherit;">
                             <li>
                                 <a class="dropdown-item" href="{{route('sales-men.show', auth()->id())}}">
                                     <i class="fas fa-fw fa-eye "></i>
