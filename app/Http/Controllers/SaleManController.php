@@ -96,9 +96,7 @@ class SaleManController extends Controller
      */
     public function show($id)
     {
-        if (!Auth::user()->can('index sales_men')){
-            abort(401);
-        }
+
         $user = User::findOrFail($id);
         $role = Role::pluck('name', 'id');
 
