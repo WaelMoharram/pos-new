@@ -18,11 +18,16 @@
     {!! Form::close() !!}
 
 @stop
+@section('plugins.Select2', true)
 
 @section('css')
 @stop
 
 @section('js')
-
+    <script>
+        $('.select2').select2({
+            dir:'rtl',
+        });
+    </script>
     @include('sweetalert::alert')
 @stop

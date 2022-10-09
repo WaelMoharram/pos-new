@@ -32,14 +32,16 @@
 
 @if(auth()->user()->type == 'admin')
 <div class="form-group py-1 col-md-6">
-    <label for="sales_man_id"> المندوب المسئول  </label>
-    {{Form::select('sales_man_id',\App\Models\User::where('type','sales')->pluck('name','id') ,null,['class'=>'form-control mb-2','id'=>'sales_man_id'])}}
-    {{input_error($errors,'sales_man_id')}}
+    <label for="users"> المندوبين و المبيعات و الفروع  </label>
+    {{Form::select('users[]',\App\Models\User::where(function ($q){
+    $q->where('type','sales')->orWhere('pos',1);
+})->pluck('name','id') ,null,['class'=>'form-control mb-2 select2','multiple','id'=>'users'])}}
+    {{input_error($errors,'users[]')}}
 </div>
 
 @else
 
-    <input type="hidden" name="sales_man_id" value="{{auth()->id()}}">
+    <input type="hidden" name="users[]" value="{{auth()->id()}}">
 
 @endif
 
