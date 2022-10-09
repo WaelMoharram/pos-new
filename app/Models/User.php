@@ -126,4 +126,9 @@ class User extends Authenticatable
         return $this->bills()->where('type','sale_out')->count();
     }
 
+    public function clients()
+    {
+        return $this->belongsToMany(Client::class,'client_user','client_id','user_id');
+    }
+
 }

@@ -28,9 +28,9 @@ class Client extends Model
         return $this->morphMany('App\Models\Bill','model');
     }
 
-    public function salesMan()
+    public function users()
     {
-        return $this->belongsTo(User::class,'sales_man_id');
+        return $this->belongsToMany(User::class,'client_user','user_id','client_id');
     }
     public function scopeCheck($query)
     {
