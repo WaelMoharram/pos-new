@@ -3,7 +3,7 @@
 @section('title', 'عرض مندوب'.$user->name)
 
 @section('content_header')
-    <h1>عرض العهدة المالية لمندوب {{$user->name}}</h1>
+    <h1>عرض العهدة المالية لـ {{$user->name}}</h1>
 @stop
 
 @section('content')
