@@ -79,13 +79,13 @@ class PaymentController extends Controller
         $requests['need_discount'] = false;
 
 
-        if (auth()->user()->type != 'admin'){
+//        if (auth()->user()->type != 'admin'){
             $requests['sales_man_id'] = auth()->id();
             $requests['accept_user_id'] = auth()->id();
 
-        }else{
-            $requests['accept_user_id'] = auth()->id();
-        }
+//        }else{
+//            $requests['accept_user_id'] = auth()->id();
+//        }
 $lastPayment = Bill::where('type',$request->type)->latest()->first();
         if ($lastPayment){
             $requests['code'] = $lastPayment->code+1;
