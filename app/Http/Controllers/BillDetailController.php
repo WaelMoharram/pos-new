@@ -70,48 +70,12 @@ class BillDetailController extends Controller
                 if ($unit){
 
                     $item->fill(['amount' => $item->amount + ($request->amount*((1/$unit->ratio) ?? 1))])->save();
-                    if ($bill->pos_sales == 1){
-                        $requestsBay['bill_id'] = $bill->id;
-                        $requestsBay['model_id'] = $bill->model_id;
-                        $requestsBay['model_type'] = $bill->model_type;
-                        $requestsBay['date'] = date('Y-m-d');
-                        $requestsBay['status'] = "saved";
-                        $requestsBay['money'] = ($item->amount + ($request->amount*((1/$unit->ratio) ?? 1)));
-                        $requestsBay['need_discount'] = false;
-                        $requestsBay['type'] = "cash_in";
-                        $requestsBay['sales_man_id'] = auth()->id();
-                        $requestsBay['accept_user_id'] = auth()->id();
-                        $lastPayment = Bill::where('type','cash_in')->latest()->first();
-                        if ($lastPayment){
-                            $requestsBay['code'] = $lastPayment->code+1;
-                        }else{
-                            $requestsBay['code'] =1;
-                        }
-                        $payment = Bill::create($requestsBay);
-                    }
+
                 }else{
 
                     $item->fill(['amount' => $item->amount + $request->amount])->save();
 
-                    if ($bill->pos_sales == 1){
-                        $requestsBay['bill_id'] = $bill->id;
-                        $requestsBay['model_id'] = $bill->model_id;
-                        $requestsBay['model_type'] = $bill->model_type;
-                        $requestsBay['date'] = date('Y-m-d');
-                        $requestsBay['status'] = "saved";
-                        $requestsBay['money'] = ($item->amount + $request->amount);
-                        $requestsBay['need_discount'] = false;
-                        $requestsBay['type'] = "cash_out";
-                        $requestsBay['sales_man_id'] = auth()->id();
-                        $requestsBay['accept_user_id'] = auth()->id();
-                        $lastPayment = Bill::where('type','cash_in')->latest()->first();
-                        if ($lastPayment){
-                            $requestsBay['code'] = $lastPayment->code+1;
-                        }else{
-                            $requestsBay['code'] =1;
-                        }
-                        $payment = Bill::create($requestsBay);
-                    }
+
                 }
                 $storItem = ItemStore::where('store_id', $bill->store_id)->where('item_id', $request->item_id)->first();
                 if (!$storItem) {
@@ -128,48 +92,12 @@ class BillDetailController extends Controller
 
                     $item->fill(['amount' => (float)$item->amount - ((float)$request->amount*((1/(float)$unit->ratio) ?? 1))])->save();
 
-                    if ($bill->pos_sales == 1){
-                        $requestsBay['bill_id'] = $bill->id;
-                        $requestsBay['model_id'] = $bill->model_id;
-                        $requestsBay['model_type'] = $bill->model_type;
-                        $requestsBay['date'] = date('Y-m-d');
-                        $requestsBay['status'] = "saved";
-                        $requestsBay['money'] = ((float)$item->amount - ((float)$request->amount*((1/(float)$unit->ratio) ?? 1)));
-                        $requestsBay['need_discount'] = false;
-                        $requestsBay['type'] = "cash_in";
-                        $requestsBay['sales_man_id'] = auth()->id();
-                        $requestsBay['accept_user_id'] = auth()->id();
-                        $lastPayment = Bill::where('type','cash_in')->latest()->first();
-                        if ($lastPayment){
-                            $requestsBay['code'] = $lastPayment->code+1;
-                        }else{
-                            $requestsBay['code'] =1;
-                        }
-                        $payment = Bill::create($requestsBay);
-                    }
+
                 }else{
 
                     $item->fill(['amount' => (float)$item->amount - (float)$request->amount])->save();
 
-                    if ($bill->pos_sales == 1){
-                        $requestsBay['bill_id'] = $bill->id;
-                        $requestsBay['model_id'] = $bill->model_id;
-                        $requestsBay['model_type'] = $bill->model_type;
-                        $requestsBay['date'] = date('Y-m-d');
-                        $requestsBay['status'] = "saved";
-                        $requestsBay['money'] = ((float)$item->amount - (float)$request->amount);
-                        $requestsBay['need_discount'] = false;
-                        $requestsBay['type'] = "cash_in";
-                        $requestsBay['sales_man_id'] = auth()->id();
-                        $requestsBay['accept_user_id'] = auth()->id();
-                        $lastPayment = Bill::where('type','cash_in')->latest()->first();
-                        if ($lastPayment){
-                            $requestsBay['code'] = $lastPayment->code+1;
-                        }else{
-                            $requestsBay['code'] =1;
-                        }
-                        $payment = Bill::create($requestsBay);
-                    }
+
 
                 }
 
@@ -209,13 +137,16 @@ class BillDetailController extends Controller
         }
 
         if ($bill->type == 'purchase_in' || $bill->type == 'purchase_out' ) {
-            $request->merge(['price' => $item->buy_price, 'total' => (((float)$request->amount*((1/$unit->ratio) ?? 1)) * (float)$item->buy_price)]);
+            $price = $item->buy_price;
+            $total = (((float)$request->amount*((1/$unit->ratio) ?? 1)) * (float)$item->buy_price);
+            $request->merge(['price' => $price, 'total' => $total]);
         }else{
             $price = ((float)$unit->price ?? (float)$item->price);
             if ($request->discount >0){
                 $price = ((float)$unit->price ?? (float)$item->price) - (float)$request->discount;
             }
-            $request->merge(['price' => $price, 'total' => ((float)$request->amount * $price)]);
+            $total = ((float)$request->amount * $price);
+            $request->merge(['price' => $price, 'total' => $total]);
         }
         $BillDetail = BillDetail::where('item_id',$request->item_id)->where('bill_id',$request->bill_id)->where('unit_id',$unit->id ?? null)->first();
         if ($BillDetail){
@@ -227,6 +158,32 @@ class BillDetailController extends Controller
             $detail = $BillDetail->fill(['amount'=>$newAmount,'price'=>$price,'total'=>($newAmount * $price)])->save();
         }else{
             $detail = BillDetail::create($request->all());
+        }
+
+        if ($bill->pos_sales == 1 && $bill->type != 'store'){
+            $requestsBay['bill_id'] = $bill->id;
+            $requestsBay['model_id'] = $bill->model_id;
+            $requestsBay['model_type'] = $bill->model_type;
+            $requestsBay['date'] = date('Y-m-d');
+            $requestsBay['status'] = "saved";
+            $requestsBay['money'] = $total;
+            $requestsBay['need_discount'] = false;
+            if ($bill->type == 'purchase_in' || $bill->type == 'sale_in' ) {
+                $requestsBay['type'] = "cash_out";
+            }elseif($bill->type == 'purchase_out' || $bill->type == 'sale_out' ) {
+                $requestsBay['type'] = "cash_in";
+            }
+
+
+            $requestsBay['sales_man_id'] = auth()->id();
+            $requestsBay['accept_user_id'] = auth()->id();
+            $lastPayment = Bill::where('type','cash_in')->latest()->first();
+            if ($lastPayment){
+                $requestsBay['code'] = $lastPayment->code+1;
+            }else{
+                $requestsBay['code'] =1;
+            }
+            $payment = Bill::create($requestsBay);
         }
         if ($taxPercent != null && $taxPercent > 0) {
             $bill->update(['tax' => ($bill->total * ($taxPercent / 100)), 'tax_type' => $taxName]);
