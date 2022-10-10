@@ -155,12 +155,14 @@ class BillDetailController extends Controller
                 $price = ((float)$unit->price ?? (float)$item->price) - (float)$request->discount;
             }
             $newAmount = (float)$BillDetail->amount + ((float)$request->amount*((1/(float)$unit->ratio) ?? 1));
-            $detail = $BillDetail->fill(['amount'=>$newAmount,'price'=>$price,'total'=>($newAmount * $price)])->save();
+            $total = ($newAmount * $price);
+            $detail = $BillDetail->fill(['amount'=>$newAmount,'price'=>$price,'total'=>$total])->save();
         }else{
             $detail = BillDetail::create($request->all());
         }
 
         if ($bill->pos_sales == 1 && $bill->type != 'store'){
+            $requestsBay['item_id'] = $item->id;
             $requestsBay['bill_id'] = $bill->id;
             $requestsBay['model_id'] = $bill->model_id;
             $requestsBay['model_type'] = $bill->model_type;
@@ -183,7 +185,12 @@ class BillDetailController extends Controller
             }else{
                 $requestsBay['code'] =1;
             }
-            $payment = Bill::create($requestsBay);
+            $payment = Bill::where('item_id',$detail->item_id)->where('bill_id',$bill->bill_id)->first();
+
+            if (!$payment){
+                $payment->fill($requestsBay)->save();
+            }
+            $payment = Bill::update($requestsBay);
         }
         if ($taxPercent != null && $taxPercent > 0) {
             $bill->update(['tax' => ($bill->total * ($taxPercent / 100)), 'tax_type' => $taxName]);
@@ -247,25 +254,6 @@ class BillDetailController extends Controller
             if ($detail->bill->type == 'purchase_in' || $detail->bill->type == 'sale_in') {
                 $item->fill(['amount' => $item->amount - $detail->amount])->save();
 
-                if ($detail->bill->pos_sales == 1){
-                    $requestsBay['bill_id'] = $detail->bill->id;
-                    $requestsBay['model_id'] = $detail->billl->model_id;
-                    $requestsBay['model_type'] = $detail->bill->model_type;
-                    $requestsBay['date'] = date('Y-m-d');
-                    $requestsBay['status'] = "saved";
-                    $requestsBay['money'] = ($item->amount - $detail->amount);
-                    $requestsBay['need_discount'] = false;
-                    $requestsBay['type'] = "cash_out";
-                    $requestsBay['sales_man_id'] = auth()->id();
-                    $requestsBay['accept_user_id'] = auth()->id();
-                    $lastPayment = Bill::where('type','cash_in')->latest()->first();
-                    if ($lastPayment){
-                        $requestsBay['code'] = $lastPayment->code+1;
-                    }else{
-                        $requestsBay['code'] =1;
-                    }
-                    $payment = Bill::create($requestsBay);
-                }
 
                 $storItem = ItemStore::where('store_id', $detail->bill->store_id)->where('item_id', $detail->item_id)->first();
                 if (!$storItem) {
@@ -280,25 +268,6 @@ class BillDetailController extends Controller
             }elseif ($detail->bill->type == 'purchase_out' || $detail->bill->type == 'sale_out'){
                 $item->fill(['amount' => $item->amount + $detail->amount])->save();
 
-                if ($detail->bill->pos_sales == 1){
-                    $requestsBay['bill_id'] = $detail->bill->id;
-                    $requestsBay['model_id'] = $detail->bill->model_id;
-                    $requestsBay['model_type'] = $detail->bill->model_type;
-                    $requestsBay['date'] = date('Y-m-d');
-                    $requestsBay['status'] = "saved";
-                    $requestsBay['money'] = ($item->amount + $detail->amount);
-                    $requestsBay['need_discount'] = false;
-                    $requestsBay['type'] = "cash_in";
-                    $requestsBay['sales_man_id'] = auth()->id();
-                    $requestsBay['accept_user_id'] = auth()->id();
-                    $lastPayment = Bill::where('type','cash_in')->latest()->first();
-                    if ($lastPayment){
-                        $requestsBay['code'] = $lastPayment->code+1;
-                    }else{
-                        $requestsBay['code'] =1;
-                    }
-                    $payment = Bill::create($requestsBay);
-                }
 
                 $storItem = ItemStore::where('store_id', $detail->bill->store_id)->where('item_id', $detail->item_id)->first();
                 if (!$storItem) {
@@ -331,6 +300,38 @@ class BillDetailController extends Controller
                 }
                 $storeToItem->fill(['amount' => ($storeToItem->amount ?? 0) + $detail->amount])->save();
             }
+        }
+
+        if ($detail->bill->pos_sales == 1 && $detail->bill->type != 'store'){
+            $requestsBay['item_id'] = $item->id;
+            $requestsBay['bill_id'] = $detail->bill->id;
+            $requestsBay['model_id'] = $detail->bill->model_id;
+            $requestsBay['model_type'] = $detail->bill->model_type;
+            $requestsBay['date'] = date('Y-m-d');
+            $requestsBay['status'] = "saved";
+            $requestsBay['money'] = $detail->total;
+            $requestsBay['need_discount'] = false;
+            if ($detail->bill->type == 'purchase_in' || $detail->bill->type == 'sale_in' ) {
+                $requestsBay['type'] = "cash_out";
+            }elseif($detail->bill->type == 'purchase_out' || $detail->bill->type == 'sale_out' ) {
+                $requestsBay['type'] = "cash_in";
+            }
+
+
+            $requestsBay['sales_man_id'] = auth()->id();
+            $requestsBay['accept_user_id'] = auth()->id();
+            $lastPayment = Bill::where('type','cash_in')->latest()->first();
+            if ($lastPayment){
+                $requestsBay['code'] = $lastPayment->code+1;
+            }else{
+                $requestsBay['code'] =1;
+            }
+            $payment = Bill::where('item_id',$detail->item_id)->where('bill_id',$detail->bill->bill_id)->first();
+
+            if (!$payment){
+                $payment->fill($requestsBay)->save();
+            }
+            $payment = Bill::update($requestsBay);
         }
         $detail->delete();
         toast('تم الحذف بنجاح','success');
