@@ -76,7 +76,7 @@ class BillDetailController extends Controller
                         $requestsBay['model_type'] = $bill->model_type;
                         $requestsBay['date'] = date('Y-m-d');
                         $requestsBay['status'] = "saved";
-                        $requestsBay['amount'] = $item->amount + ($request->amount*((1/$unit->ratio) ?? 1));
+                        $requestsBay['money'] = $item->amount + ($request->amount*((1/$unit->ratio) ?? 1));
                         $requestsBay['need_discount'] = false;
                         $requestsBay['type'] = "cash_in";
                         $requestsBay['sales_man_id'] = auth()->id();
@@ -99,7 +99,7 @@ class BillDetailController extends Controller
                         $requestsBay['model_type'] = $bill->model_type;
                         $requestsBay['date'] = date('Y-m-d');
                         $requestsBay['status'] = "saved";
-                        $requestsBay['amount'] = $item->amount + $request->amount;
+                        $requestsBay['money'] = $item->amount + $request->amount;
                         $requestsBay['need_discount'] = false;
                         $requestsBay['type'] = "cash_out";
                         $requestsBay['sales_man_id'] = auth()->id();
@@ -134,7 +134,7 @@ class BillDetailController extends Controller
                         $requestsBay['model_type'] = $bill->model_type;
                         $requestsBay['date'] = date('Y-m-d');
                         $requestsBay['status'] = "saved";
-                        $requestsBay['amount'] = (float)$item->amount - ((float)$request->amount*((1/(float)$unit->ratio) ?? 1));
+                        $requestsBay['money'] = (float)$item->amount - ((float)$request->amount*((1/(float)$unit->ratio) ?? 1));
                         $requestsBay['need_discount'] = false;
                         $requestsBay['type'] = "cash_in";
                         $requestsBay['sales_man_id'] = auth()->id();
@@ -157,7 +157,7 @@ class BillDetailController extends Controller
                         $requestsBay['model_type'] = $bill->model_type;
                         $requestsBay['date'] = date('Y-m-d');
                         $requestsBay['status'] = "saved";
-                        $requestsBay['amount'] = (float)$item->amount - (float)$request->amount;
+                        $requestsBay['money'] = (float)$item->amount - (float)$request->amount;
                         $requestsBay['need_discount'] = false;
                         $requestsBay['type'] = "cash_in";
                         $requestsBay['sales_man_id'] = auth()->id();
@@ -296,7 +296,7 @@ class BillDetailController extends Controller
                     $requestsBay['model_type'] = $detail->bill->model_type;
                     $requestsBay['date'] = date('Y-m-d');
                     $requestsBay['status'] = "saved";
-                    $requestsBay['amount'] = $item->amount - $detail->amount;
+                    $requestsBay['money'] = $item->amount - $detail->amount;
                     $requestsBay['need_discount'] = false;
                     $requestsBay['type'] = "cash_out";
                     $requestsBay['sales_man_id'] = auth()->id();
@@ -329,7 +329,7 @@ class BillDetailController extends Controller
                     $requestsBay['model_type'] = $detail->bill->model_type;
                     $requestsBay['date'] = date('Y-m-d');
                     $requestsBay['status'] = "saved";
-                    $requestsBay['amount'] = $item->amount + $detail->amount;
+                    $requestsBay['money'] = $item->amount + $detail->amount;
                     $requestsBay['need_discount'] = false;
                     $requestsBay['type'] = "cash_in";
                     $requestsBay['sales_man_id'] = auth()->id();
