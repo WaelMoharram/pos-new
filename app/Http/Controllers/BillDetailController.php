@@ -189,8 +189,10 @@ class BillDetailController extends Controller
 
             if (!$payment){
                 $payment->fill($requestsBay)->save();
+            }else{
+
+                $payment = Bill::create($requestsBay);
             }
-            $payment = Bill::update($requestsBay);
         }
         if ($taxPercent != null && $taxPercent > 0) {
             $bill->update(['tax' => ($bill->total * ($taxPercent / 100)), 'tax_type' => $taxName]);
@@ -330,8 +332,10 @@ class BillDetailController extends Controller
 
             if (!$payment){
                 $payment->fill($requestsBay)->save();
+            }else{
+
+                $payment = Bill::create($requestsBay);
             }
-            $payment = Bill::update($requestsBay);
         }
         $detail->delete();
         toast('تم الحذف بنجاح','success');
