@@ -185,7 +185,7 @@ class BillDetailController extends Controller
             }else{
                 $requestsBay['code'] =1;
             }
-            $payment = Bill::where('item_id',$detail->item_id)->where('bill_id',$bill->bill_id)->first();
+            $payment = Bill::where('item_id',$request->item_id)->where('bill_id',$bill->bill_id)->first();
 
             if ($payment){
                 $payment->fill($requestsBay)->save();
