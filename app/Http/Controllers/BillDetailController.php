@@ -187,7 +187,7 @@ class BillDetailController extends Controller
             }
             $payment = Bill::where('item_id',$detail->item_id)->where('bill_id',$bill->bill_id)->first();
 
-            if (!$payment){
+            if ($payment){
                 $payment->fill($requestsBay)->save();
             }else{
 
@@ -330,7 +330,7 @@ class BillDetailController extends Controller
             }
             $payment = Bill::where('item_id',$detail->item_id)->where('bill_id',$detail->bill->bill_id)->first();
 
-            if (!$payment){
+            if ($payment){
                 $payment->fill($requestsBay)->save();
             }else{
 
