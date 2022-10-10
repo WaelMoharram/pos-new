@@ -185,6 +185,8 @@ class BillDetailController extends Controller
             }else{
                 $requestsBay['code'] =1;
             }
+
+            return ['item_id'=>$request->item_id,'bill_id'=>$bill->bill_id];
             $payment = Bill::where('item_id',$request->item_id)->where('bill_id',$bill->bill_id)->first();
 
             if ($payment){
