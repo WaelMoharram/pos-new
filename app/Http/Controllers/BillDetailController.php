@@ -70,9 +70,48 @@ class BillDetailController extends Controller
                 if ($unit){
 
                     $item->fill(['amount' => $item->amount + ($request->amount*((1/$unit->ratio) ?? 1))])->save();
+                    if ($bill->pos_sales == 1){
+                        $requestsBay['bill_id'] = $bill->id;
+                        $requestsBay['model_id'] = $bill->model_id;
+                        $requestsBay['model_type'] = $bill->model_type;
+                        $requestsBay['date'] = date('Y-m-d');
+                        $requestsBay['status'] = "saved";
+                        $requestsBay['amount'] = $item->amount + ($request->amount*((1/$unit->ratio) ?? 1));
+                        $requestsBay['need_discount'] = false;
+                        $requestsBay['type'] = "cash_in";
+                        $requestsBay['sales_man_id'] = auth()->id();
+                        $requestsBay['accept_user_id'] = auth()->id();
+                        $lastPayment = Bill::where('type','cash_in')->latest()->first();
+                        if ($lastPayment){
+                            $requestsBay['code'] = $lastPayment->code+1;
+                        }else{
+                            $requestsBay['code'] =1;
+                        }
+                        $payment = Bill::create($requestsBay);
+                    }
                 }else{
 
                     $item->fill(['amount' => $item->amount + $request->amount])->save();
+
+                    if ($bill->pos_sales == 1){
+                        $requestsBay['bill_id'] = $bill->id;
+                        $requestsBay['model_id'] = $bill->model_id;
+                        $requestsBay['model_type'] = $bill->model_type;
+                        $requestsBay['date'] = date('Y-m-d');
+                        $requestsBay['status'] = "saved";
+                        $requestsBay['amount'] = $item->amount + $request->amount;
+                        $requestsBay['need_discount'] = false;
+                        $requestsBay['type'] = "cash_out";
+                        $requestsBay['sales_man_id'] = auth()->id();
+                        $requestsBay['accept_user_id'] = auth()->id();
+                        $lastPayment = Bill::where('type','cash_in')->latest()->first();
+                        if ($lastPayment){
+                            $requestsBay['code'] = $lastPayment->code+1;
+                        }else{
+                            $requestsBay['code'] =1;
+                        }
+                        $payment = Bill::create($requestsBay);
+                    }
                 }
                 $storItem = ItemStore::where('store_id', $bill->store_id)->where('item_id', $request->item_id)->first();
                 if (!$storItem) {
@@ -88,9 +127,50 @@ class BillDetailController extends Controller
                 if ($unit){
 
                     $item->fill(['amount' => (float)$item->amount - ((float)$request->amount*((1/(float)$unit->ratio) ?? 1))])->save();
+
+                    if ($bill->pos_sales == 1){
+                        $requestsBay['bill_id'] = $bill->id;
+                        $requestsBay['model_id'] = $bill->model_id;
+                        $requestsBay['model_type'] = $bill->model_type;
+                        $requestsBay['date'] = date('Y-m-d');
+                        $requestsBay['status'] = "saved";
+                        $requestsBay['amount'] = (float)$item->amount - ((float)$request->amount*((1/(float)$unit->ratio) ?? 1));
+                        $requestsBay['need_discount'] = false;
+                        $requestsBay['type'] = "cash_in";
+                        $requestsBay['sales_man_id'] = auth()->id();
+                        $requestsBay['accept_user_id'] = auth()->id();
+                        $lastPayment = Bill::where('type','cash_in')->latest()->first();
+                        if ($lastPayment){
+                            $requestsBay['code'] = $lastPayment->code+1;
+                        }else{
+                            $requestsBay['code'] =1;
+                        }
+                        $payment = Bill::create($requestsBay);
+                    }
                 }else{
 
                     $item->fill(['amount' => (float)$item->amount - (float)$request->amount])->save();
+
+                    if ($bill->pos_sales == 1){
+                        $requestsBay['bill_id'] = $bill->id;
+                        $requestsBay['model_id'] = $bill->model_id;
+                        $requestsBay['model_type'] = $bill->model_type;
+                        $requestsBay['date'] = date('Y-m-d');
+                        $requestsBay['status'] = "saved";
+                        $requestsBay['amount'] = (float)$item->amount - (float)$request->amount;
+                        $requestsBay['need_discount'] = false;
+                        $requestsBay['type'] = "cash_in";
+                        $requestsBay['sales_man_id'] = auth()->id();
+                        $requestsBay['accept_user_id'] = auth()->id();
+                        $lastPayment = Bill::where('type','cash_in')->latest()->first();
+                        if ($lastPayment){
+                            $requestsBay['code'] = $lastPayment->code+1;
+                        }else{
+                            $requestsBay['code'] =1;
+                        }
+                        $payment = Bill::create($requestsBay);
+                    }
+
                 }
 
                 $storItem = ItemStore::where('store_id', $bill->store_id)->where('item_id', $request->item_id)->first();
@@ -209,6 +289,27 @@ class BillDetailController extends Controller
         if ($detail->bill->status != 'new') {
             if ($detail->bill->type == 'purchase_in' || $detail->bill->type == 'sale_in') {
                 $item->fill(['amount' => $item->amount - $detail->amount])->save();
+
+                if ($detail->bill->pos_sales == 1){
+                    $requestsBay['bill_id'] = $detail->bill->id;
+                    $requestsBay['model_id'] = $detail->billl->model_id;
+                    $requestsBay['model_type'] = $detail->bill->model_type;
+                    $requestsBay['date'] = date('Y-m-d');
+                    $requestsBay['status'] = "saved";
+                    $requestsBay['amount'] = $item->amount - $detail->amount;
+                    $requestsBay['need_discount'] = false;
+                    $requestsBay['type'] = "cash_out";
+                    $requestsBay['sales_man_id'] = auth()->id();
+                    $requestsBay['accept_user_id'] = auth()->id();
+                    $lastPayment = Bill::where('type','cash_in')->latest()->first();
+                    if ($lastPayment){
+                        $requestsBay['code'] = $lastPayment->code+1;
+                    }else{
+                        $requestsBay['code'] =1;
+                    }
+                    $payment = Bill::create($requestsBay);
+                }
+
                 $storItem = ItemStore::where('store_id', $detail->bill->store_id)->where('item_id', $detail->item_id)->first();
                 if (!$storItem) {
                     $storItem = ItemStore::create([
@@ -221,6 +322,27 @@ class BillDetailController extends Controller
                 $storItem->fill(['amount' => ($storItem->amount ?? 0) - $detail->amount])->save();
             }elseif ($detail->bill->type == 'purchase_out' || $detail->bill->type == 'sale_out'){
                 $item->fill(['amount' => $item->amount + $detail->amount])->save();
+
+                if ($detail->bill->pos_sales == 1){
+                    $requestsBay['bill_id'] = $detail->bill->id;
+                    $requestsBay['model_id'] = $detail->bill->model_id;
+                    $requestsBay['model_type'] = $detail->bill->model_type;
+                    $requestsBay['date'] = date('Y-m-d');
+                    $requestsBay['status'] = "saved";
+                    $requestsBay['amount'] = $item->amount + $detail->amount;
+                    $requestsBay['need_discount'] = false;
+                    $requestsBay['type'] = "cash_in";
+                    $requestsBay['sales_man_id'] = auth()->id();
+                    $requestsBay['accept_user_id'] = auth()->id();
+                    $lastPayment = Bill::where('type','cash_in')->latest()->first();
+                    if ($lastPayment){
+                        $requestsBay['code'] = $lastPayment->code+1;
+                    }else{
+                        $requestsBay['code'] =1;
+                    }
+                    $payment = Bill::create($requestsBay);
+                }
+
                 $storItem = ItemStore::where('store_id', $detail->bill->store_id)->where('item_id', $detail->item_id)->first();
                 if (!$storItem) {
                     $storItem = ItemStore::create([
