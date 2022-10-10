@@ -51,9 +51,9 @@ class BillController extends Controller
         $user = auth()->user();
 
         activity()->log($user->name . '- عرض فواتير ' . $request->type);
-        $bills = Bill::where('type',$request->type)->orderByDesc('id')->get();
+        $bills = Bill::where('type',$request->type)->where('pos_sales',0)->orderByDesc('id')->get();
         if (auth()->user()->store()->count() > 0){
-            $bills = Bill::where('type',$request->type)->where(function($q) use($request){
+            $bills = Bill::where('type',$request->type)->where('pos_sales',0)->where(function($q) use($request){
                 if ($request->has('sales_man_id') && $request->sales_man_id != null){
                     $q->where('sales_man_id',$request->sales_man_id);
                 }else{
@@ -209,7 +209,7 @@ class BillController extends Controller
             }
             $requests['store_id']=auth()->user()->store->id ?? 0;
             $requests['date']=date('Y-m-d');
-            $bill = Bill::where('type','sale_out')->where('date',date('Y-m-d'))->where('accept_user_id',auth()->id())->first();
+            $bill = Bill::where('type','sale_out')->where('date',date('Y-m-d'))->where('pos_sales',1)->where('accept_user_id',auth()->id())->first();
             if (!$bill){
                 $bill = Bill::create($requests);
 
