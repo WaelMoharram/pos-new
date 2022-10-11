@@ -57,7 +57,7 @@
                 {!! Form::open(['method'=>'post','route'=>'bill-details.store','class'=>' col-md-12','dir'=>'']) !!}
                     @csrf()
                     <div class="row">
-                        @include('dashboard.bills.sale_out._form_details')
+                        @include('dashboard.bills.sale_out_pos._form_details')
                     </div>
                 {!! Form::close() !!}
         </div>
