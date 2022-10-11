@@ -101,14 +101,16 @@ class ClientController extends Controller
             abort(401);
         }
         $client = Client::findOrFail($id);
-        $bills = $client->bills;
+
 
         if (Auth::user()->type == 'admin' && Auth::user()->store_id == null) {
+            $bills = $client->bills;
             $billsIn = $client->bills->where('type', 'sale_in')->where('status', 'saved')->sum('total');
             $billsOut = $client->bills->where('type', 'sale_out')->where('status', 'saved')->sum('total');
             $cashIn = $client->bills->where('type', 'cash_in')->sum('money');
             $cashOut = $client->bills->where('type', 'cash_out')->sum('money');
         }elseif (Auth::user()->type == 'admin' && Auth::user()->store_id != null) {
+            $bills = $client->bills->where('store_id',Auth::user()->store_id)->where('type', 'sale_in')->where('status', 'saved');
             $billsIn = $client->bills()->where('store_id',Auth::user()->store_id)->where('type', 'sale_in')->where('status', 'saved')->get()->sum('total');
             $billsOut = $client->bills()->where('store_id',Auth::user()->store_id)->where('type', 'sale_out')->where('status', 'saved')->get()->sum('total');
             $cashIn = $client->bills()->where('type', 'cash_in')->whereHas('bill',function ($q){
@@ -119,6 +121,7 @@ class ClientController extends Controller
             })->get()->sum('money');
         }else{
             $storeId = Store::where('sales_man_id',Auth::id())->id;
+            $bills = $client->bills()->where('store_id',$storeId)->where('type', 'sale_in')->where('status', 'saved')->get();
             $billsIn = $client->bills()->where('store_id',$storeId)->where('type', 'sale_in')->where('status', 'saved')->get()->sum('total');
             $billsOut = $client->bills()->where('store_id',$storeId)->where('type', 'sale_out')->where('status', 'saved')->get()->sum('total');
             $cashIn = $client->bills()->where('type', 'cash_in')->whereHas('bill',function ($q) use ($storeId){
