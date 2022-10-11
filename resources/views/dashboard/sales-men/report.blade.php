@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-md-6">    <h1> العهدة الحالية : {{$user->for_collect}}</h1>
         </div>
-        @can('is_admin')
+        @can(['is_admin','collect money sales'])
             <div class="col-md-6">@if($user->for_collect != 0)
 
                 <a href="{{route('sales-men.collect',$user->id)}}" style="width: 100%" class="btn btn-primary pull-right"> استلام </a>
