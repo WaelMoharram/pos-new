@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ClientRequest;
 use App\Models\Bill;
 use App\Models\Client;
+use App\Models\Store;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -102,11 +103,31 @@ class ClientController extends Controller
         $client = Client::findOrFail($id);
         $bills = $client->bills;
 
-        $billsIn = $client->bills->where('type','sale_in')->where('status','saved')->sum('total');
-        $billsOut = $client->bills->where('type','sale_out')->where('status','saved')->sum('total');
-        $cashIn = $client->bills->where('type','cash_in')->sum('money');
-        $cashOut = $client->bills->where('type','cash_out')->sum('money');
-
+        if (Auth::user()->type == 'admin' && Auth::user()->store_id == null) {
+            $billsIn = $client->bills->where('type', 'sale_in')->where('status', 'saved')->sum('total');
+            $billsOut = $client->bills->where('type', 'sale_out')->where('status', 'saved')->sum('total');
+            $cashIn = $client->bills->where('type', 'cash_in')->sum('money');
+            $cashOut = $client->bills->where('type', 'cash_out')->sum('money');
+        }elseif (Auth::user()->type == 'admin' && Auth::user()->store_id != null) {
+            $billsIn = $client->bills->where('store_id',Auth::user()->store_id)->where('type', 'sale_in')->where('status', 'saved')->sum('total');
+            $billsOut = $client->bills->where('store_id',Auth::user()->store_id)->where('type', 'sale_out')->where('status', 'saved')->sum('total');
+            $cashIn = $client->bills->where('type', 'cash_in')->whereHas('bill',function ($q){
+                $q->where('store_id',Auth::user()->store_id);
+            })->sum('money');
+            $cashOut = $client->bills->where('type', 'cash_out')->whereHas('bill',function ($q){
+                $q->where('store_id',Auth::user()->store_id);
+            })->sum('money');
+        }else{
+            $storeId = Store::where('sales_man_id',Auth::id())->id;
+            $billsIn = $client->bills->where('store_id',$storeId)->where('type', 'sale_in')->where('status', 'saved')->sum('total');
+            $billsOut = $client->bills->where('store_id',$storeId)->where('type', 'sale_out')->where('status', 'saved')->sum('total');
+            $cashIn = $client->bills->where('type', 'cash_in')->whereHas('bill',function ($q) use ($storeId){
+                $q->where('store_id',$storeId);
+            })->sum('money');
+            $cashOut = $client->bills->where('type', 'cash_out')->whereHas('bill',function ($q) use($storeId){
+                $q->where('store_id',$storeId);
+            })->sum('money');
+        }
         $total =  $billsIn - $billsOut -$cashOut + $cashIn;
 
         return view('dashboard.clients.report',compact('client','bills','total'));
