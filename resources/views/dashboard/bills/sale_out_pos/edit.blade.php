@@ -24,7 +24,7 @@
             {!! Form::model($bill,['method'=>'put','route'=>['bills.update',$bill->id],'class'=>'form','enctype' => 'multipart/form-data']  ) !!}
             @csrf()
             <div class="row">
-                @include('dashboard.bills.sale_out._form')
+                @include('dashboard.bills.sale_out_pos._form')
                 @component('partials.buttons._save_button',[])
                 @endcomponent
             </div>
