@@ -109,22 +109,22 @@ class ClientController extends Controller
             $cashIn = $client->bills->where('type', 'cash_in')->sum('money');
             $cashOut = $client->bills->where('type', 'cash_out')->sum('money');
         }elseif (Auth::user()->type == 'admin' && Auth::user()->store_id != null) {
-            $billsIn = $client->bills->where('store_id',Auth::user()->store_id)->where('type', 'sale_in')->where('status', 'saved')->sum('total');
-            $billsOut = $client->bills->where('store_id',Auth::user()->store_id)->where('type', 'sale_out')->where('status', 'saved')->sum('total');
-            $cashIn = $client->bills->where('type', 'cash_in')->whereHas('bill',function ($q){
+            $billsIn = $client->bills()->where('store_id',Auth::user()->store_id)->where('type', 'sale_in')->where('status', 'saved')->sum('total');
+            $billsOut = $client->bills()->where('store_id',Auth::user()->store_id)->where('type', 'sale_out')->where('status', 'saved')->sum('total');
+            $cashIn = $client->bills()->where('type', 'cash_in')->whereHas('bill',function ($q){
                 $q->where('store_id',Auth::user()->store_id);
             })->sum('money');
-            $cashOut = $client->bills->where('type', 'cash_out')->whereHas('bill',function ($q){
+            $cashOut = $client->bills()->where('type', 'cash_out')->whereHas('bill',function ($q){
                 $q->where('store_id',Auth::user()->store_id);
             })->sum('money');
         }else{
             $storeId = Store::where('sales_man_id',Auth::id())->id;
-            $billsIn = $client->bills->where('store_id',$storeId)->where('type', 'sale_in')->where('status', 'saved')->sum('total');
-            $billsOut = $client->bills->where('store_id',$storeId)->where('type', 'sale_out')->where('status', 'saved')->sum('total');
-            $cashIn = $client->bills->where('type', 'cash_in')->whereHas('bill',function ($q) use ($storeId){
+            $billsIn = $client->bills()->where('store_id',$storeId)->where('type', 'sale_in')->where('status', 'saved')->sum('total');
+            $billsOut = $client->bills()->where('store_id',$storeId)->where('type', 'sale_out')->where('status', 'saved')->sum('total');
+            $cashIn = $client->bills()->where('type', 'cash_in')->whereHas('bill',function ($q) use ($storeId){
                 $q->where('store_id',$storeId);
             })->sum('money');
-            $cashOut = $client->bills->where('type', 'cash_out')->whereHas('bill',function ($q) use($storeId){
+            $cashOut = $client->bills()->where('type', 'cash_out')->whereHas('bill',function ($q) use($storeId){
                 $q->where('store_id',$storeId);
             })->sum('money');
         }
