@@ -334,10 +334,7 @@ class BillDetailController extends Controller
             $payment = Bill::where('item_id',$detail->item_id)->where('unit_id',$detail->unit_id)->where('bill_id',$detail->bill_id)->first();
 
             if ($payment){
-                $payment->fill($requestsBay)->save();
-            }else{
-
-                $payment = Bill::create($requestsBay);
+                $payment->delete();
             }
         }
         $detail->delete();
