@@ -22,7 +22,7 @@
                     <div class="col-12">
 
                         <h4>
-                            <img class="float-right"> src="{{asset('logo.png')}}" style="width:150px;">
+                            <img class="float-right" src="{{asset('logo.png')}}" style="width:150px;">
                             <small class="float-left">التاريخ: {{$bill->date}}</small>
                             <br>
                             <small class="float-left">تاريخ انشاء الفاتورة: {{$bill->created_at}}</small>
