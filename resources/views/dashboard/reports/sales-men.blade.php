@@ -64,7 +64,7 @@
                 <td>{!! $row->sales_bills_count !!}</td>
                 <td>{!! $row->sales_bills_total!!}</td>
                 <td>{!! $row->sales_bills_total_paid!!}</td>
-                <td>{!! $row->remaining ?? 0!!}</td>
+                <td>{!! $row->sales_bills_total_remaining!!}</td>
             </tr>
         @endforeach
     </x-adminlte-datatable>
