@@ -11,7 +11,7 @@
 {{-- ############# Supplier #############--}}
 <div class="form-group py-1 col-md-6">
     <label for="model_id"> العميل  </label>
-    {{Form::select('model_id',\App\Models\Client::check()->pluck('name','id') ,null,['class'=>'form-control mb-2','readonly','id'=>'model_id'])}}
+    {{Form::select('model_id',\App\Models\Client::check()->pluck('name','id') ,1,['class'=>'form-control mb-2','readonly','id'=>'model_id'])}}
     {{input_error($errors,'model_id')}}
 </div>
 {{-- ############# Store #############--}}
