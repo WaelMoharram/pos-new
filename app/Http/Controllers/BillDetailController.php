@@ -162,7 +162,7 @@ class BillDetailController extends Controller
         }
 
         if ($bill->pos_sales == 1 && $bill->type != 'store'){
-            $detail= BillDetail::findOrFail($id);
+            $detail= BillDetail::where('item_id',$request->item_id)->where('bill_id',$request->bill_id)->where('unit_id',$unit->id ?? null)->first();
             $requestsBay['item_id'] = $item->id;
             $requestsBay['unit_id'] = $detail->unit_id;
             $requestsBay['bill_id'] = $bill->id;
