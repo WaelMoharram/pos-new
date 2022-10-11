@@ -20,10 +20,12 @@
                 <!-- title row -->
                 <div class="row">
                     <div class="col-12">
+
                         <h4>
-                            <img src="{{asset('logo.png')}}" style="width:150px;">
-                            {{--                            <i class="fas fa-globe"></i> {{option('اسم الشركة')}}.--}}
-                            <small class="float-right">التاريخ: {{$bill->date}}</small>
+                            <img class="float-right"> src="{{asset('logo.png')}}" style="width:150px;">
+                            <small class="float-left">التاريخ: {{$bill->date}}</small>
+                            <br>
+                            <small class="float-left">تاريخ انشاء الفاتورة: {{$bill->created_at}}</small>
                         </h4>
                     </div>
                     <!-- /.col -->
