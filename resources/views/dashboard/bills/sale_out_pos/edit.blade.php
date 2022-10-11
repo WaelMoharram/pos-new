@@ -9,7 +9,7 @@
 @section('content')
 
     {{-- ########## Main section ########## --}}
-    <div class="card col-md-12 collapsed-card">
+    <div class="card col-md-12 {{--collapsed-card--}}">
         <div class="card-header">
             <h3 class="card-title">{{$bill->code}} - {{optional($bill->model)->name}} - {{optional($bill->store)->name}} - {{$bill->total}}</h3>
             <div class="card-tools">
@@ -25,8 +25,8 @@
             @csrf()
             <div class="row">
                 @include('dashboard.bills.sale_out_pos._form')
-                @component('partials.buttons._save_button',[])
-                @endcomponent
+{{--                @component('partials.buttons._save_button',[])--}}
+{{--                @endcomponent--}}
             </div>
             {!! Form::close() !!}
         </div>
