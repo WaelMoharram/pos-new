@@ -149,7 +149,7 @@ class BillDetailController extends Controller
             $request->merge(['price' => $price, 'total' => $total]);
         }
         $BillDetail = BillDetail::where('item_id',$request->item_id)->where('bill_id',$request->bill_id)->where('unit_id',$unit->id ?? null)->first();
-        if ($BillDetail){
+        if ($BillDetail && $bill->pos_sales == 0){
             $price = ((float)$unit->price ?? (float)$item->price);
             if ($request->discount >0){
                 $price = ((float)$unit->price ?? (float)$item->price) - (float)$request->discount;
@@ -164,6 +164,7 @@ class BillDetailController extends Controller
         if ($bill->pos_sales == 1 && $bill->type != 'store'){
             $detail= BillDetail::where('item_id',$request->item_id)->where('bill_id',$request->bill_id)->where('unit_id',$unit->id ?? null)->first();
             $requestsBay['item_id'] = $item->id;
+            $requestsBay['detail_id'] = $detail->id;
             $requestsBay['unit_id'] = $detail->unit_id;
             $requestsBay['bill_id'] = $bill->id;
             $requestsBay['model_id'] = $bill->model_id;
@@ -188,7 +189,7 @@ class BillDetailController extends Controller
                 $requestsBay['code'] =1;
             }
 
-            $payment = Bill::where('item_id',$request->item_id)->where('unit_id',$detail->unit_id)->where('bill_id',$bill->id)->first();
+            $payment = Bill::where('item_id',$request->item_id)->where('unit_id',$detail->unit_id)->where('bill_id',$bill->id)->where('detail_id',$detail->id)->first();
 
             if ($payment){
                 $payment->fill($requestsBay)->save();
@@ -311,6 +312,7 @@ class BillDetailController extends Controller
             $detail= BillDetail::findOrFail($id);
 
             $requestsBay['item_id'] = $item->id;
+            $requestsBay['detail_id'] = $id;
             $requestsBay['unit_id'] = $detail->unit_id;
             $requestsBay['bill_id'] = $detail->bill->id;
             $requestsBay['model_id'] = $detail->bill->model_id;
@@ -334,7 +336,7 @@ class BillDetailController extends Controller
             }else{
                 $requestsBay['code'] =1;
             }
-            $payment = Bill::where('item_id',$detail->item_id)->where('unit_id',$detail->unit_id)->where('bill_id',$detail->bill_id)->first();
+            $payment = Bill::where('item_id',$detail->item_id)->where('unit_id',$detail->unit_id)->where('bill_id',$detail->bill_id)->where('detail_id',$detail->id)->first();
 
             if ($payment){
                 $payment->delete();
