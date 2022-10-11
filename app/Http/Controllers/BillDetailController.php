@@ -306,6 +306,7 @@ class BillDetailController extends Controller
         }
 
         if ($detail->bill->pos_sales == 1 && $detail->bill->type != 'store'){
+            dd('1');
             $requestsBay['item_id'] = $item->id;
             $requestsBay['bill_id'] = $detail->bill->id;
             $requestsBay['model_id'] = $detail->bill->model_id;
