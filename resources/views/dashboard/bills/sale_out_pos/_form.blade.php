@@ -1,13 +1,13 @@
 {{-- ############# Date #############--}}
-<div class="form-group py-1 col-md-6">
-    <label for="date"> التاريخ  </label>
-    <div class="input-group date" id="reservationdate" data-target-input="nearest">
+{{--<div class="form-group py-1 col-md-6">--}}
+{{--    <label for="date"> التاريخ  </label>--}}
+{{--    <div class="input-group date" id="reservationdate" data-target-input="nearest">--}}
 
-        {{Form::text('date',null,['class'=>'form-control mb-2 datetimepicker-input date','id'=>'date'])}}
-        {{input_error($errors,'date')}}
+{{--        {{Form::text('date',null,['class'=>'form-control mb-2 datetimepicker-input date','id'=>'date'])}}--}}
+{{--        {{input_error($errors,'date')}}--}}
 
-    </div>
-</div>
+{{--    </div>--}}
+{{--</div>--}}
 {{-- ############# Supplier #############--}}
 <div class="form-group py-1 col-md-6">
     <label for="model_id"> العميل  </label>
