@@ -31,7 +31,7 @@ class ClientController extends Controller
         if (!Auth::user()->can('index client')){
             abort(401);
         }
-        $clients = Client::check()->get();
+        return $clients = Client::check()->toSql();
 
 
         return view('dashboard.clients.index',compact('clients'));
