@@ -103,6 +103,9 @@ class Bill extends Model
     public function bill(){
         return $this->belongsTo(Bill::class,'bill_id')->withTrashed();
     }
+    public function billNoTrash(){
+        return $this->belongsTo(Bill::class,'bill_id');
+    }
 
     public function payments(){
         return $this->hasMany(Bill::class,'bill_id');
