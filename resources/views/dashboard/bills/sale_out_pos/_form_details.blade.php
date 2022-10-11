@@ -7,20 +7,20 @@
     {{input_error($errors,'item_id')}}
 </div>
 {{-- ############# Bill Code #############--}}
-<div class="form-group  col-md-6">
+<div class="form-group  col-md-4">
     <label for="amount"> الكمية  </label>
     {{Form::text('amount',null,['class'=>'form-control mb-2','id'=>'amount','required'])}}
     {{input_error($errors,'amount')}}
 </div>
 
-<div class="form-group col-md-6">
+<div class="form-group col-md-4">
     <label for="unit_id"> اختر الوحدة </label>
     {{Form::select('unit_id',[] ,null,['class'=>'form-control mb-2','id'=>'unit_id'])}}
     {{input_error($errors,'unit_id')}}
 </div>
 
 @can('discount sales')
-    <div class="form-group  col-md-6">
+    <div class="form-group  col-md-4">
         <label for="discount"> الخصم ان وجد  </label>
         {{Form::text('discount',0,['class'=>'form-control mb-2','id'=>'amount'])}}
         {{input_error($errors,'amount')}}

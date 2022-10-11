@@ -48,7 +48,7 @@
         <!-- /.card-header -->
         <div class="card-body p-0">
             {{-- ########## Add item Form  ########## --}}
-            <div class="form-group  col-md-6">
+            <div class="form-group  col-md-12">
                 <label for="barcode"> باركود  </label>
                 {{Form::text('barcode',null,['class'=>'form-control mb-2','id'=>'barcode'])}}
                 {{input_error($errors,'barcode')}}
