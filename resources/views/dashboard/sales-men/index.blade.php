@@ -42,20 +42,23 @@
                 <td>
 
 
-
+                    @can('edit sales_men')
                                 @component('partials.buttons._edit_button',[
                                         'route' => route('sales-men.edit',$row->id) ,
                                         'tooltip' => 'تعديل',
                                          ])
                                 @endcomponent
-
+@endcan
+                        @can('delete sales_men')
                                 @component('partials.buttons._delete_button',[
                                                 'id'=>$row->id,
                                                 'route' => route('sales-men.destroy',$row->id) ,
                                                 'tooltip' => 'حذف',
                                                  ])
                                 @endcomponent
+                        @endcan
 
+                        @can('money reports')
                                     @component('partials.buttons._custom_button',[
                                                     'route' => route('sales-men.report',$row->id) ,
                                                     'tooltip' => 'عرض الحركات المالية',
@@ -63,7 +66,8 @@
                                                     'color'=>'default',
                                                      ])
                                     @endcomponent
-
+                        @endcan
+                        @can('store reports')
                                     @component('partials.buttons._custom_button',[
                                                     'route' => route('sales-men.show',$row->id) ,
                                                     'tooltip' => 'عرض المخزون',
@@ -71,6 +75,8 @@
                                                     'color'=>'default',
                                                      ])
                                     @endcomponent
+                        @endcan
+                        @can('sales reports')
 
                                     @component('partials.buttons._custom_button',[
                                                     'route' => route('bills.index',['type'=>'sale_out','sales_man_id'=>$row->id]) ,
@@ -79,6 +85,8 @@
                                                     'color'=>'default',
                                                      ])
                                     @endcomponent
+                        @endcan
+                        @can('client reports')
 
                                     @component('partials.buttons._custom_button',[
                                                     'route' => route('clients.index',['sales_man_id'=>$row->id]) ,
@@ -87,7 +95,7 @@
                                                     'color'=>'default',
                                                      ])
                                     @endcomponent
-
+                        @endcan
 
 
 
