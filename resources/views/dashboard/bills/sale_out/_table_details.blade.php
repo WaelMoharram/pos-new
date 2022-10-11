@@ -42,16 +42,12 @@
                             {{$detail->total}}
                         </td>
                         <td><span class="">
-                                {{$detail}}
-                                {{\App\Models\Bill::where('item_id',$detail->item_id)->where('unit_id',$detail->unit_id)->where('bill_id',$detail->bill_id)->first()}}
-                                @if(\App\Models\Bill::where('item_id',$detail->item_id)->where('unit_id',$detail->unit_id)->where('bill_id',$detail->bill_id)->first()->collected_at  == null)
                                 @component('partials.buttons._delete_button',[
                                     'id'=>$detail->id,
                                     'route' => route('bill-details.destroy',$detail->id) ,
                                     'tooltip' => 'حذف',
                                 ])
                                 @endcomponent
-                                    @endif
                             </span></td>
                     </tr>
                 @endforeach
