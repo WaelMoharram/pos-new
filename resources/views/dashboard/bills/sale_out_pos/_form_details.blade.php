@@ -1,7 +1,7 @@
 <input type="hidden" name="bill_id" value="{{$bill->id}}">
 
 {{-- ############# Supplier #############--}}
-<div class="form-group col-md-6">
+<div class="form-group col-md-4">
     <label for="item_id"> اختر الصنف </label>
     {{Form::select('item_id',\App\Models\Item::get()->pluck('name_w_category','id') ,null,['class'=>'form-control mb-2 select2','id'=>'item_id'])}}
     {{input_error($errors,'item_id')}}
@@ -20,7 +20,7 @@
 </div>
 
 @can('discount sales')
-    <div class="form-group  col-md-4">
+    <div class="form-group  col-md-12">
         <label for="discount"> الخصم ان وجد  </label>
         {{Form::text('discount',0,['class'=>'form-control mb-2','id'=>'amount'])}}
         {{input_error($errors,'amount')}}
