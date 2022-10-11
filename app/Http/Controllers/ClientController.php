@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ClientRequest;
 use App\Models\Bill;
 use App\Models\Client;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -64,6 +65,7 @@ class ClientController extends Controller
             abort(401);
         }
         $client = Client::create($request->except('users'));
+
 
         if(auth()->user()->type == 'admin' && auth()->user()->store_id == null){
             $client->users()->sync($request->users);
@@ -141,10 +143,15 @@ class ClientController extends Controller
         $client = Client::find($id);
         $client->fill($request->except('users'))->save();
 
-        if(auth()->user()->type == 'admin' && auth()->user()->store_id == null){
-            $client->users()->sync($request->users);
-        }else{
-            $client->users()->attach($request->users);
+
+        if ($id == 1){
+            $client->users()->sync(User::all()->pluck('id')->toArray());
+        }else {
+            if (auth()->user()->type == 'admin' && auth()->user()->store_id == null) {
+                $client->users()->sync($request->users);
+            } else {
+                $client->users()->attach($request->users);
+            }
         }
         toast('تم التعديل بنجاح ','success');
         return redirect(route('clients.index'));

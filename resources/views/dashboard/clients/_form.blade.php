@@ -29,7 +29,7 @@
     {{input_error($errors,'notes')}}
 </div>
 
-
+@if(!isset($client) || $client->id != 1)
 @if(auth()->user()->type == 'admin' && auth()->user()->store_id == null)
 <div class="form-group py-1 col-md-6">
     <label for="users"> المندوبين و المبيعات و الفروع  </label>
@@ -44,6 +44,6 @@
     <input type="hidden" name="users[]" value="{{auth()->id()}}">
 
 @endif
-
+@endif
 
 
