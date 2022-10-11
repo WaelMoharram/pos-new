@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -34,10 +35,13 @@ class Client extends Model
     }
     public function scopeCheck($query)
     {
-        if (\Auth::user()->type != 'admin') {
+        if (!(\Auth::user()->type == 'admin' && Auth::user()->store_id == null)) {
 
-            return $query->where('sales_man_id', \Auth::id());
+            return $query->whereHas('users',function ($q){
+                $q->where('user_id',Auth::id());
+            });
         }
+
     }
 
 }

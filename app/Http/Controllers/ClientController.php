@@ -70,7 +70,13 @@ if ($request->has('sales_man_id') && $request->sales_man_id != null){
         if (!Auth::user()->can('add client')){
             abort(401);
         }
-        $client = Client::create($request->all());
+        $client = Client::create($request->except('users'));
+
+        if(auth()->user()->type == 'admin' && auth()->user()->store_id == null){
+            $client->users()->sync($request->users);
+        }else{
+            $client->users()->attach($request->users);
+        }
 
         toast('تم اضافة القيد بنجاح','success');
         return redirect(route('clients.index'));
@@ -140,7 +146,13 @@ if ($request->has('sales_man_id') && $request->sales_man_id != null){
             abort(401);
         }
         $client = Client::find($id);
-        $client->fill($request->all())->save();
+        $client->fill($request->except('users'))->save();
+
+        if(auth()->user()->type == 'admin' && auth()->user()->store_id == null){
+            $client->users()->sync($request->users);
+        }else{
+            $client->users()->attach($request->users);
+        }
         toast('تم التعديل بنجاح ','success');
         return redirect(route('clients.index'));
     }

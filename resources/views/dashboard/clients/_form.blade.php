@@ -30,7 +30,7 @@
 </div>
 
 
-@if(auth()->user()->type == 'admin')
+@if(auth()->user()->type == 'admin' && auth()->user()->store_id == null)
 <div class="form-group py-1 col-md-6">
     <label for="users"> المندوبين و المبيعات و الفروع  </label>
     {{Form::select('users[]',\App\Models\User::where(function ($q){
