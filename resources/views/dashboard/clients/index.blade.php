@@ -37,6 +37,7 @@
                 <td>{!! $row->address !!}</td>
                 <td>{!! optional($row->salesMan)->name !!}</td>
                 <td>
+                    @if($row->id != 1)
                     <nobr>
                         @component('partials.buttons._edit_button',[
                                         'route' => route('clients.edit',$row->id) ,
@@ -56,6 +57,7 @@
                                              ])
                             @endcomponent
                     </nobr>
+                        @endif
                 </td>
             </tr>
         @endforeach
