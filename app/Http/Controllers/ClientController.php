@@ -132,13 +132,13 @@ class ClientController extends Controller
             })->get()->sum('money');
         }
         $total =  $billsIn - $billsOut -$cashOut + $cashIn;
-return [
-    'total'=>$total,
-    'b_in'=>$billsIn,
-    'b_out'=>$billsOut,
-    'c_in'=>$cashIn,
-    'c_out'=>$cashOut,
-];
+//return [
+//    'total'=>$total,
+//    'b_in'=>$billsIn,
+//    'b_out'=>$billsOut,
+//    'c_in'=>$cashIn,
+//    'c_out'=>$cashOut,
+//];
         return view('dashboard.clients.report',compact('client','bills','total'));
     }
 
