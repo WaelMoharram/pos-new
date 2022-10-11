@@ -31,15 +31,7 @@ class ClientController extends Controller
         if (!Auth::user()->can('index client')){
             abort(401);
         }
-if ($request->has('sales_man_id') && $request->sales_man_id != null){
-    $clients = Client::where('sales_man_id',$request->sales_man_id)->get();
-}else{
-    if (auth()->user()->type != 'admin'){
         $clients = Client::check()->get();
-    }else{
-        $clients = Client::all();
-    }
-}
 
 
         return view('dashboard.clients.index',compact('clients'));
