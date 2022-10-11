@@ -306,7 +306,6 @@ class BillDetailController extends Controller
         }
 
         if ($detail->bill->pos_sales == 1 && $detail->bill->type != 'store'){
-            dd('1');
             $requestsBay['item_id'] = $item->id;
             $requestsBay['bill_id'] = $detail->bill->id;
             $requestsBay['model_id'] = $detail->bill->model_id;
@@ -331,6 +330,7 @@ class BillDetailController extends Controller
                 $requestsBay['code'] =1;
             }
             $payment = Bill::where('item_id',$detail->item_id)->where('bill_id',$detail->bill_id)->first();
+            dd($payment);
 
             if ($payment){
                 $payment->fill($requestsBay)->save();
