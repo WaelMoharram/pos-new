@@ -38,7 +38,7 @@ class Client extends Model
         if (!(\Auth::user()->type == 'admin' && Auth::user()->store_id == null)) {
 
             return $query->whereHas('users',function ($q){
-                $q->where('user_id',Auth::id());
+                $q->where('client_user.user_id',Auth::id());
             });
         }
 
