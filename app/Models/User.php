@@ -125,6 +125,33 @@ class User extends Authenticatable
         }
         return $this->bills()->where('type','sale_out')->count();
     }
+    public function getSalesBillsTotalAttribute()
+    {
+        if (request()->has('from_date') && request()->has('to_date')){
+            $from_date = request()->get('from_date').' 00:00:00';
+            $to_date = request()->get('to_date').' 23:59:59';
+            return $this->bills()->where('type','sale_out')->whereBetween('created_at',[$from_date,$to_date])->sum('total');
+        }
+        return $this->bills()->where('type','sale_out')->sum('total');
+    }
+    public function getSalesBillsTotalPaidAttribute()
+    {
+        if (request()->has('from_date') && request()->has('to_date')){
+            $from_date = request()->get('from_date').' 00:00:00';
+            $to_date = request()->get('to_date').' 23:59:59';
+            return Bill::whereIn('type',['cash_in','cash_out'])->where('sales_man_id',$this->id)->whereBetween('created_at',[$from_date,$to_date])->sum('money');
+        }
+        return Bill::whereIn('type',['cash_in','cash_out'])->where('sales_man_id',$this->id)->sum('money');
+    }
+    public function getSalesBillsTotalRemainingAttribute()
+    {
+        if (request()->has('from_date') && request()->has('to_date')){
+            $from_date = request()->get('from_date').' 00:00:00';
+            $to_date = request()->get('to_date').' 23:59:59';
+            return $this->bills()->where('type','sale_out')->whereBetween('created_at',[$from_date,$to_date])->sum('remaining');
+        }
+        return $this->bills()->where('type','sale_out')->sum('remaining');
+    }
 
     public function clients()
     {

@@ -59,6 +59,9 @@
                 <td>{!! substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
                 <td>{!! $row->name !!}</td>
                 <td>{!! $row->sales_bills_count !!}</td>
+                <td>{!! $row->sales_bills_total!!}</td>
+                <td>{!! $row->sales_bills_total_paid!!}</td>
+                <td>{!! $row->remaining ?? 0!!}</td>
             </tr>
         @endforeach
     </x-adminlte-datatable>
