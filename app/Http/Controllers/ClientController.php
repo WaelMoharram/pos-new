@@ -32,7 +32,7 @@ class ClientController extends Controller
             abort(401);
         }
 //        return $clients = Client::check()->toSql();
-        return $clients = Client::check()->get();
+         $clients = Client::check()->get();
 
 
         return view('dashboard.clients.index',compact('clients'));

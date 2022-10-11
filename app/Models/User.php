@@ -155,7 +155,7 @@ class User extends Authenticatable
 
     public function clients()
     {
-        return $this->belongsToMany(Client::class,'client_user','client_id','user_id');
+        return $this->belongsToMany(Client::class,'client_user','user_id','client_id');
     }
 
 }

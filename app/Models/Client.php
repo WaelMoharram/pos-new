@@ -31,7 +31,7 @@ class Client extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class,'client_user','user_id','client_id');
+        return $this->belongsToMany(User::class,'client_user','client_id','user_id');
     }
     public function scopeCheck($query)
     {
