@@ -330,7 +330,7 @@ class BillDetailController extends Controller
                 $requestsBay['code'] =1;
             }
             $payment = Bill::where('item_id',$detail->item_id)->where('bill_id',$detail->bill_id)->first();
-            dd($payment);
+            dd($requestsBay['type']);
 
             if ($payment){
                 $payment->fill($requestsBay)->save();
