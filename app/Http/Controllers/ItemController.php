@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ItemRequest;
 use App\Imports\ItemsImport;
+use App\Imports\NewItemsImport;
 use App\Models\Bill;
 use App\Models\Item;
 use App\Models\Unit;
@@ -166,7 +167,7 @@ class ItemController extends Controller
 
     public function import()
     {
-        Excel::import(new ItemsImport, request()->file('file'));
+        Excel::import(new NewItemsImport(), request()->file('file'));
         //toast('تمت الاضافة بنجاح','success');
         return 'done';
     }
