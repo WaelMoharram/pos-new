@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-    @if(auth()->user()->pos ==1)
+    @if (!(auth()->user()->pos == 1 && auth()->user()->store_id == null))
         <a href="{{route('pos')}}" class="col-lg-12 col-12">
             <!-- small box -->
             <div class="small-box bg-warning">
