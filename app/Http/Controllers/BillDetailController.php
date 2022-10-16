@@ -57,19 +57,22 @@ class BillDetailController extends Controller
 
         $bill = Bill::find($request->bill_id);
         $item = Item::find($request->item_id);
-        $unit = null;
+        $unitRatio = 1;
         if ($request->unit_id){
 
             $unit = Unit::find($request->unit_id);
+            $unitRatio = $unit->ratio;
         }else{
 
             $unit = Unit::where('item_id',$item->id)->where('ratio',(float)1)->first();
+
+            $unitRatio = $unit->ratio;
         }
         if ($bill->status != 'new' ||$bill->pos_sales == 1){
             if ($bill->type == 'purchase_in' || $bill->type == 'sale_in' ) {
                 if ($unit){
 
-                    $item->fill(['amount' => $item->amount + ($request->amount*((1/$unit->ratio) ?? 1))])->save();
+                    $item->fill(['amount' => $item->amount + ($request->amount*((1/$unitRatio) ?? 1))])->save();
 
                 }else{
 
@@ -86,11 +89,11 @@ class BillDetailController extends Controller
                     ]);
                 }
 
-                $storItem->fill(['amount' => ((float)$storItem->amount ?? 0) + ((float)$request->amount*((1/(float)$unit->ratio) ?? 1))])->save();
+                $storItem->fill(['amount' => ((float)$storItem->amount ?? 0) + ((float)$request->amount*((1/(float)$unitRatio) ?? 1))])->save();
             }elseif($bill->type == 'purchase_out' || $bill->type == 'sale_out' ){
                 if ($unit){
 
-                    $item->fill(['amount' => (float)$item->amount - ((float)$request->amount*((1/(float)$unit->ratio) ?? 1))])->save();
+                    $item->fill(['amount' => (float)$item->amount - ((float)$request->amount*((1/(float)$unitRatio) ?? 1))])->save();
 
 
                 }else{
@@ -110,7 +113,7 @@ class BillDetailController extends Controller
                     ]);
                 }
 
-                $storItem->fill(['amount' => ((float)$storItem->amount ?? 0) - ((float)$request->amount*(1/((float)$unit->ratio) ?? 1))])->save();
+                $storItem->fill(['amount' => ((float)$storItem->amount ?? 0) - ((float)$request->amount*(1/((float)$unitRatio) ?? 1))])->save();
 
 
             }elseif ($bill->type == 'store'){
@@ -122,7 +125,7 @@ class BillDetailController extends Controller
                         'amount' => 0
                     ]);
                 }
-                $storeFromItem->fill(['amount' => ((float)$storeFromItem->amount ?? 0) - ((float)$request->amount*((1/(float)$unit->ratio) ?? 1))])->save();
+                $storeFromItem->fill(['amount' => ((float)$storeFromItem->amount ?? 0) - ((float)$request->amount*((1/(float)$unitRatio) ?? 1))])->save();
 
                 $storeToItem = ItemStore::where('store_id', $bill->store_to_id)->where('item_id', $request->item_id)->first();
                 if (!$storeToItem) {
@@ -132,13 +135,13 @@ class BillDetailController extends Controller
                         'amount' => 0
                     ]);
                 }
-                $storeToItem->fill(['amount' => ((float)$storeToItem->amount ?? 0) + ((float)$request->amount*((float)$unit->ratio ?? 1))])->save();
+                $storeToItem->fill(['amount' => ((float)$storeToItem->amount ?? 0) + ((float)$request->amount*((float)$unitRatio ?? 1))])->save();
             }
         }
 
         if ($bill->type == 'purchase_in' || $bill->type == 'purchase_out' ) {
             $price = $item->buy_price;
-            $total = (((float)$request->amount*((1/$unit->ratio) ?? 1)) * (float)$item->buy_price);
+            $total = (((float)$request->amount*((1/$unitRatio) ?? 1)) * (float)$item->buy_price);
             $request->merge(['price' => $price, 'total' => $total]);
         }else{
             $price = ((float)$unit->price ?? (float)$item->price);
@@ -154,7 +157,7 @@ class BillDetailController extends Controller
             if ($request->discount >0){
                 $price = ((float)$unit->price ?? (float)$item->price) - (float)$request->discount;
             }
-            $newAmount = (float)$BillDetail->amount + ((float)$request->amount*((1/(float)$unit->ratio) ?? 1));
+            $newAmount = (float)$BillDetail->amount + ((float)$request->amount*((1/(float)$unitRatio) ?? 1));
             $total = ($newAmount * $price);
             $detail = $BillDetail->fill(['amount'=>$newAmount,'price'=>$price,'total'=>$total])->save();
         }else{
