@@ -8,6 +8,7 @@ use App\Models\BillDetail;
 use App\Models\Brand;
 use App\Models\Item;
 use App\Models\ItemStore;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -271,8 +272,10 @@ class BillController extends Controller
         if ($bill->status == 'saved' ){
             if ($bill->type == 'purchase_in' || $bill->type == 'sale_in' ){
                 foreach ($bill->details as $detail){
+                    $unit = Unit::find($detail->unit_id);
+
                     $item = Item::find($detail->item_id);
-                    $item->fill(['amount'=>$item->amount +$detail->amount])->save();
+                    $item->fill(['amount'=>$item->amount +($detail->amount/$unit->ratio)])->save();
                     $storItem = ItemStore::where('store_id',$bill->store_id)->where('item_id',$detail->item_id)->first();
                     if (!$storItem){
                         $storItem = ItemStore::create([
@@ -282,12 +285,13 @@ class BillController extends Controller
                         ]);
                     }
 
-                    $storItem->fill(['amount'=>($storItem->amount ?? 0) -$detail->amount])->save();
+                    $storItem->fill(['amount'=>($storItem->amount ?? 0) -($detail->amount/$unit->ratio)])->save();
                 }
             }elseif($bill->type == 'purchase_out' || $bill->type == 'sale_out' ){
                 foreach ($bill->details as $detail){
+                    $unit = Unit::find($detail->unit_id);
                     $item = Item::find($detail->item_id);
-                    $item->fill(['amount'=>$item->amount -$detail->amount])->save();
+                    $item->fill(['amount'=>$item->amount -($detail->amount/$unit->ratio)])->save();
                     $storItem = ItemStore::where('store_id',$bill->store_id)->where('item_id',$detail->item_id)->first();
                     if (!$storItem){
                         $storItem = ItemStore::create([
@@ -297,12 +301,12 @@ class BillController extends Controller
                         ]);
                     }
 
-                    $storItem->fill(['amount'=>($storItem->amount ?? 0) +$detail->amount])->save();
+                    $storItem->fill(['amount'=>($storItem->amount ?? 0) +($detail->amount/$unit->ratio)])->save();
                 }
             }elseif($bill->type == 'store'){
                 foreach ($bill->details as $detail){
                     //in to out
-
+                    $unit = Unit::find($detail->unit_id);
                     $storeFromItem = ItemStore::where('store_id',$bill->store_from_id)->where('item_id',$detail->item_id)->first();
                     if (!$storeFromItem){
                         $storeFromItem = ItemStore::create([
@@ -312,7 +316,7 @@ class BillController extends Controller
                         ]);
                     }
 
-                    $storeFromItem->fill(['amount'=>($storeFromItem->amount ?? 0) + $detail->amount])->save();
+                    $storeFromItem->fill(['amount'=>($storeFromItem->amount ?? 0) + ($detail->amount/$unit->ratio)])->save();
 
                     //#################################################
 
@@ -326,10 +330,11 @@ class BillController extends Controller
                         ]);
                     }
 
-                    $storeToItem->fill(['amount'=>($storeToItem->amount ?? 0) - $detail->amount])->save();
+                    $storeToItem->fill(['amount'=>($storeToItem->amount ?? 0) - ($detail->amount/$unit->ratio)])->save();
                 }
             }
         }
+        $bill->details()->delete();
         $bill->delete();
         $user = auth()->user();
 
