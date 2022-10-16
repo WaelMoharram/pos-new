@@ -183,6 +183,11 @@ class BillController extends Controller
             return redirect()->route('dashboard');
         }
 
+        if (auth()->user()->pos == 1 && auth()->user()->store_id == null){
+            toast('لا تمتلك صلاحيات نقطة البيع لعدم تحديد مخزن محدد ','error');
+            return redirect()->route('dashboard');
+        }
+
 
         if (auth()->user()->pos == 1 ){
 
