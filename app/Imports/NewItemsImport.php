@@ -45,7 +45,7 @@ class NewItemsImport implements ToCollection
                     'brand_id' => 1,
                     'price' => $row[4] ?? 0,
                     'buy_price' => $row[5] ?? 0,
-                    'min_amount'=> $row[7]
+                    'min_amount'=> $row[7] ?? 1
                 ]);
 
                 $item->fill([
