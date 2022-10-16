@@ -65,7 +65,7 @@ class BillDetailController extends Controller
 
             $unit = Unit::where('item_id',$item->id)->where('ratio',1)->first();
         }
-        if ($bill->status != 'new'){
+        if ($bill->status != 'new' ||$bill->pos_sales == 1){
             if ($bill->type == 'purchase_in' || $bill->type == 'sale_in' ) {
                 if ($unit){
 
@@ -255,7 +255,7 @@ class BillDetailController extends Controller
         $detail= BillDetail::findOrFail($id);
         $item = Item::find($detail->item_id);
 
-        if ($detail->bill->status != 'new') {
+        if ($detail->bill->status != 'new' ||$detail->bill->pos_sales == 1) {
             if ($detail->bill->type == 'purchase_in' || $detail->bill->type == 'sale_in') {
                 $item->fill(['amount' => $item->amount - $detail->amount])->save();
 
