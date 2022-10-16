@@ -161,6 +161,7 @@ class BillDetailController extends Controller
             $total = ($newAmount * $price);
             $detail = $BillDetail->fill(['amount'=>$newAmount,'price'=>$price,'total'=>$total])->save();
         }else{
+            $request->merge(['unit_id'=>$unit->id]);
             $detail = BillDetail::create($request->all());
         }
 
