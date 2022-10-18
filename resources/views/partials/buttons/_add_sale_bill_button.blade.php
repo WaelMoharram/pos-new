@@ -28,7 +28,7 @@
                             <label for="date"> التاريخ  </label>
                             <div class="input-group date" id="reservationdate" data-target-input="nearest">
 
-                                {{Form::text('date',null,['class'=>'form-control mb-2 datetimepicker-input date','id'=>'date'])}}
+                                {{Form::text('date',null,['class'=>'form-control mb-2 datetimepicker-input date','id'=>'date','readonly'])}}
                                 {{input_error($errors,'date')}}
 
                             </div>
