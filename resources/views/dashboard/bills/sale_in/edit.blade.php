@@ -36,7 +36,7 @@
     {{-- ########## Bill details table  ########## --}}
 
     @include('dashboard.bills.sale_in._table_details')
-<div class="col-md-6 ">
+<div class="col-md-4 ">
     <div class="card ">
         <div class="card-header">
             <h3 class="card-title">اضافة صنف للفاتورة</h3>
