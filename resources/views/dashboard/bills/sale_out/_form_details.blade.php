@@ -3,7 +3,7 @@
 {{-- ############# Supplier #############--}}
 <div class="form-group col-md-12">
     <label for="item_id"> اختر الصنف </label>
-    {{Form::select('item_id',\App\Models\Item::get()->pluck('name_w_category','id') ,null,['class'=>'form-control mb-2 select2','id'=>'item_id'])}}
+    {{Form::select('item_id',\App\Models\Item::get()->pluck('name_w_category','id') ,null,['required','placeholder'=>'اختر الصنف','class'=>'form-control mb-2 select2','id'=>'item_id'])}}
     {{input_error($errors,'item_id')}}
 </div>
 {{-- ############# Bill Code #############--}}
