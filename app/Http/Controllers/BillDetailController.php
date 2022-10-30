@@ -262,7 +262,7 @@ class BillDetailController extends Controller
         $unitRatio = $unit->ratio;
         if ($detail->bill->status != 'new' ||$detail->bill->pos_sales == 1) {
             if ($detail->bill->type == 'purchase_in' || $detail->bill->type == 'sale_in') {
-                $item->fill(['amount' => $item->amount - $detail->amount])->save();
+                $item->fill(['amount' => ((float)$item->amount ?? 0) - ((float)$detail->amount*((1/(float)$unitRatio) ?? 1))])->save();
 
 
                 $storItem = ItemStore::where('store_id', $detail->bill->store_id)->where('item_id', $detail->item_id)->first();
@@ -274,7 +274,7 @@ class BillDetailController extends Controller
                     ]);
                 }
 
-                $storItem->fill(['amount' => ($storItem->amount ?? 0) - $detail->amount])->save();
+                $storItem->fill(['amount' => ((float)$storItem->amount ?? 0) - ((float)$detail->amount*((1/(float)$unitRatio) ?? 1))])->save();
             }elseif ($detail->bill->type == 'purchase_out' || $detail->bill->type == 'sale_out'){
                 $item->fill(['amount' => $item->amount + $detail->amount])->save();
 
