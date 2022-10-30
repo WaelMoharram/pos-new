@@ -11,7 +11,7 @@
 {{-- ############# Supplier #############--}}
 <div class="form-group py-1 col-md-6">
     <label for="model_id"> مخزن الصرف  </label>
-    {{Form::select('store_from_id',\App\Models\Store::pluck('name','id') ,null,['class'=>'form-control mb-2','id'=>'store_from_id'])}}
+    {{Form::select('store_from_id',\App\Models\Store::pluck('name','id') ,null,['disabled','class'=>'form-control mb-2','id'=>'store_from_id'])}}
     {{input_error($errors,'store_from_id')}}
 </div>
 {{-- ############# Store #############--}}

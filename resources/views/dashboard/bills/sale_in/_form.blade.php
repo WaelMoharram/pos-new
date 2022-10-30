@@ -18,7 +18,7 @@
 @if(auth()->user()->store == null)
     <div class="form-group py-1 col-md-6">
         <label for="store_id"> مخزن الصرف  </label>
-        {{Form::select('store_id',\App\Models\Store::where('sales_man_id',null)->where('is_pos',1)->pluck('name','id') ,null,['class'=>'form-control mb-2','id'=>'store_id'])}}
+        {{Form::select('store_id',\App\Models\Store::where('sales_man_id',null)->where('is_pos',1)->pluck('name','id') ,null,['disabled','class'=>'form-control mb-2','id'=>'store_id'])}}
         {{input_error($errors,'store_id')}}
     </div>
 @else
