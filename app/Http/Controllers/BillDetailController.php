@@ -157,7 +157,7 @@ class BillDetailController extends Controller
             if ($request->discount >0){
                 $price = ((float)$unit->price ?? (float)$item->price) - (float)$request->discount;
             }
-            $newAmount = (float)$BillDetail->amount + ((float)$request->amount*((1/(float)$unitRatio) ?? 1));
+            $newAmount = (float)$BillDetail->amount + ((float)$request->amount);
             $total = ($newAmount * $price);
             $detail = $BillDetail->fill(['amount'=>$newAmount,'price'=>$price,'total'=>$total])->save();
         }else{
