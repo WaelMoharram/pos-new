@@ -135,7 +135,7 @@ class BillDetailController extends Controller
                         'amount' => 0
                     ]);
                 }
-                $storeToItem->fill(['amount' => ((float)$storeToItem->amount ?? 0) + ((float)$request->amount*((float)$unitRatio ?? 1))])->save();
+                $storeToItem->fill(['amount' => ((float)$storeToItem->amount ?? 0) + ((float)$request->amount*((1/(float)$unitRatio) ?? 1))])->save();
             }
         }
 
