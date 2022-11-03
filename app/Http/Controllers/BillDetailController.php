@@ -298,7 +298,7 @@ class BillDetailController extends Controller
                         'amount' => 0
                     ]);
                 }
-                $storeFromItem->fill(['amount' => ((float)$storeFromItem->amount ?? 0) - ((float)$detail->amount*((1/(float)$unitRatio) ?? 1))])->save();
+                $storeFromItem->fill(['amount' => ((float)$storeFromItem->amount ?? 0) + ((float)$detail->amount*((1/(float)$unitRatio) ?? 1))])->save();
 
                 $storeToItem = ItemStore::where('store_id', $detail->bill->store_to_id)->where('item_id', $detail->item_id)->first();
                 if (!$storeToItem) {
@@ -308,7 +308,7 @@ class BillDetailController extends Controller
                         'amount' => 0
                     ]);
                 }
-                $storeToItem->fill(['amount' => ((float)$storeToItem->amount ?? 0) + ((float)$detail->amount*((1/(float)$unitRatio) ?? 1))])->save();
+                $storeToItem->fill(['amount' => ((float)$storeToItem->amount ?? 0) - ((float)$detail->amount*((1/(float)$unitRatio) ?? 1))])->save();
             }
         }
 
