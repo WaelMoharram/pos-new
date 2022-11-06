@@ -41,15 +41,23 @@
                 @php($amount = \App\Models\ItemStore::where('item_id',$row->id)->sum('amount'))
 
                 <td>
-                    {{\App\Models\ItemStore::where('item_id',$row->id)->sum('amount')}}
                     <br>
                     <br>
                     @foreach(\App\Models\Unit::where('item_id',$row->id)->get() as $unit)
-                        {{$amount}}
-                        @php($amount = getRound($amount) * (1/((float)$unit->ratio)))
+                        {{$amount}} ---
+                        <br>
+                        <br>
+                        @php($amount = getRound($amount) * ((float)$unit->ratio))
+                        {{$amount}} +++
+                        <br>
+                        <br>
                         {{getRound($amount)}} ***
+                        <br>
+                        <br>
                         @php($amount = getFrachtion($amount))
-                        {{$amount}}
+                        {{$amount}} ///
+                        <br>
+                        <br>
                         <br>
                         <br>
                     @endforeach</td>
