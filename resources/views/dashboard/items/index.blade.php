@@ -38,7 +38,13 @@
 {{--                <td>{!! substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>--}}
                 <td>@if($row->image)<img src="{!! url('/').'/'.$row->image !!}" style="width: 100px; height: 100px;">@else <img src="{!! url('no.png') !!}" style="width: 100px; height: 100px;"> @endif</td>
                 <td>{!! $row->name !!}</td>
-                <td>{!! \App\Models\ItemStore::where('item_id',$row->id)->sum('amount') !!}</td>
+                @php($amount = \App\Models\ItemStore::where('item_id',$row->id)->sum('amount'))
+
+                <td>@foreach(Unit::where('item_id',$row->id)->get() as $unit)
+                        @php($amount = getRound($amount) * (1/((float)$unit->ratio)))
+                        {{getRound($amount)}} ***
+                        @php($amount = getFrachtion($amount))
+                    @endforeach</td>
                 <td>{!! optional($row->category)->name !!}</td>
                 <td>{!! optional($row->brand)->name !!}</td>
                 <td>{!! $row->barcode !!}</td>

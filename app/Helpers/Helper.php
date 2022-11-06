@@ -161,3 +161,11 @@ function checkEvenOdd($number)
         return "Even";
     }
 }
+
+function getRound($n){
+    return floor($n);
+}
+function getFrachtion($n){
+    $whole = floor($n);
+    return  $n - $whole;
+}
