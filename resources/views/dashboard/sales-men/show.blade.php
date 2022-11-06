@@ -49,7 +49,7 @@
                             <span {{tooltip($unit->name)}}>{{getRound($amount)}}</span> |
                             @php($amount = getFrachtion(\App\Models\ItemStore::where('item_id',($itam->item)->id)->sum('amount')))
                         @endif
-                    @endforeach
+
                 </td>
 
                 <td>
