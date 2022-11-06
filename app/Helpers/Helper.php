@@ -163,6 +163,10 @@ function checkEvenOdd($number)
 }
 
 function getRound($n){
+
+    if (is_int($n)){
+        return $n;
+    }
     if ($n > 0){
         return floor($n);
 
