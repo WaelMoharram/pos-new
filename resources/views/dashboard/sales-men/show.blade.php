@@ -38,15 +38,15 @@
             <tr>
                 <td>{!! substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
                 <td>{!! optional($itam->item)->name !!}</td>
-                @php($amount = \App\Models\ItemStore::where('item_id',$itam->item->id)->sum('amount'))
+                @php($amount = \App\Models\ItemStore::where('item_id',optional($itam->item)->id)->sum('amount'))
 
                 <td>
-                    @foreach(\App\Models\Unit::where('item_id',$item->id)->get() as $unit)
+                    @foreach(\App\Models\Unit::where('item_id',($itam->item)->id)->get() as $unit)
 
                         @php($amount = $amount * ((float)$unit->ratio))
                         @if(getRound($amount) != 0)
                             <span {{tooltip($unit->name)}}>{{getRound($amount)}}</span> |
-                            @php($amount = getFrachtion(\App\Models\ItemStore::where('item_id',$item->id)->sum('amount')))
+                            @php($amount = getFrachtion(\App\Models\ItemStore::where('item_id',($itam->item)->id)->sum('amount')))
                         @endif
                     @endforeach
                 </td>
