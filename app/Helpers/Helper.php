@@ -165,11 +165,11 @@ function checkEvenOdd($number)
 function getRound($n){
 
     if ($n >0){
-        return '////';
+
         $whole =  floor($n);
 
     }else{
-        return '***';
+
         $whole =  round($n);
 
     }
