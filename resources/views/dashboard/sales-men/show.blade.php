@@ -47,7 +47,7 @@
                         @php($amount = $amount * ((float)$unit->ratio))
                         @if(getRound($amount) != 0)
                             <span {{tooltip($unit->name)}}>{{getRound($amount)}}</span>
-                            @php($amount = getFrachtion(\App\Models\ItemStore::where('item_id',($itam->item)->id)->sum('amount')))
+                            @php($amount = getFrachtion(\App\Models\ItemStore::where('store_id',$store->id)->where('item_id',($itam->item)->id)->sum('amount')))
                         @endif
 
                 </td>
