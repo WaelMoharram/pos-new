@@ -163,7 +163,11 @@ function checkEvenOdd($number)
 }
 
 function getRound($n){
-return str_contains($n,'.');
+if( str_contains($n,'.')){
+    return '.';
+}else{
+    return '---';
+}
     if (is_int($n) == 1){
         return $n;
     }
