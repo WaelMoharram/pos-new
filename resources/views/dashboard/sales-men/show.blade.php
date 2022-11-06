@@ -33,7 +33,6 @@
         ];
     @endphp
 
-
     {{-- Minimal example / fill data using the component slot --}}
     <x-adminlte-datatable id="table1" :heads="$heads" striped hoverable with-buttons>
         @foreach(\App\Models\ItemStore::where('store_id',$store->id)->get() as $itam)
@@ -58,7 +57,7 @@
 
                         @php($amount = $amount * ((float)$unit->ratio))
                         @if(getRound($amount) != 0)
-                            <span {{tooltip($unit->name)}}>{{getRound($amount)}}</span> @if($loop->index == \App\Models\Unit::where('item_id',($itam->item)->id)->where('ratio','!=',1)->count())
+                            <span {{tooltip($unit->name)}}>{{getRound($amount)}}</span> @if($loop->index +1 == \App\Models\Unit::where('item_id',($itam->item)->id)->where('ratio','!=',1)->count()) - @endif
                             @php($amount = getFrachtion(\App\Models\ItemStore::where('item_id',($itam->item)->id)->sum('amount')))
                         @endif
                     @endforeach
