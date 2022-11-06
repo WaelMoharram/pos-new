@@ -40,7 +40,11 @@
                 <td>{!! $row->name !!}</td>
                 @php($amount = \App\Models\ItemStore::where('item_id',$row->id)->sum('amount'))
 
-                <td>@foreach(\App\Models\Unit::where('item_id',$row->id)->get() as $unit)
+                <td>
+                    {{\App\Models\ItemStore::where('item_id',$row->id)->sum('amount')}}
+                    <br>
+                    <br>
+                    @foreach(\App\Models\Unit::where('item_id',$row->id)->get() as $unit)
                         {{$amount}}
                         @php($amount = getRound($amount) * (1/((float)$unit->ratio)))
                         {{getRound($amount)}} ***
