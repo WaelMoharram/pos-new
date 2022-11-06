@@ -53,7 +53,7 @@
                 </td>
 
                 <td>
-                    @foreach(\App\Models\Unit::where('item_id',($itam->item)->id)->where('ratio'!=1)->get() as $unit)
+                    @foreach(\App\Models\Unit::where('item_id',($itam->item)->id)->where('ratio','!=',1)->get() as $unit)
 
                         @php($amount = $amount * ((float)$unit->ratio))
                         @if(getRound($amount) != 0)
