@@ -42,16 +42,15 @@
                 @php($amount = \App\Models\ItemStore::where('item_id',$row->id)->sum('amount'))
 
                 <td>
-                    <br>
-                    <br>
                     @foreach(\App\Models\Unit::where('item_id',$row->id)->get() as $unit)
 
                         @php($amount = $amount * ((float)$unit->ratio))
-                        @if(getRound($amount) != 0 && $unit->ratio != 1)
+                        @if(getRound($amount) != 0)
                         <span {{tooltip($unit->name)}}>{{getRound($amount)}}</span> |
                         @php($amount = getFrachtion(\App\Models\ItemStore::where('item_id',$row->id)->sum('amount')))
                         @endif
-                    @endforeach</td>
+                    @endforeach
+                </td>
                 <td>{!! optional($row->category)->name !!}</td>
                 <td>{!! optional($row->brand)->name !!}</td>
                 <td>{!! $row->barcode !!}</td>
