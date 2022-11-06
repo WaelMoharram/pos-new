@@ -56,7 +56,8 @@
                 <td>
                     @foreach(\App\Models\Unit::where('item_id',$row->id)->where('ratio','!=',1)->get() as $unit)
 
-                        @php($amount = $amount * ((float)$unit->ratio))
+                        @php($amount = $amount * $unit->ratio)
+                    {{$amount}}
                         @if(getRound($amount) != 0)
                             <span {{tooltip($unit->name)}}>{{getRound($amount)}}</span> @if(($loop->index +1) != \App\Models\Unit::where('item_id',$row->id)->where('ratio','!=',1)->count()) - @endif
                             @php($amount = getFrachtion(\App\Models\ItemStore::where('item_id',$row->id)->sum('amount')))
