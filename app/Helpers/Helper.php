@@ -173,9 +173,7 @@ function getRound($n){
         $whole =  round($n);
 
     }
-    return $whole;
    if (($n - $whole) == 0){
-       return '00000';
        return $n;
    }
 
