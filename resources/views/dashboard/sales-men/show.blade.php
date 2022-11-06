@@ -38,7 +38,7 @@
             <tr>
                 <td>{!! substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
                 <td>{!! optional($itam->item)->name !!}</td>
-                @php($amount = \App\Models\ItemStore::where('item_id',$item->id)->sum('amount'))
+                @php($amount = \App\Models\ItemStore::where('item_id',$itam->item->id)->sum('amount'))
 
                 <td>
                     @foreach(\App\Models\Unit::where('item_id',$item->id)->get() as $unit)
