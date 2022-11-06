@@ -166,9 +166,7 @@ function getRound($n){
 if( !str_contains($n,'.')){
     return $n;
 }
-    if (is_int($n) == 1){
-        return $n;
-    }
+
     if ($n >0){
 
         $whole =  floor($n);
