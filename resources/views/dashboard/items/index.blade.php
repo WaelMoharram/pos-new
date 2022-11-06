@@ -47,7 +47,7 @@
                         {{$amount}} ---
                         <br>
                         <br>
-                        @php($amount = getRound($amount) * ((float)$unit->ratio))
+                        @php($amount = $amount * ((float)$unit->ratio))
                         {{$amount}} +++
                         <br>
                         <br>
