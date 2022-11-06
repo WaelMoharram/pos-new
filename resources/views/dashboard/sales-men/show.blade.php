@@ -33,6 +33,7 @@
         ];
     @endphp
 
+
     {{-- Minimal example / fill data using the component slot --}}
     <x-adminlte-datatable id="table1" :heads="$heads" striped hoverable with-buttons>
         @foreach(\App\Models\ItemStore::where('store_id',$store->id)->get() as $itam)
