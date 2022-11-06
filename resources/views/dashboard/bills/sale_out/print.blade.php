@@ -75,6 +75,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>الصنف</th>
+                                <th>الوحدة</th>
                                 <th>الكمية</th>
                                 <th>سعر الوحدة</th>
 
@@ -86,6 +87,7 @@
                                 <tr>
                                     <td>{{substr(str_repeat(0, 5).($loop->index +1), - 5);}}</td>
                                     <td>{{optional($detail->item)->name}}</td>
+                                    <td>{{optional($detail->unit)->name}}</td>
                                     <td>
                                         {{$detail->amount}}
                                     </td>
