@@ -163,9 +163,9 @@ function checkEvenOdd($number)
 }
 
 function getRound($n){
-    return floor($n);
+    return round($n);
 }
 function getFrachtion($n){
-    $whole = floor($n);
+    $whole = round($n);
     return  $n - $whole;
 }
