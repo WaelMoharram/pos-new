@@ -41,9 +41,13 @@
                 @php($amount = \App\Models\ItemStore::where('item_id',$row->id)->sum('amount'))
 
                 <td>@foreach(\App\Models\Unit::where('item_id',$row->id)->get() as $unit)
+                        {{$amount}}
                         @php($amount = getRound($amount) * (1/((float)$unit->ratio)))
                         {{getRound($amount)}} ***
                         @php($amount = getFrachtion($amount))
+                        {{$amount}}
+                        <br>
+                        <br>
                     @endforeach</td>
                 <td>{!! optional($row->category)->name !!}</td>
                 <td>{!! optional($row->brand)->name !!}</td>
