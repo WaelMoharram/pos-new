@@ -22,7 +22,8 @@
         $heads = [
             '#',
             'الصنف',
-            ['label' => 'الكمية'],
+            ['label' => 'كمية الوحدة الاساسية'],
+            ['label' => 'كمية الوحدات الفرعية'],
         ];
 
 
@@ -41,7 +42,18 @@
                 @php($amount = \App\Models\ItemStore::where('item_id',optional($itam->item)->id)->sum('amount'))
 
                 <td>
-                    @foreach(\App\Models\Unit::where('item_id',($itam->item)->id)->get() as $unit)
+                    @php($unit = \App\Models\Unit::where('item_id',($itam->item)->id)->where('ratio',1)->first())
+
+                        @php($amount = $amount * ((float)$unit->ratio))
+                        @if(getRound($amount) != 0)
+                            <span {{tooltip($unit->name)}}>{{getRound($amount)}}</span> |
+                            @php($amount = getFrachtion(\App\Models\ItemStore::where('item_id',($itam->item)->id)->sum('amount')))
+                        @endif
+                    @endforeach
+                </td>
+
+                <td>
+                    @foreach(\App\Models\Unit::where('item_id',($itam->item)->id)->where('ratio'!=1)->get() as $unit)
 
                         @php($amount = $amount * ((float)$unit->ratio))
                         @if(getRound($amount) != 0)
