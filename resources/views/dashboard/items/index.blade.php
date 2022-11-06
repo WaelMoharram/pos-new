@@ -54,7 +54,7 @@
                         {{getRound($amount)}} ***
                         <br>
                         <br>
-                        @php($amount = getFrachtion($amount))
+                        @php($amount = getFrachtion(\App\Models\ItemStore::where('item_id',$row->id)->sum('amount')))
                         {{$amount}} ///
                         <br>
                         <br>
