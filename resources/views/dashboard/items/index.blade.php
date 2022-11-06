@@ -59,6 +59,7 @@
                 <td>
                     @foreach(\App\Models\Unit::where('item_id',$row->id)->where('ratio','!=',1)->get() as $unit)
                         {{$amount}} 11111
+                    {{$unit->ratio}}********
                         @php($amount = $amount * $unit->ratio)
                         {{$amount}} 22222
                         @if(getRound((float)$amount) != 0)
