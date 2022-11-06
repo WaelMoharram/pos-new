@@ -163,9 +163,13 @@ function checkEvenOdd($number)
 }
 
 function getRound($n){
+
+    if (is_int($n) == 1){
+        return $n;
+    }
     if ($n >0){
 
-        return $whole =  floor($n);
+        $whole =  floor($n);
 
     }else{
 
