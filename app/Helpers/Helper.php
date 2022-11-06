@@ -163,7 +163,7 @@ function checkEvenOdd($number)
 }
 
 function getRound($n){
-
+return $n;
     if ($n >0){
 
         $whole =  floor($n);
