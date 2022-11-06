@@ -58,6 +58,7 @@
 
                 <td>
                     {{(float)($amount * $unit->ratio)}}
+                    {{($amount * $unit->ratio)}}
                     @foreach(\App\Models\Unit::where('item_id',$row->id)->where('ratio','!=',1)->get() as $unit)
                         @if(getRound((float)($amount * $unit->ratio)) != 0)
                             <span {{tooltip($unit->name)}}>{{getRound((float)($amount * $unit->ratio))}}</span> @if(($loop->index +1) != \App\Models\Unit::where('item_id',$row->id)->where('ratio','!=',1)->count()) - @endif
