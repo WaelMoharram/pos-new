@@ -15,6 +15,7 @@
                 <tr>
                     <th style="width: 10px">#</th>
                     <th>الصنف</th>
+                    <th>ألوحدة</th>
                     <th>الكمية</th>
                     <th>السعر</th>
                     <th>الاجمالى</th>
@@ -27,6 +28,7 @@
                     <tr>
                         <td>{{substr(str_repeat(0, 5).($loop->index +1), - 5)}}</td>
                         <td>{{optional($detail->item)->name_w_category}}</td>
+                        <td>{{optional($detail->unit)->name}}</td>
 
 
                         <td>
