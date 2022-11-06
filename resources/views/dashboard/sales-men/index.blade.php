@@ -62,7 +62,7 @@
                                     @component('partials.buttons._custom_button',[
                                                     'route' => route('sales-men.report',$row->id) ,
                                                     'tooltip' => 'عرض الحركات المالية',
-                                                    'fa'=>'fa-file',
+                                                    'fa'=>'fa-money',
                                                     'color'=>'default',
                                                      ])
                                     @endcomponent
@@ -71,7 +71,7 @@
                                     @component('partials.buttons._custom_button',[
                                                     'route' => route('sales-men.show',$row->id) ,
                                                     'tooltip' => 'عرض المخزون',
-                                                    'fa'=>'fa-file',
+                                                    'fa'=>'fa-store',
                                                     'color'=>'default',
                                                      ])
                                     @endcomponent
@@ -81,7 +81,7 @@
                                     @component('partials.buttons._custom_button',[
                                                     'route' => route('bills.index',['type'=>'sale_out','sales_man_id'=>$row->id]) ,
                                                     'tooltip' => 'عرض المبيعات',
-                                                    'fa'=>'fa-file',
+                                                    'fa'=>'fa-chart-simple',
                                                     'color'=>'default',
                                                      ])
                                     @endcomponent
