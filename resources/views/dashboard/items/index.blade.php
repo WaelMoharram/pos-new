@@ -57,11 +57,14 @@
                 </td>
 
                 <td>
-                    {{(float)($amount * $unit->ratio)}}
-                    {{($amount * $unit->ratio)}}
                     @foreach(\App\Models\Unit::where('item_id',$row->id)->where('ratio','!=',1)->get() as $unit)
-                        @if(getRound((float)($amount * $unit->ratio)) != 0)
-                            <span {{tooltip($unit->name)}}>{{getRound((float)($amount * $unit->ratio))}}</span> @if(($loop->index +1) != \App\Models\Unit::where('item_id',$row->id)->where('ratio','!=',1)->count()) - @endif
+                        {{$amount}} 11111
+                    {{$amount * $unit->ratio}}***
+                        @php($amount = $amount * $unit->ratio)
+                        {{$amount}} 22222
+                        @if(getRound((float)$amount) != 0)
+                            {{getRound($amount)}} 33333
+                            <span {{tooltip($unit->name)}}>{{getRound($amount)}}</span> @if(($loop->index +1) != \App\Models\Unit::where('item_id',$row->id)->where('ratio','!=',1)->count()) - @endif
                             @php($amount = getFrachtion(\App\Models\ItemStore::where('item_id',$row->id)->sum('amount')))
                         @endif
                     @endforeach
