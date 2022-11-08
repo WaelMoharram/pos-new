@@ -25,7 +25,7 @@ class CategoryRequest extends FormRequest
     {
         return [
             'name' => 'required|string|unique:categories,name,'.$this->category,
-            'image' =>'nullable|required_without:_method|image',
+            'image' =>'nullable|image',
 
         ];
     }

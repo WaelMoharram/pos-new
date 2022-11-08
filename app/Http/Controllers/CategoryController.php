@@ -155,7 +155,11 @@ class CategoryController extends Controller
 
         $category= Category::findOrFail($id);
         if ($category->items->count() >0){
-            toast('عملية مرفوضة - العلامة التجارية تحتوى على اصناف ','danger');
+            toast('عملية مرفوضة - التصنيف تحتوى على اصناف ','danger');
+            return back();
+        }
+        if ($category->categories->count() >0){
+            toast('عملية مرفوضة - التصنيف تحتوى على تصنيفات فرعية ','danger');
             return back();
         }
         $category->delete();
