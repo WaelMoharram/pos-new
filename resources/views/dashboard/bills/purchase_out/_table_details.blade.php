@@ -15,8 +15,8 @@
                 <tr>
                     <th style="width: 10px">#</th>
                     <th>الصنف</th>
-                    <th>الكمية</th>
                     <th>الوحدة</th>
+                    <th>الكمية</th>
                     <th>السعر</th>
                     <th>الاجمالى</th>
                     <th style="width: 40px">اعدادات</th>
