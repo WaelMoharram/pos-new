@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UnitRequest;
+use App\Models\BillDetail;
 use App\Models\Item;
 use App\Models\Unit;
 use Illuminate\Http\Request;
@@ -90,10 +91,10 @@ class UnitController extends Controller
     public function destroy($id)
     {
         //TODO:: Unit delete validation
-//        if (){
-//            toast('عملية مرفوضة - المخزن يحتوى على معاملات سابقة ','danger');
-//            return back();
-//        }
+        if (BillDetail::where('unit_id',$id)->count() > 0){
+            toast('عملية مرفوضة - المخزن يحتوى على معاملات سابقة لهذه الوحدة ','danger');
+            return back();
+        }
         $unit= Unit::findOrFail($id);
         $unit->delete();
         toast('تم الحذف بنجاح','success');
