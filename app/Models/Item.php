@@ -74,15 +74,21 @@ class Item extends Model
             $bills = Bill::whereBetween('created_at',[$from_date,$to_date])->get();
 
             foreach ($this->billsdetails()->whereIn('bill_id',$bills->pluck('id')->toArray())->get() as $row){
-                $unit = Unit::find($row->unit_id)->ratio;
-                $amount += ($row->amount * $unit);
+                $unit = Unit::find($row->unit_id);
+                if ($unit){
+
+                    $amount +=  ($row->amount * $unit->ratio);
+                }
             }
 
         }else{
             foreach ($this->billsdetails()->get() as $row){
 
-                $unit = Unit::find($row->unit_id)->ratio;
-                $amount +=  ($row->amount * $unit);
+                $unit = Unit::find($row->unit_id);
+                if ($unit){
+
+                    $amount +=  ($row->amount * $unit->ratio);
+                }
             }
         }
 
