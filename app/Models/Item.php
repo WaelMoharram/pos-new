@@ -77,7 +77,7 @@ class Item extends Model
                 $unit = Unit::find($row->unit_id)->ratio;
                 $amount = $amount + ($row->amount * $unit);
             }
-
+            return $amount;
         }
         foreach ($this->billsdetails() as $row){
             $unit = Unit::find($row->unit_id)->ratio;
