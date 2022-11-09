@@ -81,9 +81,8 @@ class Item extends Model
             return $amount;
         }
 
-        return $this->billsdetails()->count();
         foreach ($this->billsdetails()->where('bill_id','!=',null) as $row){
-
+return $row->amount;
             $unit = Unit::find($row->unit_id)->ratio;
             $amount = $amount + ($row->amount * $unit);
         }
