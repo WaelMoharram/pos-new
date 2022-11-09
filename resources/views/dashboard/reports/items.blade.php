@@ -77,7 +77,7 @@
                 <td>
                     @foreach(\App\Models\Unit::where('item_id',$row->id)->where('ratio','!=',1)->get() as $unit)
 
-                        <span {{tooltip($unit->name)}}>{{getRound(($amount * (float)$unit->ratio))}}</span> @if(($loop->index +1) != \App\Models\Unit::where('item_id',$row->id)->where('ratio','!=',1)->count()) - @endif
+                        <span {{tooltip($unit->name)}}>{{getRound(($amount * (float)$unit->ratio))}}</span> @if(($loop->index +1) != \App\Models\Unit::where('item_id',$row->id)->where('ratio','!=',1)->count()) <span class="btn btn-success"></span> @endif
                         @php($amount = getFrachtion($row->report_amount))
 
                     @endforeach
