@@ -77,7 +77,7 @@ class Item extends Model
                 $unit = Unit::find($row->unit_id);
                 if ($unit){
 
-                    $amount +=  ($row->amount * $unit->ratio);
+                    $amount +=  ($row->amount * (1/$unit->ratio));
                 }
             }
 
@@ -87,7 +87,7 @@ class Item extends Model
                 $unit = Unit::find($row->unit_id);
                 if ($unit){
 
-                    $amount +=  ($row->amount * $unit->ratio);
+                    $amount +=  ($row->amount * (1/$unit->ratio));
                 }
             }
         }
