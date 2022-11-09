@@ -75,13 +75,13 @@ class Item extends Model
 
             foreach ($this->billsdetails()->whereIn('bill_id',$bills->pluck('id')->toArray()) as $row){
                 $unit = Unit::find($row->unit_id)->ratio;
-                $amount = ($row->amount * $unit);
+                $amount = $amount + ($row->amount * $unit);
             }
 
         }
         foreach ($this->billsdetails() as $row){
             $unit = Unit::find($row->unit_id)->ratio;
-            $amount = ($row->amount * $unit);
+            $amount = $amount + ($row->amount * $unit);
         }
         return $amount;
     }
