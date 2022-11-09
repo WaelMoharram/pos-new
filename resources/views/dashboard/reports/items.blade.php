@@ -61,11 +61,11 @@
                 @php($amount = $row->report_amount)
 
                 <td>
-{{$row->report_amount}}
+
                     @php($unit = \App\Models\Unit::where('item_id',$row->id)->where('ratio',1)->first())
 
                     @php($amount = $amount * ((float)$unit->ratio))
-{{(getRound($amount)}}
+
                     @if(getRound($amount) != 0)
 
                         <span {{tooltip($unit->name)}}>{{getRound($amount)}}</span>
@@ -76,7 +76,7 @@
 
                 <td>
                     @foreach(\App\Models\Unit::where('item_id',$row->id)->where('ratio','!=',1)->get() as $unit)
-{{$amount}}
+
                         <span {{tooltip($unit->name)}}>{{getRound(($amount * (float)$unit->ratio))}}</span> @if(($loop->index +1) != \App\Models\Unit::where('item_id',$row->id)->where('ratio','!=',1)->count()) - @endif
                         @php($amount = getFrachtion(getRound(($amount * (float)$unit->ratio))))
 
