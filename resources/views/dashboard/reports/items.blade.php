@@ -41,7 +41,8 @@
         $heads = [
             '#',
             'الصنف',
-            ['label' => 'الكمية المباعة'],
+            ['label' => 'كمية الوحدة الاساسية'],
+            ['label' => 'كميات الوحدات الفرعية'],
         ];
 
 
@@ -57,7 +58,31 @@
             <tr>
                 <td>{!! substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
                 <td>{!! $row->name !!}</td>
-                <td>{!! $row->report_amount !!}</td>
+                @php($amount = $row->report_amount)
+
+                <td>
+
+                    @php($unit = \App\Models\Unit::where('item_id',$row->id)->where('ratio',1)->first())
+
+                    @php($amount = $amount * ((float)$unit->ratio))
+
+                    @if(getRound($amount) != 0)
+
+                        <span class="btn btn-outline-info" {{tooltip($unit->name)}}>{{getRound($amount)}}</span>
+                        @php($amount = (float)getFrachtion($row->report_amount))
+                    @endif
+
+                </td>
+
+                <td>
+                    @foreach(\App\Models\Unit::where('item_id',$row->id)->where('ratio','!=',1)->get() as $unit)
+
+                        <span class="btn btn-outline-warning" {{tooltip($unit->name)}}>{{getRound(($amount * (float)$unit->ratio))}}</span>
+                        @php($amount = getFrachtion(getRound(($amount * (float)$unit->ratio))))
+
+                    @endforeach
+                </td>
+{{--                <td>{!! $row->report_amount !!}</td>--}}
             </tr>
         @endforeach
     </x-adminlte-datatable>

@@ -25,7 +25,7 @@ class BrandRequest extends FormRequest
     {
         return [
             'name' => 'required|string|unique:brands,name,'.$this->brand,
-            'image' =>'required|image',
+            'image' =>'nullable|image',
 
         ];
     }

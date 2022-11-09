@@ -39,7 +39,7 @@
     {{-- ############# discount  #############--}}
     <div class="form-group py-1 col-md-6">
         <label for="discount">  الخصم ان وجد  </label>
-        {{Form::text('discount',null,['class'=>'form-control mb-2','id'=>'discount'])}}
+        {{Form::number('discount',null,['class'=>'form-control mb-2','id'=>'discount'])}}
         {{input_error($errors,'discount')}}
     </div>
 
