@@ -204,7 +204,7 @@ class BillDetailController extends Controller
         if ($taxPercent != null && $taxPercent > 0) {
             $bill->update(['tax' => ($bill->total * ($taxPercent / 100)), 'tax_type' => $taxName]);
         }
-        if ($request->has('discount_kind') && $request->discount_kind != null){
+        if ($request->has('discount_kind')){
 
             if ($request->discount_kind == 'fixed'){
 

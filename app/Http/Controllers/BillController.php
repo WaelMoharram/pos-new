@@ -252,7 +252,7 @@ class BillController extends Controller
             $request->files->remove('image');
         }
 
-        if ($request->has('discount_kind') && $request->discount_kind != null){
+        if ($request->has('discount_kind')){
 
             if ($request->discount_kind == 'fixed'){
 
