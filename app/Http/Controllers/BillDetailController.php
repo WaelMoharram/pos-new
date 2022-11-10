@@ -209,7 +209,7 @@ class BillDetailController extends Controller
             if ($request->discount_kind == 'fixed'){
 
                 $bill->update(['discount'=>$request->discount_percent]) ;
-            }else{
+            }elseif($request->discount_kind == 'percent'){
                 $bill->update(['discount'=>$bill->details()->sum('total') *($request->discount_percent /100)]) ;
             }
         }
