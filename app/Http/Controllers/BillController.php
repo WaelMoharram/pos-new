@@ -260,7 +260,7 @@ class BillController extends Controller
             }elseif($request->discount_kind == 'percent'){
                 $requests['discount'] = $bill->details()->sum('total') *($request->discount_percent /100);
             }else{
-                $requests['discount'] =0;
+                return $requests['discount'] =0;
             }
         }
 
