@@ -211,6 +211,8 @@ class BillDetailController extends Controller
                 $bill->update(['discount'=>$request->discount_percent]) ;
             }elseif($request->discount_kind == 'percent'){
                 $bill->update(['discount'=>$bill->details()->sum('total') *($request->discount_percent /100)]) ;
+            }else{
+                $bill->update(['discount'=>0]) ;
             }
         }
 //        toast('تم اضافة القيد بنجاح','success');
