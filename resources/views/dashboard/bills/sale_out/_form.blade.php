@@ -36,12 +36,18 @@
 </div>
 @if(auth()->user()->type == 'admin')
     @can('discount sales')
-{{-- ############# discount  #############--}}
-<div class="form-group py-1 col-md-6">
-    <label for="discount">  الخصم ان وجد  </label>
-    {{Form::number('discount',null,['class'=>'form-control mb-2','id'=>'discount'])}}
-    {{input_error($errors,'discount')}}
-</div>
+        <div class="form-group py-1 col-md-6">
+            <label for="discount_kind"> نوع الخصم  </label>
+            {{Form::select('discount_kind',[null=>'لا يوجد','fixed'=>'مبلغ ثابت' , 'percent'=>'نسبة'] ,null,['class'=>'form-control mb-2','id'=>'discount_kind'])}}
+            {{input_error($errors,'discount_kind')}}
+        </div>
+        {{-- ############# discount  #############--}}
+        <div class="form-group py-1 col-md-4">
+            <label for="discount_percent">  الخصم ان وجد  </label>
+            {{Form::number('discount_percent',null,['class'=>'form-control mb-2','id'=>'discount_percent'])}}
+            {{input_error($errors,'discount_percent')}}
+        </div>
+
 
 {{-- ############# discount type #############--}}
 <div class="form-group py-1 col-md-6">

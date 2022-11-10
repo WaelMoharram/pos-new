@@ -204,6 +204,15 @@ class BillDetailController extends Controller
         if ($taxPercent != null && $taxPercent > 0) {
             $bill->update(['tax' => ($bill->total * ($taxPercent / 100)), 'tax_type' => $taxName]);
         }
+        if ($request->has('discount_kind') && $request->discount_kind != null){
+
+            if ($request->discount_kind == 'fixed'){
+
+                $bill->update(['discount'=>$request->discount_percent]) ;
+            }else{
+                $bill->update(['discount'=>$bill->details()->sum('total') *($request->discount_percent /100)]) ;
+            }
+        }
 //        toast('تم اضافة القيد بنجاح','success');
         return redirect()->back();
     }
