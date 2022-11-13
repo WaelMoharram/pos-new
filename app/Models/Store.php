@@ -41,13 +41,13 @@ class Store extends Model
     public function getSelectNameAttribute(){
         $type = '';
         if ($this->sales_man_id == null){
-            $type='مخزن';
+            $type='(مخزن)';
         }else{
-            $type='مندوب';
+            $type='(مندوب)';
         }
 
 
-        return $this->name .' - '.$type;
+        return $this->name .'   '.$type;
     }
 
 

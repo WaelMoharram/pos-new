@@ -38,8 +38,8 @@
                 <td>{!! substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
                 <td>{!! $row->date !!}</td>
                 <td>{!! $row->code !!}</td>
-                <td>{!! optional($row->storeFrom)->name !!}</td>
-                <td>{!! optional($row->storeTo)->name !!}</td>
+                <td>{!! optional($row->storeFrom)->select_name !!}</td>
+                <td>{!! optional($row->storeTo)->select_name !!}</td>
                 <td>
                     <nobr>
                         @component('partials.buttons._edit_button',[
