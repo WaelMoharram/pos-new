@@ -164,6 +164,9 @@ class SaleManController extends Controller
         $user->fill($requests)->save();
         $user->syncRoles($request->role);
 
+        Store::where('sales_man_id',$id)->first()->fill([
+            'name'=>$request->name,
+        ])->save();
         toast('تم التعديل بنجاح ','success');
         return redirect(route('sales-men.index'));
     }
