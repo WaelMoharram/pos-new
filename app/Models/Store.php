@@ -38,5 +38,17 @@ class Store extends Model
         return $this->hasOne('App\Models\User','sales_man_id');
     }
 
+    public function getSelectNameAttribute(){
+        $type = '';
+        if ($this->sales_man_id == null){
+            $type='مخزن';
+        }else{
+            $type='مندوب';
+        }
+
+
+        return $this->name .' - '.$type;
+    }
+
 
 }

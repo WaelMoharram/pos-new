@@ -115,6 +115,8 @@ class BillController extends Controller
         }
 
 
+
+
 //        if (auth()->user()->type != 'admin'){
             $requests['sales_man_id'] = auth()->id();
             $requests['accept_user_id'] = auth()->id();
@@ -249,6 +251,19 @@ class BillController extends Controller
             $requests['image'] = saveImage($request->image, 'images');
             $request->files->remove('image');
         }
+
+        if ($request->has('discount_kind')){
+
+            if ($request->discount_kind == 'fixed'){
+
+                $requests['discount'] = $request->discount_percent;
+            }elseif($request->discount_kind == 'percent'){
+                $requests['discount'] = $bill->details()->sum('total') *($request->discount_percent /100);
+            }else{
+                $requests['discount'] =0;
+            }
+        }
+
         $bill->fill($requests)->save();
         $user = auth()->user();
 
