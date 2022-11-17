@@ -36,6 +36,8 @@
     {{-- Minimal example / fill data using the component slot --}}
     <x-adminlte-datatable id="table1" :heads="$heads" striped hoverable with-buttons>
         @foreach(\App\Models\Item::all() as $item)
+            @php($amount = ItemAmountStore($store->id,$item->id)))
+        @if($amount != 0)
             <tr>
                 <td>{!! substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
                 <td>{!! $item->name !!}</td>
@@ -65,6 +67,7 @@
                     @endforeach
                 </td>
             </tr>
+            @endif
         @endforeach
     </x-adminlte-datatable>
 
