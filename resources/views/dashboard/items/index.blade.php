@@ -45,7 +45,7 @@
 
                 <td>
 {{ItemAmount($row->id)}}@@@@
-                    {{\App\Models\ItemStore::where('item_id',$row->id)->sum('amount'))}}####
+                    {{\App\Models\ItemStore::where('item_id',$row->id)->sum('amount')}}####
                     @php($unit = \App\Models\Unit::where('item_id',$row->id)->where('ratio',1)->first())
 
                     @php($amount = $amount * ((float)$unit->ratio))
