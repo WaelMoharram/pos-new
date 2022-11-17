@@ -204,8 +204,8 @@ function ItemAmountStore($store_id,$item_id){
     $item = \App\Models\Item::find($item_id);
     $store = \App\Models\Store::find($store_id);
 
-    $billsIn = \App\Models\Bill::whereIn('type',['purchase_in'.'sale_in'])->where('store_id',$store_id)->pluck('id');
-    $billsOut = \App\Models\Bill::whereIn('type',['purchase_out'.'sale_out'])->where('store_id',$store_id)->pluck('id');
+    $billsIn = \App\Models\Bill::whereIn('type',['purchase_in','sale_in'])->where('store_id',$store_id)->pluck('id');
+    $billsOut = \App\Models\Bill::whereIn('type',['purchase_out','sale_out'])->where('store_id',$store_id)->pluck('id');
 
     $billsTransferIn = \App\Models\Bill::where('type','store')->where('store_to_id',$store_id)->pluck('id');
     $billsTransferOut = \App\Models\Bill::where('type','store')->where('store_from_id',$store_id)->pluck('id');
@@ -246,9 +246,9 @@ function ItemAmountStore($store_id,$item_id){
 function ItemAmount($item_id){
     $item = \App\Models\Item::find($item_id);
 
-    $billsIn = \App\Models\Bill::whereIn('type',['purchase_in'.'sale_in'])->pluck('id');
+    $billsIn = \App\Models\Bill::whereIn('type',['purchase_in','sale_in'])->pluck('id');
 
-    $billsOut = \App\Models\Bill::whereIn('type',['purchase_out'.'sale_out'])->pluck('id');
+    $billsOut = \App\Models\Bill::whereIn('type',['purchase_out','sale_out'])->pluck('id');
 
     $billsTransferIn = \App\Models\Bill::where('type','store')->pluck('id');
     $billsTransferOut = \App\Models\Bill::where('type','store')->pluck('id');
