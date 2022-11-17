@@ -30,13 +30,11 @@
             <tr>
                 <td>{!! substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
                 <td>{!! optional($itam->item)->name !!}</td>
-                @php($amount = \App\Models\ItemStore::where('store_id',$store->id)->where('item_id',optional($itam->item)->id)->sum('amount'))
+{{--                @php($amount = \App\Models\ItemStore::where('store_id',$store->id)->where('item_id',optional($itam->item)->id)->sum('amount'))--}}
 
                 @php($amount = ItemAmountStore($store->id,optional($itam->item)->id)))
 
                 <td>
-                    {{\App\Models\ItemStore::where('store_id',$store->id)->where('item_id',optional($itam->item)->id)->sum('amount')}} @@@@
-                    {{ItemAmountStore($store->id,optional($itam->item)->id)}} ####
                     @php($unit = \App\Models\Unit::where('item_id',optional($itam->item)->id)->where('ratio',1)->first())
 
                     @php($amount = $amount * ((float)$unit->ratio))
