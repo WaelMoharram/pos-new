@@ -201,8 +201,7 @@ function getFrachtion($n){
 
 
 function ItemAmountStore($store_id,$item_id){
-    $item = \App\Models\Item::find($item_id);
-    $store = \App\Models\Store::find($store_id);
+
 
     $billsIn = \App\Models\Bill::whereIn('type',['purchase_in','sale_in'])->where('store_id',$store_id)->pluck('id');
     $billsOut = \App\Models\Bill::whereIn('type',['purchase_out','sale_out'])->where('store_id',$store_id)->pluck('id');
@@ -214,13 +213,13 @@ function ItemAmountStore($store_id,$item_id){
     $itemIn = \App\Models\BillDetail::whereIn('bill_id',$billsIn)->where('item_id',$item_id)->get();
     $itemTransferIn = \App\Models\BillDetail::whereIn('bill_id',$billsTransferIn)->where('item_id',$item_id)->get();
     foreach ($itemIn as $item){
-        $unitRatio = \App\Models\Unit::find($item->unit_id)->ratio;
+        $unitRatio = \App\Models\Unit::find($item->unit_id)->ratio ?? 1;
 
         $amount = $item->amount * (1/$unitRatio);
         $amountIn += $amount;
     }
     foreach ($itemTransferIn as $item){
-        $unitRatio = \App\Models\Unit::find($item->unit_id)->ratio;
+        $unitRatio = \App\Models\Unit::find($item->unit_id)->ratio ?? 1;
 
         $amount = $item->amount * (1/$unitRatio);
         $amountIn += $amount;
@@ -229,13 +228,13 @@ function ItemAmountStore($store_id,$item_id){
     $itemOut = \App\Models\BillDetail::whereIn('bill_id',$billsOut)->where('item_id',$item_id)->get();
     $itemTransferOut = \App\Models\BillDetail::whereIn('bill_id',$billsTransferOut)->where('item_id',$item_id)->get();
     foreach ($itemOut as $item){
-        $unitRatio = \App\Models\Unit::find($item->unit_id)->ratio;
+        $unitRatio = \App\Models\Unit::find($item->unit_id)->ratio ?? 1;
 
         $amount = $item->amount * (1/$unitRatio);
         $amountOut += $amount;
     }
     foreach ($itemTransferOut as $item){
-        $unitRatio = \App\Models\Unit::find($item->unit_id)->ratio;
+        $unitRatio = \App\Models\Unit::find($item->unit_id)->ratio ?? 1;
 
         $amount = $item->amount * (1/$unitRatio);
         $amountOut += $amount;
@@ -244,7 +243,7 @@ function ItemAmountStore($store_id,$item_id){
 
 }
 function ItemAmount($item_id){
-    $item = \App\Models\Item::find($item_id);
+
 
     $billsIn = \App\Models\Bill::whereIn('type',['purchase_in','sale_in'])->pluck('id')->toArray();
     $billsOut = \App\Models\Bill::whereIn('type',['purchase_out','sale_out'])->pluck('id')->toArray();
@@ -261,7 +260,7 @@ function ItemAmount($item_id){
         $amountIn += $amount;
     }
     foreach ($itemTransferIn as $item){
-        $unitRatio = \App\Models\Unit::find($item->unit_id)->ratio;
+        $unitRatio = \App\Models\Unit::find($item->unit_id)->ratio ?? 1;
 
         $amount = $item->amount * (1/$unitRatio);
         $amountIn += $amount;
@@ -270,13 +269,13 @@ function ItemAmount($item_id){
     $itemOut = \App\Models\BillDetail::whereIn('bill_id',$billsOut)->where('item_id',$item_id)->get();
     $itemTransferOut = \App\Models\BillDetail::whereIn('bill_id',$billsTransferOut)->where('item_id',$item_id)->get();
     foreach ($itemOut as $item){
-        $unitRatio = \App\Models\Unit::find($item->unit_id)->ratio;
+        $unitRatio = \App\Models\Unit::find($item->unit_id)->ratio ?? 1;
 
         $amount = $item->amount * (1/$unitRatio);
         $amountOut += $amount;
     }
     foreach ($itemTransferOut as $item){
-        $unitRatio = \App\Models\Unit::find($item->unit_id)->ratio;
+        $unitRatio = \App\Models\Unit::find($item->unit_id)->ratio ?? 1;
 
         $amount = $item->amount * (1/$unitRatio);
         $amountOut -= $amount;
