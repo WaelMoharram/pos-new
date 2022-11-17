@@ -247,7 +247,7 @@ function ItemAmount($item_id){
     $item = \App\Models\Item::find($item_id);
 
     $billsIn = \App\Models\Bill::whereIn('type',['purchase_in'.'sale_in'])->pluck('id');
-    dd($billsIn);
+
     $billsOut = \App\Models\Bill::whereIn('type',['purchase_out'.'sale_out'])->pluck('id');
 
     $billsTransferIn = \App\Models\Bill::where('type','store')->pluck('id');
