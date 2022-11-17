@@ -248,38 +248,25 @@ function ItemAmount($item_id){
     $billsIn = \App\Models\Bill::whereIn('type',['purchase_in','sale_in'])->pluck('id')->toArray();
     $billsOut = \App\Models\Bill::whereIn('type',['purchase_out','sale_out'])->pluck('id')->toArray();
 
-    $billsTransferIn = \App\Models\Bill::where('type','store')->pluck('id')->toArray();
-    $billsTransferOut = \App\Models\Bill::where('type','store')->pluck('id')->toArray();
+
 
     $amountIn =0;
     $itemIn = \App\Models\BillDetail::whereIn('bill_id',$billsIn)->where('item_id',$item_id)->get();
-    $itemTransferIn = \App\Models\BillDetail::whereIn('bill_id',$billsTransferIn)->where('item_id',$item_id)->get();
     foreach ($itemIn as $item){
         $unitRatio = \App\Models\Unit::find($item->unit_id)->ratio ?? 1;
         $amount = $item->amount * (1/$unitRatio);
         $amountIn += $amount;
     }
-    foreach ($itemTransferIn as $item){
-        $unitRatio = \App\Models\Unit::find($item->unit_id)->ratio ?? 1;
 
-        $amount = $item->amount * (1/$unitRatio);
-        $amountIn += $amount;
-    }
     $amountOut =0;
     $itemOut = \App\Models\BillDetail::whereIn('bill_id',$billsOut)->where('item_id',$item_id)->get();
-    $itemTransferOut = \App\Models\BillDetail::whereIn('bill_id',$billsTransferOut)->where('item_id',$item_id)->get();
     foreach ($itemOut as $item){
         $unitRatio = \App\Models\Unit::find($item->unit_id)->ratio ?? 1;
 
         $amount = $item->amount * (1/$unitRatio);
         $amountOut += $amount;
     }
-    foreach ($itemTransferOut as $item){
-        $unitRatio = \App\Models\Unit::find($item->unit_id)->ratio ?? 1;
 
-        $amount = $item->amount * (1/$unitRatio);
-        $amountOut -= $amount;
-    }
     return $amountIn - $amountOut;
 
 }
