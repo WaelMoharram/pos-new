@@ -254,11 +254,9 @@ function ItemAmount($item_id){
 
     $amountIn =0;
     $itemIn = \App\Models\BillDetail::whereIn('bill_id',$billsIn)->where('item_id',$item_id)->get();
-    dd($itemIn);
     $itemTransferIn = \App\Models\BillDetail::whereIn('bill_id',$billsTransferIn)->where('item_id',$item_id)->get();
     foreach ($itemIn as $item){
         $unitRatio = \App\Models\Unit::find($item->unit_id)->ratio;
-
         $amount = $item->amount * (1/$unitRatio);
         $amountIn += $amount;
     }
