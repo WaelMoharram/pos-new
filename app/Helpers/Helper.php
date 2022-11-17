@@ -280,7 +280,7 @@ function ItemAmount($item_id){
         $unitRatio = \App\Models\Unit::find($item->unit_id)->ratio;
 
         $amount = $item->amount * (1/$unitRatio);
-        $amountOut += $amount;
+        $amountOut -= $amount;
     }
     return $amountIn - $amountOut;
 
