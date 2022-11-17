@@ -246,15 +246,15 @@ function ItemAmountStore($store_id,$item_id){
 function ItemAmount($item_id){
     $item = \App\Models\Item::find($item_id);
 
-    $billsIn = \App\Models\Bill::whereIn('type',['purchase_in','sale_in'])->pluck('id');
-dd($billsIn);
-    $billsOut = \App\Models\Bill::whereIn('type',['purchase_out','sale_out'])->pluck('id');
+    $billsIn = \App\Models\Bill::whereIn('type',['purchase_in','sale_in'])->pluck('id')->toArray();
+    $billsOut = \App\Models\Bill::whereIn('type',['purchase_out','sale_out'])->pluck('id')->toArray();
 
-    $billsTransferIn = \App\Models\Bill::where('type','store')->pluck('id');
-    $billsTransferOut = \App\Models\Bill::where('type','store')->pluck('id');
+    $billsTransferIn = \App\Models\Bill::where('type','store')->pluck('id')->toArray();
+    $billsTransferOut = \App\Models\Bill::where('type','store')->pluck('id')->toArray();
 
     $amountIn =0;
     $itemIn = \App\Models\BillDetail::whereIn('bill_id',$billsIn)->where('item_id',$item_id)->get();
+    dd($itemIn);
     $itemTransferIn = \App\Models\BillDetail::whereIn('bill_id',$billsTransferIn)->where('item_id',$item_id)->get();
     foreach ($itemIn as $item){
         $unitRatio = \App\Models\Unit::find($item->unit_id)->ratio;
