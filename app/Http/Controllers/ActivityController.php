@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class ActivityController extends Controller
 {
 
+
     /**
      * Create a new controller instance.
      *
