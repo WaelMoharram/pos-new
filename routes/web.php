@@ -60,9 +60,12 @@ Route::group(['middleware' => 'auth:web','prefix'=>'dashboard'], function () {
         'bills' => BillController::class,
         'bill-details' => BillDetailController::class,
         'payments' => PaymentController::class,
-        'units'=> UnitController::class
+        'units'=> UnitController::class,
+        'activities'=> ActivityController::class
+
     ]);
 
+    Route::resource('activities', 'ActivityController');
 
     Route::get('item/print-barcode',[ItemController::class, 'printBarcode'])->name('items.print-barcode');
     Route::resource('system-options', systemOptionController::class)->only([
