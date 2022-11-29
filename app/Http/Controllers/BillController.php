@@ -51,7 +51,7 @@ class BillController extends Controller
         }
         $user = auth()->user();
 
-        activity()->log($user->name . '- عرض فواتير ' . $request->type);
+        activity()->log($user->name . '- عرض فواتير ' . __($request->type));
         $bills = Bill::where('type',$request->type)->where('pos_sales',0)->orderByDesc('id')->get();
         if (auth()->user()->store()->count() > 0){
             $bills = Bill::where('type',$request->type)->where('pos_sales',0)->where(function($q) use($request){
@@ -64,6 +64,7 @@ class BillController extends Controller
 
         }
         $store = auth()->user()->store;
+
 
         return view('dashboard.bills.'.$request->type.'.index',compact('bills','store'));
     }
@@ -134,7 +135,7 @@ class BillController extends Controller
 
         $user = auth()->user();
 
-        activity()->log($user->name . '- اضافة فاتورة رقم '.$bill->id.' ' . $request->type);
+        activity()->log($user->name . '- اضافة فاتورة رقم '.$bill->id.' ' . __($request->type));
 
         toast('تم اضافة القيد بنجاح','success');
 

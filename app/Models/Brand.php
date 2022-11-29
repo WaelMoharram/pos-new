@@ -13,16 +13,16 @@ class Brand extends Model
     protected $table = 'brands';
     public $timestamps = true;
 
-    use SoftDeletes,LogsActivity;
+    use SoftDeletes;
 
     protected $dates = ['deleted_at'];
     protected $guarded = array('id');
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->logUnguarded();
-        // Chain fluent methods for configuration options
-    }
+//    public function getActivitylogOptions(): LogOptions
+//    {
+//        return LogOptions::defaults()
+//            ->logUnguarded();
+//        // Chain fluent methods for configuration options
+//    }
     public function items()
     {
         return $this->hasMany('App\Models\Item');

@@ -14,7 +14,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasPermissions,HasRoles,LogsActivity;
+    use HasApiTokens, HasFactory, Notifiable, HasPermissions,HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -24,12 +24,12 @@ class User extends Authenticatable
     protected $guarded = [
         'id'
     ];
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->logUnguarded();
-        // Chain fluent methods for configuration options
-    }
+//    public function getActivitylogOptions(): LogOptions
+//    {
+//        return LogOptions::defaults()
+//            ->logUnguarded();
+//        // Chain fluent methods for configuration options
+//    }
     /**
      * The attributes that should be hidden for serialization.
      *

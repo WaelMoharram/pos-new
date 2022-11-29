@@ -12,15 +12,14 @@ class ClientUser extends Model
     protected $table = 'client_user';
     public $timestamps = true;
 
-    use LogsActivity;
 
     protected $guarded = array('id');
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->logUnguarded();
-        // Chain fluent methods for configuration options
-    }
+//    public function getActivitylogOptions(): LogOptions
+//    {
+//        return LogOptions::defaults()
+//            ->logUnguarded();
+//        // Chain fluent methods for configuration options
+//    }
 
     public function client()
     {

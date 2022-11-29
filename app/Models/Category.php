@@ -13,17 +13,17 @@ class Category extends Model
     protected $table = 'categories';
     public $timestamps = true;
 
-    use SoftDeletes,LogsActivity;
+    use SoftDeletes;
 
     protected $dates = ['deleted_at'];
     protected $guarded = array('id');
     protected $appends=['color'];
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->logUnguarded();
-        // Chain fluent methods for configuration options
-    }
+//    public function getActivitylogOptions(): LogOptions
+//    {
+//        return LogOptions::defaults()
+//            ->logUnguarded();
+//        // Chain fluent methods for configuration options
+//    }
     public function items()
     {
         return $this->hasMany('App\Models\Item');

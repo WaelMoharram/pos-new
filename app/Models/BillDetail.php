@@ -13,16 +13,16 @@ class BillDetail extends Model
     protected $table = 'bill_details';
     public $timestamps = true;
 
-    use SoftDeletes,LogsActivity;
+    use SoftDeletes;
 
     protected $dates = ['deleted_at'];
     protected $guarded = array('id');
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->logUnguarded();
-        // Chain fluent methods for configuration options
-    }
+//    public function getActivitylogOptions(): LogOptions
+//    {
+//        return LogOptions::defaults()
+//            ->logUnguarded();
+//        // Chain fluent methods for configuration options
+//    }
     public function bill()
     {
         return $this->belongsTo('App\Models\Bill');
