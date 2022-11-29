@@ -22,7 +22,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="card-content collapse">
+                    <div class="card-content ">
                         <div class="card-body card-dashboard">
                             {!! Form::open(['method'=>'get','class'=>'form','enctype' => 'multipart/form-data']) !!}
                             <div class="row">
