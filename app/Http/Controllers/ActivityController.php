@@ -41,7 +41,7 @@ class ActivityController extends Controller
                 $q->where('causer_id',$request->user_id);
             }
 
-        })->paginate(20);
+        })->simplePaginate(20);
 
         return view('dashboard.activities.index', compact('activities'));
     }
