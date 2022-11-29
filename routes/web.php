@@ -66,7 +66,6 @@ Route::group(['middleware' => 'auth:web','prefix'=>'dashboard'], function () {
 
     ]);
 
-    Route::resource('activities', 'ActivityController');
 
     Route::get('item/print-barcode',[ItemController::class, 'printBarcode'])->name('items.print-barcode');
     Route::resource('system-options', systemOptionController::class)->only([
