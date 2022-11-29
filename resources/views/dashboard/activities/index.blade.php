@@ -29,7 +29,7 @@
                                 @include('dashboard.activities.partials._form_filter')
                                 <div class="col-12">
                                     <button type="submit" class="btn btn-primary   waves-effect waves-light">{{__('Filter')}}</button>
-                                    <a href="{{route('dashboard.activities.index')}}" class="  ml-1 btn btn-warning  waves-effect waves-light">{{__('Reset filter')}}</a>
+                                    <a href="{{route('activities.index')}}" class="  ml-1 btn btn-warning  waves-effect waves-light">{{__('Reset filter')}}</a>
                                 </div>
                             </div>
                             {!! Form::close() !!}
