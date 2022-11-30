@@ -35,6 +35,9 @@ class ItemController extends Controller
             abort(401);
         }
         $items = Item::orderBy('name')->get();
+        activity()
+            ->log( 'عرض الاصناف');
+
 
         return view('dashboard.items.index',compact('items'));
     }
@@ -79,7 +82,8 @@ class ItemController extends Controller
                     'price'=>$item->price,
                     'name'=>'الوحدة الكبرى'
                 ]);
-
+        activity()->withProperties([$item])
+            ->log( 'اضافة صنف جديد');
         toast('تم اضافة القيد بنجاح','success');
         return redirect(route('items.index'));
     }
@@ -128,7 +132,7 @@ class ItemController extends Controller
         if (!Auth::user()->can('edit items')){
             abort(401);
         }
-        $item = Item::find($id);
+        $item = $itemOld = Item::find($id);
 
         $unit = Unit::where('item_id',$id)->where('ratio',1)->first();
         $unit->update(['price'=>$request->price]);
@@ -138,7 +142,10 @@ class ItemController extends Controller
             $requests['image'] = saveImage($request->image, 'images');
             $request->files->remove('image');
         }
+
         $item->fill($requests)->save();
+        activity()->withProperties(['old'=>$itemOld,'attributes'=>$item])
+            ->log( 'تعديل صنف ');
         toast('تم التعديل بنجاح ','success');
         return redirect(route('items.index'));
     }
@@ -160,6 +167,8 @@ class ItemController extends Controller
             toast('عملية مرفوضة - الصنف موجود فى فاتورة ','danger');
             return back();
         }
+        activity()->withProperties([$item])
+            ->log( 'حذف صنف');
         $item->delete();
         toast('تم الحذف بنجاح','success');
         return redirect(route('items.index'));
@@ -194,6 +203,8 @@ class ItemController extends Controller
     public function printBarcode(Request $request){
         $item = Item::find($request->item_id);
         $quantity = $request->quantity ?? 1;
+        activity()->withProperties([$item])
+            ->log( 'طباعة باركود صنف');
         return view('dashboard.items.print-barcode',compact('item','quantity'));
     }
 }

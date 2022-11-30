@@ -33,7 +33,8 @@ class StoreController extends Controller
                 $q->where('id',Auth::user()->store_id);
             }
         })->get();
-
+        activity()
+            ->log( 'عرض المخازن');
         return view('dashboard.stores.index',compact('stores'));
     }
 
@@ -63,7 +64,8 @@ class StoreController extends Controller
             abort(401);
         }
         $store = Store::create($request->all());
-
+        activity()->withProperties([$store])
+            ->log( 'اضافة مخزن جديد');
         toast('تم اضافة القيد بنجاح','success');
         return redirect(route('stores.index'));
     }
@@ -112,8 +114,10 @@ class StoreController extends Controller
         if (!Auth::user()->can('edit stores')){
             abort(401);
         }
-        $store = Store::find($id);
+        $store = $storeOld = Store::find($id);
         $store->fill($request->all())->save();
+        activity()->withProperties(['old'=>$storeOld,'attributes'=>$store])
+            ->log( 'تعديل بيانات مخزن');
         toast('تم التعديل بنجاح ','success');
         return redirect(route('stores.index'));
     }
@@ -135,6 +139,8 @@ class StoreController extends Controller
 //            return back();
 //        }
         $store= Store::findOrFail($id);
+        activity()->withProperties([$store])
+            ->log( 'حذف مخزن');
         $store->delete();
         toast('تم الحذف بنجاح','success');
         return redirect(route('stores.index'));
