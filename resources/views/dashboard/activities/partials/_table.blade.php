@@ -4,8 +4,8 @@
         <th scope="col">التاريخ</th>
         <th scope="col">المستخدم</th>
         <th scope="col">الاجراء</th>
-        <th scope="col">القسم</th>
-        <th scope="col">اسم العنصر</th>
+{{--        <th scope="col">القسم</th>--}}
+{{--        <th scope="col">اسم العنصر</th>--}}
         <th scope="col">التفاصيل</th>
     </thead>
     <tbody>

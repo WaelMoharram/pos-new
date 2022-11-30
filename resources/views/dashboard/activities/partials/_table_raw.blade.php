@@ -1,8 +1,8 @@
 <tr>
     <td>{!! $activity->created_at !!}</td>
     <td>{!! optional($activity->causer)->name !!}</td>
-    <td>{!! __($activity->description) !!}</td>
-    <td>{!! __($activity->subject_type) !!}</td>
+{{--    <td>{!! __($activity->description) !!}</td>--}}
+{{--    <td>{!! __($activity->subject_type) !!}</td>--}}
     <td>{!! optional($activity->subject)->name ?? optional($activity->subject)->title !!}</td>
     <td>
         @if($activity->properties->toArray())
