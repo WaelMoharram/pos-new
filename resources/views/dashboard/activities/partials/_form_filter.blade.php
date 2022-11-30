@@ -7,12 +7,12 @@
 
 <div class="form-group py-1 col-md-6">
     <label for="from_date"> {{__('From date')}}</label>
-    {!! Form::text('from_date',request()->from_date ??null,['id'=>'from_date','class'=>'form-control col datetimepicker-input','placeholder'=>__("From date"),disable_on_show()]) !!}
+    {!! Form::text('from_date',request()->from_date ??null,['id'=>'from_date','class'=>'form-control col datetimepicker-input date','placeholder'=>__("From date"),disable_on_show()]) !!}
     {{input_error($errors,'from_date')}}
 </div>
 
 <div class="form-group py-1 col-md-6">
     <label for="to_date"> {{__('To date')}}</label>
-    {!! Form::text('to_date',request()->to_date ??null,['id'=>'to_date','class'=>'form-control col datetimepicker-input','placeholder'=>__("To date"),disable_on_show()]) !!}
+    {!! Form::text('to_date',request()->to_date ??null,['id'=>'to_date','class'=>'form-control col datetimepicker-input date','placeholder'=>__("To date"),disable_on_show()]) !!}
     {{input_error($errors,'to_date')}}
 </div>
