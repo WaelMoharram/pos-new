@@ -33,7 +33,8 @@ class UserController extends Controller
             abort(401);
         }
         $users = User::where('type','admin')->paginate(10);
-
+        activity()
+            ->log( 'عرض المستخدمين');
         return view('dashboard.users.index',compact('users'));
     }
 
@@ -73,7 +74,8 @@ class UserController extends Controller
         $requests['password']=Hash::make($request->password);
         $user = User::create($requests);
         $user->syncRoles($request->role);
-
+        activity()->withProperties([$user])
+            ->log( 'اضافة مستخدم جديد');
         toast('تم اضافة القيد بنجاح','success');
         return redirect(route('users.index'));
     }
@@ -136,9 +138,11 @@ class UserController extends Controller
         }else{
             unset($requests['password']);
         }
-        $user = User::find($id);
+        $user = $oldUser= User::find($id);
         $user->fill($requests)->save();
         $user->syncRoles($request->role);
+        activity()->withProperties(['old'=>$oldUser,'attributes'=>$user])
+            ->log( 'تعديل مستخدم');
         toast('تم التعديل بنجاح ','success');
         return redirect(route('users.index'));
     }
@@ -159,6 +163,8 @@ class UserController extends Controller
             return back();
         }
         $user= User::findOrFail($id);
+        activity()->withProperties([$user])
+            ->log( 'حذف مستخدم');
         $user->delete();
         toast('تم الحذف بنجاح','success');
         return redirect(route('users.index'));

@@ -36,7 +36,8 @@ class SaleManController extends Controller
             abort(401);
         }
         $users = User::where('type','sales')->paginate(10);
-
+        activity()
+            ->log( 'عرض المندوبين');
         return view('dashboard.sales-men.index',compact('users'));
     }
 
@@ -83,7 +84,8 @@ class SaleManController extends Controller
         ]);
 
         $user->syncRoles($request->role);
-
+        activity()->withProperties([$user])
+            ->log( 'اضافة مندوب');
         toast('تم اضافة القيد بنجاح','success');
         return redirect(route('sales-men.index'));
     }
@@ -116,6 +118,8 @@ class SaleManController extends Controller
         $user = User::findOrFail($id);
         $payments = Bill::where('sales_man_id',$id)->whereIn('type',['cash_in','cash_out'])->where('money_collected',0);
         $payments->update(['money_collected'=>1,'collected_at'=>date('Y-m-d H:i:s')]);
+        activity()->withProperties(['user'=>$user,'payment'=>$payments])
+            ->log( 'ستلام مستحقات مالية من مندوب');
         return  redirect()->back();
     }
 
@@ -160,13 +164,15 @@ class SaleManController extends Controller
         }else{
             unset($requests['password']);
         }
-        $user = User::find($id);
+        $user =$userOld= User::find($id);
         $user->fill($requests)->save();
         $user->syncRoles($request->role);
 
         Store::where('sales_man_id',$id)->first()->fill([
             'name'=>$request->name,
         ])->save();
+        activity()->withProperties(['old'=>$userOld,'attributes'=>$user])
+            ->log( 'تعديل بيانات مندوب');
         toast('تم التعديل بنجاح ','success');
         return redirect(route('sales-men.index'));
     }
@@ -191,6 +197,8 @@ class SaleManController extends Controller
             return back();
         }
         $user= User::findOrFail($id);
+        activity()->withProperties([$user])
+            ->log( 'حذف مندوب');
         $user->delete();
         toast('تم الحذف بنجاح','success');
         return redirect(route('sales-men.index'));

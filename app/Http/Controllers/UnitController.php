@@ -38,7 +38,8 @@ class UnitController extends Controller
             $units = Unit::where('item_id',$request->item_id)->get();
         }
 
-
+        activity()->withProperties($units)
+            ->log( 'عرض الوحدات');
         return view('dashboard.units.index',compact('units'));
     }
     public function create(Request  $request)
@@ -59,7 +60,8 @@ class UnitController extends Controller
         $requests=$request->all();
 
         $unit = Unit::create($requests);
-
+        activity()->withProperties([$unit])
+            ->log( 'اضافة وحدة جديدة');
         toast('تم اضافة الوحدة بنجاح','success');
         return redirect(route('units.index',['item_id'=>$unit->item_id]));
     }
@@ -76,9 +78,10 @@ class UnitController extends Controller
     {
         $requests=$request->all();
 
-        $unit = Unit::find($id);
+        $unit = $unitOld = Unit::find($id);
         $unit->fill($requests)->save();
-
+        activity()->withProperties(['old'=>$unitOld,'attributes'=>$unit])
+            ->log( 'تعديل وحدة');
         toast('تم تعديل الوحدة بنجاح','success');
         return redirect(route('units.index',['item_id'=>$unit->item_id]));
     }
@@ -96,6 +99,8 @@ class UnitController extends Controller
             return back();
         }
         $unit= Unit::findOrFail($id);
+        activity()->withProperties([$unit])
+            ->log( 'حذف وحدة');
         $unit->delete();
         toast('تم الحذف بنجاح','success');
         return redirect()->back();

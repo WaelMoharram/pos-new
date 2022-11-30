@@ -30,7 +30,8 @@ class SupplierController extends Controller
             abort(401);
         }
         $suppliers = Supplier::all();
-
+        activity()
+            ->log( 'عرض الموردين');
         return view('dashboard.suppliers.index',compact('suppliers'));
     }
 
@@ -60,7 +61,8 @@ class SupplierController extends Controller
             abort(401);
         }
         $supplier = Supplier::create($request->all());
-
+        activity()->withProperties([$supplier])
+            ->log( 'اضافة مورد جديد');
         toast('تم اضافة القيد بنجاح','success');
         return redirect(route('suppliers.index'));
     }
@@ -83,7 +85,7 @@ class SupplierController extends Controller
 
     public function report($id)
     {
-        $supplier = Supplier::findOrFail($id);
+        $supplier =  Supplier::findOrFail($id);
         $bills = $supplier->bills;
 
         $billsIn = $supplier->bills->where('type','purchase_in')->where('status','saved')->sum('total');
@@ -124,8 +126,10 @@ class SupplierController extends Controller
         if (!Auth::user()->can('edit suppliers')){
             abort(401);
         }
-        $supplier = Supplier::find($id);
+        $supplier = $supplierOld=  Supplier::find($id);
         $supplier->fill($request->all())->save();
+        activity()->withProperties(['old'=>$supplierOld,'attributes'=>$supplier])
+            ->log( 'تعديل ');
         toast('تم التعديل بنجاح ','success');
         return redirect(route('suppliers.index'));
     }
@@ -151,6 +155,8 @@ class SupplierController extends Controller
             toast('لا يمكن حذف المورد لوجود فواتير له','error');
             return redirect()->back();
         }
+        activity()->withProperties([$supplier])
+            ->log( 'حذف مورد');
         $supplier->delete();
         toast('تم الحذف بنجاح','success');
         return redirect(route('suppliers.index'));

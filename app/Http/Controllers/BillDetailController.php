@@ -151,7 +151,7 @@ class BillDetailController extends Controller
             $total = ((float)$request->amount * $price);
             $request->merge(['price' => $price, 'total' => $total]);
         }
-        $BillDetail = BillDetail::where('item_id',$request->item_id)->where('bill_id',$request->bill_id)->where('unit_id',$unit->id ?? null)->first();
+        $BillDetail = $BillDetailOld = BillDetail::where('item_id',$request->item_id)->where('bill_id',$request->bill_id)->where('unit_id',$unit->id ?? null)->first();
         if ($BillDetail && $bill->pos_sales == 0){
             $price = ((float)$unit->price ?? (float)$item->price);
             if ($request->discount >0){
@@ -215,6 +215,8 @@ class BillDetailController extends Controller
                 $bill->update(['discount'=>0]) ;
             }
         }
+        activity()->withProperties(['old'=>$BillDetailOld,'attributes'=>$BillDetail])
+            ->log( '- اضافة او تعديل بند للفاتورة رقم '.$BillDetail->id.' ');
 //        toast('تم اضافة القيد بنجاح','success');
         return redirect()->back();
     }
@@ -358,6 +360,8 @@ class BillDetailController extends Controller
             }
         }
         $detail->delete();
+        activity()->withProperties(['old'=>$detail,'attributes'=>$detail])
+            ->log( '- حذف بند للفاتورة رقم '.$detail->id.' ');
         toast('تم الحذف بنجاح','success');
         return redirect()->back();
     }

@@ -28,7 +28,8 @@ class RoleController extends Controller
     public function index()
     {
         $roles = Role::all();
-
+        activity()
+            ->log( 'عرض الادوار');
         return view('dashboard.roles.index',compact('roles'));
     }
 
@@ -56,7 +57,8 @@ class RoleController extends Controller
         $requests=$request->except('permissions');
         $role = Role::create($requests);
         $role->syncPermissions($request->permissions);
-
+        activity()->withProperties([$role])
+            ->log( 'اضافة دور جديد');
         toast('تم اضافة القيد بنجاح','success');
         return redirect(route('roles.index'));
     }
@@ -102,9 +104,11 @@ class RoleController extends Controller
 
         $requests=$request->except('permissions');
 
-        $role = Role::find($id);
+        $role = $roleOld = Role::find($id);
         $role->fill($requests)->save();
         $role->syncPermissions($request->permissions);
+        activity()->withProperties(['old'=>$roleOld,'attributes'=>$role])
+            ->log( 'تعديل دور');
         toast('تم التعديل بنجاح ','success');
         return redirect(route('roles.index'));
     }
@@ -118,6 +122,8 @@ class RoleController extends Controller
     public function destroy($id)
     {
         $role= Role::findOrFail($id);
+        activity()->withProperties([$role])
+            ->log( 'حذف دور');
         $role->delete();
         toast('تم الحذف بنجاح','success');
         return redirect(route('roles.index'));

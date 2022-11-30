@@ -93,6 +93,9 @@ $lastPayment = Bill::where('type',$request->type)->latest()->first();
             $requests['code'] =1;
         }
         $payment = Bill::create($requests);
+
+        activity()->withProperties([$payment])
+            ->log( 'اضافة عملية سداد');
         toast('تم السداد بنجاح','success');
         return redirect()->back();
         return redirect(route('payments.index'));

@@ -29,7 +29,8 @@ class BrandController extends Controller
             abort(401);
         }
         $brands = Brand::all();
-
+        activity()
+            ->log( 'عرض العلامات التجارية ');
         return view('dashboard.brands.index',compact('brands'));
     }
 
@@ -65,7 +66,8 @@ class BrandController extends Controller
             $request->files->remove('image');
         }
         $brand = Brand::create($requests);
-
+        activity()->withProperties([$brand])
+            ->log( 'اضافة علامة تجارية');
         toast('تم اضافة القيد بنجاح','success');
         return redirect(route('brands.index'));
     }
@@ -122,6 +124,8 @@ class BrandController extends Controller
             $request->files->remove('image');
         }
         $brand->fill($requests)->save();
+        activity()->withProperties([$brand])
+            ->log( 'تعديل علامة تجارية');
         toast('تم التعديل بنجاح ','success');
         return redirect(route('brands.index'));
     }
@@ -143,8 +147,10 @@ class BrandController extends Controller
             toast('عملية مرفوضة - العلامة التجارية تحتوى على اصناف ','danger');
             return back();
         }
-
+        activity()->withProperties([$brand])
+            ->log( 'حذف علامة تجارية');
         $brand->delete();
+
         toast('تم الحذف بنجاح','success');
         return redirect(route('brands.index'));
     }

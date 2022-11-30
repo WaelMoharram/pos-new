@@ -36,7 +36,8 @@ class ClientController extends Controller
 //        return $clients = Client::check()->toSql();
          $clients = Client::check()->get();
 
-
+        activity()
+            ->log( 'عرض العملاء ');
         return view('dashboard.clients.index',compact('clients'));
     }
 
@@ -73,7 +74,8 @@ class ClientController extends Controller
         }else{
             $client->users()->attach($request->users);
         }
-
+        activity()->withProperties([$client])
+            ->log( 'اضافة عميل');
         toast('تم اضافة القيد بنجاح','success');
         return redirect(route('clients.index'));
     }
@@ -139,6 +141,8 @@ class ClientController extends Controller
 //    'c_in'=>$cashIn,
 //    'c_out'=>$cashOut,
 //];
+        activity()->withProperties([$client])
+            ->log( 'عرض تقرير عميل');
         return view('dashboard.clients.report',compact('client','bills','total'));
     }
 
@@ -170,7 +174,7 @@ class ClientController extends Controller
         if (!Auth::user()->can('edit client')){
             abort(401);
         }
-        $client = Client::find($id);
+        $client =  $clientold =  Client::find($id);
         $client->fill($request->except('users'))->save();
 
 
@@ -183,6 +187,8 @@ class ClientController extends Controller
                 $client->users()->attach($request->users);
             }
         }
+        activity()->withProperties(['old'=>$clientold,'attributes'=>$client])
+            ->log( 'تعديل بيانات عميل');
         toast('تم التعديل بنجاح ','success');
         return redirect(route('clients.index'));
     }
@@ -203,6 +209,8 @@ class ClientController extends Controller
             toast('عملية مرفوضة - المخزن يحتوى على معاملات سابقة ','error');
             return redirect()->back();
         }
+        activity()->withProperties([$client])
+            ->log( 'حذف بيانات عميل');
         $client->delete();
         toast('تم الحذف بنجاح','success');
         return redirect(route('clients.index'));
