@@ -1,9 +1,9 @@
 <tr>
     <td>{!! $activity->created_at !!}</td>
     <td>{!! optional($activity->causer)->name !!}</td>
-{{--    <td>{!! __($activity->description) !!}</td>--}}
+    <td>{!! __($activity->description) !!}</td>
 {{--    <td>{!! __($activity->subject_type) !!}</td>--}}
-    <td>{!! optional($activity->subject)->name ?? optional($activity->subject)->title !!}</td>
+{{--    <td>{!! optional($activity->subject)->name ?? optional($activity->subject)->title !!}</td>--}}
     <td>
         @if($activity->properties->toArray())
         <button data-toggle="modal" data-target="#show-details{{$activity->id}}" class="btn btn-md btn-info" >
