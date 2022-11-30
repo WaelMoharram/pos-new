@@ -119,5 +119,9 @@
     "delete payments": "حذف المدفوعات",
     "settings": "الاعدادات",
     "delete settings": "تحكم الاعدادات",
-    "show reports" : "عرض التقارير"
+    "show reports" : "عرض التقارير",
+    "sale_in": "مرتجع مبيعات",
+    "sale_out": "مبيعات",
+    "purchase_in": "مشتريات",
+    "purchase_out": "مرتجع مشتريات"
 }
