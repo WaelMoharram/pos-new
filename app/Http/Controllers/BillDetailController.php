@@ -215,8 +215,8 @@ class BillDetailController extends Controller
                 $bill->update(['discount'=>0]) ;
             }
         }
-        activity()->withProperties(['old'=>$BillDetailOld ??'','attributes'=>$BillDetail])
-            ->log( '- اضافة او تعديل بند للفاتورة رقم '.$BillDetail->id.' ');
+        activity()->withProperties(['old'=>$BillDetailOld ??'','attributes'=>($BillDetail??$detail)])
+            ->log( '- اضافة او تعديل بند للفاتورة رقم '.($BillDetail??$detail)->id.' ');
 //        toast('تم اضافة القيد بنجاح','success');
         return redirect()->back();
     }
