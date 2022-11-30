@@ -22,7 +22,7 @@
                                     @if(count($activity->properties->toArray()) >0)
                                         <table>
                                             <tbody>
-                                            @if(isset($activity->properties->toArray()['old']))
+                                            @if(isset($activity->properties->toArray()['old']) && is_array($activity->properties->toArray()['old']))
                                                 @foreach($activity->properties->toArray()['old'] as $key=>$value)
                                                     <tr><td>{!! $key !!}  </td><td>  @if(!is_array($value)){{$value}}@endif</td></tr>
                                                 @endforeach
@@ -35,7 +35,7 @@
                                     @if(count($activity->properties->toArray()) >0)
                                         <table>
                                             <tbody>
-                                            @if(isset($activity->properties->toArray()['attributes']))
+                                            @if(isset($activity->properties->toArray()['attributes']) && is_array($activity->properties->toArray()['attributes']))
                                                 @foreach($activity->properties->toArray()['attributes'] as $key=>$value)
                                                     <tr><td>{!! $key !!}  </td><td>  @if(!is_array($value)){{$value}}@endif</td></tr>
                                                 @endforeach
