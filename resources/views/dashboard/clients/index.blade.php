@@ -39,18 +39,21 @@
                 <td>
                     @if($row->id != 1)
                     <nobr>
+                        @can('edit client')
                         @component('partials.buttons._edit_button',[
                                         'route' => route('clients.edit',$row->id) ,
                                         'tooltip' => 'تعديل',
                                          ])
                         @endcomponent
+                        @endcan
+                        @can('delete client')
                         @component('partials.buttons._delete_button',[
                                         'id'=>$row->id,
                                         'route' => route('clients.destroy',$row->id) ,
                                         'tooltip' => 'حذف',
                                          ])
                         @endcomponent
-
+                            @endcan
                             @component('partials.buttons._show_button',[
                                             'route' => route('clients.show',$row->id) ,
                                             'tooltip' => 'عرض',
