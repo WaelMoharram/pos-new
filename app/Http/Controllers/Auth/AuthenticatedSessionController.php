@@ -31,7 +31,8 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-
+        activity()
+            ->log( 'تسجيل دخول');
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 
@@ -43,6 +44,8 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
+        activity()
+            ->log( 'تسجيل خروج');
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
