@@ -24,7 +24,7 @@
                                             <tbody>
                                             @if(isset($activity->properties->toArray()['old']))
                                                 @foreach($activity->properties->toArray()['old'] as $key=>$value)
-                                                    <tr><td>{!! $key !!}  </td><td>  {!! $value !!}</td></tr>
+                                                    <tr><td>{!! $key !!}  </td><td>  @if(!is_array($value)){{$value}}@endif</td></tr>
                                                 @endforeach
                                             @endif
                                             </tbody>
@@ -37,7 +37,7 @@
                                             <tbody>
                                             @if(isset($activity->properties->toArray()['attributes']))
                                                 @foreach($activity->properties->toArray()['attributes'] as $key=>$value)
-                                                    <tr><td>{!! $key !!}  </td><td>  {!! $value !!}</td></tr>
+                                                    <tr><td>{!! $key !!}  </td><td>  @if(!is_array($value)){{$value}}@endif</td></tr>
                                                 @endforeach
                                             @endif
                                             </tbody>
