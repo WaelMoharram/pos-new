@@ -45,6 +45,17 @@
                                     @endif
 
                                 </td>
+                                <td>
+                                    <table>
+                                        <tbody>
+                                        @if(isset($activity) && $activity!= [])
+                                            @foreach($activity->toArray() as $key=>$value)
+                                                <tr><td>{!! $key !!}  </td><td>  @if(!is_array($value)){{$value}}@endif</td></tr>
+                                            @endforeach
+                                        @endif
+                                        </tbody>
+                                    </table>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
