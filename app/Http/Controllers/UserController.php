@@ -140,7 +140,8 @@ class UserController extends Controller
         }else{
             unset($requests['password']);
         }
-        $user = $oldUser= User::find($id);
+        $user = User::find($id);
+        $oldUser= User::find($id);
         $oldUser['role'] = Role::find($oldUser->roles->first()->id)->name;
         $user->fill($requests)->save();
         $user->syncRoles($request->role);
