@@ -121,6 +121,11 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
+
+        if (\DB::table('model_has_roles')->where('role_id',$id)->count() > 0){
+            toast('غير مسموح بالحذف - مستخدم من قبل ','danger');
+            return back();
+        }
         $role= Role::findOrFail($id);
         activity()->withProperties($role)
             ->log( 'حذف دور');
