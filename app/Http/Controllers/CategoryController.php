@@ -73,7 +73,7 @@ class CategoryController extends Controller
             $request->files->remove('image');
         }
         $category = Category::create($requests);
-        activity()->withProperties([$category])
+        activity()->withProperties($category)
             ->log( 'اضافة تصنيف');
         toast('تم اضافة القيد بنجاح','success');
         return redirect(route('categories.index'));
@@ -137,7 +137,7 @@ class CategoryController extends Controller
             $requests['image'] = saveImage($request->image, 'images');
             $request->files->remove('image');
         }
-        activity()->withProperties([$category])
+        activity()->withProperties($category)
             ->log( 'تعديل تصنيف');
         $category->fill($requests)->save();
         toast('تم التعديل بنجاح ','success');
@@ -167,7 +167,7 @@ class CategoryController extends Controller
             toast('عملية مرفوضة - التصنيف تحتوى على تصنيفات فرعية ','danger');
             return back();
         }
-        activity()->withProperties([$category])
+        activity()->withProperties($category)
             ->log( 'حذف تصنيف');
         $category->delete();
         toast('تم الحذف بنجاح','success');

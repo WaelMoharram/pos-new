@@ -57,7 +57,7 @@ class RoleController extends Controller
         $requests=$request->except('permissions');
         $role = Role::create($requests);
         $role->syncPermissions($request->permissions);
-        activity()->withProperties([$role])
+        activity()->withProperties($role)
             ->log( 'اضافة دور جديد');
         toast('تم اضافة القيد بنجاح','success');
         return redirect(route('roles.index'));
@@ -122,7 +122,7 @@ class RoleController extends Controller
     public function destroy($id)
     {
         $role= Role::findOrFail($id);
-        activity()->withProperties([$role])
+        activity()->withProperties($role)
             ->log( 'حذف دور');
         $role->delete();
         toast('تم الحذف بنجاح','success');

@@ -60,7 +60,7 @@ class UnitController extends Controller
         $requests=$request->all();
 
         $unit = Unit::create($requests);
-        activity()->withProperties([$unit])
+        activity()->withProperties($unit)
             ->log( 'اضافة وحدة جديدة');
         toast('تم اضافة الوحدة بنجاح','success');
         return redirect(route('units.index',['item_id'=>$unit->item_id]));
@@ -99,7 +99,7 @@ class UnitController extends Controller
             return back();
         }
         $unit= Unit::findOrFail($id);
-        activity()->withProperties([$unit])
+        activity()->withProperties($unit)
             ->log( 'حذف وحدة');
         $unit->delete();
         toast('تم الحذف بنجاح','success');

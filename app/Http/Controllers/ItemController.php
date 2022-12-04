@@ -82,7 +82,7 @@ class ItemController extends Controller
                     'price'=>$item->price,
                     'name'=>'الوحدة الكبرى'
                 ]);
-        activity()->withProperties([$item])
+        activity()->withProperties($item)
             ->log( 'اضافة صنف جديد');
         toast('تم اضافة القيد بنجاح','success');
         return redirect(route('items.index'));
@@ -167,7 +167,7 @@ class ItemController extends Controller
             toast('عملية مرفوضة - الصنف موجود فى فاتورة ','danger');
             return back();
         }
-        activity()->withProperties([$item])
+        activity()->withProperties($item)
             ->log( 'حذف صنف');
         $item->delete();
         toast('تم الحذف بنجاح','success');
@@ -203,7 +203,7 @@ class ItemController extends Controller
     public function printBarcode(Request $request){
         $item = Item::find($request->item_id);
         $quantity = $request->quantity ?? 1;
-        activity()->withProperties([$item])
+        activity()->withProperties($item)
             ->log( 'طباعة باركود صنف');
         return view('dashboard.items.print-barcode',compact('item','quantity'));
     }

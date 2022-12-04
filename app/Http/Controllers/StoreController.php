@@ -64,7 +64,7 @@ class StoreController extends Controller
             abort(401);
         }
         $store = Store::create($request->all());
-        activity()->withProperties([$store])
+        activity()->withProperties($store)
             ->log( 'اضافة مخزن جديد');
         toast('تم اضافة القيد بنجاح','success');
         return redirect(route('stores.index'));
@@ -139,7 +139,7 @@ class StoreController extends Controller
 //            return back();
 //        }
         $store= Store::findOrFail($id);
-        activity()->withProperties([$store])
+        activity()->withProperties($store)
             ->log( 'حذف مخزن');
         $store->delete();
         toast('تم الحذف بنجاح','success');

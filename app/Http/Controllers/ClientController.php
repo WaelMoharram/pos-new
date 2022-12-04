@@ -74,7 +74,7 @@ class ClientController extends Controller
         }else{
             $client->users()->attach($request->users);
         }
-        activity()->withProperties([$client])
+        activity()->withProperties($client)
             ->log( 'اضافة عميل');
         toast('تم اضافة القيد بنجاح','success');
         return redirect(route('clients.index'));
@@ -141,7 +141,7 @@ class ClientController extends Controller
 //    'c_in'=>$cashIn,
 //    'c_out'=>$cashOut,
 //];
-        activity()->withProperties([$client])
+        activity()->withProperties($client)
             ->log( 'عرض تقرير عميل');
         return view('dashboard.clients.report',compact('client','bills','total'));
     }
@@ -209,7 +209,7 @@ class ClientController extends Controller
             toast('عملية مرفوضة - المخزن يحتوى على معاملات سابقة ','error');
             return redirect()->back();
         }
-        activity()->withProperties([$client])
+        activity()->withProperties($client)
             ->log( 'حذف بيانات عميل');
         $client->delete();
         toast('تم الحذف بنجاح','success');

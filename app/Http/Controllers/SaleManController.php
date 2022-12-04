@@ -84,7 +84,7 @@ class SaleManController extends Controller
         ]);
 
         $user->syncRoles($request->role);
-        activity()->withProperties([$user])
+        activity()->withProperties($user)
             ->log( 'اضافة مندوب');
         toast('تم اضافة القيد بنجاح','success');
         return redirect(route('sales-men.index'));
@@ -197,7 +197,7 @@ class SaleManController extends Controller
             return back();
         }
         $user= User::findOrFail($id);
-        activity()->withProperties([$user])
+        activity()->withProperties($user)
             ->log( 'حذف مندوب');
         $user->delete();
         toast('تم الحذف بنجاح','success');

@@ -61,7 +61,7 @@ class SupplierController extends Controller
             abort(401);
         }
         $supplier = Supplier::create($request->all());
-        activity()->withProperties([$supplier])
+        activity()->withProperties($supplier)
             ->log( 'اضافة مورد جديد');
         toast('تم اضافة القيد بنجاح','success');
         return redirect(route('suppliers.index'));
@@ -155,7 +155,7 @@ class SupplierController extends Controller
             toast('لا يمكن حذف المورد لوجود فواتير له','error');
             return redirect()->back();
         }
-        activity()->withProperties([$supplier])
+        activity()->withProperties($supplier)
             ->log( 'حذف مورد');
         $supplier->delete();
         toast('تم الحذف بنجاح','success');
