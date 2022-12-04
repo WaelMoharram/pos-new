@@ -155,7 +155,7 @@ class BillController extends Controller
 
         $user = auth()->user();
 
-        activity()->log( '- عرض فاتورة رقم '.$bill->id.' ');
+        activity()->log( '- عرض فاتورة رقم '.$bill->id.' ' . __($bill->type));
 
         return view('dashboard.bills.'.$bill->type.'.show',compact('bill','details'));
     }
@@ -228,7 +228,7 @@ class BillController extends Controller
             $items = Item::all();
             $user = auth()->user();
 
-            activity()->log($user->name . '- تعديل فاتورة رقم '.$bill->id.' ');
+            activity()->log($user->name . '- تعديل فاتورة رقم '.$bill->id.' ' . __($bill->type));
             return view('dashboard.bills.sale_out_pos.edit',compact('bill','details','items'));
         }
 
@@ -268,7 +268,7 @@ class BillController extends Controller
         $bill->fill($requests)->save();
         $user = auth()->user();
 
-        activity()->log( '- تعديل فاتورة رقم '.$bill->id.' ');
+        activity()->log( '- تعديل فاتورة رقم '.$bill->id.' ' . __($bill->type));
 
         toast('تم التعديل بنجاح ','success');
         return redirect(route('bills.index',['type'=>$bill->type]));
@@ -359,7 +359,7 @@ class BillController extends Controller
         $bill->delete();
         $user = auth()->user();
 
-        activity()->log( '- حذف فاتورة رقم '.$bill->id.' ');
+        activity()->log( '- حذف فاتورة رقم '.$bill->id.' ' . __($bill->type));
         toast('تم الحذف بنجاح','success');
         return redirect(route('bills.index',['type'=>$bill->type]));
     }
@@ -469,7 +469,7 @@ class BillController extends Controller
         toast('تم حفظ الفاتورة بنجاح','success');
         $user = auth()->user();
 
-        activity()->log( '- حفظ فاتورة رقم '.$bill->id.' ');
+        activity()->log( '- حفظ فاتورة رقم '.$bill->id.' ' . __($bill->type));
         return redirect(route('bills.index',['type'=>$bill->type]));
     }
     public function print($id){
@@ -477,7 +477,7 @@ class BillController extends Controller
         $details = BillDetail::where('bill_id',$bill->id)->get();
         $user = auth()->user();
 
-        activity()->log( '- طباعة فاتورة رقم '.$bill->id.' ');
+        activity()->log( '- طباعة فاتورة رقم '.$bill->id.' ' . __($bill->type));
         return view('dashboard.bills.'.$bill->type.'.print',compact('bill','details'));
     }
     public function printBarcode($id){
@@ -486,7 +486,7 @@ class BillController extends Controller
         $count =1;
         $user = auth()->user();
 
-        activity()->log( '- طباعة باركود فاتورة رقم '.$bill->id.' ');
+        activity()->log( '- طباعة باركود فاتورة رقم '.$bill->id.' ' . __($bill->type));
         return view('dashboard.bills.'.$bill->type.'.print-barcode',compact('bill','details','count'));
     }
 }
