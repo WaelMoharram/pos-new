@@ -171,7 +171,7 @@ class UserController extends Controller
             return back();
         }
         $user= User::findOrFail($id);
-        activity()->withProperties([$user])
+        activity()->withProperties($user)
             ->log( 'حذف مستخدم');
         $user->delete();
         toast('تم الحذف بنجاح','success');
