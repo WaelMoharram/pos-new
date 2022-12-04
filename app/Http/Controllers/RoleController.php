@@ -104,7 +104,8 @@ class RoleController extends Controller
 
         $requests=$request->except('permissions');
 
-        $role = $roleOld = Role::find($id);
+        $role = Role::find($id);
+        $roleOld = Role::find($id);
         $role->fill($requests)->save();
         $role->syncPermissions($request->permissions);
         activity()->withProperties(['old'=>$roleOld,'attributes'=>$role])
