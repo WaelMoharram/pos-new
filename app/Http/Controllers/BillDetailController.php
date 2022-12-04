@@ -216,7 +216,7 @@ class BillDetailController extends Controller
             }
         }
         activity()->withProperties(['old'=>$BillDetailOld ??'','attributes'=>($BillDetail??$detail)])
-            ->log( '- اضافة او تعديل بند للفاتورة رقم '.($BillDetail??$detail)->id.' ');
+            ->log( '- اضافة او تعديل بند للفاتورة رقم '.($BillDetail??$detail)->id.' ' .' '.'فى الفاتورة رقم '.$bill->id. ' نوع الفاتورة'.__($bill->type));
 //        toast('تم اضافة القيد بنجاح','success');
         return redirect()->back();
     }
@@ -361,7 +361,7 @@ class BillDetailController extends Controller
         }
         $detail->delete();
         activity()->withProperties(['old'=>$detail,'attributes'=>$detail])
-            ->log( '- حذف بند للفاتورة رقم '.$detail->id.' ');
+            ->log( '- حذف بند للفاتورة رقم '.$detail->id.' '.' '.'فى الفاتورة رقم '.$detail->bill->id. ' نوع الفاتورة'.__($detail->bill->type));
         toast('تم الحذف بنجاح','success');
         return redirect()->back();
     }
