@@ -75,7 +75,7 @@ class UserController extends Controller
         $user = User::create($requests);
         $user->syncRoles($request->role);
         $logUser = $user;
-        $logUser['roles'] = Role::find($request->role)->name;
+        $logUser['role'] = Role::find($request->role)->name;
         activity()->withProperties($logUser)
             ->log( 'اضافة مستخدم جديد');
         toast('تم اضافة القيد بنجاح','success');
@@ -142,7 +142,8 @@ class UserController extends Controller
         }
         $user = User::find($id);
         $oldUser= User::find($id);
-        $oldUser['role'] = Role::find($oldUser->roles->first()->id)->name;
+
+        $logUser['role'] = $oldUser->roles->first()->name;
         $user->fill($requests)->save();
         $user->syncRoles($request->role);
         $logUser = $user;
