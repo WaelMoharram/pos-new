@@ -172,7 +172,7 @@ class UserController extends Controller
         }
 
         $user= User::findOrFail($id);
-        if ($user->has('bills')){
+        if ($user->bills->count() >0){
             toast('غير مسموح بالحذف - المستخدم يمتلك فواتير ','danger');
             return back();
         }
