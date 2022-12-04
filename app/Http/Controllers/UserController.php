@@ -74,7 +74,9 @@ class UserController extends Controller
         $requests['password']=Hash::make($request->password);
         $user = User::create($requests);
         $user->syncRoles($request->role);
-        activity()->withProperties($user)
+        $logUser = $user;
+        $logUser['role'] = Role::find($request->role)->name;
+        activity()->withProperties($logUser)
             ->log( 'اضافة مستخدم جديد');
         toast('تم اضافة القيد بنجاح','success');
         return redirect(route('users.index'));
