@@ -170,7 +170,12 @@ class UserController extends Controller
             toast('غير مسموح بحذف بياناتك ','danger');
             return back();
         }
+
         $user= User::findOrFail($id);
+        if ($user->has('bills')){
+            toast('غير مسموح بالحذف - المستخدم يمتلك فواتير ','danger');
+            return back();
+        }
         activity()->withProperties($user)
             ->log( 'حذف مستخدم');
         $user->delete();
