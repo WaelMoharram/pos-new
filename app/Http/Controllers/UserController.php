@@ -143,11 +143,11 @@ class UserController extends Controller
         $user = User::find($id);
         $oldUser= User::find($id);
 
-        $logUser['role'] = $oldUser->roles->first()->name;
+        $oldUser['role'] = $oldUser->roles->first()->name;
         $user->fill($requests)->save();
         $user->syncRoles($request->role);
         $logUser = $user;
-        $logUser['role'] = Role::find($request->role)->name;
+        $logUser['role'] = $user->roles->first()->name;
         //dd(['old'=>$oldUser,'attributes'=>$logUser]);
         activity()->withProperties(['old'=>$oldUser,'attributes'=>$logUser])
             ->log( 'تعديل مستخدم');
