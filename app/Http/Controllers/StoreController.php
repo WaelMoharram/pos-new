@@ -136,7 +136,7 @@ class StoreController extends Controller
         //TODO:: Store delete validation
 
         $store= Store::findOrFail($id);
-        if ($store->has('Bills')){
+        if ($store->bills->count() > 0){
             toast('عملية مرفوضة - المخزن يحتوى على معاملات سابقة ','danger');
             return back();
         }
