@@ -16,7 +16,6 @@
             '#',
             'الاسم',
             ['label' => 'العنوان'],
-            ['label' => 'امكانية البيع المباشر'],
             ['label' => 'اعدادات', 'no-export' => true, 'width' => 5],
         ];
 
@@ -34,7 +33,6 @@
                 <td>{!! substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
                 <td>{!! $row->name !!}</td>
                 <td>{!! $row->address !!}</td>
-                <td>{!! $row->is_pos ? 'نعم': 'لا' !!}</td>
                 <td>
                     <nobr>
                         @component('partials.buttons._edit_button',[

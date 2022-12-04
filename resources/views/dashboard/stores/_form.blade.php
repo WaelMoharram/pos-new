@@ -11,11 +11,11 @@
     {{input_error($errors,'address')}}
 </div>
 
-<div class="form-group py-1 col-md-12">
-    <label for="is_pos"> امكانية البيع المباشر  </label>
-    {{Form::select('is_pos',[true=>'نعم',false=>'لا'] ,null,['class'=>'form-control mb-2','id'=>'is_pos'])}}
-    {{input_error($errors,'is_pos')}}
-</div>
+{{--<div class="form-group py-1 col-md-12">--}}
+{{--    <label for="is_pos"> امكانية البيع المباشر  </label>--}}
+{{--    {{Form::select('is_pos',[true=>'نعم',false=>'لا'] ,null,['class'=>'form-control mb-2','id'=>'is_pos'])}}--}}
+{{--    {{input_error($errors,'is_pos')}}--}}
+{{--</div>--}}
 
 
 
