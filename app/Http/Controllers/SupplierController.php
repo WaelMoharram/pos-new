@@ -126,7 +126,8 @@ class SupplierController extends Controller
         if (!Auth::user()->can('edit suppliers')){
             abort(401);
         }
-        $supplier = $supplierOld=  Supplier::find($id);
+        $supplier =   Supplier::find($id);
+        $supplierOld=  Supplier::find($id);
         $supplier->fill($request->all())->save();
         activity()->withProperties(['old'=>$supplierOld,'attributes'=>$supplier])
             ->log( 'تعديل ');
