@@ -141,10 +141,12 @@ class UserController extends Controller
             unset($requests['password']);
         }
         $user = $oldUser= User::find($id);
+        $oldUser['role'] = Role::find($oldUser->roles->first()->id)->name;
         $user->fill($requests)->save();
         $user->syncRoles($request->role);
         $logUser = $user;
-        $logUser['roles'] = Role::find($request->role)->name;
+        $logUser['role'] = Role::find($request->role)->name;
+        dd(['old'=>$oldUser,'attributes'=>$logUser]);
         activity()->withProperties(['old'=>$oldUser,'attributes'=>$logUser])
             ->log( 'تعديل مستخدم');
         toast('تم التعديل بنجاح ','success');
