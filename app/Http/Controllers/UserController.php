@@ -143,7 +143,9 @@ class UserController extends Controller
         $user = $oldUser= User::find($id);
         $user->fill($requests)->save();
         $user->syncRoles($request->role);
-        activity()->withProperties(['old'=>$oldUser,'attributes'=>$user])
+        $logUser = $user;
+        $logUser['roles'] = Role::find($request->role)->name;
+        activity()->withProperties(['old'=>$oldUser,'attributes'=>$logUser])
             ->log( 'تعديل مستخدم');
         toast('تم التعديل بنجاح ','success');
         return redirect(route('users.index'));
