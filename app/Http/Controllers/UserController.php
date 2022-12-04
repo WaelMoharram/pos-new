@@ -147,7 +147,7 @@ class UserController extends Controller
         $user->syncRoles($request->role);
         $logUser = $user;
         $logUser['role'] = $user->roles->first()->name;
-        //$oldUser['role'] = $oldUser->roles->first()->name;
+        $oldUser['role'] = $oldUser->roles->first()->name;
 
         //dd(['old'=>$oldUser,'attributes'=>$logUser]);
         activity()->withProperties(['old'=>$oldUser,'attributes'=>$logUser])
