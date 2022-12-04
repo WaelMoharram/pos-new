@@ -148,7 +148,7 @@ class UserController extends Controller
         $user->syncRoles($request->role);
         $logUser = $user;
         $logUser['role'] = Role::find($request->role)->name;
-        dd(['old'=>$oldUser,'attributes'=>$logUser]);
+        //dd(['old'=>$oldUser,'attributes'=>$logUser]);
         activity()->withProperties(['old'=>$oldUser,'attributes'=>$logUser])
             ->log( 'تعديل مستخدم');
         toast('تم التعديل بنجاح ','success');
