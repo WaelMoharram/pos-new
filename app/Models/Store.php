@@ -28,7 +28,7 @@ class Store extends Model
         return $this->belongsToMany('App\Models\Item');
     }
 
-    public function Bills()
+    public function bills()
     {
         return $this->hasMany('App\Models\Bill');
     }

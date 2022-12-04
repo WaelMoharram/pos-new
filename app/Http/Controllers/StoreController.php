@@ -134,11 +134,12 @@ class StoreController extends Controller
             abort(401);
         }
         //TODO:: Store delete validation
-//        if (){
-//            toast('عملية مرفوضة - المخزن يحتوى على معاملات سابقة ','danger');
-//            return back();
-//        }
+
         $store= Store::findOrFail($id);
+        if ($store->has('Bills')){
+            toast('عملية مرفوضة - المخزن يحتوى على معاملات سابقة ','danger');
+            return back();
+        }
         activity()->withProperties($store)
             ->log( 'حذف مخزن');
         $store->delete();
