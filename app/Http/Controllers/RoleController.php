@@ -59,9 +59,11 @@ class RoleController extends Controller
         $role = Role::create($requests);
         $role->syncPermissions($request->permissions);
         $roleLog = $role->toArray();
+        $permissionsString ='';
         foreach ($request->permissions as $permission){
-            $roleLog['permissions'][]=$permission;
+            $permissionsString = $permissionsString . \App\Models\Permission::find($permission)->name;
         }
+        $roleLog['permissions'] = $permissionsString;
         activity()->withProperties($roleLog)
             ->log( 'اضافة دور جديد');
         toast('تم اضافة القيد بنجاح','success');
