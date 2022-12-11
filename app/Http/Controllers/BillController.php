@@ -9,6 +9,7 @@ use App\Models\Brand;
 use App\Models\Item;
 use App\Models\ItemStore;
 use App\Models\Unit;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -51,13 +52,15 @@ class BillController extends Controller
         }
         $user = auth()->user();
 
-        activity()->log(' عرض فواتير ' . __($request->type));
+
         $bills = Bill::where('type',$request->type)->where('pos_sales',0)->orderByDesc('id')->get();
         if (auth()->user()->store()->count() > 0){
             $bills = Bill::where('type',$request->type)->where('pos_sales',0)->where(function($q) use($request){
                 if ($request->has('sales_man_id') && $request->sales_man_id != null){
                     $q->where('sales_man_id',$request->sales_man_id);
+                    activity()->log(' عرض فواتير ' . __($request->type) .'للمندوب'. User::find($request->sales_man_id)->name);
                 }else{
+                    activity()->log(' عرض فواتير ' . __($request->type));
                     $q->where('sales_man_id',auth()->id())->orWhere('store_id',auth()->user()->store_id);
                 }
             })->orderByDesc('id')->get();
