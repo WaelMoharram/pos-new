@@ -115,7 +115,13 @@ class RoleController extends Controller
         $roleOld = Role::find($id);
         $role->fill($requests)->save();
         $role->syncPermissions($request->permissions);
-        activity()->withProperties(['old'=>$roleOld,'attributes'=>$role])
+        $roleLog = $role->toArray();
+        $permissionsString ='';
+        foreach ($request->permissions as $permission){
+            $permissionsString = $permissionsString . \App\Models\Permission::find($permission)->name;
+        }
+        $roleLog['permissions'] = $permissionsString;
+        activity()->withProperties(['old'=>$roleOld,'attributes'=>$roleLog])
             ->log( 'تعديل دور');
         toast('تم التعديل بنجاح ','success');
         return redirect(route('roles.index'));
