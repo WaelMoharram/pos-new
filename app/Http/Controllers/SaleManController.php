@@ -118,9 +118,12 @@ class SaleManController extends Controller
     {
         $user = User::findOrFail($id);
         $payments = Bill::where('sales_man_id',$id)->whereIn('type',['cash_in','cash_out'])->where('money_collected',0);
+
+    activity()->withProperties(['user'=>$user,'payment'=>$user->for_collect])
+        ->log( 'ستلام مستحقات مالية من مندوب');
         $payments->update(['money_collected'=>1,'collected_at'=>date('Y-m-d H:i:s')]);
-        activity()->withProperties(['user'=>$user,'payment'=>$payments])
-            ->log( 'ستلام مستحقات مالية من مندوب');
+//        activity()->withProperties(['user'=>$user,'payment'=>$payments])
+//            ->log( 'ستلام مستحقات مالية من مندوب');
         return  redirect()->back();
     }
 
