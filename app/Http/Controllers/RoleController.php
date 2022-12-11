@@ -59,7 +59,7 @@ class RoleController extends Controller
         $role = Role::create($requests);
         $role->syncPermissions($request->permissions);
         $roleLog = $role->toArray();
-        foreach ($$request->permissions as $permission){
+        foreach ($request->permissions as $permission){
             $roleLog['permissions'][]=$permission;
         }
         activity()->withProperties($roleLog)
