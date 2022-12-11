@@ -67,7 +67,13 @@ class BillController extends Controller
 
         }
         $store = auth()->user()->store;
+        if ($request->has('sales_man_id') && $request->sales_man_id != null){
 
+            activity()->log(' عرض فواتير ' . __($request->type) .'للمندوب'. User::find($request->sales_man_id)->name);
+        }else{
+            activity()->log(' عرض فواتير ' . __($request->type));
+
+        }
 
         return view('dashboard.bills.'.$request->type.'.index',compact('bills','store'));
     }
