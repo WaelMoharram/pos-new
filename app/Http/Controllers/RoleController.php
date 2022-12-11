@@ -58,7 +58,7 @@ class RoleController extends Controller
         $requests=$request->except('permissions');
         $role = Role::create($requests);
         $role->syncPermissions($request->permissions);
-        activity()->withProperties($role)
+        activity()->withProperties($role->with('permissions'))
             ->log( 'اضافة دور جديد');
         toast('تم اضافة القيد بنجاح','success');
         return redirect(route('roles.index'));
