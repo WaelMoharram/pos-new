@@ -113,6 +113,11 @@ class RoleController extends Controller
 
         $role = Role::find($id);
         $roleOld = Role::find($id);
+        $permissionsStringOld='';
+        foreach ($roleOld->permissions as $permission){
+            $permissionsStringOld = $permissionsStringOld . \App\Models\Permission::find($permission)->name;
+        }
+        $roleOld['permissions'] = $permissionsStringOld;
         $role->fill($requests)->save();
         $role->syncPermissions($request->permissions);
         $roleLog = $role->toArray();
