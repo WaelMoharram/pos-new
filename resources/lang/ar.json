@@ -124,5 +124,11 @@
     "sale_out": "مبيعات",
     "purchase_in": "مشتريات",
     "purchase_out": "مرتجع مشتريات",
-    "store": "نقل بين المخازن"
+    "store": "نقل بين المخازن",
+    "discount sales": "عمل تخفيض على البيعات",
+    "collect money sales": "عمليات السداد",
+    "money reports": "تقرير المبالغ",
+    "store reports": "تقارير المخزن",
+    "sales reports": "تقارير المبيعات",
+    "client reports": "تقارير العملاء"
 }
