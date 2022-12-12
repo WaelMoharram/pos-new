@@ -84,7 +84,9 @@ class SaleManController extends Controller
         ]);
 
         $user->syncRoles($request->role);
-        activity()->withProperties($user)
+        $logUser = $user;
+        $logUser['role'] = Role::find($request->role)->name;
+        activity()->withProperties($logUser)
             ->log( 'اضافة مندوب');
         toast('تم اضافة القيد بنجاح','success');
         return redirect(route('sales-men.index'));
@@ -168,13 +170,17 @@ class SaleManController extends Controller
         }else{
             unset($requests['password']);
         }
-        $user =$userOld= User::find($id);
+        $user = User::find($id);
+        $userOld= User::find($id);
+        $userOld['role'] = $userOld->roles->first()->name;
         $user->fill($requests)->save();
         $user->syncRoles($request->role);
 
         Store::where('sales_man_id',$id)->first()->fill([
             'name'=>$request->name,
         ])->save();
+        $logUser = $user;
+        $logUser['role'] = $user->roles->first()->name;
         activity()->withProperties(['old'=>$userOld,'attributes'=>$user])
             ->log( 'تعديل بيانات مندوب');
         toast('تم التعديل بنجاح ','success');
