@@ -105,6 +105,8 @@ class SaleManController extends Controller
         $role = Role::pluck('name', 'id');
 
         $store = $user->store;
+        activity()
+            ->log( 'عرض المندوب '. $user->name.' وتقرير الجرد الخاص به');
         return view('dashboard.sales-men.show',compact('user','store','role'));
     }
 
