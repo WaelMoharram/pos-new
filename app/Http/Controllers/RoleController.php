@@ -115,7 +115,7 @@ class RoleController extends Controller
         $roleOld = Role::find($id);
         $permissionsStringOld='';
         foreach ($roleOld->permissions as $permission){
-            $permissionsStringOld = $permissionsStringOld . $permission->name;
+            $permissionsStringOld = $permissionsStringOld . $permission->name.' / ';
         }
         $roleOld = $roleOld->toArray();
 
@@ -126,7 +126,7 @@ class RoleController extends Controller
         $roleLog = $role->toArray();
         $permissionsString ='';
         foreach ($request->permissions as $permission){
-            $permissionsString = $permissionsString . \App\Models\Permission::find($permission)->name;
+            $permissionsString = $permissionsString . \App\Models\Permission::find($permission)->name. ' / ';
         }
         $roleLog['permissions'] = $permissionsString;
         activity()->withProperties(['old'=>$roleOld,'attributes'=>$roleLog])
