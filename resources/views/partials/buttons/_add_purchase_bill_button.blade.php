@@ -8,7 +8,7 @@
     }
 </style>
 <!-- Modal -->
-<div id="myModal" class="modal fade text-left" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+<div class="modal fade text-left" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -34,7 +34,7 @@
                             </div>
                         </div>
                         {{-- ############# Supplier #############--}}
-                        <div class="form-group py-1 col-md-12">
+                        <div  id="myModal" class="form-group py-1 col-md-12">
                             <label for="model_id"> المورد  </label>
                             {{Form::select('model_id',\App\Models\Supplier::pluck('name','id') ,null,['class'=>'form-control select2 mb-2','id'=>'model_id'])}}
                             {{input_error($errors,'model_id')}}
@@ -43,7 +43,7 @@
                         @if($store == null)
                         <div class="form-group py-1 col-md-12">
                             <label for="store_id"> مخزن التوريد  </label>
-                            {{Form::select('store_id',\App\Models\Store::where('sales_man_id',null)->pluck('name','id') ,null,['class'=>'select2 form-control mb-2','id'=>'store_id'])}}
+                            {{Form::select('store_id',\App\Models\Store::where('sales_man_id',null)->pluck('name','id') ,null,['class'=>' form-control mb-2','id'=>'store_id'])}}
                             {{input_error($errors,'store_id')}}
                         </div>
                         @else
