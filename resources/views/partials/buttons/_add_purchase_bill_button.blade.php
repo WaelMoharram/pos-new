@@ -1,4 +1,4 @@
-<a id="myModal" data-toggle="modal" data-target="#modalAdd" class="float-right btn btn-lg btn-default text-info mx-1 shadow"  data-placement="top" title="{{$tooltip}}">
+<a data-toggle="modal" data-target="#modalAdd" class="float-right btn btn-lg btn-default text-info mx-1 shadow"  data-placement="top" title="{{$tooltip}}">
     <i class="fa fa-lg fa-fw fa-plus-square"></i>{{$tooltip}}
 </a>
 <style>
@@ -8,7 +8,7 @@
     }
 </style>
 <!-- Modal -->
-<div class="modal fade text-left" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+<div id="myModal" class="modal fade text-left" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
