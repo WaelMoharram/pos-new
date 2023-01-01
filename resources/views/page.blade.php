@@ -6,7 +6,11 @@
     @stack('css')
     @yield('css')
 @stop
-
+<style>
+.select2{
+    width:100%!important;
+}
+</style>
 @section('classes_body', $layoutHelper->makeBodyClasses())
 
 @section('body_data', $layoutHelper->makeBodyData())
