@@ -8,8 +8,7 @@
 
 @section('content')
 <script>
-// Do this before you initialize any of your modals
-$.fn.modal.Constructor.prototype.enforceFocus = function() {};
+
 </script>
 
     {{-- Setup data for datatables --}}
@@ -161,6 +160,7 @@ $.fn.modal.Constructor.prototype.enforceFocus = function() {};
 <script>
         $('.select2').select2({
             dir:'rtl',
+            dropdownParent: $('#myModal')
         });
     </script>
     @include('sweetalert::alert')
