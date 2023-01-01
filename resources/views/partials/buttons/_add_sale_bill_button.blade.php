@@ -34,7 +34,7 @@
                             </div>
                         </div>
                         {{-- ############# Supplier #############--}}
-                        <div class="form-group py-1 col-md-12">
+                        <div  id="myModal" class="form-group py-1 col-md-12">
                             <label for="model_id"> العميل  </label>
                             {{Form::select('model_id',\App\Models\Client::check()->pluck('name','id') ,null,['class'=>'form-control select2 mb-2','id'=>'model_id'])}}
                             {{input_error($errors,'model_id')}}
