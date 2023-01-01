@@ -7,6 +7,10 @@
 @stop
 
 @section('content')
+<script>
+
+</script>
+
     {{-- Setup data for datatables --}}
     @if(request()->type == 'sale_out')
         @can('add sales')
@@ -156,6 +160,7 @@
 <script>
         $('.select2').select2({
             dir:'rtl',
+            dropdownParent: $('#myModal')
         });
     </script>
     @include('sweetalert::alert')

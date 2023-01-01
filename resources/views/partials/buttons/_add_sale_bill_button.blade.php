@@ -1,4 +1,4 @@
-<a data-toggle="modal" data-target="#modalAdd" class="float-right btn btn-lg btn-default text-info mx-1 shadow"  data-placement="top" title="{{$tooltip}}">
+<a  data-toggle="modal" data-target="#modalAdd" class="float-right btn btn-lg btn-default text-info mx-1 shadow"  data-placement="top" title="{{$tooltip}}">
     <i class="fa fa-lg fa-fw fa-plus-square"></i>{{$tooltip}}
 </a>
 <style>
@@ -34,7 +34,7 @@
                             </div>
                         </div>
                         {{-- ############# Supplier #############--}}
-                        <div class="form-group py-1 col-md-12">
+                        <div  id="myModal" class="form-group py-1 col-md-12">
                             <label for="model_id"> العميل  </label>
                             {{Form::select('model_id',\App\Models\Client::check()->pluck('name','id') ,null,['class'=>'form-control select2 mb-2','id'=>'model_id'])}}
                             {{input_error($errors,'model_id')}}
@@ -43,7 +43,7 @@
                         @if($store == null)
                         <div class="form-group py-1 col-md-12">
                             <label for="store_id"> مخزن الصرف  </label>
-                            {{Form::select('store_id',\App\Models\Store::where('sales_man_id',null)->where('is_pos',1)->pluck('name','id') ,null,['class'=>'form-control select2 mb-2','id'=>'store_id'])}}
+                            {{Form::select('store_id',\App\Models\Store::where('sales_man_id',null)->where('is_pos',1)->pluck('name','id') ,null,['class'=>'form-control  mb-2','id'=>'store_id'])}}
                             {{input_error($errors,'store_id')}}
                         </div>
                         @else
