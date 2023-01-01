@@ -36,14 +36,14 @@
                         {{-- ############# Supplier #############--}}
                         <div class="form-group py-1 col-md-12">
                             <label for="model_id"> المورد  </label>
-                            {{Form::select('model_id',\App\Models\Supplier::pluck('name','id') ,null,['class'=>'form-control mb-2','id'=>'model_id'])}}
+                            {{Form::select('model_id',\App\Models\Supplier::pluck('name','id') ,null,['class'=>'form-control select2 mb-2','id'=>'model_id'])}}
                             {{input_error($errors,'model_id')}}
                         </div>
                         {{-- ############# Store #############--}}
                         @if($store == null)
                         <div class="form-group py-1 col-md-12">
                             <label for="store_id"> مخزن التوريد  </label>
-                            {{Form::select('store_id',\App\Models\Store::where('sales_man_id',null)->pluck('name','id') ,null,['class'=>'form-control mb-2','id'=>'store_id'])}}
+                            {{Form::select('store_id',\App\Models\Store::where('sales_man_id',null)->pluck('name','id') ,null,['class'=>'select2 form-control mb-2','id'=>'store_id'])}}
                             {{input_error($errors,'store_id')}}
                         </div>
                         @else
