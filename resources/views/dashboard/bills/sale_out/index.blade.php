@@ -7,6 +7,11 @@
 @stop
 
 @section('content')
+<script>
+// Do this before you initialize any of your modals
+$.fn.modal.Constructor.prototype.enforceFocus = function() {};
+</script>
+
     {{-- Setup data for datatables --}}
     @if(request()->type == 'sale_out')
         @can('add sales')
@@ -155,7 +160,6 @@
     </script>
 <script>
         $('.select2').select2({
-            dropdownParent: $('#myModal'),
             dir:'rtl',
         });
     </script>
