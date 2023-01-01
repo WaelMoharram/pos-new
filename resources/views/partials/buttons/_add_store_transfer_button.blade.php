@@ -36,13 +36,13 @@
                         {{-- ############# Supplier #############--}}
                         <div class="form-group py-1 col-md-12">
                             <label for="store_from_id"> من مخزن - مندوب  </label>
-                            {{Form::select('store_from_id',\App\Models\Store::get()->pluck('select_name','id') ,null,['class'=>'form-control mb-2','id'=>'store_from_id'])}}
+                            {{Form::select('store_from_id',\App\Models\Store::get()->pluck('select_name','id') ,null,['class'=>'form-control select2 mb-2','id'=>'store_from_id'])}}
                             {{input_error($errors,'store_from_id')}}
                         </div>
                         {{-- ############# Store #############--}}
                         <div class="form-group py-1 col-md-12">
                             <label for="store_to_id"> الى مخزن - مندوب  </label>
-                            {{Form::select('store_to_id',\App\Models\Store::get()->pluck('select_name','id') ,null,['class'=>'form-control mb-2','id'=>'store_to_id'])}}
+                            {{Form::select('store_to_id',\App\Models\Store::get()->pluck('select_name','id') ,null,['class'=>'form-control select2 mb-2','id'=>'store_to_id'])}}
                             {{input_error($errors,'store_to_id')}}
                         </div>
 
