@@ -44,7 +44,7 @@
 
                     @if(getRound($amount) != 0)
                         <span {{tooltip($unit->name)}}>{{getRound($amount)}}</span>
-                        @php($amount = getFrachtion(\App\Models\ItemStore::where('item_id',optional($itam->item)->id)->sum('amount')))
+                        @php($amount = getFrachtion(ItemAmountStore($store->id,optional($itam->item)->id)))
                     @endif
                     @if($itam->item->id == 39)
                         @dd($amount)
