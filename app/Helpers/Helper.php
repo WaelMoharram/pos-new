@@ -197,6 +197,19 @@ function getFrachtion($n){
 
     }
     return  $n - $whole;
+
+    $negative = 1;
+    if ($n < 0)
+    {
+        $negative = -1;
+        $n *= -1;
+    }
+
+    if ($returnUnsigned){
+        return $n - floor($n);
+    }
+
+    return ($n - floor($n)) * $negative;
 }
 
 
