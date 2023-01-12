@@ -41,15 +41,19 @@
                     @php($unit = \App\Models\Unit::where('item_id',optional($itam->item)->id)->where('ratio',1)->first())
 
                     @php($amount = $amount * ((float)$unit->ratio))
+
                     @if(getRound($amount) != 0)
                         <span {{tooltip($unit->name)}}>{{getRound($amount)}}</span>
-                        @php($amount = getFrachtion(\App\Models\ItemStore::where('item_id',optional($itam->item)->id)->sum('amount')))
+                        @php($amount = getFrachtion(ItemAmountStore($store->id,optional($itam->item)->id)))
                     @endif
-
+{{--                    @if($itam->item->id == 39)--}}
+{{--                        @dd($amount)--}}
+{{--                    @endif--}}
                 </td>
 
                 <td>
-                    @foreach(\App\Models\Unit::where('item_id',optional($itam->item)->id)->where('ratio','!=',1)->get() as $unit)
+                    @if($amount != 0)
+                    @foreach(\App\Models\Unit::where('item_id',optional($itam->item)->id)->where('ratio','!=',1)->orderBy('ratio')->get() as $unit)
 
                         @php($amount = $amount * ((float)$unit->ratio))
                         @if(getRound($amount) != 0)
@@ -57,6 +61,7 @@
                             @php($amount = getFrachtion(\App\Models\ItemStore::where('item_id',optional($itam->item)->id)->sum('amount')))
                         @endif
                     @endforeach
+                        @endif
                 </td>
             </tr>
             @endif

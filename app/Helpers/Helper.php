@@ -188,15 +188,28 @@ if( !str_contains($n,'.')){
 
     }
 }
-function getFrachtion($n){
-    if ($n >0){
-        $whole =  floor($n);
+function getFrachtion($n, $returnUnsigned = false){
+//    if ($n >0){
+//        $whole =  floor($n);
+//
+//    }else{
+//        $whole =  round($n);
+//
+//    }
+//    return  $n - $whole;
 
-    }else{
-        $whole =  round($n);
-
+    $negative = 1;
+    if ($n < 0)
+    {
+        $negative = -1;
+        $n *= -1;
     }
-    return  $n - $whole;
+
+    if ($returnUnsigned){
+        return $n - floor($n);
+    }
+
+    return ($n - floor($n)) * $negative;
 }
 
 
