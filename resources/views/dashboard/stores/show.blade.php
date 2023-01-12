@@ -46,9 +46,9 @@
                         <span {{tooltip($unit->name)}}>{{getRound($amount)}}</span>
                         @php($amount = getFrachtion(ItemAmountStore($store->id,optional($itam->item)->id)))
                     @endif
-                    @if($itam->item->id == 39)
-                        @dd($amount)
-                    @endif
+{{--                    @if($itam->item->id == 39)--}}
+{{--                        @dd($amount)--}}
+{{--                    @endif--}}
                 </td>
 
                 <td>
