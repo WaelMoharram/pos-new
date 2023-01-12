@@ -189,14 +189,14 @@ if( !str_contains($n,'.')){
     }
 }
 function getFrachtion($n){
-    if ($n >0){
-        $whole =  floor($n);
-
-    }else{
-        $whole =  round($n);
-
-    }
-    return  $n - $whole;
+//    if ($n >0){
+//        $whole =  floor($n);
+//
+//    }else{
+//        $whole =  round($n);
+//
+//    }
+//    return  $n - $whole;
 
     $negative = 1;
     if ($n < 0)
