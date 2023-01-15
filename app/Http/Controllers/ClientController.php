@@ -34,7 +34,15 @@ class ClientController extends Controller
             abort(401);
         }
 //        return $clients = Client::check()->toSql();
-         $clients = Client::check()->get();
+
+        if ($request->has('sales_man_id')){
+            $clients = Client::whereHas('users',function ($q) use ($request){
+                $q->where('client_user.user_id',$request->sales_man_id);
+            })->get();
+        }else{
+            $clients = Client::check()->get();
+        }
+
 
         activity()
             ->log( 'عرض العملاء ');

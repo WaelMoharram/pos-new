@@ -36,10 +36,17 @@ class Client extends Model
     public function scopeCheck($query)
     {
 
+        if (!(\Auth::user()->type == 'admin' && Auth::user()->store_id == null)) {
+
 
             return $query->whereHas('users',function ($q){
                 $q->where('client_user.user_id',Auth::id());
             });
+        }
+
+//            return $query->whereHas('users',function ($q){
+//                $q->where('client_user.user_id',Auth::id());
+//            });
 
 
     }
