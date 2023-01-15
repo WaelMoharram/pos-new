@@ -45,10 +45,10 @@ class BillController extends Controller
                 return redirect()->route('dashboard');
             }
 
-            if (auth()->user()->store != null && auth()->user()->store->is_pos == 0){
-                toast('لا يمكن اتمام عمليات بيع فى هذا المخزن','error');
-                return redirect()->route('dashboard');
-            }
+//            if (auth()->user()->store != null && auth()->user()->store->is_pos == 0){
+//                toast('لا يمكن اتمام عمليات بيع فى هذا المخزن','error');
+//                return redirect()->route('dashboard');
+//            }
         }
         $user = auth()->user();
 
@@ -203,10 +203,10 @@ class BillController extends Controller
 
         if (auth()->user()->pos == 1 ){
 
-            if (auth()->user()->store != null && auth()->user()->store->is_pos == 0){
-                toast('لا يمكن اتمام عمليات بيع فى هذا المخزن','error');
-                return redirect()->back();
-            }
+//            if (auth()->user()->store != null && auth()->user()->store->is_pos == 0){
+//                toast('لا يمكن اتمام عمليات بيع فى هذا المخزن','error');
+//                return redirect()->back();
+//            }
             $requests['status'] = "saved";
             $requests['need_discount'] = false;
             $requests['type'] = "sale_out";
