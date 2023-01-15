@@ -63,7 +63,9 @@ class StoreController extends Controller
         if (!Auth::user()->can('add stores')){
             abort(401);
         }
-        $store = Store::create($request->all());
+        $requests = $request->all();
+        $requests['is_pos'] = 1;
+        $store = Store::create($requests);
         activity()->withProperties($store)
             ->log( 'اضافة مخزن جديد');
         toast('تم اضافة القيد بنجاح','success');
