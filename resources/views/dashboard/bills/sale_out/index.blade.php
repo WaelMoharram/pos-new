@@ -29,6 +29,7 @@
             '#',
             'التاريخ',
             'رقم الفاتورة',
+            'المخزن',
             'اسم العميل',
             'الاجمالى',
             'المبلغ المسدد',
@@ -50,6 +51,7 @@
                 <td>{!! substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
                 <td>{!! $row->date !!}</td>
                 <td>{!! $row->code !!}</td>
+                <td>{!! optional($row->store)->name !!}</td>
                 <td>{!! optional($row->model)->name !!}</td>
                 <td>{!! $row->total ?? 0!!}</td>
                 <td>{!! optional($row->payments)->sum('money') ?? 0!!}</td>
