@@ -8,6 +8,7 @@ use App\Models\ItemStore;
 use App\Models\Item;
 use App\Models\Unit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BillDetailController extends Controller
 {
@@ -56,6 +57,9 @@ class BillDetailController extends Controller
 
 
         $bill = Bill::find($request->bill_id);
+        if (Auth::user()->store_id != null && Auth::user()->store_id != $bill->store_id){
+            toast('لا تملك الصلاحية للعمل على هذا المخزن','error');
+        }
         $item = Item::find($request->item_id);
         $unitRatio = 1;
         if ($request->unit_id){

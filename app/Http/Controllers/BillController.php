@@ -98,7 +98,9 @@ class BillController extends Controller
     {
 
         $requests = $request->all();
-
+        if (Auth::user()->store_id != null && Auth::user()->store_id != $requests['store_id']){
+            toast('لا تملك الصلاحية للعمل على هذا المخزن','error');
+        }
         $requests['status'] = "saved";
         $requests['need_discount'] = false;
         switch ($request->type) {
@@ -254,7 +256,9 @@ class BillController extends Controller
     {
 
         $bill = Bill::find($id);
-
+        if (Auth::user()->store_id != null && Auth::user()->store_id != $bill->store_id){
+            toast('لا تملك الصلاحية للعمل على هذا المخزن','error');
+        }
         $requests = $request->all();
         if ($request->hasFile('image')) {
 
