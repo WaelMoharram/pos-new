@@ -53,7 +53,11 @@ class BillController extends Controller
         $user = auth()->user();
 
 
-        $bills = Bill::where('type',$request->type)->where('pos_sales',0)->orderByDesc('id')->get();
+        $bills = Bill::where(function ($q) use ($request){
+            if ($request->type == 'sale_in' || $request->type == 'sale_out'){
+                $q->where('model_id','!=',1);
+            }
+        })->where('type',$request->type)->where('pos_sales',0)->orderByDesc('id')->get();
         if (auth()->user()->store()->count() > 0){
             $bills = Bill::where('type',$request->type)->where('pos_sales',0)->where(function($q) use($request){
                 if ($request->has('sales_man_id') && $request->sales_man_id != null){
