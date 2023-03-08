@@ -9,8 +9,7 @@
     @endcan
         <a href="{{route('export.units')}}" class="btn btn-info float-right">تحميل ملف الاكسل</a>
     @can('edit items')
-        <a href="#" class="btn btn-success">رفع تعديل السعر</a>
-        <button data-toggle="modal" data-target="#uploadExcel" class="info-box-icon bg-danger" title="Upload" @if(isset($tooltip) ) {{tooltip($tooltip)}} @endif>
+        <button data-toggle="modal" data-target="#uploadExcel" class="info-box-icon bg-success" title="Upload" @if(isset($tooltip) ) {{tooltip($tooltip)}} @endif>
             رفع تعديل السعر
         </button>
         <div class="modal fade text-left" id="uploadExcel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
