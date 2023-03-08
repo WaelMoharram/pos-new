@@ -22,9 +22,8 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        {!! Form::open(['method'=>'post','route'=>'import.units','class'=>'form','enctype' => 'multipart/form-data']) !!}
 
-                        <form method="POST" action=
-                            {{route('import.units')}}>
                             {{ csrf_field() }}
                             <div class="form-group col-md-12 {{hidden_on_show()}}">
                                 <label for="logo_input"> ملف الاكسل </label>
@@ -33,8 +32,8 @@
                             </div>
                             <button type="submit" class="btn btn-success">رفع</button>
 
-                        </form>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">تراجع</button>
+                        {!! Form::close() !!}
+
                     </div>
 
                 </div>
