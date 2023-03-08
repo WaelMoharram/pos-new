@@ -79,8 +79,8 @@ class HomeController extends Controller
     public function importUnits()
     {
         Excel::import(new UnitsImport(), request()->file('file'));
-        //toast('تمت الاضافة بنجاح','success');
-        return 'done';
+        toast('تم تعديل الكل بنجاح','success');
+        return redirect()->back();
     }
 
 }
