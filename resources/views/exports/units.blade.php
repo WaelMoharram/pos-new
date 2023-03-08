@@ -11,7 +11,7 @@
     <tbody>
     @foreach($units as $unit)
         <tr>
-            <td>{{ optional($unit->item)->id }}</td>
+            <td>{{ $unit->item_id }}</td>
             <td>{{ $unit->id }}</td>
             <td>{{ optional($unit->item)->name }}</td>
             <td>{{ $unit->name }}</td>

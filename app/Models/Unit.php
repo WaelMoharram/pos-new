@@ -28,4 +28,9 @@ class Unit extends Model
         return $this->belongsTo(Item::class);
     }
 
+    public function item()
+    {
+        return $this->belongsTo(Item::class);
+    }
+
 }
