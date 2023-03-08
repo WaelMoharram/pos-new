@@ -110,6 +110,8 @@ Route::group(['middleware' => 'auth:web','prefix'=>'dashboard'], function () {
 
     Route::get('units/for-pos/{id}',[\App\Http\Controllers\UnitController::class, 'forPos'])->name('units.for-pos');
 
+    Route::get('export/units',[\App\Http\Controllers\HomeController::class, 'units'])->name('export.units');
+
 });
 
 require __DIR__.'/auth.php';

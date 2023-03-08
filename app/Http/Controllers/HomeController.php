@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PricesExport;
 use App\Models\Item;
 use App\Models\Unit;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Permission\Models\Role;
 
 class HomeController extends Controller
@@ -67,6 +69,10 @@ class HomeController extends Controller
 
         return view('items',compact('items'));
 
+    }
+
+    public function units(){
+        return Excel::download(new PricesExport, 'units.xlsx');
     }
 
 }
