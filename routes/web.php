@@ -112,6 +112,8 @@ Route::group(['middleware' => 'auth:web','prefix'=>'dashboard'], function () {
 
     Route::get('export/units',[\App\Http\Controllers\HomeController::class, 'units'])->name('export.units');
 
+    Route::post('export/units',[\App\Http\Controllers\HomeController::class, 'importUnits'])->name('import.units');
+
 });
 
 require __DIR__.'/auth.php';

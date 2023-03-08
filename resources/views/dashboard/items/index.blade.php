@@ -7,6 +7,42 @@
     @can('add items')
         <a href="{{route('items.create')}}" class="btn btn-info float-right">اضافة جديد</a>
     @endcan
+        <a href="{{route('export.units')}}" class="btn btn-info float-right">تحميل ملف الاكسل</a>
+    @can('edit items')
+        <a href="#" class="btn btn-success">رفع تعديل السعر</a>
+        <button data-toggle="modal" data-target="#uploadExcel" class="info-box-icon bg-danger" title="Upload" @if(isset($tooltip) ) {{tooltip($tooltip)}} @endif>
+            رفع تعديل السعر
+        </button>
+        <div class="modal fade text-left" id="uploadExcel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel1">حذف</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form method="POST" action=
+                            {{route('import.units')}}>
+                            {{ csrf_field() }}
+                            <div class="form-group col-md-12 {{hidden_on_show()}}">
+                                <label for="logo_input"> ملف الاكسل </label>
+                                {!! Form::file('file',['id'=>'logo_input','class'=>'form-control col','placeholder'=>__("File"),'required']) !!}
+                                {{input_error($errors,'file')}}
+                            </div>
+                            <button type="submit" class="btn btn-success">رفع</button>
+
+                        </form>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">تراجع</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    @endcan
 @stop
 
 @section('content')

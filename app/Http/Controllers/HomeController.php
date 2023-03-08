@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\PricesExport;
+use App\Imports\UnitsImport;
 use App\Models\Item;
 use App\Models\Unit;
 use Illuminate\Http\Request;
@@ -73,6 +74,13 @@ class HomeController extends Controller
 
     public function units(){
         return Excel::download(new PricesExport, 'units.xlsx');
+    }
+
+    public function importUnits()
+    {
+        Excel::import(new UnitsImport(), request()->file('file'));
+        //toast('تمت الاضافة بنجاح','success');
+        return 'done';
     }
 
 }
