@@ -23,9 +23,14 @@ class UnitsImport implements ToCollection
             $unit = Unit::find($row[1]);
 
             if ($unit){
+                if ($unit->ratio == 1){
+                    Item::find($unit->item_id)->fill(['price'=>$row[4]])->save();
+                }
                 $unit->fill([
                     'price'=>$row[4]
                 ])->save();
+
+
             }
 
         }
