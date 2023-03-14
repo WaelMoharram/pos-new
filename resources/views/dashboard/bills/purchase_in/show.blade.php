@@ -152,7 +152,7 @@
         <!-- /.row -->
         <hr>
         <div class="row text-center">
-            <div class="col-md-3"><span>توقيع المندوب</span></div>
+            <div class="col-md-3"><span>توقيع المستلم</span></div>
             <div class="col-md-3"><span>ادارة المخازن</span></div>
             <div class="col-md-3"><span>المدير المالى</span></div>
             <div class="col-md-3"><span>رئيس مجلس الادارة</span></div>
