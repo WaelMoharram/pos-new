@@ -56,7 +56,7 @@ class BillController extends Controller
 
         $bills = Bill::where(function ($q) use ($request){
             if ($request->type == 'sale_in' || $request->type == 'sale_out'){
-                $q->where('model_id','!=',1);
+//                $q->where('model_id','!=',1);
             }
             if($request->has('store_id') && $request->store_id != null){
                 $q->where('store_id',$request->store_id);
