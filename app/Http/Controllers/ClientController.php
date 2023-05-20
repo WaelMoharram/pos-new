@@ -39,7 +39,16 @@ class ClientController extends Controller
             $clients = Client::whereHas('users',function ($q) use ($request){
                 $q->where('client_user.user_id',$request->sales_man_id);
             })->get();
+        }elseif ($request->has('store_id')) {
+            $users = User::where('type','admin')->where(function ($q) use ($request){
+                $q->where('store_id',null)->orWhere('store_id',$request->store_id);
+            })->pluck('id');
+
+            $clients = Client::whereHas('users',function ($q) use ($users){
+                $q->whereIn('client_user.user_id',$users);
+            })->get();
         }else{
+
             $clients = Client::check()->get();
         }
 

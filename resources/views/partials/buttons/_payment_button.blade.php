@@ -1,5 +1,7 @@
 <button data-toggle="modal" data-target="#modalPayment{{$id}}" class="btn btn-xs btn-default text-success mx-1 shadow" title="دفغ" @if(isset($tooltip) ) {{tooltip($tooltip)}} @endif>
+
     <i class="fa fa-lg fa-fw fa-money-bill"></i>
+    @if(isset($tooltip) && $type == 'collect') {{$tooltip}} @endif
 </button>
 {{--<button data-toggle="modal" data-target="#usersPayment{{$id}}" @if(isset($tooltip) ) {{tooltip($tooltip)}} @endif  class="btn btn-md btn-danger" >--}}
 
@@ -21,7 +23,12 @@
             <div class="modal-body">
                 <div class="row">
                     {{ csrf_field() }}
+                    @if($type != 'collect')
                     <input type="hidden" name="bill_id" value="{{$id}}">
+                    @else
+                        <input type="hidden" name="sales_man_id" value="{{$id}}">
+
+                    @endif
                     <input type="hidden" name="type" value="{{$type}}">
                     {{-- ############# Date #############--}}
                     <div class="form-group py-1 col-md-12">

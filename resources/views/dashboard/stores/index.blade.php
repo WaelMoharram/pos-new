@@ -52,6 +52,33 @@
                                             'tooltip' => 'تعديل',
                                              ])
                             @endcomponent
+
+
+
+                            @can('sales reports')
+
+                                @component('partials.buttons._custom_button',[
+                                                'route' => route('bills.index',['type'=>'sale_out','store_id'=>$row->id]) ,
+                                                'tooltip' => 'عرض المبيعات',
+                                                'fa'=>'fa-chart-pie',
+                                                'color'=>'default',
+                                                 ])
+                                @endcomponent
+                            @endcan
+                            @can('client reports')
+
+                                @component('partials.buttons._custom_button',[
+                                                'route' => route('clients.index',['store_id'=>$row->id]) ,
+                                                'tooltip' => 'عرض العملاء',
+                                                'fa'=>'fa-users',
+                                                'color'=>'default',
+                                                 ])
+                                @endcomponent
+                            @endcan
+
+
+
+
                     </nobr>
                 </td>
             </tr>

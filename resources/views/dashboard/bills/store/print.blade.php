@@ -104,7 +104,7 @@
                             @endforeach
                             <tr>
                                 <td>#</td>
-                                <td colspan="3">الاجمالى</td>
+                                <td colspan="4">الاجمالى</td>
 
                                 <td>
                                     {{$details->sum('total')}}

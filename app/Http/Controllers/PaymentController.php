@@ -61,26 +61,26 @@ class PaymentController extends Controller
      */
     public function store(PaymentRequest $request)
     {
-        if (!Auth::user()->can('add payments')){
-            abort(401);
-        }
-        $bill = Bill::find($request->bill_id);
-
-        if ($bill->remaining < $request->money){
-            toast('لا يمكن سداد المبلغ لان القيمة اكبر من القيمة المتبقية على الفاتورة','error');
-            return redirect()->back();
-        }
+//        if (!Auth::user()->can('add payments')){
+//            abort(401);
+//        }
+//        $bill = Bill::find($request->bill_id);
+//
+//        if ($bill->remaining < $request->money){
+//            toast('لا يمكن سداد المبلغ لان القيمة اكبر من القيمة المتبقية على الفاتورة','error');
+//            return redirect()->back();
+//        }
         $requests = $request->all();
 
 
-        $requests['model_id'] = $bill->model_id;
-        $requests['model_type'] = $bill->model_type;
+        $requests['model_id'] =  null;
+        $requests['model_type'] =  null;
         $requests['status'] = "saved";
         $requests['need_discount'] = false;
 
 
 //        if (auth()->user()->type != 'admin'){
-            $requests['sales_man_id'] = auth()->id();
+            $requests['sales_man_id'] = $request->sales_man_id ?? auth()->id();
             $requests['accept_user_id'] = auth()->id();
 
 //        }else{

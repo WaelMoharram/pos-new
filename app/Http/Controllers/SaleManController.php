@@ -113,7 +113,7 @@ class SaleManController extends Controller
     public function report($id)
     {
         $user = User::findOrFail($id);
-        $payments = Bill::where('sales_man_id',$id)->whereIn('type',['cash_in','cash_out'])->orderByDesc('id')->get();
+        $payments = Bill::where('sales_man_id',$id)->whereIn('type',['cash_in','cash_out','collect'])->orderByDesc('id')->get();
         activity()->log( ' عرض المستحقات المالية للمندوب '.$user->name);
         return view('dashboard.sales-men.report',compact('user','payments'));
     }
