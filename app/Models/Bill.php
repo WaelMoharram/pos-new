@@ -92,10 +92,13 @@ class Bill extends Model
                 return 'نقل وصرف من المخازن و المندوبين';
                 break;
             case "cash_in":
-                return 'تحصيل';
+                return ' تحصيل من العميل';
                 break;
             case "cash_out":
-                return 'سداد';
+                return 'سداد الى العميل';
+                break;
+            case "collect":
+                return 'تحصيل من المندوب ';
                 break;
         }
 

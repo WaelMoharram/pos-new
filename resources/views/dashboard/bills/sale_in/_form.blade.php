@@ -34,7 +34,7 @@
     {{Form::select('need_discount',[0=>'لا' , 1=>'نعم'] ,null,['class'=>'form-control mb-2','id'=>'need_discount'])}}
     {{input_error($errors,'need_discount')}}
 </div>
-@if(auth()->user()->type == 'admin')
+{{--@if(auth()->user()->type == 'admin')--}}
     @can('discount sales')
         <div class="form-group py-1 col-md-4">
             <label for="discount_kind"> نوع الخصم  </label>
@@ -56,7 +56,7 @@
             {{input_error($errors,'discount_type')}}
         </div>
     @endcan
-@endif
+{{--@endif--}}
 {{-- ############# Bill Notes #############--}}
 <div class="form-group py-1 col-md-12">
     <label for="note"> ملاحظات على الفاتورة  </label>

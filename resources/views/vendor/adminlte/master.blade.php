@@ -35,7 +35,7 @@
     @else
         <link rel="stylesheet" href="{{ mix(config('adminlte.laravel_mix_css_path', 'css/app.css')) }}">
     @endif
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/daterangepicker/daterangepicker.css')}} " />
 
     {{-- Livewire Styles --}}
     @if(config('adminlte.livewire'))
@@ -142,8 +142,8 @@
     </script>
     {{-- Custom Scripts --}}
     @yield('adminlte_js')
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment-with-locales.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script type="text/javascript" src="{{asset('assets/daterangepicker/moment.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('assets/daterangepicker/daterangepicker.js')}}"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.12.1/i18n/ar.json"></script>
     <script>
         //moment.locale('ar');

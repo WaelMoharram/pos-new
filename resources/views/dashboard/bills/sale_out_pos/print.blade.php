@@ -125,7 +125,7 @@
                             @endif
                             <tr>
                                 <td>#</td>
-                                <td colspan="3">الاجمالى</td>
+                                <td colspan="4">الاجمالى</td>
 
                                 <td>
                                     {{$bill->total}}
@@ -135,7 +135,7 @@
                             </tr>
                             <tr>
                                 <td>#</td>
-                                <td colspan="3">المدفوع</td>
+                                <td colspan="4">المدفوع</td>
 
                                 <td>
                                     {!!  optional($bill->payments)->sum('money') ?? 0  !!}
@@ -145,7 +145,7 @@
                             </tr>
                             <tr>
                                 <td>#</td>
-                                <td colspan="3">المتبقى</td>
+                                <td colspan="4">المتبقى</td>
 
                                 <td>
                                     {{$bill->remaining}}
@@ -153,6 +153,8 @@
 
 
                             </tr>
+                            @component('dashboard.bills.payments',['bill'=>$bill])
+                            @endcomponent
                             </tbody>
                         </table>
                     </div>

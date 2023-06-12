@@ -107,11 +107,13 @@ class User extends Authenticatable
 
     public function getForCollectAttribute()
     {
-        $in =  $this->bills()->where('type','cash_in')->where('money_collected',0)->sum('money');
+        $in =  $this->bills()->where('type','cash_in')->sum('money');
 
-        $out = $this->bills()->where('type','cash_out')->where('money_collected',0)->sum('money');
+        $out = $this->bills()->where('type','cash_out')->sum('money');
 
-        return $in - $out;
+        $collect = $this->bills()->where('type','collect')->sum('money');
+
+        return $in - $out - $collect;
     }
 
 

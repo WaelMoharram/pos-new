@@ -29,7 +29,20 @@ class ReportController extends Controller
      * @return void
      */
     public function items(Request $request){
-        $items = Item::all()->sortByDesc('report_amount');
+        $items = Item::all();
+        if ($request->has('sort_by') && $request->sort_by == 'report_amount'){
+            $items = $items->sortBy('report_amount');
+        }else{
+            $items = $items->sortByDesc('report_amount');
+        }
+
+        if ($request->has('number')){
+            if ($request->number != 'all'){
+                $items = $items->take($request->number);
+            }
+        }else{
+            $items = $items->take(5);
+        }
         return view('dashboard.reports.items', compact('items'));
     }
 
