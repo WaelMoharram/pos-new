@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
@@ -27,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
     {
         //
 //        Relation::requireMorphMap();
-
+        Paginator::useBootstrap();
         Relation::morphMap([
             'client' => 'App\Models\Client',
             'supplier' => 'App\Models\Supplier',
