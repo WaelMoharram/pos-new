@@ -8,6 +8,7 @@ use App\Models\BillDetail;
 use App\Models\Brand;
 use App\Models\Item;
 use App\Models\ItemStore;
+use App\Models\Store;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -59,6 +60,14 @@ class ReportController extends Controller
         $item = Item::find($id);
         $details = BillDetail::whereHas('bill')->where('item_id',$id)->get();
         return view('dashboard.reports.item-card', compact('item','details'));
+    }
+    public function storeCard($id){
+        $store = Store::find($id);
+
+        $details = BillDetail::whereHas('bill',function ($q) use ($id){
+            $q->where('store_id',$id)->orWhere('store_from_id',$id)->orWhere('store_to_id',$id);
+        })->get();
+        return view('dashboard.reports.store-card', compact('store','details'));
     }
 
 }

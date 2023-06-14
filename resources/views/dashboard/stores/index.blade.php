@@ -31,7 +31,7 @@
         @foreach($stores as $row)
             <tr>
                 <td>{!! substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
-                <td>{!! $row->name !!}</td>
+                <td><a href="{{route('reports.store-card',$row->id)}}">{!! $row->name !!}</a></td>
                 <td>{!! $row->address !!}</td>
                 <td>
                     <nobr>
