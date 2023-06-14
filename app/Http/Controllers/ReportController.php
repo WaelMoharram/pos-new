@@ -8,6 +8,7 @@ use App\Models\BillDetail;
 use App\Models\Brand;
 use App\Models\Item;
 use App\Models\ItemStore;
+use App\Models\Store;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -49,6 +50,24 @@ class ReportController extends Controller
     public function salesMen(Request $request){
         $salesMen = User::where('store_id','!=',null)->get();
         return view('dashboard.reports.sales-men', compact('salesMen'));
+    }
+
+    public function quantityInDate(){
+        $items = Item::paginate(20);
+        return view('dashboard.reports.quantity-in-date', compact('items'));
+    }
+    public function itemCard($id){
+        $item = Item::find($id);
+        $details = BillDetail::whereHas('bill')->where('item_id',$id)->get();
+        return view('dashboard.reports.item-card', compact('item','details'));
+    }
+    public function storeCard($id){
+        $store = Store::find($id);
+
+        $details = BillDetail::whereHas('bill',function ($q) use ($id){
+            $q->where('store_id',$id)->orWhere('store_from_id',$id)->orWhere('store_to_id',$id);
+        })->get();
+        return view('dashboard.reports.store-card', compact('store','details'));
     }
 
 }

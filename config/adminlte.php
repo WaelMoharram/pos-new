@@ -551,6 +551,13 @@ return [
                     'icon'    => 'fas fa-fw fa-circle',
                     'can' =>'show reports',
                 ],
+
+                [
+                    'text' => 'تقرير ارصدة المخزون فى تاريخ معين',
+                    'url'  => 'dashboard/reports/quantity-in-date',
+                    'icon'    => 'fas fa-fw fa-circle',
+                    'can' =>'show reports',
+                ],
             ],
         ],
         [
