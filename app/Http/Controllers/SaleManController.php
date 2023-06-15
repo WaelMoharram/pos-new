@@ -204,7 +204,7 @@ class SaleManController extends Controller
             toast('غير مسموح بحذف بياناتك ','danger');
             return back();
         }
-        if (Auth::user()->bills->count() > 0){
+        if (User::findOrFail($id)->bills->count() > 0){
             toast('غير مسموح بحذف بياناتك ','danger');
             return back();
         }
