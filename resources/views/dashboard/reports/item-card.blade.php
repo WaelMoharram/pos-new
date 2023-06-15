@@ -55,7 +55,7 @@ $total=0;
                 <td>0</td>
                 <td>{{$quantity = $quantity +$detail->amount}}</td>
                 <td>{{$detail->price}}</td>
-                <td>{{$total= $total+($detail->amount * $detail->price)}}</td>
+                <td>{{$quantity*$detail->price}}</td>
             @elseif($detail->bill->type == 'purchase_out'||$detail->bill->type == 'sale_out')
                 <td>0</td>
                 <td>0</td>
@@ -65,7 +65,7 @@ $total=0;
                 <td>{{$detail->amount * $detail->price}}</td>
                 <td>{{$quantity = $quantity -$detail->amount}}</td>
                 <td>{{$detail->price}}</td>
-                <td>{{$total= $total-($detail->amount * $detail->price)}}</td>
+                <td>{{$quantity*$detail->price}}</td>
             @endif
 @endif
         </tr>
