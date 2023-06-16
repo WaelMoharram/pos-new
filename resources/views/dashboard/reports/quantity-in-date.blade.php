@@ -93,14 +93,14 @@
                     </td>
                     <td>
                         @foreach(\App\Models\Store::where('sales_man_id',null)->get() as $store)
-                            {{round((ItemAmountInStoreInDate($row->id,$store->id,request()->date??date('Y-m-d'))) * $row->price, 2)}}
+                            {{round((ItemAmountInStoreInDate($row->id,$store->id,request()->date??date('Y-m-d'))) * $row->buy_price, 2)}}
                             <br>
                         @endforeach
                     </td>
                     <td>
                         @foreach(\App\Models\Store::where('sales_man_id',null)->get() as $store)
                             @if(ItemAmountInStoreInDate($row->id,$store->id,request()->date??date('Y-m-d')) != 0)
-                            {{round((ItemAmountInStoreInDate($row->id,$store->id,request()->date??date('Y-m-d'))) * $row->price, 2)/ItemAmountInStoreInDate($row->id,$store->id,request()->date??date('Y-m-d'))}}
+                            {{round((ItemAmountInStoreInDate($row->id,$store->id,request()->date??date('Y-m-d'))) * $row->buy_price, 2)/ItemAmountInStoreInDate($row->id,$store->id,request()->date??date('Y-m-d'))}}
 
 @else
     0

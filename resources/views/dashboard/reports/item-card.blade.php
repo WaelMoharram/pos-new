@@ -61,11 +61,11 @@ $total=0;
                 <td>0</td>
                 <td>0</td>
                 <td>{{$detail->amount}}</td>
-                <td>{{$detail->price}}</td>
-                <td>{{$detail->amount * $detail->price}}</td>
+                <td>{{$detail->item->buy_price}}</td>
+                <td>{{$detail->amount * $detail->item->buy_price}}</td>
                 <td>{{$quantity = $quantity -$detail->amount}}</td>
-                <td>{{$detail->price}}</td>
-                <td>{{$quantity*$detail->price}}</td>
+                <td>{{$detail->item->buy_price}}</td>
+                <td>{{$quantity*$detail->item->buy_price}}</td>
             @endif
 @endif
         </tr>
