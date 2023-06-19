@@ -65,13 +65,16 @@ class ReportController extends Controller
         $store = Store::find($id);
 
         $details = BillDetail::whereHas('bill',function ($q) use ($id){
-            $q->where('store_id',$id)->orWhere('store_from_id',$id)->orWhere('store_to_id',$id);
+            $q->where(function ($q2) use($id){
+                $q2->where('store_id',$id)->orWhere('store_from_id',$id)->orWhere('store_to_id',$id);
+            });
+
 
             if (request()->has('from_date') && request()->from_date != null){
-                $q->whereDate('date','>=',request()->from_date);
+                $q->where('date','>=',request()->from_date);
             }
             if (request()->has('to_date') && request()->to_date != null){
-                $q->whereDate('date','<=',request()->to_date);
+                $q->where('date','<=',request()->to_date);
             }
         })->get();
         return view('dashboard.reports.store-card', compact('store','details'));
