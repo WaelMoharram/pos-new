@@ -22,7 +22,7 @@
 
                     </div>
                 </div>
-                                <div class="form-group py-1 col-md-6">
+                                <div class="form-group py-1 col-md-12">
                                     <label for="date"> التاريخ الي  </label>
                                     <div class="input-group date" id="to_date" data-target-input="nearest">
 
