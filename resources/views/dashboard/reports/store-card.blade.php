@@ -22,7 +22,6 @@
 
                     </div>
                 </div>
-                                 ############# Date #############
                                 <div class="form-group py-1 col-md-6">
                                     <label for="date"> التاريخ الي  </label>
                                     <div class="input-group date" id="to_date" data-target-input="nearest">
