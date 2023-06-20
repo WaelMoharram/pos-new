@@ -88,14 +88,13 @@ $price = [];
 $total=[];
             @endphp
             @foreach($details as $detail)
-                @dd($detail);
         <tr>
             @if($detail->bill->type != 'store')
             <td>{{$detail->bill->date}}</td>
             <td>#{!! $detail->item->code !!}</td>
             <td>#{!! $detail->item->name !!}</td>
             @if($detail->bill->type == 'purchase_in'||$detail->bill->type == 'sale_in')
-                <td>{{$detail->amount / $detail->unit->ratio ?? 1 }}</td>
+                <td>{{$detail->amount / optional($detail->unit)->ratio ?? 1 }}</td>
                 <td>{{$detail->price}}</td>
                 <td>{{$detail->amount * $detail->price}}</td>
                 <td>0</td>
