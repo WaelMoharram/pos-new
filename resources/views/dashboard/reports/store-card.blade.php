@@ -88,6 +88,7 @@ $price = [];
 $total=[];
             @endphp
             @foreach($details as $detail)
+                @dd($detail);
         <tr>
             @if($detail->bill->type != 'store')
             <td>{{$detail->bill->date}}</td>
