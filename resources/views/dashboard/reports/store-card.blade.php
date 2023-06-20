@@ -94,13 +94,13 @@ $total=[];
             <td>#{!! $detail->item->code !!}</td>
             <td>#{!! $detail->item->name !!}</td>
             @if($detail->bill->type == 'purchase_in'||$detail->bill->type == 'sale_in')
-                <td>{{$detail->amount / $detail->unit->ratio }}</td>
+                <td>{{$detail->amount / $detail->unit->ratio ?? 1 }}</td>
                 <td>{{$detail->price}}</td>
                 <td>{{$detail->amount * $detail->price}}</td>
                 <td>0</td>
                 <td>0</td>
                 <td>0</td>
-                <td>{{$quantity[$detail->item_id] = ($quantity[$detail->item_id]??0) +($detail->amount / $detail->unit->ratio)}}</td>
+                <td>{{$quantity[$detail->item_id] = ($quantity[$detail->item_id]??0) +($detail->amount / $detail->unit->ratio ??1)}}</td>
                 <td>{{$detail->price}}</td>
                 <td>{{$total[$detail->item_id]= ($total[$detail->item_id] ?? 0)+(($detail->amount ) * $detail->price)}}</td>
             @elseif($detail->bill->type == 'purchase_out'||$detail->bill->type == 'sale_out')
