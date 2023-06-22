@@ -47,23 +47,23 @@ $total=0;
             <td>{{$detail->bill->date}}</td>
             <td>#{!! $detail->bill->code !!}</td>
             @if($detail->bill->type == 'purchase_in'||$detail->bill->type == 'sale_in')
-                <td>{{($detail->amount / $detail->unit->ratio ?? 1)}}</td>
+                <td>{{($detail->amount / $detail->unit ?$detail->unit->ratio : 1)}}</td>
                 <td>{{$detail->price}}</td>
-                <td>{{($detail->amount / $detail->unit->ratio ?? 1) * $detail->price}}</td>
+                <td>{{($detail->amount / $detail->unit ?$detail->unit->ratio : 1) * $detail->price}}</td>
                 <td>0</td>
                 <td>0</td>
                 <td>0</td>
-                <td>{{$quantity = $quantity +($detail->amount / $detail->unit->ratio ?? 1)}}</td>
+                <td>{{$quantity = $quantity +($detail->amount / $detail->unit ?$detail->unit->ratio : 1)}}</td>
                 <td>{{$detail->price}}</td>
                 <td>{{$quantity*$detail->price}}</td>
             @elseif($detail->bill->type == 'purchase_out'||$detail->bill->type == 'sale_out')
                 <td>0</td>
                 <td>0</td>
                 <td>0</td>
-                <td>{{($detail->amount / $detail->unit->ratio ?? 1)}}</td>
+                <td>{{($detail->amount / $detail->unit ?$detail->unit->ratio : 1)}}</td>
                 <td>{{$detail->item->buy_price}}</td>
-                <td>{{($detail->amount / $detail->unit->ratio ?? 1) * $detail->item->buy_price}}</td>
-                <td>{{$quantity = $quantity -($detail->amount / $detail->unit->ratio ?? 1)}}</td>
+                <td>{{($detail->amount / $detail->unit ?$detail->unit->ratio : 1) * $detail->item->buy_price}}</td>
+                <td>{{$quantity = $quantity -($detail->amount / $detail->unit ?$detail->unit->ratio : 1)}}</td>
                 <td>{{$detail->item->buy_price}}</td>
                 <td>{{$quantity*$detail->item->buy_price}}</td>
             @endif
