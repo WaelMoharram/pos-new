@@ -56,6 +56,10 @@ class ReportController extends Controller
         $items = Item::paginate(20);
         return view('dashboard.reports.quantity-in-date', compact('items'));
     }
+    public function quantityInDate2(){
+        $items = Item::paginate(20);
+        return view('dashboard.reports.quantity-in-date2', compact('items'));
+    }
     public function itemCard($id){
         $item = Item::find($id);
         $details = BillDetail::whereHas('bill')->where('item_id',$id)->get();
