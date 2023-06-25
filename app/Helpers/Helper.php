@@ -283,6 +283,70 @@ function ItemAmount($item_id){
     return $amountIn - $amountOut;
 
 }
+
+function ItemHistoryAmount($item_id){
+
+
+    $billsIn = \App\Models\Bill::whereIn('type',['purchase_in','sale_in'])->pluck('id')->toArray();
+    $billsOut = \App\Models\Bill::whereIn('type',['purchase_out','sale_out'])->pluck('id')->toArray();
+
+
+
+    $amountIn =0;
+    $itemIn = \App\Models\BillDetail::whereIn('bill_id',$billsIn)->where('item_id',$item_id)->get();
+    foreach ($itemIn as $item){
+        $unitRatio = \App\Models\Unit::find($item->unit_id)->ratio ?? 1;
+        $amount = $item->amount * (1/$unitRatio);
+        if ($item->buy_price != 0 && $item->new_average_price != 0){
+            $amountIn += $amount;
+
+        }
+    }
+
+    $amountOut =0;
+    $itemOut = \App\Models\BillDetail::whereIn('bill_id',$billsOut)->where('item_id',$item_id)->get();
+    foreach ($itemOut as $item){
+        $unitRatio = \App\Models\Unit::find($item->unit_id)->ratio ?? 1;
+
+        $amount = $item->amount * (1/$unitRatio);
+        if ($item->buy_price != 0 && $item->new_average_price != 0){
+            $amountOut += $amount;
+
+
+        }
+    }
+
+    return $amountIn - $amountOut;
+
+}
+
+function ItemHistoryTotal($item_id){
+
+
+    $billsIn = \App\Models\Bill::whereIn('type',['purchase_in','sale_in'])->pluck('id')->toArray();
+
+
+
+
+    $amountIn =0;
+    $totalIn =0;
+    $itemIn = \App\Models\BillDetail::whereIn('bill_id',$billsIn)->where('item_id',$item_id)->get();
+    foreach ($itemIn as $item){
+        $unitRatio = \App\Models\Unit::find($item->unit_id)->ratio ?? 1;
+        $amount = $item->amount * (1/$unitRatio);
+
+        if ($item->buy_price != 0 && $item->new_average_price != 0){
+            $amountIn += $amount;
+            $totalIn += ($amount * $item->buy_price);
+
+        }
+    }
+
+
+    return $totalIn/$amountIn;
+
+}
+
 function ItemAmountInStoreInDate($item_id,$store_id,$date){
 
 

@@ -61,6 +61,8 @@ class BillDetailController extends Controller
             toast('لا تملك الصلاحية للعمل على هذا المخزن','error');
         }
         $item = Item::find($request->item_id);
+
+
         $unitRatio = 1;
         if ($request->unit_id){
 
@@ -72,6 +74,25 @@ class BillDetailController extends Controller
 
             $unitRatio = $unit->ratio;
         }
+
+//        $totalHistoryAmount = ItemHistoryAmount($request->item_id) - ($request->amount*((1/$unitRatio) ?? 1));
+        $totalHistoryPrice = ItemHistoryTotal($request->item_id);
+        $BillDetailcalc =  BillDetail::where('item_id',$request->item_id)->where('bill_id',$request->bill_id)->where('unit_id',$unit->id ?? null)->first();
+
+        if (!$BillDetailcalc){
+                $newAverage = $totalHistoryPrice;
+
+
+        }else{
+            $newAverage = $totalHistoryPrice;
+
+        }
+
+        if ($totalHistoryPrice == 0){
+            $newAverage = $item->buy_price;
+
+        }
+
         if ($bill->status != 'new' ||$bill->pos_sales == 1){
             if ($bill->type == 'purchase_in' || $bill->type == 'sale_in' ) {
                 if ($unit){
@@ -155,6 +176,8 @@ class BillDetailController extends Controller
             $total = ((float)$request->amount * $price);
             $request->merge(['price' => $price, 'total' => $total]);
         }
+
+
         $BillDetail = $BillDetailOld = BillDetail::where('item_id',$request->item_id)->where('bill_id',$request->bill_id)->where('unit_id',$unit->id ?? null)->first();
         if ($BillDetail && $bill->pos_sales == 0){
             $price = ((float)$unit->price ?? (float)$item->price);
@@ -163,10 +186,16 @@ class BillDetailController extends Controller
             }
             $newAmount = (float)$BillDetail->amount + ((float)$request->amount);
             $total = ($newAmount * $price);
-            $detail = $BillDetail->fill(['amount'=>$newAmount,'price'=>$price,'total'=>$total])->save();
+
+
+            $detail = $BillDetail->fill(['amount'=>$newAmount,'price'=>$price,'total'=>$total,'buy_price'=>$item->buy_price])->save();
         }else{
             $request->merge(['unit_id'=>$unit->id]);
+            $request->merge(['buy_price'=>$item->buy_price]);
+//            $request->merge(['new_average_price'=>$newAverage]);
+
             $detail = BillDetail::create($request->all());
+            $detail->fill(['new_average_price'=>ItemHistoryTotal($request->item_id)])->save();
         }
 
         if ($bill->pos_sales == 1 && $bill->type != 'store'){

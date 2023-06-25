@@ -111,6 +111,10 @@ Route::group(['middleware' => 'auth:web','prefix'=>'dashboard'], function () {
 
     Route::get('reports/store-card/{id}',[\App\Http\Controllers\ReportController::class, 'storeCard'])->name('reports.store-card');
 
+    Route::get('reports/item-card2/{id}',[\App\Http\Controllers\ReportController::class, 'itemCard2'])->name('reports.item-card2');
+
+    Route::get('reports/store-card2/{id}',[\App\Http\Controllers\ReportController::class, 'storeCard2'])->name('reports.store-card2');
+
 
     Route::get('units/for-sales-man/{id}',[\App\Http\Controllers\UnitController::class, 'forSalesMan'])->name('units.for-sales-man');
 
