@@ -195,7 +195,7 @@ class BillDetailController extends Controller
 //            $request->merge(['new_average_price'=>$newAverage]);
 
             $detail = BillDetail::create($request->all());
-            $average = ItemHistoryTotal($request->item_id;
+            $average = ItemHistoryTotal($request->item_id);
             if ($average == 0){
                 $average = $item->buy_price;
             }
