@@ -342,7 +342,9 @@ function ItemHistoryTotal($item_id){
         }
     }
 
-
+if ($amountIn == 0){
+    return 0;
+}
     return $totalIn/$amountIn;
 
 }
