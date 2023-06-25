@@ -195,7 +195,11 @@ class BillDetailController extends Controller
 //            $request->merge(['new_average_price'=>$newAverage]);
 
             $detail = BillDetail::create($request->all());
-            $detail->fill(['new_average_price'=>ItemHistoryTotal($request->item_id)])->save();
+            $average = ItemHistoryTotal($request->item_id;
+            if ($average == 0){
+                $average = $item->buy_price;
+            }
+            $detail->fill(['new_average_price'=>$average])->save();
         }
 
         if ($bill->pos_sales == 1 && $bill->type != 'store'){
