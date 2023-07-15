@@ -150,7 +150,7 @@ $total=[];
     @endforeach
     </tbody>
 </table>
-{{--{{$details->appends(request()->except('page'))->links()}}--}}
+{{$details->appends(request()->except('page'))->links()}}
 
 
 

@@ -45,6 +45,36 @@
 
 @section('content')
     {{-- Setup data for datatables --}}
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">{{__('Filter')}}</h4>
+                <div class="heading-elements">
+                    <ul class="list-inline mb-0">
+                        <li>
+                            <a data-action="collapse" class="rotate"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="card-content ">
+                <div class="card-body card-dashboard">
+                    {!! Form::open(['method'=>'get','class'=>'form','enctype' => 'multipart/form-data']) !!}
+                    <div class="row">
+                        @include('dashboard.items._form_show_filter')
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary   waves-effect waves-light">{{__('Filter')}}</button>
+                            <a href="{{route('items.index')}}" class="  ml-1 btn btn-warning  waves-effect waves-light">{{__('Reset filter')}}</a>
+                        </div>
+                    </div>
+                    {!! Form::close() !!}
+                </div>
+            </div>
+        </div>
+    </div>
+
     @php
         $heads = [
             'صورة الصنف',
@@ -67,7 +97,7 @@
     @endphp
 
     {{-- Minimal example / fill data using the component slot --}}
-    <x-adminlte-datatable id="table1" :heads="$heads" striped hoverable with-buttons>
+    <x-adminlte-datatable id="" :heads="$heads" striped hoverable with-buttons>
         @foreach($items as $row)
             <tr>
 
@@ -145,6 +175,7 @@
             </tr>
         @endforeach
     </x-adminlte-datatable>
+    {{$items->appends(request()->except('page'))->links()}}
 
 
 

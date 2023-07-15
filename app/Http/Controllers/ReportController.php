@@ -53,11 +53,11 @@ class ReportController extends Controller
     }
 
     public function quantityInDate(){
-        $items = Item::paginate(20);
+        $items = Item::paginate(10);
         return view('dashboard.reports.quantity-in-date', compact('items'));
     }
     public function quantityInDate2(){
-        $items = Item::paginate(20);
+        $items = Item::paginate(10);
         return view('dashboard.reports.quantity-in-date2', compact('items'));
     }
     public function itemCard($id){
@@ -80,7 +80,7 @@ class ReportController extends Controller
             if (request()->has('to_date') && request()->to_date != null){
                 $q->where('date','<=',request()->to_date);
             }
-        })->get();
+        })->paginate(15);
         return view('dashboard.reports.store-card', compact('store','details'));
     }
     public function itemCard2($id){

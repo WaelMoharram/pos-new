@@ -51,7 +51,7 @@
             </div>
 
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">دفع</button>
+                    <button  onclick='disableBtn()' type="submit" class="submit btn btn-primary">دفع</button>
 
                     <button type="button" class="btn btn-outline-primary" data-dismiss="modal">تراجع</button>
                 </div>
@@ -59,3 +59,13 @@
         </div>
     </div>
 </div>
+<script>
+    function disableBtn(){
+        alert('test')
+        var element = document.getElementsByClassName("submit");
+        for (var i = 0; i < element.length; i++) {
+            element[i].disabled = true;
+        }
+    }
+
+</script>

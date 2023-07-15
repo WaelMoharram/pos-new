@@ -84,8 +84,16 @@ class StoreController extends Controller
             abort(401);
         }
         $store = Store::findOrFail($id);
+        $items = \App\Models\ItemStore::where('store_id',$id)->whereHas('item',function($q){
+            if (request()->has('name') && request()->name != null){
+                $q->where('name','like','%'.request()->name.'%');
+            }
+            if (request()->has('barcode') && request()->barcode != null){
+                $q->where('barcode','like','%'.request()->barcode.'%');
+            }
+        })->paginate(15);
 
-        return view('dashboard.stores.show',compact('store'));
+        return view('dashboard.stores.show',compact('store','items'));
     }
 
     /**

@@ -62,7 +62,7 @@ class BillController extends Controller
                 $q->where('store_id',$request->store_id);
                 activity()->log(' عرض فواتير ' . __($request->type) .'للمخزن'. Store::find($request->store_id)->name);
             }
-        })->where('type',$request->type)/*->where('pos_sales',0)*/->orderByDesc('id')->get();
+        })->where('type',$request->type)/*->where('pos_sales',0)*/->orderByDesc('id')->paginate(15);
         if (auth()->user()->store()->count() > 0){
             $bills = Bill::where('type',$request->type)/*->where('pos_sales',0)*/->where(function($q) use($request){
                 if ($request->has('sales_man_id') && $request->sales_man_id != null){
@@ -75,7 +75,7 @@ class BillController extends Controller
                     activity()->log(' عرض فواتير ' . __($request->type));
                     $q->where('sales_man_id',auth()->id())->orWhere('store_id',auth()->user()->store_id);
                 }
-            })->orderByDesc('id')->get();
+            })->orderByDesc('id')->paginate(15);
 
         }
         $store = auth()->user()->store;

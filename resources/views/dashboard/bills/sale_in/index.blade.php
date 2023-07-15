@@ -40,7 +40,7 @@
     @endphp
 
     {{-- Minimal example / fill data using the component slot --}}
-    <x-adminlte-datatable id="table1" :heads="$heads" striped hoverable with-buttons>
+    <x-adminlte-datatable id="" :heads="$heads" striped hoverable with-buttons>
         @foreach($bills as $row)
             <tr>
                 <td>{!! substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
@@ -97,6 +97,7 @@
             </tr>
         @endforeach
     </x-adminlte-datatable>
+    {{$bills->appends(request()->except('page'))->links()}}
 
 
 

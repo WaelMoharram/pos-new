@@ -34,7 +34,14 @@ class ItemController extends Controller
         if (!Auth::user()->can('index items')){
             abort(401);
         }
-        $items = Item::orderBy('name')->get();
+        $items = Item::where(function($q){
+            if (request()->has('name') && request()->name != null){
+                $q->where('name','like','%'.request()->name.'%');
+            }
+            if (request()->has('barcode') && request()->barcode != null){
+                $q->where('barcode','like','%'.request()->barcode.'%');
+            }
+        })->orderBy('name')->paginate(15);
         activity()
             ->log( 'عرض الاصناف');
 
