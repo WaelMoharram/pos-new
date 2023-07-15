@@ -77,7 +77,7 @@
                     <td>{{$row->code}}</td>
                     <td>{!! $row->name !!}</td>
                     <td>
-                        @foreach(\App\Models\Store::all() as $store)
+                        @foreach(\App\Models\Store::withTrashed()->get() as $store)
                             {{$store->name}}
                             <br>
                         @endforeach
@@ -86,19 +86,19 @@
                     </td>
 
                     <td>
-                        @foreach(\App\Models\Store::all() as $store)
+                        @foreach(\App\Models\Store::withTrashed()->get() as $store)
                             {{ItemAmountInStoreInDate($row->id,$store->id,request()->date??date('Y-m-d'))}}
                             <br>
                         @endforeach
                     </td>
                     <td>
-                        @foreach(\App\Models\Store::all() as $store)
+                        @foreach(\App\Models\Store::withTrashed()->get() as $store)
                             {{round((ItemAmountInStoreInDate($row->id,$store->id,request()->date??date('Y-m-d'))) * $row->buy_price, 2)}}
                             <br>
                         @endforeach
                     </td>
                     <td>
-                        @foreach(\App\Models\Store::all() as $store)
+                        @foreach(\App\Models\Store::withTrashed()->get() as $store)
                             @if(ItemAmountInStoreInDate($row->id,$store->id,request()->date??date('Y-m-d')) != 0)
                             {{round((ItemAmountInStoreInDate($row->id,$store->id,request()->date??date('Y-m-d'))) * $row->buy_price, 2)/ItemAmountInStoreInDate($row->id,$store->id,request()->date??date('Y-m-d'))}}
 
