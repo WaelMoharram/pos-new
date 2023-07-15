@@ -77,7 +77,7 @@
                     <td>{{$row->code}}</td>
                     <td>{!! $row->name !!}</td>
                     <td>
-                        @foreach(\App\Models\Store::where('sales_man_id',null)->get() as $store)
+                        @foreach(\App\Models\Store::get() as $store)
                             {{$store->name}}
                             <br>
                         @endforeach
