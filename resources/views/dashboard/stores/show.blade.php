@@ -57,38 +57,38 @@
     {{-- Minimal example / fill data using the component slot --}}
     <x-adminlte-datatable id="" :heads="$heads" striped hoverable with-buttons>
         @foreach($items as $itam)
-            @php($amount = ItemAmountStore($store->id,optional($itam->item)->id))
+            @php($amount = ItemAmountStore($store->id,optional($itam)->id))
 
         @if($amount != 0)
             <tr>
-                <td>{!! optional($itam->item)->barcode!!}</td>
-                <td>{!! optional($itam->item)->name !!}</td>
-{{--                @php($amount = \App\Models\ItemStore::where('store_id',$store->id)->where('item_id',optional($itam->item)->id)->sum('amount'))--}}
+                <td>{!! optional($itam)->barcode!!}</td>
+                <td>{!! optional($itam)->name !!}</td>
+{{--                @php($amount = \App\Models\ItemStore::where('store_id',$store->id)->where('item_id',optional($itam)->id)->sum('amount'))--}}
 
-                @php($amount = ItemAmountStore($store->id,optional($itam->item)->id))
+                @php($amount = ItemAmountStore($store->id,optional($itam)->id))
 
                 <td>
-                    @php($unit = \App\Models\Unit::where('item_id',optional($itam->item)->id)->where('ratio',1)->first())
+                    @php($unit = \App\Models\Unit::where('item_id',optional($itam)->id)->where('ratio',1)->first())
 
                     @php($amount = $amount * ((float)$unit->ratio))
 
                     @if(getRound($amount) != 0)
                         <span {{tooltip($unit->name)}}>{{getRound($amount)}}</span>
-                        @php($amount = getFrachtion(ItemAmountStore($store->id,optional($itam->item)->id)))
+                        @php($amount = getFrachtion(ItemAmountStore($store->id,optional($itam)->id)))
                     @endif
-{{--                    @if($itam->item->id == 39)--}}
+{{--                    @if($itam->id == 39)--}}
 {{--                        @dd($amount)--}}
 {{--                    @endif--}}
                 </td>
 
                 <td>
                     @if($amount != 0)
-                    @foreach(\App\Models\Unit::where('item_id',optional($itam->item)->id)->where('ratio','!=',1)->orderBy('ratio')->get() as $unit)
+                    @foreach(\App\Models\Unit::where('item_id',optional($itam)->id)->where('ratio','!=',1)->orderBy('ratio')->get() as $unit)
 
                         @php($amount = $amount * ((float)$unit->ratio))
                         @if(getRound($amount) != 0)
-                            <span {{tooltip($unit->name)}}>{{getRound($amount)}}</span> @if(($loop->index +1) != \App\Models\Unit::where('item_id',($itam->item)->id)->where('ratio','!=',1)->count()) - @endif
-                            @php($amount = getFrachtion(\App\Models\ItemStore::where('item_id',optional($itam->item)->id)->sum('amount')))
+                            <span {{tooltip($unit->name)}}>{{getRound($amount)}}</span> @if(($loop->index +1) != \App\Models\Unit::where('item_id',($itam)->id)->where('ratio','!=',1)->count()) - @endif
+                            @php($amount = getFrachtion(\App\Models\ItemStore::where('item_id',optional($itam)->id)->sum('amount')))
                         @endif
                     @endforeach
                         @endif

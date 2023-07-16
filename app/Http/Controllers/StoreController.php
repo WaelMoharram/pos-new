@@ -84,7 +84,7 @@ class StoreController extends Controller
             abort(401);
         }
         $store = Store::findOrFail($id);
-        $items = \App\Models\ItemStore::where('store_id',$id)->whereHas('item',function($q){
+        $items = \App\Models\Item::where(function($q){
             if (request()->has('name') && request()->name != null){
                 $q->where('name','like','%'.request()->name.'%');
             }
