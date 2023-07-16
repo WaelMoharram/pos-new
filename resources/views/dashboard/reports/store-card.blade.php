@@ -13,7 +13,7 @@
 
             <div class="row">
                 {{-- ############# Date #############--}}
-                <div class="form-group py-1 col-md-12">
+                <div class="form-group py-1 col-md-6">
                     <label for="date"> التاريخ   </label>
                     <div class="input-group date" id="from_date" data-target-input="nearest">
 
@@ -22,14 +22,27 @@
 
                     </div>
                 </div>
-                                <div class="form-group py-1 col-md-12">
-                                    <label for="date"> التاريخ الي  </label>
-                                    <div class="input-group date" id="to_date" data-target-input="nearest">
+                <div class="form-group py-1 col-md-6">
+                    <label for="date"> التاريخ الي  </label>
+                    <div class="input-group date" id="to_date" data-target-input="nearest">
 
-                                        {{Form::text('to_date',request()->to_date ?? null,['class'=>'form-control mb-2 datetimepicker-input date','id'=>'to_date'])}}
-                                        {{input_error($errors,'to_date')}}
-                                    </div>
-                                </div>
+                        {{Form::text('to_date',request()->to_date ?? null,['class'=>'form-control mb-2 datetimepicker-input date','id'=>'to_date'])}}
+                        {{input_error($errors,'to_date')}}
+                    </div>
+                </div>
+
+                <div class="form-group py-1 col-md-6">
+                    <label for="name"> {{__('الاسم')}}</label>
+                    {!! Form::text('name',request()->name ??null,['id'=>'name','class'=>'form-control col datetimepicker-input ','placeholder'=>__("الاسم")]) !!}
+                    {{input_error($errors,'name')}}
+                </div>
+
+                <div class="form-group py-1 col-md-6">
+                    <label for="barcode"> {{__('رقم الباركود')}}</label>
+                    {!! Form::text('barcode',request()->barcode ??null,['id'=>'barcode','class'=>'form-control col  ','placeholder'=>__("رقم الباركود")]) !!}
+                    {{input_error($errors,'barcode')}}
+                </div>
+
                 {{--                <div class="form-group py-1 col-md-6">--}}
                 {{--                    <label for="sort_by"> الترتيب ب  </label>--}}
                 {{--                    <div class="input-group " id="sort_by" >--}}
@@ -91,8 +104,8 @@ $total=[];
         <tr>
             @if($detail->bill->type != 'store')
             <td>{{$detail->bill->date}}</td>
-            <td>#{!! $detail->item->code !!}</td>
-            <td>#{!! $detail->item->name !!}</td>
+            <td>{!! $detail->item->barcode !!}</td>
+            <td>{!! $detail->item->name !!}</td>
             @if($detail->bill->type == 'purchase_in'||$detail->bill->type == 'sale_in')
                 <td>{{$detail->amount / ($detail->unit ?$detail->unit->ratio : 1) }}</td>
                 <td>{{$detail->price}}</td>

@@ -61,7 +61,7 @@
 </div>
 <script>
     function disableBtn(){
-        alert('test')
+        // alert('test')
         var element = document.getElementsByClassName("submit");
         for (var i = 0; i < element.length; i++) {
             element[i].disabled = true;

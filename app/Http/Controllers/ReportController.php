@@ -53,7 +53,14 @@ class ReportController extends Controller
     }
 
     public function quantityInDate(){
-        $items = Item::paginate(10);
+        $items = Item::where(function($q){
+            if (request()->has('name') && request()->name != null){
+                $q->where('name','like','%'.request()->name.'%');
+            }
+            if (request()->has('barcode') && request()->barcode != null){
+                $q->where('barcode','like','%'.request()->barcode.'%');
+            }
+        })->paginate(10);
         return view('dashboard.reports.quantity-in-date', compact('items'));
     }
     public function quantityInDate2(){
@@ -80,6 +87,16 @@ class ReportController extends Controller
             if (request()->has('to_date') && request()->to_date != null){
                 $q->where('date','<=',request()->to_date);
             }
+        })->whereHas('item',function($q){
+
+            if (request()->has('name') && request()->name != null){
+                $q->where('name','like','%'.request()->name.'%');
+            }
+
+            if (request()->has('barcode') && request()->barcode != null){
+                $q->where('barcode','like','%'.request()->barcode.'%');
+            }
+
         })->paginate(15);
         return view('dashboard.reports.store-card', compact('store','details'));
     }

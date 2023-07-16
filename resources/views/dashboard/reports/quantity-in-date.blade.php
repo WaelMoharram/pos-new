@@ -13,7 +13,7 @@
 
             <div class="row">
                 {{-- ############# Date #############--}}
-                <div class="form-group py-1 col-md-12">
+                <div class="form-group py-1 col-md-6">
                     <label for="date"> التاريخ   </label>
                     <div class="input-group date" id="from_date" data-target-input="nearest">
 
@@ -22,7 +22,26 @@
 
                     </div>
                 </div>
-{{--                --}}{{-- ############# Date #############--}}
+
+                <div class="form-group py-1 col-md-6">
+                    <label for="name"> {{__('الاسم')}}</label>
+                    {!! Form::text('name',request()->name ??null,['id'=>'name','class'=>'form-control col datetimepicker-input ','placeholder'=>__("الاسم")]) !!}
+                    {{input_error($errors,'name')}}
+                </div>
+
+                <div class="form-group py-1 col-md-6">
+                    <label for="barcode"> {{__('رقم الباركود')}}</label>
+                    {!! Form::text('barcode',request()->barcode ??null,['id'=>'barcode','class'=>'form-control col  ','placeholder'=>__("رقم الباركود")]) !!}
+                    {{input_error($errors,'barcode')}}
+                </div>
+                <div class="form-group py-1 col-md-6">
+                    <label for="store_id"> المخزن   </label>
+                    {{Form::select('store_id',\App\Models\Store::withTrashed()->pluck('name','id') ,null,['class'=>'form-control mb-2','id'=>'store_id','placeholder'=>'اختر مخزن'])}}
+                    {{input_error($errors,'store_id')}}
+                </div>
+
+
+                {{--                --}}{{-- ############# Date #############--}}
 {{--                <div class="form-group py-1 col-md-6">--}}
 {{--                    <label for="date"> التاريخ الي  </label>--}}
 {{--                    <div class="input-group date" id="to_date" data-target-input="nearest">--}}
@@ -74,7 +93,7 @@
             <tbody>
             @foreach($items as $row)
                 <tr>
-                    <td>{{$row->code}}</td>
+                    <td>{{$row->barcode}}</td>
                     <td>{!! $row->name !!}</td>
                     <td>
                         @foreach(\App\Models\Store::withTrashed()->get() as $store)

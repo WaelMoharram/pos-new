@@ -74,7 +74,7 @@
             <tbody>
             @foreach($items as $row)
                 <tr>
-                    <td>{{$row->code}}</td>
+                    <td>{{$row->barcode}}</td>
                     <td>{!! $row->name !!}</td>
                     <td>
                         @foreach(\App\Models\Store::where('sales_man_id',null)->get() as $store)
