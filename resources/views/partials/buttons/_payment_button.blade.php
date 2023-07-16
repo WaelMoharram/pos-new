@@ -18,7 +18,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form method="POST" action=
+            <form id="forma{{$id}}"  method="POST" action=
                 {{$route}}>
             <div class="modal-body">
                 <div class="row">
@@ -51,7 +51,7 @@
             </div>
 
                 <div class="modal-footer">
-                    <button  onclick='disableBtn()' type="submit" class="submit btn btn-primary">دفع</button>
+                    <button onsubmit="disableBtn()"  type="submit" class="submit btn btn-primary">دفع</button>
 
                     <button type="button" class="btn btn-outline-primary" data-dismiss="modal">تراجع</button>
                 </div>
@@ -60,9 +60,29 @@
     </div>
 </div>
 <script>
+{{--    $(document).ready(function () {--}}
+
+{{--        $("#form{{$id}}").submit(function (e) {--}}
+{{--alert('wqef');--}}
+{{--            //stop submitting the form to see the disabled button effect--}}
+{{--            e.preventDefault();--}}
+
+{{--            //disable the submit button--}}
+{{--            $("#submit").attr("disabled", true);--}}
+
+{{--            //disable a normal button--}}
+{{--            // $("#btnTest").attr("disabled", true);--}}
+
+{{--            return true;--}}
+
+{{--        });--}}
+{{--    });--}}
     function disableBtn(){
+
         // alert('test')
+
         var element = document.getElementsByClassName("submit");
+
         for (var i = 0; i < element.length; i++) {
             element[i].disabled = true;
         }
