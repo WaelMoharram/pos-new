@@ -70,6 +70,11 @@ class PaymentController extends Controller
             toast('لا يمكن سداد المبلغ لان القيمة اكبر من القيمة المتبقية على الفاتورة','error');
             return redirect()->back();
         }
+
+        if ($request->money <=0){
+            toast('برجاء ادخال مبلغ صحيح','error');
+            return redirect()->back();
+        }
         $requests = $request->all();
 
 
