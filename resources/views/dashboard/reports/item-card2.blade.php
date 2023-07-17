@@ -14,7 +14,7 @@
 
     {{-- Minimal example / fill data using the component slot --}}
 
-    <table id="table1" style="width:100%" class="table table-hover table-striped no-footer">
+    <table id="table1" style="width:100%" class="table table-hover table-striped no-footer table-container">
         <thead>
         <tr>
             <th rowspan="2">التاريخ</th>
