@@ -14,7 +14,7 @@ class PricesExport implements FromView
     public function view(): View
     {
         return view('exports.units', [
-            'units' => Unit::all()
+            'units' => Unit::whereHas('item')->get()
         ]);
     }
 }
