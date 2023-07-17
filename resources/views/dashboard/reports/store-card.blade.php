@@ -186,7 +186,7 @@ $total=[];
                         <td>0</td>
                     <td>0</td>
                     <td>0</td>
-                    <td>{{(number_format(($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) , 2)}}</td>
+                    <td>{{number_format(($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) , 2)}}</td>
                     <td>{{number_format($detail->item->buy_price , 2)}}</td>
                     <td>{{number_format((($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->item->buy_price) , 2)}}</td>
                         @php($quantity[$detail->item_id] = ($quantity[$detail->item_id]??0) -($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)))
