@@ -59,7 +59,6 @@
         @foreach($items as $itam)
             @php($amount = ItemAmountStore($store->id,optional($itam)->id))
 
-        @if($amount != 0)
             <tr>
                 <td>{!! optional($itam)->barcode!!}</td>
                 <td>{!! optional($itam)->name !!}</td>
@@ -94,7 +93,6 @@
                         @endif
                 </td>
             </tr>
-            @endif
         @endforeach
     </x-adminlte-datatable>
 
