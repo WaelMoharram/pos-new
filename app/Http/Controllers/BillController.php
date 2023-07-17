@@ -338,6 +338,11 @@ class BillController extends Controller
 
         $bill= Bill::findOrFail($id);
 
+        if ($bill->total != $bill->remaining){
+            toast('عملية مرفوضة - لا يمكن حذف فاتورة تم سدادها جزئبا او كليا ','danger');
+            return redirect()->back();
+        }
+
         if ($bill->status == 'saved' ){
             if ($bill->type == 'purchase_in' || $bill->type == 'sale_in' ){
                 foreach ($bill->details as $detail){
