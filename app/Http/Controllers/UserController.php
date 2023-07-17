@@ -32,7 +32,7 @@ class UserController extends Controller
         if (!Auth::user()->can('index users')){
             abort(401);
         }
-        $users = User::where('type','admin')->paginate(10);
+        $users = User::where('type','admin')->get();
         activity()
             ->log( 'عرض المستخدمين');
         return view('dashboard.users.index',compact('users'));

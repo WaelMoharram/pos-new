@@ -35,7 +35,7 @@ class SaleManController extends Controller
         if (!Auth::user()->can('index sales_men')){
             abort(401);
         }
-        $users = User::where('type','sales')->paginate(10);
+        $users = User::where('type','sales')->get();
         activity()
             ->log( 'عرض المندوبين');
         return view('dashboard.sales-men.index',compact('users'));
