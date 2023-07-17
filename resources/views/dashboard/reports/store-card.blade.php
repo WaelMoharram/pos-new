@@ -152,7 +152,7 @@ $total=[];
                 <td>0</td>
                 <td>{{number_format($detail->amount / ($detail->unit ?$detail->unit->ratio : 1) , 2)}}</td>
                 <td>{{number_format($detail->item->buy_price , 2)}}</td>
-                <td>{{(number_format(($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->item->buy_price , 2)}}</td>
+                <td>{{(number_format((($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->item->buy_price) , 2)}}</td>
                     @php($quantity[$detail->item_id] = ($quantity[$detail->item_id]??0) -($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)))
                     <td>{{number_format($quantity[$detail->item_id] , 2)}}</td>                <td>{{$detail->item->buy_price}}</td>
                 <td>{{number_format($total[$detail->item_id]= ($total[$detail->item_id]??0)-(($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->item->buy_price) , 2)}}</td>
@@ -169,7 +169,7 @@ $total=[];
 
                         <td>{{number_format($detail->amount / ($detail->unit ?$detail->unit->ratio : 1) , 2)}}</td>
                     <td>{{number_format($detail->item->buy_price , 2)}}</td>
-                    <td>{{(number_format(($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->item->buy_price , 2)}}</td>
+                    <td>{{(number_format((($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->item->buy_price ), 2)}}</td>
                     <td>0</td>
                     <td>0</td>
                     <td>0</td>
@@ -188,7 +188,7 @@ $total=[];
                     <td>0</td>
                     <td>{{(number_format(($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) , 2)}}</td>
                     <td>{{number_format($detail->item->buy_price , 2)}}</td>
-                    <td>{{number_format(($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->item->buy_price , 2)}}</td>
+                    <td>{{number_format((($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->item->buy_price) , 2)}}</td>
                         @php($quantity[$detail->item_id] = ($quantity[$detail->item_id]??0) -($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)))
                         <td>{{number_format($quantity[$detail->item_id] , 2)}}</td>                    <td>{{$detail->item->buy_price}}</td>
                     <td>{{number_format($total[$detail->item_id]= ($total[$detail->item_id] ?? 0)-(($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->item->buy_price) , 2)}}</td>
