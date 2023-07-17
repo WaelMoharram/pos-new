@@ -61,10 +61,10 @@ $total=0;
                 <td>0</td>
                 <td>0</td>
                 <td>{{($detail->amount / ($detail->unit ?$detail->unit->ratio : 1))}}</td>
-                <td>{{$detail->item->buy_price}}</td>
-                <td>{{($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->item->buy_price}}</td>
+                <td>{{$detail->buy_price}}</td>
+                <td>{{($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->buy_price}}</td>
                 <td>{{$quantity = $quantity -($detail->amount / ($detail->unit ?$detail->unit->ratio : 1))}}</td>
-                <td>{{$detail->item->buy_price}}</td>
+                <td>{{$detail->buy_price}}</td>
                 <td>{{$detail->new_average_price}}</td>
             @endif
 @endif

@@ -108,10 +108,10 @@ $total=[];
                 <td>0</td>
                 <td>0</td>
                 <td>{{$detail->amount / ($detail->unit ?$detail->unit->ratio : 1)}}</td>
-                <td>{{$detail->item->buy_price}}</td>
-                <td>{{($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->item->buy_price}}</td>
+                <td>{{$detail->buy_price}}</td>
+                <td>{{($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->buy_price}}</td>
                 <td>{{$quantity[$detail->item_id] = ($quantity[$detail->item_id]??0) -($detail->amount / ($detail->unit ?$detail->unit->ratio : 1))}}</td>
-                <td>{{$detail->item->buy_price}}</td>
+                <td>{{$detail->buy_price}}</td>
                 <td>{{$detail->new_average_price}}</td>
             @endif
             @endif
@@ -121,13 +121,13 @@ $total=[];
                     <td>#{!! $detail->item->code !!}</td>
                     <td>#{!! $detail->item->name !!}</td>
                     <td>{{$detail->amount / ($detail->unit ?$detail->unit->ratio : 1)}}</td>
-                    <td>{{$detail->item->buy_price}}</td>
-                    <td>{{($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->item->buy_price}}</td>
+                    <td>{{$detail->buy_price}}</td>
+                    <td>{{($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->buy_price}}</td>
                     <td>0</td>
                     <td>0</td>
                     <td>0</td>
                     <td>{{$quantity[$detail->item_id] = ($quantity[$detail->item_id]??0) +($detail->amount / ($detail->unit ?$detail->unit->ratio : 1))}}</td>
-                    <td>{{$detail->item->buy_price}}</td>
+                    <td>{{$detail->buy_price}}</td>
                     <td>{{$detail->new_average_price}}</td>
                 @endif
                 @if($detail->bill->stor_from_id == $store->id)
@@ -138,10 +138,10 @@ $total=[];
                     <td>0</td>
                     <td>0</td>
                     <td>{{($detail->amount / ($detail->unit ?$detail->unit->ratio : 1))}}</td>
-                    <td>{{$detail->item->buy_price}}</td>
-                    <td>{{($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->item->buy_price}}</td>
+                    <td>{{$detail->buy_price}}</td>
+                    <td>{{($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->buy_price}}</td>
                     <td>{{$quantity[$detail->item_id] = ($quantity[$detail->item_id]??0) -($detail->amount / ($detail->unit ?$detail->unit->ratio : 1))}}</td>
-                    <td>{{$detail->item->buy_price}}</td>
+                    <td>{{$detail->buy_price}}</td>
                     <td>{{$detail->new_average_price}}</td>
                 @endif
             @endif
