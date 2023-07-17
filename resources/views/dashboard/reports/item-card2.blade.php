@@ -14,65 +14,66 @@
 
     {{-- Minimal example / fill data using the component slot --}}
 
-        <table id="table1" style="width:100%" class="table table-hover table-striped no-footer">
-            <thead>
-            <tr>
-                <th rowspan="2">التاريخ</th>
-                <th rowspan="2">رقم المستند</th>
-                <th colspan="3"> اضافة</th>
-                <th colspan="3"> صرف</th>
-                <th colspan="3"> رصيد</th>
-            </tr>
-            <tr>
-                <th> كمية</th>
-                <th> سعر الوحدة</th>
-                <th> قيمة</th>
-                <th> كمية</th>
-                <th> سعر الوحدة</th>
-                <th> قيمة</th>
-                <th> كمية</th>
-                <th> سعر الوحدة</th>
-                <th> قيمة</th>
-            </tr>
-            </thead>
-            <tbody>
-            @php
+    <table id="table1" style="width:100%" class="table table-hover table-striped no-footer">
+        <thead>
+        <tr>
+            <th rowspan="2">التاريخ</th>
+            <th rowspan="2">رقم المستند</th>
+            <th colspan="3"> اضافة</th>
+            <th colspan="3"> صرف</th>
+            <th colspan="3"> رصيد</th>
+        </tr>
+        <tr>
+            <th> كمية</th>
+            <th> سعر الوحدة</th>
+            <th> قيمة</th>
+            <th> كمية</th>
+            <th> سعر الوحدة</th>
+            <th> قيمة</th>
+            <th> كمية</th>
+            <th> سعر الوحدة</th>
+            <th> قيمة</th>
+        </tr>
+        </thead>
+        <tbody>
+        @php
             $quantity = 0;
 $price = 0;
 $total=0;
-            @endphp
-            @foreach($details as $detail)
-        @if($detail->bill->type !='store')
-        <tr>
-            <td>{{$detail->bill->date}}</td>
-            <td>#{!! $detail->bill->code !!}</td>
-            @if($detail->bill->type == 'purchase_in'||$detail->bill->type == 'sale_in')
-                <td>{{($detail->amount / ($detail->unit ?$detail->unit->ratio : 1))}}</td>
-                <td>{{$detail->price}}</td>
-                <td>{{($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->price}}</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>{{$quantity = $quantity +($detail->amount / ($detail->unit ?$detail->unit->ratio : 1))}}</td>
-                <td>{{$detail->price}}</td>
-                <td>{{$detail->new_average_price}}</td>
-            @elseif($detail->bill->type == 'purchase_out'||$detail->bill->type == 'sale_out')
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>{{($detail->amount / ($detail->unit ?$detail->unit->ratio : 1))}}</td>
-                <td>{{$detail->buy_price}}</td>
-                <td>{{($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->buy_price}}</td>
-                <td>{{$quantity = $quantity -($detail->amount / ($detail->unit ?$detail->unit->ratio : 1))}}</td>
-                <td>{{$detail->buy_price}}</td>
-                <td>{{$detail->new_average_price}}</td>
-            @endif
-@endif
-        </tr>
-    @endforeach
-    </tbody>
-</table>
-{{--{{$details->appends(request()->except('page'))->links()}}--}}
+        @endphp
+        @foreach($details as $detail)
+            @if($detail->bill->type !='store')
+                <tr>
+                    <td>{{$detail->bill->date}}</td>
+                    <td>#{!! $detail->bill->code !!}</td>
+                    @if($detail->bill->type == 'purchase_in'||$detail->bill->type == 'sale_in')
+                        <td>{{($detail->amount / ($detail->unit ?$detail->unit->ratio : 1))}}</td>
+                        <td>{{$detail->price}}</td>
+                        <td>{{($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->price}}</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        @php($quantity = $quantity +($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)))
+                        <td>{{number_format($quantity, 2)}}</td>
+                        <td>{{$detail->price}}</td>
+                        <td>{{$quantity*$detail->price}}</td>
+                    @elseif($detail->bill->type == 'purchase_out'||$detail->bill->type == 'sale_out')
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>{{($detail->amount / ($detail->unit ?$detail->unit->ratio : 1))}}</td>
+                        <td>{{$detail->buy_price}}</td>
+                        <td>{{($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->buy_price}}</td>
+                        @php($quantity = $quantity -($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)))
+                        <td>{{number_format($quantity, 2)}}</td>                <td>{{$detail->buy_price}}</td>
+                        <td>{{$quantity*$detail->buy_price}}</td>
+                    @endif
+                    @endif
+                </tr>
+                @endforeach
+        </tbody>
+    </table>
+    {{--{{$details->appends(request()->except('page'))->links()}}--}}
 
 
 
@@ -85,5 +86,5 @@ $total=0;
 
 @section('js')
 
-@include('sweetalert::alert')
+    @include('sweetalert::alert')
 @stop
