@@ -62,6 +62,16 @@ class BillController extends Controller
                 $q->where('store_id',$request->store_id);
                 activity()->log(' عرض فواتير ' . __($request->type) .'للمخزن'. Store::find($request->store_id)->name);
             }
+
+            if ($request->has('date') && $request->date != null ){
+                $q->where('date',$request->date);
+            }
+            if ($request->has('model_id') && $request->model_id != null ){
+                $q->where('model_id',$request->model_id);
+            }
+            if ($request->has('code') && $request->code != null ){
+                $q->where('code',$request->code);
+            }
         })->where('type',$request->type)/*->where('pos_sales',0)*/->orderByDesc('id')->paginate(15);
         if (auth()->user()->store()->count() > 0){
             $bills = Bill::where('type',$request->type)/*->where('pos_sales',0)*/->where(function($q) use($request){
@@ -74,6 +84,19 @@ class BillController extends Controller
                 }else{
                     activity()->log(' عرض فواتير ' . __($request->type));
                     $q->where('sales_man_id',auth()->id())->orWhere('store_id',auth()->user()->store_id);
+                }
+
+                if($request->has('store_id') && $request->store_id != null){
+                    $q->where('store_id',$request->store_id);
+                }
+                if ($request->has('date') && $request->date != null ){
+                    $q->where('date',$request->date);
+                }
+                if ($request->has('model_id') && $request->model_id != null ){
+                    $q->where('model_id',$request->model_id);
+                }
+                if ($request->has('code') && $request->code != null ){
+                    $q->where('code',$request->code);
                 }
             })->orderByDesc('id')->paginate(15);
 

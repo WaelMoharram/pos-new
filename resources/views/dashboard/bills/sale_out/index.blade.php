@@ -44,6 +44,18 @@
         ];
     @endphp
 
+<div class="row">
+    <div class="col-md-12">
+        {!! Form::open(['method'=>'get','class'=>'form','enctype' => 'multipart/form-data']) !!}
+
+        <div class="row">
+            @include('dashboard.bills.sale_out._form_filter')
+        </div>
+        @component('partials.buttons._save_button',[])
+        @endcomponent
+        {!! Form::close() !!}
+    </div>
+</div>
     {{-- Minimal example / fill data using the component slot --}}
     <x-adminlte-datatable id="" :heads="$heads" striped hoverable with-buttons>
         @foreach($bills as $row)
