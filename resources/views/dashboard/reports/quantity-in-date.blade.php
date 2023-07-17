@@ -126,7 +126,7 @@
     $q->where('id',request()->store_id);
     }
     })->withTrashed()->get() as $store)
-                            {{round((ItemAmountInStoreInDate($row->id,$store->id,request()->date??date('Y-m-d'))) * $row->buy_price, 2)}}
+                            {{number_format(round((ItemAmountInStoreInDate($row->id,$store->id,request()->date??date('Y-m-d'))) * $row->buy_price, 2), 2)}}
                             <br>
                         @endforeach
                     </td>
@@ -137,7 +137,7 @@
     }
     })->withTrashed()->get() as $store)
                             @if(ItemAmountInStoreInDate($row->id,$store->id,request()->date??date('Y-m-d')) != 0)
-                            {{round((ItemAmountInStoreInDate($row->id,$store->id,request()->date??date('Y-m-d'))) * $row->buy_price, 2)/ItemAmountInStoreInDate($row->id,$store->id,request()->date??date('Y-m-d'))}}
+                            {{number_format(round((ItemAmountInStoreInDate($row->id,$store->id,request()->date??date('Y-m-d'))) * $row->buy_price, 2)/ItemAmountInStoreInDate($row->id,$store->id,request()->date??date('Y-m-d')), 2)}}
 
 @else
     0
