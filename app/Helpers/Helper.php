@@ -223,8 +223,8 @@ function ItemAmountStore($store_id,$item_id){
     $billsTransferOut = \App\Models\Bill::where('type','store')->where('store_from_id',$store_id)->pluck('id');
 
     $amountIn =0;
-    $itemIn = \App\Models\BillDetail::whereIn('bill_id',$billsIn)->where('item_id',$item_id)->get();
-    $itemTransferIn = \App\Models\BillDetail::whereIn('bill_id',$billsTransferIn)->where('item_id',$item_id)->get();
+    $itemIn = \App\Models\BillDetail::whereHas('bill')->whereIn('bill_id',$billsIn)->where('item_id',$item_id)->get();
+    $itemTransferIn = \App\Models\BillDetail::whereHas('bill')->whereIn('bill_id',$billsTransferIn)->where('item_id',$item_id)->get();
     foreach ($itemIn as $item){
         $unitRatio = \App\Models\Unit::find($item->unit_id)->ratio ?? 1;
 
@@ -238,8 +238,8 @@ function ItemAmountStore($store_id,$item_id){
         $amountIn += $amount;
     }
     $amountOut =0;
-    $itemOut = \App\Models\BillDetail::whereIn('bill_id',$billsOut)->where('item_id',$item_id)->get();
-    $itemTransferOut = \App\Models\BillDetail::whereIn('bill_id',$billsTransferOut)->where('item_id',$item_id)->get();
+    $itemOut = \App\Models\BillDetail::whereHas('bill')->whereIn('bill_id',$billsOut)->where('item_id',$item_id)->get();
+    $itemTransferOut = \App\Models\BillDetail::whereHas('bill')->whereIn('bill_id',$billsTransferOut)->where('item_id',$item_id)->get();
     foreach ($itemOut as $item){
         $unitRatio = \App\Models\Unit::find($item->unit_id)->ratio ?? 1;
 
@@ -353,14 +353,15 @@ function ItemAmountInStoreInDate($item_id,$store_id,$date){
 
 
     $billsIn = \App\Models\Bill::where('store_id',$store_id)->whereDate('date','<=',$date)->whereIn('type',['purchase_in','sale_in'])->pluck('id')->toArray();
-    $billsIn2 = \App\Models\Bill::where('store_to_id',$store_id)->whereDate('date','<=',$date)->whereIn('type',['purchase_in','sale_in'])->pluck('id')->toArray();
+    $billsIn2 = \App\Models\Bill::where('store_to_id',$store_id)->whereDate('date','<=',$date)->where('type','store')->pluck('id')->toArray();
     $billsOut = \App\Models\Bill::where('store_id',$store_id)->whereDate('date','<=',$date)->whereIn('type',['purchase_out','sale_out'])->pluck('id')->toArray();
-    $billsOut2 = \App\Models\Bill::where('store_from_id',$store_id)->whereDate('date','<=',$date)->whereIn('type',['purchase_out','sale_out'])->pluck('id')->toArray();
-
+    $billsOut2 = \App\Models\Bill::where('store_from_id',$store_id)->whereDate('date','<=',$date)->where('type','store')->pluck('id')->toArray();
 
 
     $amountIn =0;
-    $itemIn = \App\Models\BillDetail::where('item_id',$item_id)->whereIn('bill_id',$billsIn)->orWhereIn('bill_id',$billsIn2)->get();
+    $itemIn = \App\Models\BillDetail::where('item_id',$item_id)->where(function($q) use($billsIn,$billsIn2){
+        $q->whereIn('bill_id',$billsIn)->orWhereIn('bill_id',$billsIn2);
+    })->get();
     foreach ($itemIn as $item){
         $unitRatio = \App\Models\Unit::find($item->unit_id)->ratio ?? 1;
         $amount = $item->amount * (1/$unitRatio);
@@ -368,7 +369,11 @@ function ItemAmountInStoreInDate($item_id,$store_id,$date){
     }
 
     $amountOut =0;
-    $itemOut = \App\Models\BillDetail::where('item_id',$item_id)->whereIn('bill_id',$billsOut)->orWhereIn('bill_id',$billsOut2)->get();
+    $itemOut = \App\Models\BillDetail::where('item_id',$item_id)->where(function($q) use($billsOut,$billsOut2){
+        $q->whereIn('bill_id',$billsOut)->orWhereIn('bill_id',$billsOut2);
+    })->get();
+//    dd($itemOut);
+
     foreach ($itemOut as $item){
         $unitRatio = \App\Models\Unit::find($item->unit_id)->ratio ?? 1;
 

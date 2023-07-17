@@ -60,7 +60,7 @@ class ReportController extends Controller
             if (request()->has('barcode') && request()->barcode != null){
                 $q->where('barcode','like','%'.request()->barcode.'%');
             }
-        })->paginate(10);
+        })->paginate(2);
         return view('dashboard.reports.quantity-in-date', compact('items'));
     }
     public function quantityInDate2(){
@@ -97,7 +97,7 @@ class ReportController extends Controller
                 $q->where('barcode','like','%'.request()->barcode.'%');
             }
 
-        })->paginate(15);
+        })->paginate(20);
         return view('dashboard.reports.store-card', compact('store','details'));
     }
     public function itemCard2($id){
