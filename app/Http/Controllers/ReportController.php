@@ -102,9 +102,9 @@ class ReportController extends Controller
     }
     public function itemCard2($id){
         $item = Item::find($id);
-        $details = BillDetail::whereHas('bill',function ($q){
-            $q->orderBy('date');
-        })->where('item_id',$id)->get();
+        $details = BillDetail::join('bills', 'bill_details.bill_id', '=', 'bills.id')
+            ->orderBy('bills.date', 'asc')
+            ->select('bill_details.*')->where('bill_details.item_id',$id)->get();
         return view('dashboard.reports.item-card2', compact('item','details'));
     }
     public function storeCard2($id){
