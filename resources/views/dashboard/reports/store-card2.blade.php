@@ -74,131 +74,132 @@
 
     {{-- Minimal example / fill data using the component slot --}}
 
-        <table id="table1" style="width:100%" class="table table-hover table-striped no-footer">
-            <thead>
-            <tr>
-                <th rowspan="2">التاريخ</th>
-                <th rowspan="2">رقم الصنف</th>
-                <th rowspan="2">اسم الصنف</th>
-                <th colspan="3"> اضافة</th>
-                <th colspan="3"> صرف</th>
-                <th colspan="3"> رصيد</th>
-            </tr>
-            <tr>
-                <th> كمية</th>
-                <th> سعر الوحدة</th>
-                <th> قيمة</th>
-                <th> كمية</th>
-                <th> سعر الوحدة</th>
-                <th> قيمة</th>
-                <th> كمية</th>
-                <th> سعر الوحدة</th>
-                <th> قيمة</th>
-            </tr>
-            </thead>
-            <tbody>
-            @php
+    <table id="table1" style="width:100%" class="table table-hover table-striped no-footer">
+        <thead>
+        <tr>
+            <th rowspan="2">التاريخ</th>
+            <th rowspan="2">رقم الصنف</th>
+            <th rowspan="2">اسم الصنف</th>
+            <th rowspan="2">نوع العملية </th>
+            <th colspan="3"> اضافة</th>
+            <th colspan="3"> صرف</th>
+            <th colspan="3"> رصيد</th>
+        </tr>
+        <tr>
+            <th> كمية</th>
+            <th> سعر الوحدة</th>
+            <th> قيمة</th>
+            <th> كمية</th>
+            <th> سعر الوحدة</th>
+            <th> قيمة</th>
+            <th> كمية</th>
+            <th> سعر الوحدة</th>
+            <th> قيمة</th>
+        </tr>
+        </thead>
+        <tbody>
+        @php
             $quantity = [];
 $price = [];
 $total=[];
-            @endphp
-            @if(request()->has('page') && request()->page >1)
+        @endphp
+        @if(request()->has('page') && request()->page >1)
+            @foreach($details as $detail)
+                @php
+
+                    $date = new DateTime($detail->bill->date);
+    $date->modify('-1 day');
+    if (!isset($quantity[$detail->item_id])){
+                        $quantity[$detail->item_id] = ItemAmountInStoreInDate($detail->item_id,$store->id,$date->format('Y-m-d'));
+}
+                @endphp
+
+            @endforeach
+
+        @else
+            @if(request()->has('from_date') && request()->from_date != null)
                 @foreach($details as $detail)
                     @php
-
-                        $date = new DateTime($detail->bill->date);
+                        $date = new DateTime(request()->from_date);
         $date->modify('-1 day');
-        if (!isset($quantity[$detail->item_id])){
                             $quantity[$detail->item_id] = ItemAmountInStoreInDate($detail->item_id,$store->id,$date->format('Y-m-d'));
-}
                     @endphp
-
                 @endforeach
-
-            @else
-                @if(request()->has('from_date') && request()->from_date != null)
-                    @foreach($details as $detail)
-                        @php
-                            $date = new DateTime(request()->from_date);
-            $date->modify('-1 day');
-                                $quantity[$detail->item_id] = ItemAmountInStoreInDate($detail->item_id,$store->id,$date->format('Y-m-d'));
-                        @endphp
-                    @endforeach
-                @endif
             @endif
+        @endif
 
-            @foreach($details as $detail)
-                <tr>
-                    @if($detail->bill->type != 'store')
+        @foreach($details as $detail)
+            <tr>
+                @if($detail->bill->type != 'store')
+                    <td>{{$detail->bill->date}}</td>
+                    <td>{!! $detail->item->barcode !!}</td>
+                    <td>{!! $detail->item->name !!}</td>
+                    <td>{!! $detail->bill->type !!}</td>
+                    @if($detail->bill->type == 'purchase_in'||$detail->bill->type == 'sale_in')
+                        <td>{{number_format($detail->amount / ($detail->unit ?$detail->unit->ratio : 1) , 2) }}</td>
+                        <td>{{number_format($detail->price , 2)}}</td>
+                        <td>{{number_format($detail->amount * $detail->price , 2)}}</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        @php($quantity[$detail->item_id] = ($quantity[$detail->item_id]??0) +($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)))
+                        <td>{{number_format($quantity[$detail->item_id] , 2)}}</td>
+                        <td>{{$detail->price}}</td>
+                        <td>{{number_format($total[$detail->item_id]= ($total[$detail->item_id] ?? 0)+(($detail->amount ) * $detail->price) , 2)}}</td>
+                    @elseif($detail->bill->type == 'purchase_out'||$detail->bill->type == 'sale_out')
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>{{number_format($detail->amount / ($detail->unit ?$detail->unit->ratio : 1) , 2)}}</td>
+                        <td>{{number_format($detail->buy_price , 2)}}</td>
+                        <td>{{number_format((($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->buy_price) , 2)}}</td>
+                        @php($quantity[$detail->item_id] = ($quantity[$detail->item_id]??0) -($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)))
+                        <td>{{number_format($quantity[$detail->item_id] , 2)}}</td>                <td>{{$detail->buy_price}}</td>
+                        <td>{{number_format($total[$detail->item_id]= ($total[$detail->item_id]??0)-(($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->buy_price) , 2)}}</td>
+                    @endif
+                @endif
+                @if($detail->bill->type == 'store')
+                    @if($detail->bill->store_to_id == $store->id)
+
                         <td>{{$detail->bill->date}}</td>
-                        <td>{!! $detail->item->barcode !!}</td>
-                        <td>{!! $detail->item->name !!}</td>
+                        <td>#{!! $detail->item->code !!}</td>
+
+                        <td>#{!! $detail->item->name !!}</td>
                         <td>{!! $detail->bill->type !!}</td>
-                        @if($detail->bill->type == 'purchase_in'||$detail->bill->type == 'sale_in')
-                            <td>{{number_format($detail->amount / ($detail->unit ?$detail->unit->ratio : 1) , 2) }}</td>
-                            <td>{{number_format($detail->price , 2)}}</td>
-                            <td>{{number_format($detail->amount * $detail->price , 2)}}</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            @php($quantity[$detail->item_id] = ($quantity[$detail->item_id]??0) +($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)))
-                            <td>{{number_format($quantity[$detail->item_id] , 2)}}</td>
-                            <td>{{$detail->price}}</td>
-                            <td>{{number_format($total[$detail->item_id]= ($total[$detail->item_id] ?? 0)+(($detail->amount ) * $detail->price) , 2)}}</td>
-                        @elseif($detail->bill->type == 'purchase_out'||$detail->bill->type == 'sale_out')
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>{{number_format($detail->amount / ($detail->unit ?$detail->unit->ratio : 1) , 2)}}</td>
-                            <td>{{number_format($detail->buy_price , 2)}}</td>
-                            <td>{{number_format((($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->buy_price) , 2)}}</td>
-                            @php($quantity[$detail->item_id] = ($quantity[$detail->item_id]??0) -($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)))
-                            <td>{{number_format($quantity[$detail->item_id] , 2)}}</td>                <td>{{$detail->buy_price}}</td>
-                            <td>{{number_format($total[$detail->item_id]= ($total[$detail->item_id]??0)-(($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->buy_price) , 2)}}</td>
-                        @endif
+
+                        <td>{{number_format($detail->amount / ($detail->unit ?$detail->unit->ratio : 1) , 2)}}</td>
+                        <td>{{number_format($detail->buy_price , 2)}}</td>
+                        <td>{{number_format((($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->buy_price ), 2)}}</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        @php($quantity[$detail->item_id] = ($quantity[$detail->item_id]??0) +($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)))
+                        <td>{{number_format($quantity[$detail->item_id] , 2)}}</td>                    <td>{{$detail->buy_price}}</td>
+                        <td>{{number_format($total[$detail->item_id]= ($total[$detail->item_id] ?? 0)+(($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->buy_price) , 2)}}</td>
                     @endif
-                    @if($detail->bill->type == 'store')
-                        @if($detail->bill->store_to_id == $store->id)
+                    @if($detail->bill->store_from_id == $store->id)
+                        <td>{{$detail->bill->date}}</td>
+                        <td>#{!! $detail->item->code !!}</td>
+                        <td>#{!! $detail->item->name !!}</td>
+                        <td>{!! $detail->bill->type !!}</td>
 
-                            <td>{{$detail->bill->date}}</td>
-                            <td>#{!! $detail->item->code !!}</td>
-
-                            <td>#{!! $detail->item->name !!}</td>
-                            <td>{!! $detail->bill->type !!}</td>
-
-                            <td>{{number_format($detail->amount / ($detail->unit ?$detail->unit->ratio : 1) , 2)}}</td>
-                            <td>{{number_format($detail->buy_price , 2)}}</td>
-                            <td>{{number_format((($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->buy_price ), 2)}}</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            @php($quantity[$detail->item_id] = ($quantity[$detail->item_id]??0) +($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)))
-                            <td>{{number_format($quantity[$detail->item_id] , 2)}}</td>                    <td>{{$detail->buy_price}}</td>
-                            <td>{{number_format($total[$detail->item_id]= ($total[$detail->item_id] ?? 0)+(($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->buy_price) , 2)}}</td>
-                        @endif
-                        @if($detail->bill->store_from_id == $store->id)
-                            <td>{{$detail->bill->date}}</td>
-                            <td>#{!! $detail->item->code !!}</td>
-                            <td>#{!! $detail->item->name !!}</td>
-                            <td>{!! $detail->bill->type !!}</td>
-
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>{{number_format(($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) , 2)}}</td>
-                            <td>{{number_format($detail->buy_price , 2)}}</td>
-                            <td>{{number_format((($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->buy_price) , 2)}}</td>
-                            @php($quantity[$detail->item_id] = ($quantity[$detail->item_id]??0) -($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)))
-                            <td>{{number_format($quantity[$detail->item_id] , 2)}}</td>                    <td>{{$detail->buy_price}}</td>
-                            <td>{{number_format($total[$detail->item_id]= ($total[$detail->item_id] ?? 0)-(($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->buy_price) , 2)}}</td>
-                        @endif
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>{{number_format(($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) , 2)}}</td>
+                        <td>{{number_format($detail->buy_price , 2)}}</td>
+                        <td>{{number_format((($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->buy_price) , 2)}}</td>
+                        @php($quantity[$detail->item_id] = ($quantity[$detail->item_id]??0) -($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)))
+                        <td>{{number_format($quantity[$detail->item_id] , 2)}}</td>                    <td>{{$detail->buy_price}}</td>
+                        <td>{{number_format($total[$detail->item_id]= ($total[$detail->item_id] ?? 0)-(($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->buy_price) , 2)}}</td>
                     @endif
+                @endif
 
-                </tr>
-            @endforeach
-    </tbody>
-</table>
-{{--{{$details->appends(request()->except('page'))->links()}}--}}
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
+    {{$details->appends(request()->except('page'))->links()}}
 
 
 
@@ -211,5 +212,5 @@ $total=[];
 
 @section('js')
 
-@include('sweetalert::alert')
+    @include('sweetalert::alert')
 @stop
