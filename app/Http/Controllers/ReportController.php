@@ -60,7 +60,7 @@ class ReportController extends Controller
             if (request()->has('barcode') && request()->barcode != null){
                 $q->where('barcode','like','%'.request()->barcode.'%');
             }
-        })->paginate(2);
+        })->paginate(10);
         return view('dashboard.reports.quantity-in-date', compact('items'));
     }
     public function quantityInDate2(){
