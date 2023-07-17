@@ -64,12 +64,12 @@ class PaymentController extends Controller
 //        if (!Auth::user()->can('add payments')){
 //            abort(401);
 //        }
-//        $bill = Bill::find($request->bill_id);
-//
-//        if ($bill->remaining < $request->money){
-//            toast('لا يمكن سداد المبلغ لان القيمة اكبر من القيمة المتبقية على الفاتورة','error');
-//            return redirect()->back();
-//        }
+        $bill = Bill::find($request->bill_id);
+
+        if ($bill->remaining < $request->money){
+            toast('لا يمكن سداد المبلغ لان القيمة اكبر من القيمة المتبقية على الفاتورة','error');
+            return redirect()->back();
+        }
         $requests = $request->all();
 
 
