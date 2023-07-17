@@ -15,3 +15,9 @@
     margin-top: 0;
     top: 0;
 }
+
+@media print {
+    thead {
+        display: table-header-group;
+    }
+}
