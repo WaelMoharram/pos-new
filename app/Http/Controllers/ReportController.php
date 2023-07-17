@@ -64,7 +64,14 @@ class ReportController extends Controller
         return view('dashboard.reports.quantity-in-date', compact('items'));
     }
     public function quantityInDate2(){
-        $items = Item::paginate(10);
+        $items = Item::where(function($q){
+            if (request()->has('name') && request()->name != null){
+                $q->where('name','like','%'.request()->name.'%');
+            }
+            if (request()->has('barcode') && request()->barcode != null){
+                $q->where('barcode','like','%'.request()->barcode.'%');
+            }
+        })->paginate(10);
         return view('dashboard.reports.quantity-in-date2', compact('items'));
     }
     public function itemCard($id){
@@ -122,9 +129,19 @@ class ReportController extends Controller
             if (request()->has('to_date') && request()->to_date != null){
                 $q->where('date','<=',request()->to_date);
             }
+        })->whereHas('item',function($q){
+
+            if (request()->has('name') && request()->name != null){
+                $q->where('name','like','%'.request()->name.'%');
+            }
+
+            if (request()->has('barcode') && request()->barcode != null){
+                $q->where('barcode','like','%'.request()->barcode.'%');
+            }
+
         })->join('bills', 'bill_details.bill_id', '=', 'bills.id')
             ->orderBy('bills.date', 'asc')
-            ->select('bill_details.*')->get();
+            ->select('bill_details.*')->paginate(20);
         return view('dashboard.reports.store-card2', compact('store','details'));
     }
 

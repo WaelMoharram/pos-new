@@ -13,7 +13,7 @@
 
             <div class="row">
                 {{-- ############# Date #############--}}
-                <div class="form-group py-1 col-md-12">
+                <div class="form-group py-1 col-md-6">
                     <label for="date"> التاريخ   </label>
                     <div class="input-group date" id="from_date" data-target-input="nearest">
 
@@ -22,35 +22,56 @@
 
                     </div>
                 </div>
-{{--                --}}{{-- ############# Date #############--}}
-{{--                <div class="form-group py-1 col-md-6">--}}
-{{--                    <label for="date"> التاريخ الي  </label>--}}
-{{--                    <div class="input-group date" id="to_date" data-target-input="nearest">--}}
 
-{{--                        {{Form::text('to_date',request()->to_date ?? null,['class'=>'form-control mb-2 datetimepicker-input date','id'=>'to_date'])}}--}}
-{{--                        {{input_error($errors,'to_date')}}--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                <div class="form-group py-1 col-md-6">--}}
-{{--                    <label for="sort_by"> الترتيب ب  </label>--}}
-{{--                    <div class="input-group " id="sort_by" >--}}
+                <div class="form-group py-1 col-md-6">
+                    <label for="name"> {{__('الاسم')}}</label>
+                    {!! Form::text('name',request()->name ??null,['id'=>'name','class'=>'form-control col datetimepicker-input ','placeholder'=>__("الاسم")]) !!}
+                    {{input_error($errors,'name')}}
+                </div>
 
-{{--                        {{Form::select('sort_by',['report_amount_desc'=>'الاكثر مبيعا','report_amount'=>'الاقل مبيعا'],request()->sort_by ?? null,['class'=>'form-control mb-2','id'=>'sort_by'])}}--}}
-{{--                        {{input_error($errors,'sort_by')}}--}}
-{{--                    </div>--}}
-{{--                </div>--}}
+                <div class="form-group py-1 col-md-6">
+                    <label for="barcode"> {{__('رقم الباركود')}}</label>
+                    {!! Form::text('barcode',request()->barcode ??null,['id'=>'barcode','class'=>'form-control col  ','placeholder'=>__("رقم الباركود")]) !!}
+                    {{input_error($errors,'barcode')}}
+                </div>
+                <div class="form-group py-1 col-md-6">
+                    <label for="store_id"> المخزن   </label>
+                    {{Form::select('store_id',\App\Models\Store::withTrashed()->pluck('name','id') ,request()->store_id ??null,['class'=>'form-control mb-2','id'=>'store_id','placeholder'=>'اختر مخزن'])}}
+                    {{input_error($errors,'store_id')}}
+                </div>
 
-{{--                <div class="form-group py-1 col-md-6">--}}
-{{--                    <label for="number"> عدد  الاصناف المعروضة  </label>--}}
-{{--                    <div class="input-group " id="number" >--}}
 
-{{--                        {{Form::select('number',['5'=>'5','10'=>'10','30'=>'30','50'=>'50','100'=>'100','all'=>'الكل'],request()->number ?? null,['class'=>'form-control mb-2','id'=>'number'])}}--}}
-{{--                        {{input_error($errors,'number')}}--}}
-{{--                    </div>--}}
-{{--                </div>--}}
+                {{--                --}}{{-- ############# Date #############--}}
+                {{--                <div class="form-group py-1 col-md-6">--}}
+                {{--                    <label for="date"> التاريخ الي  </label>--}}
+                {{--                    <div class="input-group date" id="to_date" data-target-input="nearest">--}}
+
+                {{--                        {{Form::text('to_date',request()->to_date ?? null,['class'=>'form-control mb-2 datetimepicker-input date','id'=>'to_date'])}}--}}
+                {{--                        {{input_error($errors,'to_date')}}--}}
+                {{--                    </div>--}}
+                {{--                </div>--}}
+                {{--                <div class="form-group py-1 col-md-6">--}}
+                {{--                    <label for="sort_by"> الترتيب ب  </label>--}}
+                {{--                    <div class="input-group " id="sort_by" >--}}
+
+                {{--                        {{Form::select('sort_by',['report_amount_desc'=>'الاكثر مبيعا','report_amount'=>'الاقل مبيعا'],request()->sort_by ?? null,['class'=>'form-control mb-2','id'=>'sort_by'])}}--}}
+                {{--                        {{input_error($errors,'sort_by')}}--}}
+                {{--                    </div>--}}
+                {{--                </div>--}}
+
+                {{--                <div class="form-group py-1 col-md-6">--}}
+                {{--                    <label for="number"> عدد  الاصناف المعروضة  </label>--}}
+                {{--                    <div class="input-group " id="number" >--}}
+
+                {{--                        {{Form::select('number',['5'=>'5','10'=>'10','30'=>'30','50'=>'50','100'=>'100','all'=>'الكل'],request()->number ?? null,['class'=>'form-control mb-2','id'=>'number'])}}--}}
+                {{--                        {{input_error($errors,'number')}}--}}
+                {{--                    </div>--}}
+                {{--                </div>--}}
             </div>
-                @component('partials.buttons._save_button',[])
-                @endcomponent
+            <div class="col-12">
+                <button id="target" type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">فلترة</button>
+                <a href="{{route('reports.quantity-in-date')}}" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light">اعادة تعيين</a>
+            </div>
             {!! Form::close() !!}
         </div>
     </div>
@@ -77,7 +98,11 @@
                     <td>{{$row->barcode}}</td>
                     <td>{!! $row->name !!}</td>
                     <td>
-                        @foreach(\App\Models\Store::where('sales_man_id',null)->get() as $store)
+                        @foreach(\App\Models\Store::where(function ($q){
+    if (request()->has('store_id') && request()->store_id  != null){
+    $q->where('id',request()->store_id);
+    }
+    })->withTrashed()->get() as $store)
                             {{$store->name}}
                             <br>
                         @endforeach
@@ -86,19 +111,31 @@
                     </td>
 
                     <td>
-                        @foreach(\App\Models\Store::where('sales_man_id',null)->get() as $store)
+                        @foreach(\App\Models\Store::where(function ($q){
+    if (request()->has('store_id') && request()->store_id  != null){
+    $q->where('id',request()->store_id);
+    }
+    })->withTrashed()->get() as $store)
                             {{ItemAmountInStoreInDate($row->id,$store->id,request()->date??date('Y-m-d'))}}
                             <br>
                         @endforeach
                     </td>
                     <td>
-                        @foreach(\App\Models\Store::where('sales_man_id',null)->get() as $store)
+                        @foreach(\App\Models\Store::where(function ($q){
+    if (request()->has('store_id') && request()->store_id  != null){
+    $q->where('id',request()->store_id);
+    }
+    })->withTrashed()->get() as $store)
                             {{round((ItemAmountInStoreInDate($row->id,$store->id,request()->date??date('Y-m-d'))) * $row->buy_price, 2)}}
                             <br>
                         @endforeach
                     </td>
                     <td>
-                        @foreach(\App\Models\Store::where('sales_man_id',null)->get() as $store)
+                        @foreach(\App\Models\Store::where(function ($q){
+    if (request()->has('store_id') && request()->store_id  != null){
+    $q->where('id',request()->store_id);
+    }
+    })->withTrashed()->get() as $store)
                             @if(ItemAmountInStoreInDate($row->id,$store->id,request()->date??date('Y-m-d')) != 0)
                             {{round((ItemAmountInStoreInDate($row->id,$store->id,request()->date??date('Y-m-d'))) * (\App\Models\BillDetail::where('item_id',$row->id)->where('created_at','<=',request()->date??date('Y-m-d'))->latest()->first()->new_average_price ?? 0), 2)/ItemAmountInStoreInDate($row->id,$store->id,request()->date??date('Y-m-d'))}}
 
