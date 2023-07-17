@@ -30,8 +30,10 @@
                         {{Form::text('to_date',request()->to_date ?? null,['class'=>'form-control mb-2 datetimepicker-input date','id'=>'to_date'])}}
                         {{input_error($errors,'to_date')}}
                     </div>
-                @component('partials.buttons._save_button',[])
-                @endcomponent
+                    <div class="col-12">
+                        <button id="target" type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">فلترة</button>
+                        <a href="{{route('reports.sales-men')}}" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light">اعادة تعيين</a>
+                    </div>
             </div>
             {!! Form::close() !!}
         </div>

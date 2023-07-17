@@ -45,8 +45,10 @@
             <div class="row">
                 @include('dashboard.bills.purchase_out._form_filter')
             </div>
-            @component('partials.buttons._save_button',[])
-            @endcomponent
+            <div class="col-12">
+                <button id="target" type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">فلترة</button>
+                <a href="{{route('bills.index',['type'=>'purchase_out'])}}" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light">اعادة تعيين</a>
+            </div>
             {!! Form::close() !!}
         </div>
     </div>
