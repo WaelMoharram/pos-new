@@ -14,8 +14,13 @@
 
     {{-- Minimal example / fill data using the component slot --}}
 
-    <table id="table1" style="width:100%" class="table table-hover table-striped no-footer table-container">
-        <thead>
+    <table id="table1" style="width:100%;position: relative;
+    overflow: auto;
+    height: 300px;" class="table table-hover table-striped no-footer table-container" >
+        <thead style="position: sticky;
+    top: 0;
+    background-color: #f5f5f5; /* Set the desired background color */
+    font-weight: bold;">
         <tr>
             <th rowspan="2">التاريخ</th>
             <th rowspan="2">رقم المستند</th>
