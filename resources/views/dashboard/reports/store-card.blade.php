@@ -101,6 +101,20 @@
 $price = [];
 $total=[];
             @endphp
+            @if(request()->has('page') && request()->page >1)
+                    @foreach($details as $detail)
+                        @php
+
+                        $date = new DateTime($detail->bill->date);
+        $date->modify('-1 day');
+        if (!isset($quantity[$detail->item_id])){
+                            $quantity[$detail->item_id] = ItemAmountInStoreInDate($detail->item_id,$store->id,$date->format('Y-m-d'));
+}
+                        @endphp
+
+                    @endforeach
+
+            @else
             @if(request()->has('from_date') && request()->from_date != null)
                 @foreach($details as $detail)
                     @php
@@ -110,6 +124,7 @@ $total=[];
                     @endphp
                 @endforeach
             @endif
+@endif
 
             @foreach($details as $detail)
         <tr>

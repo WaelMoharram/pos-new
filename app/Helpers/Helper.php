@@ -388,9 +388,10 @@ function ItemAmountInStoreInDateTime($item_id,$store_id,$date,$dateTime){
 
 
     $billsIn = \App\Models\Bill::where('store_id',$store_id)->whereDate('date','<=',$date)->whereIn('type',['purchase_in','sale_in'])->pluck('id')->toArray();
-    $billsIn2 = \App\Models\Bill::where('store_to_id',$store_id)->whereDate('date','<=',$date)->whereIn('type',['purchase_in','sale_in'])->pluck('id')->toArray();
+    $billsIn2 = \App\Models\Bill::where('store_to_id',$store_id)->whereDate('date','<=',$date)->where('type','store')->pluck('id')->toArray();
     $billsOut = \App\Models\Bill::where('store_id',$store_id)->whereDate('date','<=',$date)->whereIn('type',['purchase_out','sale_out'])->pluck('id')->toArray();
-    $billsOut2 = \App\Models\Bill::where('store_from_id',$store_id)->whereDate('date','<=',$date)->whereIn('type',['purchase_out','sale_out'])->pluck('id')->toArray();
+    $billsOut2 = \App\Models\Bill::where('store_from_id',$store_id)->whereDate('date','<=',$date)->where('type','store')->pluck('id')->toArray();
+
 
 
 
