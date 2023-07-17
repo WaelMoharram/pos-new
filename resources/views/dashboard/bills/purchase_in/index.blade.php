@@ -42,7 +42,7 @@
             {!! Form::open(['method'=>'get','class'=>'form','enctype' => 'multipart/form-data']) !!}
 
             <div class="row">
-                @include('dashboard.bills.sale_out._form_filter')
+                @include('dashboard.bills.purchase_out._form_filter')
             </div>
             @component('partials.buttons._save_button',[])
             @endcomponent

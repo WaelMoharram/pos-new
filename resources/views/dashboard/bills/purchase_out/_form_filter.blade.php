@@ -14,8 +14,8 @@
 </div>
 
 <div class="form-group py-1 col-md-6">
-    <label for="model_id"> العميل  </label>
-    {{Form::select('model_id',\App\Models\Client::check()->pluck('name','id') ,request()->model_id ??null,['class'=>'form-control mb-2','id'=>'model_id','placeholder'=>'الكل'])}}
+    <label for="model_id"> المورد  </label>
+    {{Form::select('model_id',\App\Models\Supplier::pluck('name','id') ,request()->model_id ??null,['class'=>'form-control mb-2','id'=>'model_id','placeholder'=>'الكل'])}}
     {{input_error($errors,'model_id')}}
 </div>
 
