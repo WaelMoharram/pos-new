@@ -122,7 +122,9 @@ class ReportController extends Controller
             if (request()->has('to_date') && request()->to_date != null){
                 $q->where('date','<=',request()->to_date);
             }
-        })->get();
+        })->join('bills', 'bill_details.bill_id', '=', 'bills.id')
+            ->orderBy('bills.date', 'asc')
+            ->select('bill_details.*')->get();
         return view('dashboard.reports.store-card2', compact('store','details'));
     }
 
