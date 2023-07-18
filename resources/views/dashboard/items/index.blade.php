@@ -46,7 +46,7 @@
 @section('content')
     {{-- Setup data for datatables --}}
 
-    <div class="col-12">
+    <div class="col-12 d-print-none">
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title">{{__('Filter')}}</h4>
