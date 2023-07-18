@@ -125,9 +125,11 @@
                 <td>
                     @foreach(\App\Models\Unit::where('item_id',$row->id)->where('ratio','!=',1)->orderBy('ratio')->get() as $unit)
                             @if($loop->index == 0)
-                                <span {{tooltip($unit->name)}}>{{getRound(($amount * (float)$unit->ratio))}}</span>
+                            @dd($amount)
+
+                            <span {{tooltip($unit->name)}}>{{getRound(($amount * (float)$unit->ratio))}}</span>
                             @else
-                                @dd($amount)
+{{--                                @dd($amount)--}}
                                 <span {{tooltip($unit->name)}}>{{getRound(($amount * (  (float)$unit->ratio / (float)$oldUnit->ratio)   )  )}}</span>
                            @endif
 
