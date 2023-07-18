@@ -12,7 +12,7 @@
         <button data-toggle="modal" data-target="#uploadExcel" class="info-box-icon bg-success" title="Upload" @if(isset($tooltip) ) {{tooltip($tooltip)}} @endif>
             رفع تعديل السعر
         </button>
-        <div class="modal fade text-left" id="uploadExcel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+        <div class="modal fade text-left d-print-none" id="uploadExcel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -67,6 +67,8 @@
                         <div class="col-12">
                             <button type="submit" class="btn btn-primary   waves-effect waves-light">{{__('Filter')}}</button>
                             <a href="{{route('items.index')}}" class="  ml-1 btn btn-warning  waves-effect waves-light">{{__('Reset filter')}}</a>
+                            <button  class="btn btn-info mr-1 mb-1" onclick="window.print()">طباعة</button>
+
                         </div>
                     </div>
                     {!! Form::close() !!}
