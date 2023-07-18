@@ -126,11 +126,13 @@
                     @foreach(\App\Models\Unit::where('item_id',$row->id)->where('ratio','!=',1)->orderBy('ratio')->get() as $unit)
                             @if($loop->index == 0)
 
-                            <span {{tooltip($unit->name)}}>{{getRound(($amount * (float)$unit->ratio))}}</span>
+                            <span {{tooltip($unit->name)}}>{{getRound(($amount * (float)$unit->ratio))}} {{$unit->name}}</span>
+                        <br>
                             @php($amount = getFrachtion(($amount * (float)$unit->ratio)))
 
                         @else
-                                <span {{tooltip($unit->name)}}>{{getRound(($amount * (  (float)$unit->ratio / (float)$oldUnit->ratio)   )  )}}</span>
+                                <span {{tooltip($unit->name)}}>{{getRound(($amount * (  (float)$unit->ratio / (float)$oldUnit->ratio)   )  )}}  {{$unit->name}}</span>
+                        <br>
                             @php($amount = getFrachtion(($amount * (  (float)$unit->ratio / (float)$oldUnit->ratio)     )))
 
                         @endif
