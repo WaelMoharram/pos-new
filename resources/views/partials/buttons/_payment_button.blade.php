@@ -51,7 +51,7 @@
             </div>
 
                 <div class="modal-footer">
-                    <button onclick="disableButton()" id="submitBtn{{$id}}"  type="submit" class="submit btn btn-primary">دفع</button>
+                    <button  id="submitBtn{{$id}}"  type="submit" class="submit btn btn-primary">دفع</button>
 
                     <button type="button" class="btn btn-outline-primary" data-dismiss="modal">تراجع</button>
                 </div>
@@ -59,6 +59,7 @@
         </div>
     </div>
 </div>
+@section('js')
 <script>
 {{--    $(document).ready(function () {--}}
 
@@ -79,9 +80,18 @@
 {{--    });--}}
 function disableButton() {
     var button = document.getElementById("submitBtn{{$id}}");
-    alert('click')
     button.disabled = true;
+    button.className += " disabled";
+    alert('jh')
     button.innerHTML = "Submitting...";
 }
-
+$(document).ready(function() {
+    $("#submitBtn{{$id}}").click(function() {
+        $(this).prop("disabled", true);
+        $(this).addClass("disabled");
+        $(this).html("جارى الدفع ...");
+        $("#forma{{$id}}").unbind('submit').submit();
+    });
+});
 </script>
+@endsection
