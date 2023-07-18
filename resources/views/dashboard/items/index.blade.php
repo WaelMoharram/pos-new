@@ -128,6 +128,7 @@
 
                             <span {{tooltip($unit->name)}}>{{getRound(($amount * (float)$unit->ratio))}}</span>
                             @php($amount = getFrachtion(getRound(($amount * (float)$unit->ratio))))
+                            @dd($amount)
 
                         @else
                                 @dd($amount)
