@@ -129,9 +129,8 @@
                                 @else
                             <span {{tooltip($unit->name)}}>{{getRound(($amount * (  (float)$oldUnit->ratio / (float)$unit->ratio)   )  )}}</span>
 
-                        @endif
+                           @endif
                                 @if(($loop->index +1) != \App\Models\Unit::where('item_id',$row->id)->where('ratio','!=',1)->count()) - @endif
-                            @dd($amount);
                                     @php
                                     $amount = getFrachtion($amount);
                                     $oldUnit = $unit;
