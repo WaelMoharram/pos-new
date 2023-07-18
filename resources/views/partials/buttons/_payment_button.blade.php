@@ -79,6 +79,7 @@
 {{--    });--}}
 function disableButton() {
     var button = document.getElementById("submitBtn{{$id}}");
+    alert('click')
     button.disabled = true;
     button.innerHTML = "Submitting...";
 }
