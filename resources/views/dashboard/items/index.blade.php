@@ -137,7 +137,6 @@
 
                         @endif
 
-                            @if(($loop->index +1) != \App\Models\Unit::where('item_id',$row->id)->where('ratio','!=',1)->count()) - @endif
                             @php($oldUnit = $unit)
 
 
