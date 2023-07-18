@@ -127,6 +127,7 @@
                             @if($loop->index == 0)
                                 <span {{tooltip($unit->name)}}>{{getRound(($amount * (float)$unit->ratio))}}</span>
                             @else
+                                @dd($amount)
                                 <span {{tooltip($unit->name)}}>{{getRound(($amount * (  (float)$unit->ratio / (float)$oldUnit->ratio)   )  )}}</span>
                            @endif
 
