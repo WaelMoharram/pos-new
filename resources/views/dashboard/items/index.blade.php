@@ -125,20 +125,22 @@
                 <td>
                     @foreach(\App\Models\Unit::where('item_id',$row->id)->where('ratio','!=',1)->orderBy('ratio')->get() as $unit)
                             @if($loop->index == 0)
-                                    <span {{tooltip($unit->name)}}>{{getRound(($amount * (float)$unit->ratio))}}</span>
-                                @else
-                            <span {{tooltip($unit->name)}}>{{getRound(($amount * (  (float)$oldUnit->ratio / (float)$unit->ratio)   )  )}}</span>
-
+                                <span {{tooltip($unit->name)}}>{{getRound(($amount * (float)$unit->ratio))}}</span>
+                            @else
+                                <span {{tooltip($unit->name)}}>{{getRound(($amount * (  (float)$oldUnit->ratio / (float)$unit->ratio)   )  )}}</span>
                            @endif
-                                @if(($loop->index +1) != \App\Models\Unit::where('item_id',$row->id)->where('ratio','!=',1)->count()) - @endif
-                                    @php
-                                    $amount = getFrachtion($amount);
-                                    $oldUnit = $unit;
-                                    @endphp
+
+                            @if(($loop->index +1) != \App\Models\Unit::where('item_id',$row->id)->where('ratio','!=',1)->count()) - @endif
+
+                                    @php($amount = getFrachtion($amount))
+                            @php($oldUnit = $unit)
 
 
-                            @endforeach
-                        </td>
+
+
+
+                    @endforeach
+                </td>
                         <td>{!! optional($row->category)->name !!}</td>
                         <td>{!! optional($row->brand)->name !!}</td>
                         <td>{!! $row->barcode !!}</td>
