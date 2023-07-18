@@ -106,7 +106,6 @@
                 <td><a href="{{route('reports.item-card',$row->id)}}">{!! $row->name !!}</a></td>
 {{--                @php($amount = \App\Models\ItemStore::where('item_id',$row->id)->sum('amount'))--}}
                 @php($amount = ItemAmount($row->id))
-@dd($amount)
                 <td>
 
 
