@@ -124,71 +124,79 @@
 
                 <td>
                     @foreach(\App\Models\Unit::where('item_id',$row->id)->where('ratio','!=',1)->orderBy('ratio')->get() as $unit)
+                            @if(($loop->index +1) == 1)
+                                    <span {{tooltip($unit->name)}}>{{getRound(($amount * (float)$unit->ratio))}}</span>
+                                @else
+                            <span {{tooltip($unit->name)}}>{{getRound(($amount * (  (float)$oldUnit->ratio / (float)$unit->ratio)   )  )}}</span>
 
-                            <span {{tooltip($unit->name)}}>{{getRound(($amount * (float)$unit->ratio))}}</span> @if(($loop->index +1) != \App\Models\Unit::where('item_id',$row->id)->where('ratio','!=',1)->count()) - @endif
-                    @dd($amount);
-                            @php($amount = getFrachtion($amount))
-
-
-                    @endforeach
-                </td>
-                <td>{!! optional($row->category)->name !!}</td>
-                <td>{!! optional($row->brand)->name !!}</td>
-                <td>{!! $row->barcode !!}</td>
-                <td>{!! $row->buy_price !!}</td>
-                <td>{!! $row->price !!}</td>
-{{--                <td>{!! $row->has_options ? 'نعم': 'لا' !!}</td>--}}
-
-                <td>
-                    <nobr>
-
-                        @component('partials.buttons._edit_button',[
-                                        'route' => route('items.edit',$row->id) ,
-                                        'tooltip' => 'تعديل',
-                                         ])
-                        @endcomponent
-                        @component('partials.buttons._delete_button',[
-                                        'id'=>$row->id,
-                                        'route' => route('items.destroy',$row->id) ,
-                                        'tooltip' => 'حذف',
-                                         ])
-                        @endcomponent
-
-                            @component('partials.buttons._show_button',[
-                                            'route' => route('items.show',$row->id) ,
-                                            'tooltip' => 'عرض',
-                                             ])
-                            @endcomponent
-
-                            @component('partials.buttons._barcode_button',[
-                                            'id'=>$row->id,
-                                            'route' => route('items.print-barcode',$row->id) ,
-                                            'tooltip' => 'طباعة الباركود',
-                                             ])
-                            @endcomponent
-
-                            @component('partials.buttons._units_button',[
-                                            'route' => route('units.index',['item_id'=>$row->id]) ,
-                                            'tooltip' => 'الوحدات',
-                                             ])
-                            @endcomponent
-                    </nobr>
-                </td>
-            </tr>
-        @endforeach
-    </x-adminlte-datatable>
-    {{$items->appends(request()->except('page'))->links()}}
+                        @endif
+                                @if(($loop->index +1) != \App\Models\Unit::where('item_id',$row->id)->where('ratio','!=',1)->count()) - @endif
+                            @dd($amount);
+                                    @php
+                                    $amount = getFrachtion($amount);
+                                    $oldUnit = $unit;
+                                    @endphp
 
 
+                            @endforeach
+                        </td>
+                        <td>{!! optional($row->category)->name !!}</td>
+                        <td>{!! optional($row->brand)->name !!}</td>
+                        <td>{!! $row->barcode !!}</td>
+                        <td>{!! $row->buy_price !!}</td>
+                        <td>{!! $row->price !!}</td>
+        {{--                <td>{!! $row->has_options ? 'نعم': 'لا' !!}</td>--}}
+
+                        <td>
+                            <nobr>
+
+                                @component('partials.buttons._edit_button',[
+                                                'route' => route('items.edit',$row->id) ,
+                                                'tooltip' => 'تعديل',
+                                                 ])
+                                @endcomponent
+                                @component('partials.buttons._delete_button',[
+                                                'id'=>$row->id,
+                                                'route' => route('items.destroy',$row->id) ,
+                                                'tooltip' => 'حذف',
+                                                 ])
+                                @endcomponent
+
+                                    @component('partials.buttons._show_button',[
+                                                    'route' => route('items.show',$row->id) ,
+                                                    'tooltip' => 'عرض',
+                                                     ])
+                                    @endcomponent
+
+                                    @component('partials.buttons._barcode_button',[
+                                                    'id'=>$row->id,
+                                                    'route' => route('items.print-barcode',$row->id) ,
+                                                    'tooltip' => 'طباعة الباركود',
+                                                     ])
+                                    @endcomponent
+
+                                    @component('partials.buttons._units_button',[
+                                                    'route' => route('units.index',['item_id'=>$row->id]) ,
+                                                    'tooltip' => 'الوحدات',
+                                                     ])
+                                    @endcomponent
+                            </nobr>
+                        </td>
+                    </tr>
+                @endforeach
+            </x-adminlte-datatable>
+            {{$items->appends(request()->except('page'))->links()}}
 
 
 
-@stop
 
-@section('css')
-@stop
 
-@section('js')
+        @stop
 
-    @include('sweetalert::alert')
-@stop
+        @section('css')
+        @stop
+
+        @section('js')
+
+            @include('sweetalert::alert')
+        @stop
