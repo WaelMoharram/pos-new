@@ -7,8 +7,8 @@
 @stop
 
 @section('content')
-    <div class="row d-print-none">
-        <div class="col-md-12">
+    <div class="row ">
+        <div class="col-md-12 d-print-none">
             {!! Form::open(['method'=>'get','class'=>'form','enctype' => 'multipart/form-data']) !!}
 
             <div class="row">
