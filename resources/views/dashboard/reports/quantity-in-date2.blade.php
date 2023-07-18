@@ -7,8 +7,8 @@
 @stop
 
 @section('content')
-    <div class="row">
-        <div class="col-md-12">
+    <div class="row  d-print-none">
+        <div class="col-md-12 ">
             {!! Form::open(['method'=>'get','class'=>'form','enctype' => 'multipart/form-data']) !!}
 
             <div class="row">
@@ -68,9 +68,11 @@
                 {{--                    </div>--}}
                 {{--                </div>--}}
             </div>
-            <div class="col-12">
+            <div class="col-12 " >
                 <button id="target" type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">فلترة</button>
                 <a href="{{route('reports.quantity-in-date')}}" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light">اعادة تعيين</a>
+                <button  class="btn btn-info mr-1 mb-1" onclick="window.print()">طباعة</button>
+
             </div>
             {!! Form::close() !!}
         </div>
@@ -81,7 +83,7 @@
 
     {{-- Minimal example / fill data using the component slot --}}
 
-        <table id="table1" style="width:100%" class="table table-hover table-striped no-footer">
+        <table id="table1" style="width:100%" class="table table-hover table-striped no-footer ">
             <thead>
             <tr>
                 <th>رقم الصنف</th>

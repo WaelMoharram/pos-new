@@ -71,6 +71,8 @@
             <div class="col-12">
                 <button id="target" type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">فلترة</button>
                 <a href="{{route('reports.quantity-in-date')}}" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light">اعادة تعيين</a>
+                <button  class="btn btn-info mr-1 mb-1" onclick="window.print()">طباعة</button>
+
             </div>
             {!! Form::close() !!}
         </div>

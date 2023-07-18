@@ -13,6 +13,7 @@
 
 
     {{-- Minimal example / fill data using the component slot --}}
+    <button  class="btn btn-info mr-1 mb-1" onclick="window.print()">طباعة</button>
 
     <table id="table1" style="width:100%;position: relative;
     overflow: auto;

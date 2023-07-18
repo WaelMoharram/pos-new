@@ -117,7 +117,7 @@
                     @if(getRound($amount) != 0)
 
                         <span {{tooltip($unit->name)}}>{{getRound($amount)}}</span>
-                        @php($amount = (float)getFrachtion(\App\Models\ItemStore::where('item_id',$row->id)->sum('amount')))
+                        @php($amount = (float)getFrachtion(ItemAmount($row->id)))
                     @endif
 
                 </td>

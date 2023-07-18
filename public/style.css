@@ -20,6 +20,9 @@
     thead {
         display: table-header-group;
     }
+    .print-hidden {
+        display: none;
+    }
 }
 
 .table-container {
@@ -35,3 +38,6 @@
     background-color: #f5f5f5; /* Set the desired background color */
     font-weight: bold;
 }
+
+
+

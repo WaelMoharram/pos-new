@@ -208,6 +208,10 @@ class SaleManController extends Controller
             toast('غير مسموح بحذف بياناتك ','danger');
             return back();
         }
+        if (Store::where('sales_man_id',$id)->first()->bills->count() > 0){
+            toast('عملية مرفوضة - المخزن يحتوى على معاملات سابقة ','danger');
+            return back();
+        }
         $user= User::findOrFail($id);
         activity()->withProperties($user)
             ->log( 'حذف مندوب');
