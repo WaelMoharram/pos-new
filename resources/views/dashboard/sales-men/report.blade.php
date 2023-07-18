@@ -10,6 +10,7 @@
     <div class="row">
         <div class="col-md-6">    <h1> العهدة الحالية : {{$user->for_collect}}</h1>
         </div>
+
         @can(['is_admin','collect money sales'])
             <div class="col-md-6">@if($user->for_collect != 0)
                     @component('partials.buttons._payment_button',[
@@ -24,6 +25,8 @@
             </div>
         @endcan
     </div>
+    <button  class="btn btn-info mr-1 mb-1" onclick="window.print()">طباعة</button>
+
     {{-- Setup data for datatables --}}
     @php
         $heads = [
