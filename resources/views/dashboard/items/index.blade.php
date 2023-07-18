@@ -119,6 +119,7 @@
                         @php($amount = (float)getFrachtion(ItemAmount($row->id)))
 
                     @endif
+                    @dd($amount)
 
                 </td>
 
