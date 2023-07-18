@@ -133,7 +133,7 @@
                            @endif
 
                             @if(($loop->index +1) != \App\Models\Unit::where('item_id',$row->id)->where('ratio','!=',1)->count()) - @endif
-@dd(getFrachtion($amount))
+@dd(getFrachtion($amount * (float)$unit->ratio))
                             @php($amount = getFrachtion($amount))
                             @php($oldUnit = $unit)
 
