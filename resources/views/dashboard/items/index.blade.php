@@ -131,7 +131,7 @@
 
                         @else
                                 @dd($amount)
-                                <span {{tooltip($unit->name)}}>{{getRound(($amount * (  (float)$unit->ratio / (float)$oldUnit->ratio)   )  )}}</span>
+                                <span {{tooltip($unit->name)}}>{{getRound(($amount *   (float)$unit->ratio   )  )}}</span>
                             @php($amount = getFrachtion(($amount *   (float)$unit->ratio      )))
 
                         @endif
