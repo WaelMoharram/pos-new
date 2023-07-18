@@ -123,6 +123,7 @@
                 </td>
 
                 <td>
+                    @php($oldUnit = 0)
                     @foreach(\App\Models\Unit::where('item_id',$row->id)->where('ratio','!=',1)->orderBy('ratio')->get() as $unit)
                             @if($loop->index == 0)
 
