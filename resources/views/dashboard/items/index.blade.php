@@ -119,14 +119,12 @@
                         @php($amount = (float)getFrachtion(ItemAmount($row->id)))
 
                     @endif
-                    @dd($amount)
 
                 </td>
 
                 <td>
                     @foreach(\App\Models\Unit::where('item_id',$row->id)->where('ratio','!=',1)->orderBy('ratio')->get() as $unit)
                             @if($loop->index == 0)
-                            @dd($amount)
 
                             <span {{tooltip($unit->name)}}>{{getRound(($amount * (float)$unit->ratio))}}</span>
                             @else
@@ -135,8 +133,8 @@
                            @endif
 
                             @if(($loop->index +1) != \App\Models\Unit::where('item_id',$row->id)->where('ratio','!=',1)->count()) - @endif
-
-                                    @php($amount = getFrachtion($amount))
+@dd(getFrachtion($amount))
+                            @php($amount = getFrachtion($amount))
                             @php($oldUnit = $unit)
 
 
