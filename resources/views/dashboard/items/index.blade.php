@@ -106,6 +106,7 @@
                 <td><a href="{{route('reports.item-card',$row->id)}}">{!! $row->name !!}</a></td>
 {{--                @php($amount = \App\Models\ItemStore::where('item_id',$row->id)->sum('amount'))--}}
                 @php($amount = ItemAmount($row->id))
+
                 <td>
 
 
@@ -129,8 +130,8 @@
                             @php($amount = getFrachtion(($amount * (float)$unit->ratio)))
 
                         @else
-                                <span {{tooltip($unit->name)}}>{{getRound(($amount *   (float)$unit->ratio   )  )}}</span>
-                            @php($amount = getFrachtion(($amount *   (float)$unit->ratio      )))
+                                <span {{tooltip($unit->name)}}>{{getRound(($amount * (  (float)$unit->ratio / (float)$oldUnit->ratio)   )  )}}</span>
+                            @php($amount = getFrachtion(($amount * (  (float)$unit->ratio / (float)$oldUnit->ratio)     )))
 
                         @endif
 
