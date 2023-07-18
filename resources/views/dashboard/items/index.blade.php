@@ -113,11 +113,12 @@
                     @php($unit = \App\Models\Unit::where('item_id',$row->id)->where('ratio',1)->first())
 
                     @php($amount = $amount * ((float)$unit->ratio))
-@dd($amount);
                     @if(getRound($amount) != 0)
 
                         <span {{tooltip($unit->name)}}>{{getRound($amount)}}</span>
                         @php($amount = (float)getFrachtion(ItemAmount($row->id)))
+                        @dd($amount);
+
                     @endif
 
                 </td>
