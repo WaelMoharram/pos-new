@@ -115,7 +115,7 @@ $total=[];
                         $quantity[$detail->item_id] = ItemAmountInStoreInDate($detail->item_id,$store->id,$date->format('Y-m-d'));
 }
                 @endphp
-
+@dd($quantity[$detail->item_id])
             @endforeach
 
         @else
