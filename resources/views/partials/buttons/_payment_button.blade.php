@@ -43,7 +43,7 @@
                     {{-- ############# Bill Code #############--}}
                     <div class="form-group py-1 col-md-12">
                         <label for="money"> المبلغ  </label>
-                        {{Form::number('money',null,['step'=>'any','class'=>'form-control mb-2','id'=>'money','required'])}}
+                        {{Form::number('money',null,['step'=>'any','class'=>'form-control mb-2','id'=>'money'.$id,'required'])}}
                         {{input_error($errors,'money')}}
                     </div>
 
@@ -78,20 +78,18 @@
 
 {{--        });--}}
 {{--    });--}}
-function disableButton() {
-    var button = document.getElementById("submitBtn{{$id}}");
-    button.disabled = true;
-    button.className += " disabled";
-    alert('jh')
-    button.innerHTML = "Submitting...";
-}
+
 $(document).ready(function() {
-    $("#submitBtn{{$id}}").click(function() {
-        $(this).prop("disabled", true);
-        $(this).addClass("disabled");
-        $(this).html("جارى الدفع ...");
-        $("#forma{{$id}}").unbind('submit').submit();
-    });
+    var inputValue = $("#money{{$id}}").val();
+
+    if (inputValue !== "") {
+        $("#submitBtn{{$id}}").click(function () {
+            $(this).prop("disabled", true);
+            $(this).addClass("disabled");
+            $(this).html("جارى الدفع ...");
+            $("#forma{{$id}}").unbind('submit').submit();
+        });
+    }
 });
 </script>
 @endsection
