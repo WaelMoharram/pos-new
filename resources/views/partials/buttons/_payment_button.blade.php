@@ -80,16 +80,18 @@
 {{--    });--}}
 
 $(document).ready(function() {
-    var inputValue = $("#money{{$id}}").val();
 
-    if (inputValue !== "") {
         $("#submitBtn{{$id}}").click(function () {
-            $(this).prop("disabled", true);
-            $(this).addClass("disabled");
-            $(this).html("جارى الدفع ...");
-            $("#forma{{$id}}").unbind('submit').submit();
+            var inputValue = $("#money{{$id}}").val();
+
+            if (inputValue !== "") {
+                $(this).prop("disabled", true);
+                $(this).addClass("disabled");
+                $(this).html("جارى الدفع ...");
+                $("#forma{{$id}}").unbind('submit').submit();
+            }
         });
-    }
+
 });
 </script>
 @endsection
