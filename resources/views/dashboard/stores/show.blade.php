@@ -74,7 +74,7 @@
                     @if(getRound($amount) != 0)
 
                         <span {{tooltip($unit->name)}}>{{getRound($amount)}}</span>
-                        @php($amount = (float)getFrachtion(ItemAmountStore(optional($itam)->id)))
+                        @php($amount = (float)getFrachtion(ItemAmountStore($store->id,optional($itam)->id)))
 
                     @endif
 
