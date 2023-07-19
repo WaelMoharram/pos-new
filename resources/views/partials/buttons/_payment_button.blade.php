@@ -43,7 +43,7 @@
                     {{-- ############# Bill Code #############--}}
                     <div class="form-group py-1 col-md-12">
                         <label for="money"> المبلغ  </label>
-                        {{Form::number('money',null,['step'=>'any','class'=>'form-control mb-2','id'=>'money'])}}
+                        {{Form::number('money',null,['step'=>'any','class'=>'form-control mb-2','id'=>'money','required'])}}
                         {{input_error($errors,'money')}}
                     </div>
 
