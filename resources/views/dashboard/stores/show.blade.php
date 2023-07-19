@@ -57,7 +57,6 @@
     {{-- Minimal example / fill data using the component slot --}}
     <x-adminlte-datatable id="" :heads="$heads" striped hoverable with-buttons>
         @foreach($items as $itam)
-            @php($amount = ItemAmountStore($store->id,optional($itam)->id))
 
             <tr>
                 <td>{!! optional($itam)->barcode!!}</td>
@@ -67,30 +66,42 @@
                 @php($amount = ItemAmountStore($store->id,optional($itam)->id))
 
                 <td>
+
+
                     @php($unit = \App\Models\Unit::where('item_id',optional($itam)->id)->where('ratio',1)->first())
 
                     @php($amount = $amount * ((float)$unit->ratio))
-
                     @if(getRound($amount) != 0)
+
                         <span {{tooltip($unit->name)}}>{{getRound($amount)}}</span>
-                        @php($amount = getFrachtion(ItemAmountStore($store->id,optional($itam)->id)))
+                        @php($amount = (float)getFrachtion(ItemAmountStore(optional($itam)->id)))
+
                     @endif
-{{--                    @if($itam->id == 39)--}}
-{{--                        @dd($amount)--}}
-{{--                    @endif--}}
+
                 </td>
 
                 <td>
-                    @if($amount != 0)
-                    @foreach(\App\Models\Unit::where('item_id',optional($itam)->id)->where('ratio','!=',1)->orderBy('ratio')->get() as $unit)
+                    @foreach(\App\Models\Unit::where('item_id',$row->id)->where('ratio','!=',1)->orderBy('ratio')->get() as $unit)
+                        @if($loop->index == 0)
 
-                        @php($amount = $amount * ((float)$unit->ratio))
-                        @if(getRound($amount) != 0)
-                            <span {{tooltip($unit->name)}}>{{getRound($amount)}}</span> @if(($loop->index +1) != \App\Models\Unit::where('item_id',($itam)->id)->where('ratio','!=',1)->count()) - @endif
-                            @php($amount = getFrachtion(\App\Models\ItemStore::where('item_id',optional($itam)->id)->sum('amount')))
+                            <span {{tooltip($unit->name)}}>{{getRound(($amount * (float)$unit->ratio))}} <span class="badge badge-info">{{$unit->name}}</span></span>
+                            <br>
+                            @php($amount = getFrachtion(($amount * (float)$unit->ratio)))
+
+                        @else
+                            <span {{tooltip($unit->name)}}>{{getRound(($amount * (  (float)$unit->ratio / (float)$oldUnit->ratio)   )  )}}  <span class="badge badge-info">{{$unit->name}}</span></span>
+                            <br>
+                            @php($amount = getFrachtion(($amount * (  (float)$unit->ratio / (float)$oldUnit->ratio)     )))
+
                         @endif
-                    @endforeach
-                        @endif
+
+                        @php($oldUnit = $unit)
+
+
+
+
+
+                            @endforeach
                 </td>
             </tr>
         @endforeach
