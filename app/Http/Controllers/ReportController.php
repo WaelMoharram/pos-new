@@ -116,32 +116,36 @@ class ReportController extends Controller
     }
     public function storeCard2($id){
         $store = Store::find($id);
-
-        $details = BillDetail::whereHas('bill',function ($q) use ($id){
-            $q->where(function ($q2) use($id){
-                $q2->where('store_id',$id)->orWhere('store_from_id',$id)->orWhere('store_to_id',$id);
-            });
+        $details = [];
+        if (request()->has('from_date') || request()->has('to_date') || request()->has('name') || request()->has('barcode')) {
 
 
-            if (request()->has('from_date') && request()->from_date != null){
-                $q->where('date','>=',request()->from_date);
-            }
-            if (request()->has('to_date') && request()->to_date != null){
-                $q->where('date','<=',request()->to_date);
-            }
-        })->whereHas('item',function($q){
+            $details = BillDetail::whereHas('bill', function ($q) use ($id) {
+                $q->where(function ($q2) use ($id) {
+                    $q2->where('store_id', $id)->orWhere('store_from_id', $id)->orWhere('store_to_id', $id);
+                });
 
-            if (request()->has('name') && request()->name != null){
-                $q->where('name','like','%'.request()->name.'%');
-            }
 
-            if (request()->has('barcode') && request()->barcode != null){
-                $q->where('barcode','like','%'.request()->barcode.'%');
-            }
+                if (request()->has('from_date') && request()->from_date != null) {
+                    $q->where('date', '>=', request()->from_date);
+                }
+                if (request()->has('to_date') && request()->to_date != null) {
+                    $q->where('date', '<=', request()->to_date);
+                }
+            })->whereHas('item', function ($q) {
 
-        })->join('bills', 'bill_details.bill_id', '=', 'bills.id')
-            ->orderBy('bills.date', 'asc')
-            ->select('bill_details.*')->get();
+                if (request()->has('name') && request()->name != null) {
+                    $q->where('name', 'like', '%' . request()->name . '%');
+                }
+
+                if (request()->has('barcode') && request()->barcode != null) {
+                    $q->where('barcode', 'like', '%' . request()->barcode . '%');
+                }
+
+            })->join('bills', 'bill_details.bill_id', '=', 'bills.id')
+                ->orderBy('bills.date', 'asc')
+                ->select('bill_details.*')->get();
+        }
         return view('dashboard.reports.store-card2', compact('store','details'));
     }
 
