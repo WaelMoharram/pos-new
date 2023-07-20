@@ -111,7 +111,17 @@ $total=[];
         $date->modify('-1 day');
         if (!isset($quantity[$detail->item_id])){
                             $quantity[$detail->item_id] = ItemAmountInStoreInDate($detail->item_id,$store->id,$date->format('Y-m-d'));
-}
+                    if($detail->bill->type != 'store'){
+                        if($detail->bill->type == 'purchase_in'||$detail->bill->type == 'sale_in'){
+
+                        }
+
+                    }
+
+
+        }
+
+
                         @endphp
 
                     @endforeach

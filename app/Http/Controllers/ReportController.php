@@ -104,7 +104,7 @@ class ReportController extends Controller
                 $q->where('barcode','like','%'.request()->barcode.'%');
             }
 
-        })->paginate(20);
+        })->get();
         return view('dashboard.reports.store-card', compact('store','details'));
     }
     public function itemCard2($id){
