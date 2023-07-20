@@ -113,12 +113,7 @@ $total=[];
     $date->modify('-1 day');
     if (!isset($quantity[$detail->item_id])){
                         $quantity[$detail->item_id] = ItemAmountInStoreInDate($detail->item_id,$store->id,$date->format('Y-m-d'));
-                        if($detail->bill->type != 'store'){
-                            if($detail->bill->type == 'purchase_in'||$detail->bill->type == 'sale_in'){
-                                $total[$detail->item_id]= ($total[$detail->item_id] ?? 0)+(($detail->amount ) * $detail->price) , 2)
-                            }
 
-                        }
 }
                 @endphp
 {{--@dd($quantity[$detail->item_id])--}}
@@ -207,7 +202,7 @@ $total=[];
         @endforeach
         </tbody>
     </table>
-    {{$details->appends(request()->except('page'))->links()}}
+{{--    {{$details->appends(request()->except('page'))->links()}}--}}
 
 
 
