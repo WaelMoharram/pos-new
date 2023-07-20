@@ -60,7 +60,9 @@
     </div>
 </div>
 @section('js')
-<script>
+    @include('sweetalert::alert')
+
+    <script>
 {{--    $(document).ready(function () {--}}
 
 {{--        $("#form{{$id}}").submit(function (e) {--}}
