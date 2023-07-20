@@ -139,6 +139,7 @@
         $(function() {
             $('.date').daterangepicker({
                 singleDatePicker: true,
+                autoUpdateInput: false,
                 "locale": {
                     "format": "YYYY-MM-DD",
                     "separator": " - ",
