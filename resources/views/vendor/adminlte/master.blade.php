@@ -149,7 +149,7 @@
         //moment.locale('ar');
         $(function() {
             $('.date').daterangepicker({
-                autoUpdateInput: false,
+                // autoUpdateInput: false,
                 singleDatePicker: true,
                 "locale": {
                     "format": "YYYY-MM-DD",
@@ -184,6 +184,8 @@
                     ],
                     "firstDay": 6
                 }
+            }).on("apply.daterangepicker", function (e, picker) {
+                picker.element.val(picker.startDate.format(picker.locale.format));
             });
         });
     </script>
