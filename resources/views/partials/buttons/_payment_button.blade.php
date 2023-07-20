@@ -85,6 +85,7 @@ $(document).ready(function() {
             var inputValue = $("#money{{$id}}").val();
 
             if (inputValue !== "") {
+                alert('in')
                 $(this).prop("disabled", true);
                 $(this).addClass("disabled");
                 $(this).html("جارى الدفع ...");
