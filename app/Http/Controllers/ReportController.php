@@ -141,7 +141,7 @@ class ReportController extends Controller
 
         })->join('bills', 'bill_details.bill_id', '=', 'bills.id')
             ->orderBy('bills.date', 'asc')
-            ->select('bill_details.*')->paginate(20);
+            ->select('bill_details.*')->get();
         return view('dashboard.reports.store-card2', compact('store','details'));
     }
 
