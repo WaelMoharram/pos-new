@@ -93,23 +93,23 @@
                 <th colspan="2"> اضافة</th>
 
             @else
-                <th colspan="3"> اضافة</th>
+                <th colspan="1"> اضافة</th>
 
             @endif
 
             @if(!request()->has('type'))
 
-            <th colspan="2"> صرف</th>
+            <th colspan="3"> صرف</th>
             @else
-                <th colspan="3"> صرف</th>
+                <th colspan="2"> صرف</th>
 
             @endif
 
             @if(!request()->has('type'))
 
-                <th colspan="2"> رصيد</th>
-            @else
                 <th colspan="3"> رصيد</th>
+            @else
+                <th colspan="2"> رصيد</th>
 
             @endif
         </tr>
