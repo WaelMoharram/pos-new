@@ -90,10 +90,10 @@
             <th rowspan="2">اسم الصنف</th>
             <th rowspan="2">نوع العملية </th>
             @if(!request()->has('type'))
-                <th colspan="2"> اضافة</th>
+                <th colspan="3"> اضافة</th>
 
             @else
-                <th colspan="1"> اضافة</th>
+                <th colspan="2"> اضافة</th>
 
             @endif
 
