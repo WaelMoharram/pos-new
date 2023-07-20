@@ -149,7 +149,7 @@
         //moment.locale('ar');
         $(function() {
             $('.date').daterangepicker({
-                // autoUpdateInput: false,
+                autoUpdateInput: false,
                 singleDatePicker: true,
                 "locale": {
                     "format": "YYYY-MM-DD",
