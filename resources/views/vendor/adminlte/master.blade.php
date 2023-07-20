@@ -149,11 +149,12 @@
         //moment.locale('ar');
         $(function() {
             $('.date').daterangepicker({
-                singleDatePicker: true,
                 autoUpdateInput: false,
-                locale: {
-                    cancelLabel: 'Clear'
+
+                function (chosen_date) {
+                    $('.form-datetime').val(chosen_date.format('YYYY-MM-DD'));
                 },
+                singleDatePicker: true,
                 "locale": {
                     "format": "YYYY-MM-DD",
                     "separator": " - ",
