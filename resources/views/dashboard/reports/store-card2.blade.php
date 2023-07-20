@@ -89,7 +89,7 @@
             <th rowspan="2">رقم الصنف</th>
             <th rowspan="2">اسم الصنف</th>
             <th rowspan="2">نوع العملية </th>
-            @if(!request()->has('type'))
+            @if(!request()->has('type') || request()->type == null)
                 <th colspan="3"> اضافة</th>
 
             @else
@@ -97,7 +97,7 @@
 
             @endif
 
-            @if(!request()->has('type'))
+            @if(!request()->has('type') || request()->type == null)
 
             <th colspan="3"> صرف</th>
             @else
@@ -105,7 +105,7 @@
 
             @endif
 
-            @if(!request()->has('type'))
+            @if(!request()->has('type') || request()->type == null)
 
                 <th colspan="3"> رصيد</th>
             @else
@@ -116,17 +116,17 @@
         <tr>
             <th> كمية</th>
             <th> سعر الوحدة</th>
-            @if(!request()->has('type'))
+            @if(!request()->has('type') || request()->type == null)
                 <th> قيمة</th>
             @endif
             <th> كمية</th>
             <th> سعر الوحدة</th>
-            @if(!request()->has('type'))
+            @if(!request()->has('type') || request()->type == null)
                 <th> قيمة</th>
             @endif
             <th> كمية</th>
             <th> سعر الوحدة</th>
-            @if(!request()->has('type'))
+            @if(!request()->has('type') || request()->type == null)
                 <th> قيمة</th>
             @endif
         </tr>
@@ -173,34 +173,34 @@ $total=[];
                     @if($detail->bill->type == 'purchase_in'||$detail->bill->type == 'sale_in')
                         <td>{{number_format($detail->amount / ($detail->unit ?$detail->unit->ratio : 1) , 2) }}</td>
                         <td>{{number_format($detail->price , 2)}}</td>
-                        @if(!request()->has('type'))
+                        @if(!request()->has('type') || request()->type == null)
                         <td>{{number_format($detail->amount * $detail->price , 2)}}</td>
                         @endif
                         <td>0</td>
                         <td>0</td>
-                        @if(!request()->has('type'))
+                        @if(!request()->has('type') || request()->type == null)
                         <td>0</td>
                         @endif
                         @php($quantity[$detail->item_id] = ($quantity[$detail->item_id]??0) +($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)))
                         <td>{{number_format($quantity[$detail->item_id] , 2)}}</td>
                         <td>{{$detail->price}}</td>
-                        @if(!request()->has('type'))
+                        @if(!request()->has('type') || request()->type == null)
                         <td>{{number_format($total[$detail->item_id]= ($total[$detail->item_id] ?? 0)+(($detail->amount ) * $detail->price) , 2)}}</td>
                             @endif
                     @elseif($detail->bill->type == 'purchase_out'||$detail->bill->type == 'sale_out')
                         <td>0</td>
                         <td>0</td>
-                        @if(!request()->has('type'))
+                        @if(!request()->has('type') || request()->type == null)
                         <td>0</td>
                         @endif
                         <td>{{number_format($detail->amount / ($detail->unit ?$detail->unit->ratio : 1) , 2)}}</td>
                         <td>{{number_format($detail->buy_price , 2)}}</td>
-                        @if(!request()->has('type'))
+                        @if(!request()->has('type') || request()->type == null)
                         <td>{{number_format((($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->buy_price) , 2)}}</td>
                         @endif
                         @php($quantity[$detail->item_id] = ($quantity[$detail->item_id]??0) -($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)))
                         <td>{{number_format($quantity[$detail->item_id] , 2)}}</td>                <td>{{$detail->buy_price}}</td>
-                        @if(!request()->has('type'))
+                        @if(!request()->has('type') || request()->type == null)
                         <td>{{number_format($total[$detail->item_id]= ($total[$detail->item_id]??0)-(($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->buy_price) , 2)}}</td>
                             @endif
                     @endif
@@ -216,17 +216,17 @@ $total=[];
 
                         <td>{{number_format($detail->amount / ($detail->unit ?$detail->unit->ratio : 1) , 2)}}</td>
                         <td>{{number_format($detail->buy_price , 2)}}</td>
-                            @if(!request()->has('type'))
+                            @if(!request()->has('type') || request()->type == null)
                         <td>{{number_format((($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->buy_price ), 2)}}</td>
                             @endif
                         <td>0</td>
                         <td>0</td>
-                            @if(!request()->has('type'))
+                            @if(!request()->has('type') || request()->type == null)
                         <td>0</td>
                             @endif
                         @php($quantity[$detail->item_id] = ($quantity[$detail->item_id]??0) +($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)))
                         <td>{{number_format($quantity[$detail->item_id] , 2)}}</td>                    <td>{{$detail->buy_price}}</td>
-                            @if(!request()->has('type'))
+                            @if(!request()->has('type') || request()->type == null)
                         <td>{{number_format($total[$detail->item_id]= ($total[$detail->item_id] ?? 0)+(($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->buy_price) , 2)}}</td>
                                 @endif
                     @endif
@@ -238,17 +238,17 @@ $total=[];
 
                         <td>0</td>
                         <td>0</td>
-                            @if(!request()->has('type'))
+                            @if(!request()->has('type') || request()->type == null)
                         <td>0</td>
                             @endif
                         <td>{{number_format(($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) , 2)}}</td>
                         <td>{{number_format($detail->buy_price , 2)}}</td>
-                            @if(!request()->has('type'))
+                            @if(!request()->has('type') || request()->type == null)
                         <td>{{number_format((($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->buy_price) , 2)}}</td>
                             @endif
                         @php($quantity[$detail->item_id] = ($quantity[$detail->item_id]??0) -($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)))
                         <td>{{number_format($quantity[$detail->item_id] , 2)}}</td>                    <td>{{$detail->buy_price}}</td>
-                            @if(!request()->has('type'))
+                            @if(!request()->has('type') || request()->type == null)
                         <td>{{number_format($total[$detail->item_id]= ($total[$detail->item_id] ?? 0)-(($detail->amount / ($detail->unit ?$detail->unit->ratio : 1)) * $detail->buy_price) , 2)}}</td>
                                 @endif
                     @endif
