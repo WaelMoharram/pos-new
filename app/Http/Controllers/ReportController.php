@@ -117,7 +117,7 @@ class ReportController extends Controller
     public function storeCard2($id){
         $store = Store::find($id);
         $details = [];
-        if (request()->has('from_date') || request()->has('to_date') || request()->has('name') || request()->has('barcode')) {
+        if (request()->has('from_date') || request()->has('to_date') || request()->has('name') || request()->has('barcode') || request()->has('type')) {
 
 
             $details = BillDetail::whereHas('bill', function ($q) use ($id) {
@@ -141,6 +141,13 @@ class ReportController extends Controller
                 if (request()->has('barcode') && request()->barcode != null) {
                     $q->where('barcode', 'like', '%' . request()->barcode . '%');
                 }
+
+            })->whereHas('bill', function ($q) {
+
+                if (request()->has('type') && request()->type != null) {
+                    $q->where('type', 'like', '%' . request()->type . '%');
+                }
+
 
             })->join('bills', 'bill_details.bill_id', '=', 'bills.id')
                 ->orderBy('bills.date', 'asc')

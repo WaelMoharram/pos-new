@@ -42,6 +42,12 @@
                     {!! Form::text('barcode',request()->barcode ??null,['id'=>'barcode','class'=>'form-control col  ','placeholder'=>__("رقم الباركود")]) !!}
                     {{input_error($errors,'barcode')}}
                 </div>
+                <div class="form-group py-1 col-md-6">
+                    <label for="type"> نوع العملية  </label>
+                    {{Form::select('type',['purchase_in'=>__('purchase_in'),'sale_in'=>__('sale_in'),'purchase_out'=>__('purchase_out'),'sale_out'=>__('sale_out'),'store'=>__('store')] ,request()->type ??null,['class'=>'form-control mb-2','id'=>'type'])}}
+                    {{input_error($errors,'type')}}
+                </div>
+
 
                 {{--                <div class="form-group py-1 col-md-6">--}}
                 {{--                    <label for="sort_by"> الترتيب ب  </label>--}}
