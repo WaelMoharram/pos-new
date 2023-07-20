@@ -206,6 +206,7 @@ $total=[];
             @endif
 
         </tr>
+                @if($loop->index +1 % 10 === 0)
     @endforeach
     </tbody>
 </table>
