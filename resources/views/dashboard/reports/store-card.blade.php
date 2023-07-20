@@ -144,7 +144,7 @@ $total=[];
             <td>{{$detail->bill->date}}</td>
             <td>{!! $detail->item->barcode !!}</td>
                 <td>{!! $detail->item->name !!}</td>
-                <td>{!! $detail->bill->type !!}</td>
+                <td>{!! __($detail->bill->type) !!}</td>
             @if($detail->bill->type == 'purchase_in'||$detail->bill->type == 'sale_in')
                 <td>{{number_format($detail->amount / ($detail->unit ?$detail->unit->ratio : 1) , 2) }}</td>
                 <td>{{number_format($detail->price , 2)}}</td>
