@@ -150,10 +150,6 @@
         $(function() {
             $('.date').daterangepicker({
                 autoUpdateInput: false,
-
-                function (chosen_date) {
-                    $('.form-datetime').val(chosen_date.format('YYYY-MM-DD'));
-                },
                 singleDatePicker: true,
                 "locale": {
                     "format": "YYYY-MM-DD",
