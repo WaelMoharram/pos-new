@@ -150,6 +150,10 @@
         $(function() {
             $('.date').daterangepicker({
                 singleDatePicker: true,
+                autoUpdateInput: false,
+                locale: {
+                    cancelLabel: 'Clear'
+                },
                 "locale": {
                     "format": "YYYY-MM-DD",
                     "separator": " - ",
