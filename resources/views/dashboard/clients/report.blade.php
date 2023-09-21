@@ -37,7 +37,7 @@
             @if($row->type == 'sale_out')
             <tr>
                 <td>{!! substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
-                <td>فاتورة بيع رقم #{!! $row->code !!}</td>
+                <td><a href="{{route('bills.print',$row->id)}}">فاتورة بيع رقم #{!! $row->code !!}</a></td>
                 <td>{!! $row->date !!}</td>
                 <td>0</td>
                 <td>{!! $row->total !!}</td>
@@ -47,7 +47,7 @@
             @if($row->type == 'sale_in')
                 <tr>
                     <td>{!! substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
-                    <td>فاتورة مرتجع رقم #{!! $row->code !!}</td>
+                    <td><a href="{{route('bills.print',$row->id)}}">فاتورة مرتجع رقم #{!! $row->code !!}</a></td>
                     <td>{!! $row->date !!}</td>
 
                     <td>{!! $row->total !!}</td>
