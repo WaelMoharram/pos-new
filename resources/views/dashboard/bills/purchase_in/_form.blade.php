@@ -34,6 +34,11 @@
     {{Form::select('need_discount',[0=>'لا' , 1=>'نعم'] ,null,['class'=>'form-control mb-2','id'=>'need_discount'])}}
     {{input_error($errors,'need_discount')}}
 </div>
+<div class="form-group py-1 col-md-6">
+    <label for="is_vat"> تطبيق ضريبه القيمة المضافة   </label>
+    {{Form::select('is_vat',[0=>'لا' , 1=>'نعم'] ,null,['class'=>'form-control mb-2','id'=>'is_vat'])}}
+    {{input_error($errors,'is_vat')}}
+</div>
 @if(auth()->user()->type == 'admin')
     @can('discount sales')
         <div class="form-group py-1 col-md-4">

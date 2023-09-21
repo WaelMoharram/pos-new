@@ -20,54 +20,27 @@
                 <!-- title row -->
                 <div class="row">
                     <div class="col-12">
+                        <strong style="text-align: center;">اذن استلام مسعر </strong><br>
 
                         <h4>
-                            <img class="float-right" src="{{asset('logo.png')}}" style="width:150px;">
+                            <img class="float-right" src="{{asset('logo.png')}}" style="width:250px;">
+                            <br>
                             <small class="float-left">التاريخ: {{$bill->date}}</small>
                             <br>
                             <small class="float-left">تاريخ انشاء الفاتورة: {{$bill->created_at}}</small>
+                            <br>
+                            <address>
+                                مخرن {{optional($bill->store)->name}}<br>
+                                عميل {{optional($bill->model)->name}}<br>
+                                رقم الفاتورة #{{$bill->code}}<br>
+
+                            </address>
                         </h4>
                     </div>
                     <!-- /.col -->
                 </div>
                 <!-- info row -->
-                <div class="row invoice-info">
-                    <div class="col-sm-4 invoice-col">
 
-                        <address>
-                            <strong>بيانات فاتورة البيع </strong><br>
-                             مخرن {{optional($bill->store)->name}}<br>
-                            عميل {{optional($bill->model)->name}}<br>
-                            رقم الفاتورة #{{$bill->code}}<br>
-                            {{--                    San Francisco, CA 94107<br>--}}
-                            {{--                    Phone: (804) 123-5432<br>--}}
-                            {{--                    Email: info@almasaeedstudio.com--}}
-                        </address>
-                    </div>
-                    <!-- /.col -->
-                {{--            <div class="col-sm-4 invoice-col">--}}
-                {{--                تحويل الى--}}
-                {{--                <address>--}}
-                {{--                   # <strong>{{optional($bill->storeTo)->name}}</strong><br>--}}
-                {{--                    795 Folsom Ave, Suite 600<br>--}}
-                {{--                    San Francisco, CA 94107<br>--}}
-                {{--                    Phone: (555) 539-1037<br>--}}
-                {{--                    Email: john.doe@example.com--}}
-                {{--                </address>--}}
-                {{--            </div>--}}
-                {{--            <!-- /.col -->--}}
-                {{--            <div class="col-sm-4 invoice-col">--}}
-                {{--                <b>رقم الاذن #{{$bill->code}}</b><br>--}}
-                {{--                <br>--}}
-                {{--                <b>Order ID:</b> 4F3S8J<br>--}}
-                {{--                <b>Payment Due:</b> 2/22/2014<br>--}}
-                {{--                <b>Account:</b> 968-34567--}}
-                {{--            </div>--}}
-                <!-- /.col -->
-                </div>
-                <!-- /.row -->
-
-                <!-- Table row -->
                 <div class="row">
                     <div class="col-12 table-responsive">
                         <table class="table table-striped" dir="rtl" style="    text-align: right;">
@@ -75,9 +48,9 @@
                             <tr>
                                 <th>#</th>
                                 <th>الصنف</th>
-                                <th>الوحدة</th>
                                 <th>الكمية</th>
-                                <th>سعر الوحدة</th>
+                                <th>السعر </th>
+                                <th>السعر بعد الخصم </th>
 
                                 <th>الاجمالى</th>
                             </tr>
@@ -87,13 +60,16 @@
                                 <tr>
                                     <td>{{substr(str_repeat(0, 5).($loop->index +1), - 5)}}</td>
                                     <td>{{optional($detail->item)->name}}</td>
-                                    <td>{{optional($detail->unit)->name}}</td>
                                     <td>
                                         {{$detail->amount}}
                                     </td>
 
                                     <td>
-                                        {{$detail->total/$detail->amount}}
+                                        {{$detail->old_price}}
+                                    </td>
+
+                                    <td>
+                                        {{$detail->price}}
                                     </td>
                                     <td>
                                         {{$detail->total}}
@@ -105,7 +81,7 @@
                             @if($bill->tax != null || $bill->tax != 0 || $bill->discount != null || $bill->discount != 0)
                                 <tr>
                                     <td>#</td>
-                                    <th  colspan="3" style="width:50%">اجمالى الأصناف</th>
+                                    <th  colspan="4" style="width:50%">اجمالى الأصناف</th>
                                     <td>{{$details->sum('total')}}</td>
                                 </tr>
                             @endif
@@ -113,7 +89,7 @@
                                 <tr>
                                     <td>#</td>
 
-                                    <th  colspan="3">{{$bill->tax_type ?? 0}}</th>
+                                    <th  colspan="4">{{$bill->tax_type ?? 0}}</th>
                                     <td>{{$bill->tax ?? 0}}</td>
                                 </tr>
                             @endif
@@ -121,7 +97,7 @@
                                 <tr>
                                     <td>#</td>
 
-                                    <th colspan="3">{{$bill->discount_type ?? 0}}</th>
+                                    <th colspan="4">{{$bill->discount_type ?? 0}}</th>
                                     <td>{{$bill->discount ?? 0}}</td>
                                 </tr>
                             @endif
@@ -166,10 +142,10 @@
                 <!-- /.row -->
 <hr>
                 <div class="row text-center">
-                    <div class="col-md-3"><span>توقيع المستلم</span></div>
-                    <div class="col-md-3"><span>ادارة المخازن</span></div>
-                    <div class="col-md-3"><span>المدير المالى</span></div>
-                    <div class="col-md-3"><span>رئيس مجلس الادارة</span></div>
+                    <div class="col-md-4"><span>توقيع مندوب الشركة</span></div>
+                    <div class="col-md-4"><span> توقيع المستلم</span></div>
+                    <div class="col-md-4"><span>ختم العميل</span></div>
+{{--                    <div class="col-md-3"><span>رئيس مجلس الادارة</span></div>--}}
                 </div>
                 <!-- /.row -->
 

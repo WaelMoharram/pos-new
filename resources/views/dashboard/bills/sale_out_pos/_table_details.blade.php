@@ -18,6 +18,7 @@
                     <th>الوحدة</th>
                     <th>الكمية</th>
                     <th>السعر</th>
+                    <th>السعر بعد الخصم</th>
                     <th>الاجمالى</th>
                     <th style="width: 40px">اعدادات</th>
                 </tr>
@@ -33,6 +34,10 @@
 
                         <td>
                             {{$detail->amount}}
+                        </td>
+
+                        <td>
+                            {{$detail->old_price}}
                         </td>
                         <td>
                             {{$detail->price}}

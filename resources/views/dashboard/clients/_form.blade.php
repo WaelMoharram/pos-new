@@ -12,10 +12,15 @@
 </div>
 
 <div class="form-group py-1 col-md-12">
-    <label for="email"> البريد الالكترونى</label>
-    {!! Form::email('email',null,['id'=>'email','class'=>'form-control col',isset($readOnly)?$readOnly:null,disable_on_show()]) !!}
-    {{input_error($errors,'email')}}
+    <label for="city_id"> المدينة  </label>
+    {{Form::select('city_id',\App\Models\City::get()->pluck('name_with_governorate','id') ,null,['class'=>'form-control mb-2','id'=>'city_id'])}}
+    {{input_error($errors,'city_id')}}
 </div>
+{{--<div class="form-group py-1 col-md-12">--}}
+{{--    <label for="email"> البريد الالكترونى</label>--}}
+{{--    {!! Form::email('email',null,['id'=>'email','class'=>'form-control col',isset($readOnly)?$readOnly:null,disable_on_show()]) !!}--}}
+{{--    {{input_error($errors,'email')}}--}}
+{{--</div>--}}
 
 
 <div class="form-group py-1 col-md-6">
@@ -31,7 +36,7 @@
 
 @if(!isset($client) || $client->id != 1)
 @if(auth()->user()->type == 'admin' && auth()->user()->store_id == null)
-<div class="form-group py-1 col-md-6">
+<div class="form-group py-1 col-md-12">
     <label for="users"> المندوبين و المبيعات و الفروع  </label>
     {{Form::select('users[]',\App\Models\User::where(function ($q){
     $q->where('type','sales')->orWhere('pos',1);

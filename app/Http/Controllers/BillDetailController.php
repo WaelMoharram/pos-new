@@ -167,28 +167,33 @@ class BillDetailController extends Controller
         if ($bill->type == 'purchase_in' || $bill->type == 'purchase_out' ) {
             $price = $item->buy_price;
             $total = (((float)$request->amount*((1/$unitRatio) ?? 1)) * (float)$item->buy_price);
-            $request->merge(['price' => $price, 'total' => $total]);
+            $request->merge(['old_price' => $price,'price' => $price, 'total' => $total]);
         }else{
             $price = ((float)$unit->price ?? (float)$item->price);
+            $new_price = $price;
             if ($request->discount >0){
-                $price = ((float)$unit->price ?? (float)$item->price) - (float)$request->discount;
+                $new_price = $price - (($price * (float)$request->discount)/100);
+
             }
-            $total = ((float)$request->amount * $price);
-            $request->merge(['price' => $price, 'total' => $total]);
+            $total = ((float)$request->amount * ($new_price ??$price));
+            $request->merge(['old_price' => $price,'price' => $new_price, 'total' => $total]);
         }
 
 
         $BillDetail = $BillDetailOld = BillDetail::where('item_id',$request->item_id)->where('bill_id',$request->bill_id)->where('unit_id',$unit->id ?? null)->first();
         if ($BillDetail && $bill->pos_sales == 0){
             $price = ((float)$unit->price ?? (float)$item->price);
+            $new_price = $price;
             if ($request->discount >0){
-                $price = ((float)$unit->price ?? (float)$item->price) - (float)$request->discount;
+                $new_price = $price - (($price * (float)$request->discount)/100);
+
             }
+
             $newAmount = (float)$BillDetail->amount + ((float)$request->amount);
-            $total = ($newAmount * $price);
+            $total = ($newAmount * ($new_price ?? $price));
 
 
-            $detail = $BillDetail->fill(['amount'=>$newAmount,'price'=>$price,'total'=>$total,'buy_price'=>$item->buy_price])->save();
+            $detail = $BillDetail->fill(['amount'=>$newAmount,'old_price'=>$price,'price'=>$new_price ?? $price,'total'=>$total,'buy_price'=>$item->buy_price])->save();
         }else{
             $request->merge(['unit_id'=>$unit->id]);
             $request->merge(['buy_price'=>$item->buy_price]);
@@ -238,8 +243,8 @@ class BillDetailController extends Controller
                 $payment = Bill::create($requestsBay);
             }
         }
-        if ($taxPercent != null && $taxPercent > 0) {
-            $bill->update(['tax' => ($bill->total * ($taxPercent / 100)), 'tax_type' => $taxName]);
+        if ($taxPercent != null && $taxPercent > 0 && $bill->is_vat == 1) {
+            $bill->update(['tax' => ($bill->details()->sum('total') * ($taxPercent / 100)), 'tax_type' => $taxName]);
         }
         if ($request->has('discount_kind')){
 
@@ -306,7 +311,11 @@ class BillDetailController extends Controller
 //            toast('عملية مرفوضة - المخزن يحتوى على معاملات سابقة ','danger');
 //            return back();
 //        }
+        $taxPercent = option('نسبة القيمة المضافة');
+        $taxName = option('اسم القيمة المضافة');
         $detail= BillDetail::findOrFail($id);
+        $bill = Bill::find($detail->bill_id);
+
         $item = Item::find($detail->item_id);
         $unit = Unit::find($detail->unit_id);
         $unitRatio = $unit->ratio;
@@ -397,8 +406,15 @@ class BillDetailController extends Controller
             }
         }
         $detail->delete();
+
+
         activity()->withProperties(['old'=>$detail,'attributes'=>$detail])
-            ->log( '- حذف بند للفاتورة رقم '.$detail->id.' '.' '.'فى الفاتورة رقم '.$detail->bill->id. ' نوع الفاتورة'.__($detail->bill->type));
+        ->log( '- حذف بند للفاتورة رقم '.$detail->id.' '.' '.'فى الفاتورة رقم '.$detail->bill->id. ' نوع الفاتورة'.__($detail->bill->type));
+        if ($taxPercent != null && $taxPercent > 0 && $bill->is_vat == 1) {
+            $bill->update(['tax' => ($bill->details()->sum('total') * ($taxPercent / 100)), 'tax_type' => $taxName]);
+
+        }
+
         toast('تم الحذف بنجاح','success');
         return redirect()->back();
     }
