@@ -78,8 +78,8 @@ class PaymentController extends Controller
         $requests = $request->all();
 
 
-        $requests['model_id'] =  null;
-        $requests['model_type'] =  null;
+        $requests['model_id'] =  $bill->model_id;
+        $requests['model_type'] =  $bill->model_type;
         $requests['status'] = "saved";
         $requests['need_discount'] = false;
 
