@@ -13,9 +13,9 @@ class Governorate extends Model
     protected $table = 'governorates';
     public $timestamps = true;
 
-    use SoftDeletes;
-
-    protected $dates = ['deleted_at'];
+//    use SoftDeletes;
+//
+//    protected $dates = ['deleted_at'];
     protected $guarded = array('id');
 
     public function cities()
