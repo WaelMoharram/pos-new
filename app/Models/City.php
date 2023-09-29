@@ -23,8 +23,16 @@ class City extends Model
         return $this->belongsTo(Governorate::class);
     }
 
+    public function getNameAttribute(){
+        if (app()->getLocale() == 'ar'){
+            return $this->city_name_ar;
+        }
+        return $this->city_name_en;
+
+    }
+
     public function getNameWithGovernorateAttribute(){
-        return $this->name . ' - ' .optional($this->governorate)->name;
+        return $this->city_name_ar . ' - ' .optional($this->governorate)->name;
     }
 
 }

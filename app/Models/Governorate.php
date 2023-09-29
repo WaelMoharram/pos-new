@@ -23,4 +23,12 @@ class Governorate extends Model
         return $this->hasMany(City::class);
     }
 
+    public function getNameAttribute(){
+        if (app()->getLocale() == 'ar'){
+            return $this->governorate_name_ar;
+        }
+        return $this->governorate_name_en;
+
+    }
+
 }
