@@ -36,14 +36,15 @@
                 <td>{!! $row->type_name !!}</td>
                 <td>
 
-                    @can('delete payment')
+                    @can('delete payments')
                         @component('partials.buttons._delete_button',[
                                         'id'=>$row->id,
                                         'route' => route('clients.destroy',$row->id) ,
                                         'tooltip' => 'حذف',
                                          ])
                         @endcomponent
-                        @endcan
+                    @endcan
+
                 </td>
             </tr>
         @endforeach
