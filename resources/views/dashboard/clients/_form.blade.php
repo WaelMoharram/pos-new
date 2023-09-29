@@ -13,7 +13,7 @@
 
 <div class="form-group py-1 col-md-12">
     <label for="city_id"> المدينة  </label>
-    {{Form::select('city_id',\App\Models\City::get()->pluck('name_with_governorate','id') ,null,['class'=>'form-control mb-2','id'=>'city_id'])}}
+    {{Form::select('city_id',\App\Models\City::get()->pluck('name_with_governorate','id') ,null,['class'=>'form-control mb-2 select2','id'=>'city_id'])}}
     {{input_error($errors,'city_id')}}
 </div>
 {{--<div class="form-group py-1 col-md-12">--}}
