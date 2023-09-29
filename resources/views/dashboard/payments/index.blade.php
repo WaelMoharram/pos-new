@@ -15,6 +15,7 @@
             ['label' => 'رقم الفاتورة'],
             ['label' => 'المبلغ المسدد'],
             ['label' => 'نوع السداد'],
+            ['label' => 'اعدادات'],
         ];
 
 
@@ -33,6 +34,17 @@
                 <td>#{!! optional($row->bill)->code !!}</td>
                 <td>{!! $row->money !!}</td>
                 <td>{!! $row->type_name !!}</td>
+                <td>
+
+                    @can('delete payment')
+                        @component('partials.buttons._delete_button',[
+                                        'id'=>$row->id,
+                                        'route' => route('clients.destroy',$row->id) ,
+                                        'tooltip' => 'حذف',
+                                         ])
+                        @endcomponent
+                        @endcan
+                </td>
             </tr>
         @endforeach
     </x-adminlte-datatable>
