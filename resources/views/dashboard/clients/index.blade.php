@@ -35,12 +35,7 @@
                 <td><a href="{{route('clients.report',$row->id)}}">{!! $row->name !!}</a></td>
                 <td>{!! $row->phone !!}</td>
                 <td>{!! $row->address !!}</td>
-                <td>
-                    @foreach(\App\Models\User::whereIn('id',\App\Models\ClientUser::where('client_id',$row->id)->pluck('user_id'))  as $user)
-                        {{$user->name}}<br>
-                    @endforeach
-                </td>
-
+                <td>{!! optional($row->salesMan)->name !!}</td>
                 <td>
                     @if($row->id != 1)
                     <nobr>
