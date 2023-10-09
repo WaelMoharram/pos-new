@@ -139,7 +139,7 @@ class ClientController extends Controller
                 $q->where('store_id',Auth::user()->store_id);
             })->get()->sum('money');
         }elseif(Auth::user()->type == 'sales'){
-            $storeId = Store::where('sales_man_id',Auth::id())->id;
+            $storeId = Store::where('sales_man_id',Auth::id())->first()->id;
             $bills = Bill::where('model_id',$client->id)->where('model_type','client')->where('store_id',$storeId)->where('status', 'saved')->get();
             $billsIn = Bill::where('model_id',$client->id)->where('model_type','client')->where('store_id',$storeId)->where('type', 'sale_in')->where('status', 'saved')->get()->sum('total');
             $billsOut = Bill::where('model_id',$client->id)->where('model_type','client')->where('store_id',$storeId)->where('type', 'sale_out')->where('status', 'saved')->get()->sum('total');
