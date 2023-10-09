@@ -15,6 +15,7 @@
             ['label' => 'رقم الفاتورة'],
             ['label' => 'اسم العميل'],
             ['label' => 'المبلغ المسدد'],
+            ['label' => 'تاريخ السداد '],
             ['label' => 'نوع السداد'],
             ['label' => 'اعدادات'],
         ];
@@ -36,6 +37,8 @@
                 <td>{!! optional(optional($row->bill)->model)->name !!}</td>
 
                 <td>{!! $row->money !!}</td>
+                <td>{!! $row->date !!}</td>
+
                 <td>{!! $row->type_name !!}</td>
                 <td>
 
