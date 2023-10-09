@@ -13,6 +13,7 @@
             '#',
             'نوع الفاتورة',
             ['label' => 'رقم الفاتورة'],
+            ['label' => 'اسم العميل'],
             ['label' => 'المبلغ المسدد'],
             ['label' => 'نوع السداد'],
             ['label' => 'اعدادات'],
@@ -32,6 +33,8 @@
                 <td>{!! substr(str_repeat(0, 5).($loop->index +1), - 5); !!}</td>
                 <td>{!! optional($row->bill)->type_name !!}</td>
                 <td>#{!! optional($row->bill)->code !!}</td>
+                <td>#{!! optional(optional($row->bill)->model)->name !!}</td>
+
                 <td>{!! $row->money !!}</td>
                 <td>{!! $row->type_name !!}</td>
                 <td>
