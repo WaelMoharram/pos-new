@@ -61,7 +61,7 @@
                 <td>{!! $row->code !!}</td>
                 <td>{!! optional($row->store)->name !!}</td>
 
-                <td>{!! optional($row->model)->name !!}</td>
+                <td><a href="{{route('clients.report',optional($row->model)->id)}}">{!! optional($row->model)->name !!}</a></td>
                 <td>{!! $row->total ?? 0!!}</td>
                 <td>{!! optional($row->payments)->sum('money') ?? 0!!}</td>
                 <td>{!! $row->remaining ?? 0!!}</td>
