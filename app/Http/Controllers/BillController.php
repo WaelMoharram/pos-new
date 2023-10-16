@@ -84,11 +84,13 @@ class BillController extends Controller
                     activity()->log(' عرض فواتير ' . __($request->type) .'للمخزن'. Store::find($request->store_id)->name);
                 }else{
                     activity()->log(' عرض فواتير ' . __($request->type));
-                    $q->whereHasMorph('model', [Client::class],function ($q2) use ($request){
-                        $q2->whereHas('users',function ($q3) use ($request){
-                            $q3->where('client_user.user_id',\auth()->id());
+                    if ($request->type == 'sale_in' || $request->type == 'sale_out') {
+                        $q->whereHasMorph('model', [Client::class], function ($q2) use ($request) {
+                            $q2->whereHas('users', function ($q3) use ($request) {
+                                $q3->where('client_user.user_id', \auth()->id());
+                            });
                         });
-                    });
+                    }
                 }
 
                 if($request->has('store_id') && $request->store_id != null){
