@@ -45,7 +45,7 @@
                     @can('delete payments')
                         @component('partials.buttons._delete_button',[
                                         'id'=>$row->id,
-                                        'route' => route('clients.destroy',$row->id) ,
+                                        'route' => route('payments.destroy',$row->id) ,
                                         'tooltip' => 'حذف',
                                          ])
                         @endcomponent
