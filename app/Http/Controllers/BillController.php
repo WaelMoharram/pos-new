@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Bill;
 use App\Models\BillDetail;
 use App\Models\Brand;
+use App\Models\Client;
 use App\Models\Item;
 use App\Models\ItemStore;
 use App\Models\Store;
@@ -83,7 +84,7 @@ class BillController extends Controller
                     activity()->log(' عرض فواتير ' . __($request->type) .'للمخزن'. Store::find($request->store_id)->name);
                 }else{
                     activity()->log(' عرض فواتير ' . __($request->type));
-                    $q->whereHas('client',function ($q2) use ($request){
+                    $q->whereHasMorph('model', [Client::class],function ($q2) use ($request){
                         $q2->whereHas('users',function ($q3) use ($request){
                             $q3->where('client_user.user_id',\auth()->id());
                         });
